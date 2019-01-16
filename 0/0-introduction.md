@@ -1,0 +1,19 @@
+Introduction
+===
+
+Substrate is an open source framework for building interoperable, modular, and customizable blockchains.
+
+Substrate is built using Rust...
+
+This guide will show you how you can build a collectable...
+
+## What to expect...
+
+
+
+---
+**NOTE**
+
+Substrate is a rapidly evolving project, which means that breaking changes may cause you problems when trying to follow these instructions. Feel free to [contact us](https://substrate.readme.io/v1.0.0/docs/feedback) with any problems you encounter.
+
+---

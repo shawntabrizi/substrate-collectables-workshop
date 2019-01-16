@@ -1,0 +1,27 @@
+Setup
+===
+
+Before you get started installing and running Substrate, there are a few prerequisites that should be installed on your development environment:
+
+ - [Node + NPM](https://nodejs.org/en/download/)
+ - [Visual Studio Code](https://code.visualstudio.com/) (or an IDE of your choice)
+ - [Chrome](https://www.google.com/chrome/) or a chrome based browser (sorry FF users :[ )
+
+
+The Substrate framework provides a set of simple commands to set up your local environment.
+
+These commands will:
+ - Install a package manager for your operating system
+ - Install the Rust development environment
+ - Install the core Substrate binaries
+ - Install [additional helper scripts](https://github.com/paritytech/substrate-up) for quick development of new Substrate nodes
+
+Unfortunately, since the installation process can be unique per operating system and machine, this script may not always work out of the box. You can [take a look at the script directly](https://getsubstrate.io/), and adjust it for your paritcular development environment.
+
+When you are ready, run:
+
+```
+curl https://getsubstrate.io -sSf | bash
+```
+
+This process can take a while since it will be compiling multiple binaries from the source, so grab some tea while you wait.

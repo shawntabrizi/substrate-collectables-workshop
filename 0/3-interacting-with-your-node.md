@@ -1,0 +1,26 @@
+Interacting With Your Node
+===
+
+By the end of this tutorial we will have you create your own custom UI to interact with your collectables blockchain. In the meantime, we can use the Polkadot UI which is a generalized UI which will work with and adapt to your custom node.
+
+Open Chrome and navigate to:
+
+https://polkadot.js.org/apps/
+
+To point the UI to your local node, you need to adjust the **Settings**:
+
+```
+Settings > remote node/endpoint to connect to > Local Node (127.0.0.1:9944)
+```
+
+[TODO: IMAGE]
+
+After you press **Save and Reload**, you should notice the Polkadot UI come to life; new tabs such as *Explorer* and *Transfer* should appear.
+
+Let's go into the **Transfer** tab, and make a transaction. The default account named "Alice" is prefunded with a ton of *Units*.
+
+Share some with "Bob" by creating a transaction. You should see a confirmation appear when the transaction has completed, and Bob's balance will also be updated.
+
+[TODO: IMAGE]
+
+Here you can see just how quickly we set up, ran, and interacted with our own local substrate chain.
