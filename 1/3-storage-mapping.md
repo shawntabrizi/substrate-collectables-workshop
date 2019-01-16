@@ -52,4 +52,8 @@ we can start our node:
 ./target/release/substrate-cryptokitties --dev
 ```
 
-If we go back into the [Polkadot UI](https://polkadot.js.org/apps), we should see evidence of our
+If we go back into the [Polkadot UI](https://polkadot.js.org/apps), we should see evidence of our node producing blocks.
+
+Go to the **Extrinsics** tab
+
+[TODO: Write/copy instructions to test]
