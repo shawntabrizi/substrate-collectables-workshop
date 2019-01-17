@@ -42,7 +42,7 @@ After all this, then you will be able to start up your node again, fresh, with a
 Remember this pattern; you will be using it a lot.
 
 ---
-**Explore More**
+**Learn More**
 
 Substrate is unique in that it is built do support WASM and all languages that compile to WASM. This allows for next generation features like live runtime upgrades and ...
 

@@ -57,3 +57,12 @@ If we go back into the [Polkadot UI](https://polkadot.js.org/apps), we should se
 Go to the **Extrinsics** tab
 
 [TODO: Write/copy instructions to test]
+
+---
+**Learn More**
+
+Talk about funding accounts to enable transactions
+
+[TODO: make this a page]
+
+---

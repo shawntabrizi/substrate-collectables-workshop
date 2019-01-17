@@ -78,3 +78,12 @@ use srml_support::{StorageValue, dispatch::Result};
 ```
 
 As mentioned in "common patterns" section, Rust will be your friend throughout runtime development, and *should mostly* help you overcome any issues in your code. Moving forward we won't always be so explicit about the new imports needed for new code, but keep an eye out because we will continue to add new features as our functionality increases.
+
+---
+**Learn More**
+
+Give a tip about how to use SRML as a template for new ideas
+
+[TODO: make this a page]
+
+---

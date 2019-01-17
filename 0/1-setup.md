@@ -7,6 +7,7 @@ Before you get started installing and running Substrate, there are a few prerequ
  - [Visual Studio Code](https://code.visualstudio.com/) (or an IDE of your choice)
  - [Chrome](https://www.google.com/chrome/) or a chrome based browser (sorry FF users :[ )
 
+[TODO: The people using these distros will know that. They just need to know Substrate needs Openssl, Rust, etc..]
 
 The Substrate framework provides a set of simple commands to set up your local environment.
 

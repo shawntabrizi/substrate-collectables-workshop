@@ -75,3 +75,12 @@ cargo build --release
 ```
 
 Now it's time to start adding some of our own logic!
+
+---
+**Learn More**
+
+Link to wiki page on Constructing a runtime!
+
+[TODO: make this a page]
+
+---

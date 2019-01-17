@@ -69,3 +69,5 @@ decl_module! {
 You can see that when the user called our new `create_kitty()` function, we generate a `new_kitty` using the `Kitty` struct, and then insert that directly into our storage like before.
 
 Additionally, our storage is now configured to store a `Kitty` for each `AccountId`.
+
+Substrate does not directly support `Strings`, so we are using a `Vec<u8>` to act as one for our kitties. We will need to remember to convert this value to and from a human readble string with our front end UI.

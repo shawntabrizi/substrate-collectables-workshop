@@ -24,3 +24,12 @@ Share some with "Bob" by creating a transaction. You should see a confirmation a
 [TODO: IMAGE]
 
 Here you can see just how quickly we set up, ran, and interacted with our own local substrate chain.
+
+---
+**Learn More**
+
+Somthing about bonds ui vs polkadot ui?
+
+[TODO: make this a page]
+
+---

@@ -1,0 +1,21 @@
+Viewing a Structure
+===
+
+Now that we have set up our runtime to make kitties, we should check our work!
+
+We have introduced a custom structure to our chain, and while the Polkadot UI is very good at adapting to our changes, in this situation, we need to give it a hint how to deserialize our structures data.
+
+Fortunately, the Polkadot UI provides us with a very simple way to 
+
+[TODO: FINISH THIS PAGE]
+
+---
+**Learn More**
+
+Talk about serializatin and deserialization.
+
+How we simply transfer and transmit raw bytes
+
+[TODO: make this a page]
+
+---
