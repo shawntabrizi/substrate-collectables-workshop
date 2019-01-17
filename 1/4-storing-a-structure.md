@@ -10,14 +10,15 @@ Let's start with defining the properties of our kitties:
 ```
 #[derive(Encode, Decode, Default, Clone, PartialEq, Debug)]
 pub struct Kitty<Hash, Balance> {
-  name: Vec<u8>,
-  dna: Hash,
-  price: Balance,
-  gen: u32,
+    id: Hash,
+    name: Vec<u8>,
+    dna: Hash,
+    price: Balance,
+    gen: u64,
 }
 ```
 
-The `name` and `price` properties of a kitty should be self-explanatory. We will use the `dna` represented as a `Hash` to store the specific physical characteristics the cat has. Finally, we will introduce a `gen` properity, which will keep track of what generation each kitty is once we introduce breeding.
+The `name` and `price` properties of a kitty should be self-explanatory. The `id` hash is a unique, permanent identifier we will use for a kitty. `dna` will be used to store the specific physical characteristics a cat has. Finally, we will introduce a `gen` properity, which will keep track of what generation each kitty is once we introduce breeding.
 
 Note that we define our struct using [*generics*](https://doc.rust-lang.org/rust-by-example/generics.html), which is a powerful concept in Rust that we will not dive deep into. For the purposes of this tutorial, you can assume these are simply aliases to Substrate specific types like `system::Trait::Hash` and `balances::Trait::Balance`.
 
@@ -35,15 +36,16 @@ pub trait Trait: balances::Trait {}
 
 #[derive(Encode, Decode, Default, Clone, PartialEq, Debug)]
 pub struct Kitty<Hash, Balance> {
-  name: Vec<u8>,
-  dna: Hash,
-  price: Balance,
-  gen: u32,
+    id: Hash,
+    name: Vec<u8>,
+    dna: Hash,
+    price: Balance,
+    gen: u64,
 }
 
 decl_storage! {
     trait Store for Module<T: Trait> as CryptokittiesStorage {
-        Value: map T::AccountId => Kitty<T::Hash, T::Balance>;
+        OwnedKitty: map T::AccountId => Kitty<T::Hash, T::Balance>;
     }
 }
 
@@ -53,21 +55,31 @@ decl_module! {
             let sender = ensure_signed(origin)?;
 
             let new_kitty = Kitty {
+                                id: <T as system::Trait>::Hashing::hash_of(&0),
                                 name: name,
                                 dna: <T as system::Trait>::Hashing::hash_of(&0),
                                 price: <T::Balance as As<u64>>::sa(0),
                                 gen: 0,
                             };
 
-            <Value<T>>::insert(sender, new_kitty);
+            <OwnedKitty<T>>::insert(sender, new_kitty);
             Ok(())
         }
     }
 }
 ```
 
-You can see that when the user called our new `create_kitty()` function, we generate a `new_kitty` using the `Kitty` struct, and then insert that directly into our storage like before.
+You can see that when the user called our new `create_kitty()` function, we generate a `new_kitty` using the `Kitty` struct, and then insert that directly into our storage like before. The kitty's data is just filler information for now, but we will fix that later.
 
-Additionally, our storage is now configured to store a `Kitty` for each `AccountId`.
+Note that our storage has been renamed to `OwnedKitty` and is now configured to store a `Kitty` for each `AccountId`.
 
 Substrate does not directly support `Strings`, so we are using a `Vec<u8>` to act as one for our kitties. We will need to remember to convert this value to and from a human readble string with our front end UI.
+
+---
+**Learn More**
+
+add learn more
+
+[TODO: make this a page]
+
+---

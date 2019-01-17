@@ -1,10 +1,11 @@
 Introduction
 ===
 
-Explain some of the basics of cryptokitties:
 
-- DNA
-- Breeding
+Explain some of the basics of NFT:
+
+- ownership
+- Transfer
 - Buying Selling
-- NFT
+- ERC721 naming choices
 
