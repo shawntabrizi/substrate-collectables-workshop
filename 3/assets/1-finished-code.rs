@@ -26,8 +26,6 @@ decl_event!(
     {
         Created(AccountId, Hash),
         PriceSet(AccountId, Hash, Balance),
-        Transferred(AccountId, AccountId, Hash),
-        // ACTION: Create a `Bought` event here
     }
 );
 
@@ -94,51 +92,6 @@ decl_module! {
 
             Ok(())
         }
-
-        fn transfer(origin, to: T::AccountId, kitty_id: T::Hash) -> Result {
-            let sender = ensure_signed(origin)?;
-
-            let owner = match Self::owner_of(kitty_id) {
-                Some(o) => o,
-                None => return Err("No owner for this kitty"),
-            };
-            ensure!(owner == sender, "You do not own this kitty");
-
-            Self::_transfer_from(sender, to, kitty_id)?;
-
-            Ok(())
-        }
-
-        fn buy_cat(origin, kitty_id: T::Hash, max_price: T::Balance) -> Result {
-            let sender = ensure_signed(origin)?;
-
-            // ACTION: Check the kitty `exists()`
-
-            // ACTION: Get the `owner` of the kitty if it exists, otherwise return an `Err()`
-            // ACTION: Check that the `sender` is not the `owner`
-
-            let mut kitty = Self::kitty(kitty_id);
-
-            // ACTION: Get the `kitty_price` and check that it is not zero
-            //      HINT:  `runtime_primitives::traits::Zero` allows you to call `kitty_price.is_zero()` which returns a bool
-
-            // ACTION: Check `kitty_price` is less than or equal to max_price
-
-            // ACTION: "Try" to `decrease_free_balance()` of the sender
-            // ACTION: `increase_free_balance()` of the owner
-
-            // ACTION: Transfer the kitty
-
-            // ACTION: Reset kitty price back to zero, and update the storage
-
-            // ACTION: Create an event for the cat being bought with relevant details
-            //      - new owner
-            //      - old owner
-            //      - the kitty id
-            //      - the price sold for
-
-            Ok(())
-        }
     }
 }
 
@@ -173,49 +126,6 @@ impl<T: Trait> Module<T> {
 
         Self::deposit_event(RawEvent::Created(to, kitty_id));
 
-        Ok(())
-    }
-
-    fn _transfer_from(from: T::AccountId, to: T::AccountId, kitty_id: T::Hash) -> Result {
-        let owner = match Self::owner_of(kitty_id) {
-            Some(c) => c,
-            None => return Err("No owner for this kitty"),
-        };
-
-        ensure!(owner == from, "'from' account does not own this kitty");
-
-        let owned_kitty_count_from = Self::owned_kitty_count(&from);
-        let owned_kitty_count_to = Self::owned_kitty_count(&to);
-
-        let new_owned_kitty_count_to = match owned_kitty_count_to.checked_add(1) {
-            Some(c) => c,
-            None => return Err("Transfer causes overflow of 'to' kitty balance"),
-        };
-
-        let new_owned_kitty_count_from = match owned_kitty_count_from.checked_sub(1) {
-            Some (c) => c,
-            None => return Err("Transfer causes underflow of 'from' kitty balance"),
-        };
-
-        // "Swap and pop"
-        let kitty_index = <OwnedKittiesIndex<T>>::get(kitty_id);
-        if kitty_index != new_owned_kitty_count_from {
-            let last_kitty_id = <OwnedKittiesArray<T>>::get((from.clone(), new_owned_kitty_count_from));
-            <OwnedKittiesArray<T>>::insert((from.clone(), kitty_index), last_kitty_id);
-            <OwnedKittiesIndex<T>>::insert(last_kitty_id, kitty_index);
-        }
-
-        <KittyOwner<T>>::insert(&kitty_id, &to);
-        <OwnedKittiesIndex<T>>::insert(kitty_id, owned_kitty_count_to);
-
-        <OwnedKittiesArray<T>>::remove((from.clone(), new_owned_kitty_count_from));
-        <OwnedKittiesArray<T>>::insert((to.clone(), owned_kitty_count_to), kitty_id);
-
-        <OwnedKittiesCount<T>>::insert(&from, new_owned_kitty_count_from);
-        <OwnedKittiesCount<T>>::insert(&to, new_owned_kitty_count_to);
-        
-        Self::deposit_event(RawEvent::Transferred(from, to, kitty_id));
-        
         Ok(())
     }
 }

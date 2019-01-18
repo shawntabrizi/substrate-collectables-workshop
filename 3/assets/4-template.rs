@@ -26,8 +26,8 @@ decl_event!(
         <T as balances::Trait>::Balance
     {
         Created(AccountId, Hash),
-        Transferred(AccountId, AccountId, Hash),
         PriceSet(AccountId, Hash, Balance),
+        Transferred(AccountId, AccountId, Hash),
         Bought(AccountId, AccountId, Hash, Balance),
     }
 );
@@ -53,20 +53,6 @@ decl_module! {
     pub struct Module<T: Trait> for enum Call where origin: T::Origin {
 
         fn deposit_event<T>() = default;
-
-        fn transfer(origin, to: T::AccountId, kitty_id: T::Hash) -> Result {
-            let sender = ensure_signed(origin)?;
-
-            let owner = match Self::owner_of(kitty_id) {
-                Some(o) => o,
-                None => return Err("No owner for this kitty"),
-            };
-            ensure!(owner == sender, "You do not own this kitty");
-
-            Self::_transfer_from(sender, to, kitty_id)?;
-
-            Ok(())
-        }
 
         fn create_kitty(origin, name: Vec<u8>) -> Result {
             let sender = ensure_signed(origin)?;
@@ -109,7 +95,21 @@ decl_module! {
 
             Ok(())
         }
-        
+
+        fn transfer(origin, to: T::AccountId, kitty_id: T::Hash) -> Result {
+            let sender = ensure_signed(origin)?;
+
+            let owner = match Self::owner_of(kitty_id) {
+                Some(o) => o,
+                None => return Err("No owner for this kitty"),
+            };
+            ensure!(owner == sender, "You do not own this kitty");
+
+            Self::_transfer_from(sender, to, kitty_id)?;
+
+            Ok(())
+        }
+
         fn buy_cat(origin, kitty_id: T::Hash, max_price: T::Balance) -> Result {
             let sender = ensure_signed(origin)?;
 

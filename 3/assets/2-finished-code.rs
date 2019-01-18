@@ -1,9 +1,8 @@
 use parity_codec::Encode;
 use srml_support::{StorageValue, StorageMap, dispatch::Result};
 use system::ensure_signed;
-use runtime_primitives::traits::{As, Hash, Zero};
+use runtime_primitives::traits::{As, Hash};
 use rstd::prelude::*;
-use rstd::cmp;
 
 #[derive(Encode, Decode, Default, Clone, PartialEq, Debug)]
 pub struct Kitty<Hash, Balance> {
@@ -28,7 +27,6 @@ decl_event!(
         Created(AccountId, Hash),
         PriceSet(AccountId, Hash, Balance),
         Transferred(AccountId, AccountId, Hash),
-        Bought(AccountId, AccountId, Hash, Balance),
     }
 );
 
@@ -106,73 +104,6 @@ decl_module! {
             ensure!(owner == sender, "You do not own this kitty");
 
             Self::_transfer_from(sender, to, kitty_id)?;
-
-            Ok(())
-        }
-
-        fn buy_cat(origin, kitty_id: T::Hash, max_price: T::Balance) -> Result {
-            let sender = ensure_signed(origin)?;
-
-            ensure!(<Kitties<T>>::exists(kitty_id), "This cat does not exist");
-
-            let owner = match Self::owner_of(kitty_id) {
-                Some(o) => o,
-                None => return Err("No owner for this kitty"),
-            };
-            ensure!(owner != sender, "You can't buy your own cat");
-
-            let mut kitty = Self::kitty(kitty_id);
-
-            let kitty_price = kitty.price;
-            ensure!(!kitty_price.is_zero(), "The cat you want to buy is not for sale");
-            ensure!(kitty_price <= max_price, "The cat you want to buy costs more than your max price");
-
-            // TODO: This payment logic needs to be updated
-            <balances::Module<T>>::decrease_free_balance(&sender, kitty_price)?;
-            <balances::Module<T>>::increase_free_balance_creating(&owner, kitty_price);
-
-            Self::_transfer_from(owner.clone(), sender.clone(), kitty_id)?;
-
-            kitty.price = <T::Balance as As<u64>>::sa(0);
-            <Kitties<T>>::insert(kitty_id, kitty);
-
-            Self::deposit_event(RawEvent::Bought(sender, owner, kitty_id, kitty_price));
-
-            Ok(())
-        }
-
-        fn breed_cat(origin, name: Vec<u8>, kitty_id_1: T::Hash, kitty_id_2: T::Hash) -> Result{
-            let sender = ensure_signed(origin)?;
-
-            ensure!(<Kitties<T>>::exists(kitty_id_1), "This cat 1 does not exist");
-            ensure!(<Kitties<T>>::exists(kitty_id_2), "This cat 2 does not exist");
-
-            let nonce = <Nonce<T>>::get();
-            let random_hash = (<system::Module<T>>::random_seed(), &sender, nonce)
-                                .using_encoded(<T as system::Trait>::Hashing::hash);
-
-            let kitty_1 = Self::kitty(kitty_id_1);
-            let kitty_2 = Self::kitty(kitty_id_2);
-
-            let mut final_dna = kitty_1.dna;
-
-            for (i, (dna_2_element, r)) in kitty_2.dna.as_ref().iter().zip(random_hash.as_ref().iter()).enumerate() {
-                if r % 2 == 0 {
-                    final_dna.as_mut()[i] = *dna_2_element;
-                }
-            }
-
-            let new_kitty = Kitty {
-                                id: random_hash,
-                                name: name,
-                                dna: final_dna,
-                                price: <T::Balance as As<u64>>::sa(0),
-                                gen: cmp::max(kitty_1.gen, kitty_2.gen) + 1,
-                            };
-
-            Self::_mint(sender, random_hash, new_kitty)?;
-
-            <Nonce<T>>::mutate(|n| *n += 1);
 
             Ok(())
         }
