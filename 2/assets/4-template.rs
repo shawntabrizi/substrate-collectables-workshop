@@ -32,12 +32,15 @@ decl_storage! {
         Kitties get(kitty): map T::Hash => Kitty<T::Hash, T::Balance>;
         KittyOwner get(owner_of): map T::Hash => Option<T::AccountId>;
 
-        // ACTION: Create new storage items to globally track all kitties: 
-        //      - `AllKittiesArray` which is a `map` from `u64` to `T::Hash`, add a getter function for this
-        //      - `AllKittiesCount` which is a `u64`, add a getter function for this
-        //      - `AllKittiesIndex` which is a `map` from `T::Hash` to `u64`
+        AllKittiesArray get(kitty_by_index): map u64 => T::Hash;
+        AllKittiesCount get(all_kitties_count): u64;
+        AllKittiesIndex: map T::Hash => u64;
 
+        // ACTION: Rename this to `OwnedKittiesArray`/`kitty_of_owner_by_index`
+        //         Have the key be a tuple of (T::AccountId, u64)
         OwnedKitty get(kitty_of_owner): map T::AccountId => T::Hash;
+        // ACTION: Add a new storage item `OwnedKittiesCount` which is a `map` from `T::AccountId` to `u64`
+        // ACTION: Add a new storage item `OwnedKittiesIndex` which is a `map` from `T::Hash` to `u64`
 
         Nonce: u64;
     }
@@ -51,9 +54,15 @@ decl_module! {
         fn create_kitty(origin, name: Vec<u8>) -> Result {
             let sender = ensure_signed(origin)?;
 
-            // ACTION: Get the current `AllKittiesCount` value and store it in `all_kitties_count`
-            // ACTION: Create a `new_all_kitties_count` by doing a `checked_add()` to increment `all_kitties_count`
-            //      REMINDER: Return an `Err()` if there is an overflow
+            // ACTION: Generate variables `owned_kitty_count` and `new_owned_kitty_count`
+            //         similar to `all_kitties_count` below
+
+            let all_kitties_count = Self::all_kitties_count();
+
+            let new_all_kitties_count = match all_kitties_count.checked_add(1) {
+                Some (c) => c,
+                None => return Err("Overflow adding a new kitty to total supply"),
+            };
 
             let nonce = <Nonce<T>>::get();
             let random_hash = (<system::Module<T>>::random_seed(), &sender, nonce)
@@ -72,11 +81,11 @@ decl_module! {
             <Kitties<T>>::insert(random_hash, new_kitty);
             <KittyOwner<T>>::insert(random_hash, &sender);
 
-            // ACTION: Update the storage for the global kitty tracking
-            //      - `AllKittiesArray` should use the `all_kitties_count` (remember `index` is `count - 1`)
-            //      - `AllKittiesCount` should use `new_all_kitties_count`
-            //      - `AllKittiesIndex` should use `all_kitties_count`
+            <AllKittiesArray<T>>::insert(all_kitties_count, random_hash);
+            <AllKittiesCount<T>>::put(new_all_kitties_count);
+            <AllKittiesIndex<T>>::insert(random_hash, all_kitties_count);
 
+            // ACTION: Update this to maintain the state of our new storage items
             <OwnedKitty<T>>::insert(&sender, random_hash);
 
             <Nonce<T>>::mutate(|n| *n += 1);
