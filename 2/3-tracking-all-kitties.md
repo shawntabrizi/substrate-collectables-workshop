@@ -5,73 +5,85 @@ Now that we have enabled each user to create their own unique kitty, we should p
 
 It makes sense for the our game to have track a total number of kitties created, as well as a way to track who owns each kitty.
 
-We can add two new storage items for that like so:
+## Creating a List
+
+Substrate does not natively support a list type since it adds additional complexity to maintain and can be so easily emulated with a mapping and a counter like so:
 
 ```
 decl_storage! {
-    trait Store for Module<T: Trait> as CryptokittiesStorage {
-        OwnedKitty get(kitty_of_owner): map T::AccountId => T::Hash;
-        Kitties get(kitty): map T::Hash => Kitty<T::Hash, T::Balance>;
-        
-        AllKittiesCount get(all_kitties_count): u64;
-        KittyOwner get(owner_of): map u64 => T::AccountId;
-
-        Nonce: u64;
+    trait Store for Module<T: Trait> as Example {
+        MyFriendsArray get(my_friends): map u32 => T::AccountId;
+        MyFriendsCount get(num_of_friends): u32;
     }
 }
 ```
 
-Note that we have introduced *getter* functions in the form of `get(function_name)` for some of these variables. These getter functions can be used in our module, but more importantly, are exposed as a part of our runtime's API.
+We just need to be careful to properly maintain these storage items to keep them accurate and up to date.
 
-These getter functions are the only way to directly return a value from the runtime and do not allow you to transform the value in the storage before it is returned.
+## Checking for Overflow/Underflow
 
-Let's now update our `create_kitty` function to support updating these new storage items when a kitty gets created.
+If you have developed on Ethereum, you may be familiar with all the problems that can happen if you do not perform "safe math". Overflows and underflows are an easy way to cause your runtime to panic and for your storage to get messed up.
+
+You must always be proactive about checking for possible runtime errors before you make changes to your storage state. Remember that unlike Ethereum, when a transaction fails, the state is NOT reverted back to before the transaction, so it is your responsibility to ensure that there are no side effects on error.
+
+Fortunately, checking for these kinds of errors are quite simple in Rust where primitive number types have [`checked_add()`](https://doc.rust-lang.org/std/primitive.u32.html#method.checked_add) and [`checked_sub()`](https://doc.rust-lang.org/std/primitive.u32.html#method.checked_sub) functions.
+
+Let's say we wanted to add an item to our `MyFriendsArray`, we should first check that we can successfully increment the `MyFriendsCount` like so:
 
 ```
-decl_module! {
-    pub struct Module<T: Trait> for enum Call where origin: T::Origin {
-        fn create_kitty(origin, name: Vec<u8>) -> Result {
-            let sender = ensure_signed(origin)?;
-            let nonce = <Nonce<T>>::get();
+let my_friends_count = Self::num_of_friends();
 
-            let random_hash = (<system::Module<T>>::random_seed(), &sender, nonce).using_encoded(<T as system::Trait>::Hashing::hash);
+let new_my_friends_count = match my_friends_count.checked_add(1) {
+    Some (c) => c,
+    None => return Err("Overflow adding a new friend"),
+};
+```
 
-            ensure!(!<Kitties<T>>::exists(random_hash), "This kitty id already exists");
+If we were successfully able to increment `MyFriendsCount` without an overflow, then it will simply assign the new value to `new_my_friends_count`. If not, our module will return an `Err()` which can be gracefully handled by our runtime. The error message will also appear directly in our node's console output.
 
-            let all_kitties_count = Self::all_kitties_count();
+## Updating our List in Storage
 
-            let new_all_kities_count = match all_kitties_count.checked_add(1) {
-                Some(x) => x,
-                None => return Err("Overflow when adding to total kitty count"),
-            };
+Now that we have checked that we can safely increment our list, we can finally push changes to our storage. Remember when you update your list, the "last index" of your list is one less than the count. For example, in a list with 2 items, the first item is index 0, and the second item is index 1.
 
-            let new_kitty = Kitty {
-                                id: random_hash,
-                                name: name,
-                                dna: random_hash,
-                                price: <T::Balance as As<u64>>::sa(0),
-                                gen: 0,
-                            };
+A complete example of adding a new friend to our friends list would look like:
 
-            <OwnedKitty<T>>::insert(sender, random_hash);
-            <Kitties<T>>::insert(random_hash, new_kitty);
-            <AllKitties<T>>::insert(all_kitties_count, random_hash);
-            <AllKittiesIndex<T>>::insert(random_hash, all_kitties_count);
-            <AllKittiesCount<T>>::put(new_all_kities_count);
-            <Nonce<T>>::mutate(|n| *n += 1);
+```
+fn add_friend(origin, new_friend: T::AccountId) -> Result {
+    let sender = ensure_signed(origin)?;
 
-            Ok(())
-        }
-    }
+    let my_friends_count = Self::num_of_friends();
+    
+    let new_my_friends_count = match my_friends_count.checked_add(1) {
+        Some (c) => c,
+        None => return Err("Overflow adding a new friend"),
+    };
+
+    <MyFriendsArray<T>>::insert(my_friends_count, new_friend);
+    <MyFriendsCount<T>>::put(new_my_friends_count);
+
+    Ok(())
 }
 ```
 
-There are a few things to take note of here. First, we are incrementing the `AllKittiesCount` whenever the `create_kitty()` function is called. Even though `AllKittiesCount` is a `u64`, and it would take a massive number of kitties to cause an issue, we should still be checking for overflows to ensure our runtime's state never goes bad.
+## Deleting From Our List
 
-To do this, we called [`checked_add()`](https://doc.rust-lang.org/std/primitive.u64.html#method.checked_add), which is a standard rust function that will return `Some` value if the addition works or `None` if an overflow occurs. In this case, we assign `new_all_kitties_count` the new value in the case of success, or we return an error and stop the runtime execution if it fails. We will be able to see this error message as an output in our node's terminal if it occurs.
+One problem that this `map` and `count` pattern introduces is holes in our list when we try to remove elements from the middle. Fortunately, the order of the list we want to manage in this tutorial is not important, so we can use a "swap and pop" method to efficiently mitigate this issue.
 
-We also push our new kitty into `AllKitties` and `AllKittiesIndex`.
-[TODO: Make this better]
+The "swap and pop" method switches the position of the item we want to remove and the last item in our list. Then, we can simply remove the last item without introducing any holes to our list.
+
+Rather than run a loop to find the index of the item we want to remove each time we remove an item, we will use a little extra storage to keep track of each item and its position in our list.
+
+We won't introduce the logic for "swap and pop" until later, but we will ask you to start tracking the index of each item using an `Index` storage like this example:
+
+```
+MyFriendsIndex: map T::AccountId => u32;
+```
+
+This is really just an inverse of the content in `MyFriendsArray`. Note that we do not need a getter function here since this storage item is used internally, and does not need to be exposed as part of our modules API.
+
+## Your Turn!
+
+[TODO: Write content]
 
 [TODO: Mention this in an earlier section]
 

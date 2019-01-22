@@ -32,5 +32,8 @@ let random_hash = (<system::Module<T>>::random_seed(), sender, nonce).using_enco
 
 We can use this `random_hash` to populate both the `id` and `dna` for our kitty, however we want to make sure that `id` is always unique, so we will need to create a storage item which tracks all of the `id`s that have already been used. We will call this `Kitties` and it will track all of the kitties every produced.
 
+## Checking for Collision
+
+[TODO: Add stuff]
 
 One thing you might notice about this implementation is that we changed `OwnedKitty` so that it maps to the unique `id` we generated rather than the `Kitty` object. We do this to avoid having two copies of the `Kitty` object in storage, as we can always get the full object by referencing the unique `id`.

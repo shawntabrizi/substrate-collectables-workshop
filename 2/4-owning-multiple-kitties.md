@@ -5,6 +5,8 @@ Our naive impementation of kitty creation allowed each user to have a single kit
 
 Do enable this, we will introduce our final set of storage items used for tracking multiple kitties per owner.
 
+## Using Tuples to Emulate 
+
 ```
 decl_storage! {
     trait Store for Module<T: Trait> as CryptokittiesStorage {
