@@ -19,15 +19,3 @@ Again, we will be following the "**check, then store**" pattern, and produce a f
 ```
 
 ```
-
-kitty {
-    id: seq
-    owner: accountId
-}
-
-{Key => Kitty}
-{T::AccountId => u32}
-{T::AccountId => Vec<Key>}
-
-{Total cats count = u32}
-

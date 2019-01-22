@@ -116,5 +116,7 @@ impl<T: Trait> Module<T> {
         // In the end, you should remember add the following call to `create_kitty()`:
         // `Self::_mint(sender, random_hash, new_kitty)?;`
         //      HINT: This `_mint()` function has checks which could fail AND will write to storage, so place it carefully
+
+        Ok(())
     }
 }

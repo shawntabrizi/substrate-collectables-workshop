@@ -95,7 +95,7 @@ decl_module! {
 
             Ok(())
         }
-
+        
         fn transfer(origin, to: T::AccountId, kitty_id: T::Hash) -> Result {
             let sender = ensure_signed(origin)?;
 

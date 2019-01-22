@@ -25,7 +25,7 @@ decl_storage! {
 decl_module! {
     pub struct Module<T: Trait> for enum Call where origin: T::Origin {
 
-        fn set_value(origin, name: Vec<u8>) -> Result {
+        fn create_kitty(origin, name: Vec<u8>) -> Result {
             let sender = ensure_signed(origin)?;
 
             // ACTION: Create a `Kitty` object named `new_kitty` here

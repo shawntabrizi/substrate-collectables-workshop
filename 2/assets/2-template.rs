@@ -71,3 +71,5 @@ decl_module! {
         }
     }
 }
+
+// ACTION: Don't forget to update `lib.rs` with the `Event` type

@@ -1,0 +1,95 @@
+Creating an Event
+===
+
+Somthing about transactions being "finalized" even if a transaction's logic fails.
+
+Events 
+
+## Declaring an Event
+
+Substrate provides a `decl_event!` macro which allows you to easily create events which you can deposit in your runtime logic.
+
+Here is an example of an event declaration:
+
+```
+decl_event!(
+    pub enum Event<T>
+    where
+        <T as system::Trait>::AccountId,
+        <T as system::Trait>::Balance
+    {
+        MyEvent(u32, Balance),
+        MyOtherEvent(Balance, AccountId),
+    }
+);
+```
+
+## Adding an Event Type
+
+The `decl_event!` macro will generate a new `Event` type which you will need to expose in your module. This trait will need to inherit from
+
+[TODO: Have someone more knowledgeable add this info]
+
+```
+pub trait Trait: balances::Trait {
+    type Event: From<Event<Self>> + Into<<Self as system::Trait>::Event>;
+}
+```
+
+## Depositing an Event
+
+In order to use events within your runtime, you need to add a function which deposits those events. Since this is a common pattern in runtime development, the `decl_module!` macro can automatically add a default implementation of this to your module.
+
+Simply add a new function to your module like so:
+
+```
+fn deposit_event<T> = default;
+```
+
+If your events do not use any generics (e.g. just Rust primitive types), you should omit the `<T>` like this:
+
+```
+fn deposit_event = default;
+```
+
+The `decl_module!` macro will detect this line, and replace it with the appropriate function definition for your runtime.
+
+### Calling `deposit_event()`
+
+Now that you have things set up within your module, you may want to actually deposit the event at the end of your function.
+
+Doing that is relatively simple, you just need to provide the values that go along with your `Event` definition:
+
+```
+let my_value = 1337;
+let my_balance = <T::Balance as As<u64>>::sa(0);
+
+Self::deposit_event(RawEvent::MyEvent(my_value, my_balance);
+```
+
+## Updating `lib.rs` to Include Events
+
+The last step to get your runtime to compile is to update the `lib.rs` file to include the the new `Event` type you have defined.
+
+In your modules `Trait` implementation, you need to include:
+
+```
+impl mymodule::Trait for Runtime {
+    type Event = Event;
+}
+```
+
+Finally, you need to also include the `Event` or `Event<T>` type to your module's definition in the `construct_runtime!` macro. Which one you include depends again on whether your event uses any generics.
+
+```
+construct_runtime!(
+    pub enum Runtime with Log(InternalLog: DigestItem<Hash, Ed25519AuthorityId>) where
+        Block = Block,
+        NodeBlock = opaque::Block,
+        InherentData = BasicInherentData
+    {
+        ...
+        MyModule: mymodule::{Module, Call, Storage, Event<T>},
+    }
+);
+```

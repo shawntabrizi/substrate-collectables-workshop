@@ -124,7 +124,7 @@ decl_module! {
 
             let kitty_price = kitty.price;
             ensure!(!kitty_price.is_zero(), "The cat you want to buy is not for sale");
-            ensure!(kitty_price < max_price, "The cat you want to buy costs more than your max price");
+            ensure!(kitty_price <= max_price, "The cat you want to buy costs more than your max price");
 
             // TODO: This payment logic needs to be updated
             <balances::Module<T>>::decrease_free_balance(&sender, kitty_price)?;
