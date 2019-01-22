@@ -2,7 +2,7 @@ use srml_support::dispatch::Result;
 // ACTION: import any required libraries here
 //      HINT: Use errors from the Rust compiler to help you
 
-pub trait Trait: balances::Trait {}
+pub trait Trait: system::Trait {}
 
 decl_storage! {
     trait Store for Module<T: Trait> as KittyStorage {

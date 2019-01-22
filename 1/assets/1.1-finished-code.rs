@@ -1,4 +1,4 @@
-pub trait Trait: balances::Trait {}
+pub trait Trait: system::Trait {}
 
 decl_storage! {
     trait Store for Module<T: Trait> as CryptokittiesStorage {

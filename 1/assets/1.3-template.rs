@@ -1,7 +1,7 @@
 use srml_support::{StorageValue, dispatch::Result};
 // ACTION: Import any required libraries here
 
-pub trait Trait: balances::Trait {}
+pub trait Trait: system::Trait {}
 
 decl_storage! {
     trait Store for Module<T: Trait> as KittyStorage {
