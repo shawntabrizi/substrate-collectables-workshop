@@ -32,8 +32,7 @@ decl_module! {
             //      HINT: You can generate a hash with `<T as system::Trait>::Hashing::hash_of(&0)`
             //            And you can generate a `0` balance with `<T::Balance as As<u64>>::sa(0)`
 
-            // ACTION: Update this function to store your `new_kitty`
-            <Value<T>>::insert(sender, value);
+            // ACTION: Store your `new_kitty` into the runtime storage
 
             Ok(())
         }
