@@ -12,13 +12,13 @@ Substrate does not natively support a list type since it adds additional complex
 ```
 decl_storage! {
     trait Store for Module<T: Trait> as Example {
-        MyFriendsArray get(my_friends): map u32 => T::AccountId;
-        MyFriendsCount get(num_of_friends): u32;
+        AllPeopleArray get(person): map u32 => T::AccountId;
+        AllPeopleCount get(num_of_people): u32;
     }
 }
 ```
 
-We just need to be careful to properly maintain these storage items to keep them accurate and up to date.
+Here we are storing a list of people in our runtime represented by `AccountId`s. We just need to be careful to properly maintain these storage items to keep them accurate and up to date.
 
 ## Checking for Overflow/Underflow
 
@@ -28,42 +28,44 @@ You must always be proactive about checking for possible runtime errors before y
 
 Fortunately, checking for these kinds of errors are quite simple in Rust where primitive number types have [`checked_add()`](https://doc.rust-lang.org/std/primitive.u32.html#method.checked_add) and [`checked_sub()`](https://doc.rust-lang.org/std/primitive.u32.html#method.checked_sub) functions.
 
-Let's say we wanted to add an item to our `MyFriendsArray`, we should first check that we can successfully increment the `MyFriendsCount` like so:
+Let's say we wanted to add an item to our `AllPeopleArray`, we should first check that we can successfully increment the `AllPeopleCount` like so:
 
 ```
-let my_friends_count = Self::num_of_friends();
+let all_people_count = Self::num_of_people();
 
-let new_my_friends_count = match my_friends_count.checked_add(1) {
+let new_all_people_count = match all_people_count.checked_add(1) {
     Some (c) => c,
-    None => return Err("Overflow adding a new friend"),
+    None => return Err("Overflow adding a new person"),
 };
 ```
 
-If we were successfully able to increment `MyFriendsCount` without an overflow, then it will simply assign the new value to `new_my_friends_count`. If not, our module will return an `Err()` which can be gracefully handled by our runtime. The error message will also appear directly in our node's console output.
+If we were successfully able to increment `AllPeopleCount` without an overflow, then it will simply assign the new value to `new_all_people_count`. If not, our module will return an `Err()` which can be gracefully handled by our runtime. The error message will also appear directly in our node's console output.
 
 ## Updating our List in Storage
 
 Now that we have checked that we can safely increment our list, we can finally push changes to our storage. Remember when you update your list, the "last index" of your list is one less than the count. For example, in a list with 2 items, the first item is index 0, and the second item is index 1.
 
-A complete example of adding a new friend to our friends list would look like:
+A complete example of adding a new person to our list of people would look like:
 
 ```
-fn add_friend(origin, new_friend: T::AccountId) -> Result {
+fn add_person(origin, new_person: T::AccountId) -> Result {
     let sender = ensure_signed(origin)?;
 
-    let my_friends_count = Self::num_of_friends();
+    let all_people_count = Self::num_of_friends();
     
-    let new_my_friends_count = match my_friends_count.checked_add(1) {
+    let new_all_people_count = match all_people_count.checked_add(1) {
         Some (c) => c,
-        None => return Err("Overflow adding a new friend"),
+        None => return Err("Overflow adding a new person"),
     };
 
-    <MyFriendsArray<T>>::insert(my_friends_count, new_friend);
-    <MyFriendsCount<T>>::put(new_my_friends_count);
+    <AllPeopleArray<T>>::insert(all_people_count, new_people);
+    <AllPeopleCount<T>>::put(new_all_people_count);
 
     Ok(())
 }
 ```
+
+We should probably add collision detection to this function too! Do you remember how to do that?
 
 ## Deleting From Our List
 
@@ -76,10 +78,10 @@ Rather than run a loop to find the index of the item we want to remove each time
 We won't introduce the logic for "swap and pop" until later, but we will ask you to start tracking the index of each item using an `Index` storage like this example:
 
 ```
-MyFriendsIndex: map T::AccountId => u32;
+AllPeopleIndex: map T::AccountId => u32;
 ```
 
-This is really just an inverse of the content in `MyFriendsArray`. Note that we do not need a getter function here since this storage item is used internally, and does not need to be exposed as part of our modules API.
+This is really just an inverse of the content in `AllPeopleArray`. Note that we do not need a getter function here since this storage item is used internally, and does not need to be exposed as part of our modules API.
 
 ## Your Turn!
 
