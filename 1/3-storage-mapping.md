@@ -70,6 +70,8 @@ So if you want to "insert" a value into a StorageMapping, you need to provide th
 
 ## Your Turn!
 
+Update your simple storage example to now store a map from an `AccountId` to a `u64`.
+
 
 ---
 **Learn More**

@@ -1,6 +1,7 @@
 use parity_codec::Encode;
 use srml_support::{StorageValue, StorageMap, dispatch::Result};
 use system::ensure_signed;
+// ACTION: Import the Zero trait
 use runtime_primitives::traits::{As, Hash};
 use rstd::prelude::*;
 
@@ -109,7 +110,7 @@ decl_module! {
             Ok(())
         }
 
-        fn buy_cat(origin, kitty_id: T::Hash, max_price: T::Balance) -> Result {
+        fn buy_kitty(origin, kitty_id: T::Hash, max_price: T::Balance) -> Result {
             let sender = ensure_signed(origin)?;
 
             // ACTION: Check the kitty `exists()`

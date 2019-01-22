@@ -109,7 +109,7 @@ decl_module! {
             Ok(())
         }
 
-        fn buy_cat(origin, kitty_id: T::Hash, max_price: T::Balance) -> Result {
+        fn buy_kitty(origin, kitty_id: T::Hash, max_price: T::Balance) -> Result {
             let sender = ensure_signed(origin)?;
 
             ensure!(<Kitties<T>>::exists(kitty_id), "This cat does not exist");
