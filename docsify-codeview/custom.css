@@ -5,13 +5,13 @@
 }
 
 .lesson {
-    width: 40%;
+    width: 50%;
     border-right: 1px solid rgba(0,0,0,0.07);
-    padding: 10px;
+    padding-right: 10px;
 }
 
 .code {
-    width: 60%;
+    width: 50%;
 }
 
 .column {
@@ -21,8 +21,10 @@
 }
 
 .content {
-    padding-top: 0;
+    padding-left: 10px;
+    padding-top: 0px;
     height: 100vh;
+    left: 200px;
 }
 
 /* Clear floats after the columns */
@@ -35,4 +37,9 @@
 .markdown-section {
     max-width: 100%;
     padding: 0;
+}
+
+.sidebar,
+.sidebar-toggle {
+    width: 200px;
 }
