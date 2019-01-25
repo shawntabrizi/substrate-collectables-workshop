@@ -1,7 +1,7 @@
 pub trait Trait: system::Trait {}
 
 decl_storage! {
-    trait Store for Module<T: Trait> as CryptokittiesStorage {
+    trait Store for Module<T: Trait> as KittyStorage {
           // Declare storage and getter functions here
   }
 }

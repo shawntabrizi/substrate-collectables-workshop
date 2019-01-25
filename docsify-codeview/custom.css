@@ -5,13 +5,13 @@
 }
 
 .lesson {
-    width: 50%;
+    width: 45%;
     border-right: 1px solid rgba(0,0,0,0.07);
     padding-right: 10px;
 }
 
 .code {
-    width: 50%;
+    width: 55%;
 }
 
 .column {
