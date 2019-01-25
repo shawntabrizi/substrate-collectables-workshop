@@ -7,7 +7,7 @@ Now that we can set the price for a kitty, and we can transfer ownership of a ki
 
 Before we allow a user to execute the `buy_kitty()` function, we shold make sure tha the kitty is indeed for sale. We have simplified our example such that any Kitty with the default price of 0 is not for sale. Owners can easily call `set_price()` on their kitty with the value of 0, and take it off the market.
 
-If you wanted to improve this, we may have the price be an `Option<T::Balance>`, where 0 would be a valid price, and not for sale would be represented by `None`... but that will be a challenge for the reader.
+If you wanted to improve this, we may have the price be an `Option<T::Balance>`, where 0 would be a valid price, and not for sale would be represented by `None`... but we will leave that as a challenge for the reader.
 
 ## Checking a Balance `is_zero()`
 
