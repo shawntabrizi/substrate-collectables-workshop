@@ -26,7 +26,6 @@ window.$docsify.plugins.push(
             editor.getSession().setUseWrapMode(true);
             editor.session.setWrapLimitRange(0, 80);
 
-
             var rust_code_element = document.getElementsByClassName("lang-embed")[0];
             if (rust_code_element) {
                 editor.session.setValue(rust_code_element.innerText);
