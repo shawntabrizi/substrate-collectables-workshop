@@ -43,3 +43,23 @@
 .sidebar-toggle {
     width: 200px;
 }
+
+.markdown-section pre > code {
+    color: #ffffff;
+}
+
+.markdown-section code {
+    color: #ffffff;
+}
+
+.token.punctuation {
+    color: #ffffff;
+}
+
+.token.operator {
+    color: #e96900;
+}
+
+.token.macro-rules {
+    color: #e96900;
+}

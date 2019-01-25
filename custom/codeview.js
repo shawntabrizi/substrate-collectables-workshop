@@ -19,7 +19,7 @@ window.$docsify.plugins.push(
 
         hook.doneEach(function () {
             var editor = ace.edit("editor");
-            editor.setTheme("ace/theme/monokai");
+            editor.setTheme("ace/theme/vibrant_ink");
 
             var RustMode = ace.require("ace/mode/rust").Mode;
             editor.session.setMode(new RustMode());
