@@ -1,0 +1,9 @@
+{
+    "Kitty": {
+        "id": "H256",
+        "name": "Vec<u8>",
+        "dna": "H256",
+        "price": "Balance",
+        "gen": "u64"
+    }
+}
