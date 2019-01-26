@@ -17,7 +17,12 @@ Just go through the material chapter by chapter, do one exercise at a time. Whil
 
 # [Let's go](/0/0.0-introduction.md)
 
+---
+**NOTE**
 
+Substrate is a rapidly evolving project, which means that breaking changes may cause you problems when trying to follow these instructions. Feel free to [contact us](https://substrate.readme.io/v1.0.0/docs/feedback) with any problems you encounter.
+
+---
 
 [main link]: https://shawntabrizi.github.io/substrate-collectables-workshop/
 [feedback]: https://substrate.readme.io/v1.0.0/docs/feedback

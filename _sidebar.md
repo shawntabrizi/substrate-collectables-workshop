@@ -1,3 +1,5 @@
+- [Welcome](README.md)
+
 - Getting started
 
     - [Introduction](0/0.0-introduction.md)
