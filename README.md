@@ -1,6 +1,8 @@
 # [Substrate Collectables][main link]
 > The interactive hands-on build-your-first-blockchain with [substrate][] workshop
 
+![A screenshot of Substratekitties](./substrate-collectables.png)
+
 ## What this is
 
 This is an interactive hands-on self-paced workshop. You will learn how to build your first blockchain using [substrate][], the OpenSource [Rust][] Blockchain Development Kit by [parity][]. Through the lessons of the workshop, you will built a collectables blockchain -- a chain creating assets, allow to interact with and managing ownership of them.
@@ -13,7 +15,7 @@ Substrate is built using [Rust][], a modern statically typed systems programming
 
 Just go through the material chapter by chapter, do one exercise at a time. While the material is meant for you to be able to do on your own, we highly recommend to get together and work on it with others, in learning groups or hosted workshops. It is totally normal that one might get stuck from time to time or don't understand what the material attempt to explain and in those situations it helps a lot to have other around to talk about it and resolve that frustration. That said, we highly appreciate any [feedback regarding the material, and where you might got stuck][feedback].
 
-# [Let's go](/0/0.0-introduction)
+# [Let's go](/0/0.0-introduction.md)
 
 
 
