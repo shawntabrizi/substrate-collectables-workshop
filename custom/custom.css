@@ -73,3 +73,12 @@ body {
 .token.macro-rules {
     color: #e96900;
 }
+
+@media screen and (max-width: 1024px) {
+    .lesson {
+        width: 100%;
+    }
+    .code {
+        width: 100%;
+    }
+}
