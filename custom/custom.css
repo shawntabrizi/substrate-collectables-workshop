@@ -10,6 +10,12 @@
     padding-right: 10px;
 }
 
+.fullpage {
+    max-width: 1000px;
+    margin: auto;
+    padding: 30px;
+}
+
 .code {
     width: 55%;
 }

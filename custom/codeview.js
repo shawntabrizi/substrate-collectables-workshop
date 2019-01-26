@@ -4,16 +4,22 @@ window.$docsify.plugins.push(
             var parser = new DOMParser();
             var htmlDoc = parser.parseFromString(html, 'text/html');
             if (htmlDoc.getElementsByClassName("lang-embed")[0]) {
-                var custom = [
+                var two_col = [
                     '<div class="row">',
                     '<div class="lesson column">', html, '</div>',
                     '<div class="code column"><div id="editor">Failed to load rust code...</div></div>',
                     '</div>'
                 ].join('');
 
-                return custom;
+                return two_col;
             } else {
-                return html;
+                var one_col = [
+                    '<div class="fullpage">',
+                    html,
+                    '</div>'
+                ].join('')
+
+                return one_col;
             }
         });
 
