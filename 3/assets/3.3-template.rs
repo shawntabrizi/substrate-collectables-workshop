@@ -125,8 +125,7 @@ decl_module! {
 
             // ACTION: Check `kitty_price` is less than or equal to max_price
 
-            // ACTION: "Try" to `decrease_free_balance()` of the sender
-            // ACTION: `increase_free_balance()` of the owner
+            // ACTION: Use the `Balances` module's `make_transfer()` function to safely transfer funds
 
             // ACTION: Transfer the kitty
 

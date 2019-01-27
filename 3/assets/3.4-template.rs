@@ -127,9 +127,7 @@ decl_module! {
             ensure!(!kitty_price.is_zero(), "The cat you want to buy is not for sale");
             ensure!(kitty_price <= max_price, "The cat you want to buy costs more than your max price");
 
-            // TODO: This payment logic needs to be updated
-            <balances::Module<T>>::decrease_free_balance(&sender, kitty_price)?;
-            <balances::Module<T>>::increase_free_balance_creating(&owner, kitty_price);
+            <balances::Module<T>>::make_transfer(&sender, &owner, kitty_price)?;
 
             Self::_transfer_from(owner.clone(), sender.clone(), kitty_id)?;
 
