@@ -23,11 +23,13 @@ decl_module! {
 
         fn create_kitty(origin) -> Result {
             let sender = ensure_signed(origin)?;
+            let hash_of_zero = <T as system::Trait>::Hashing::hash_of(&0);
+            let my_zero_balance = <T::Balance as As<u64>>::sa(0);
 
             let new_kitty = Kitty {
-                                id: <T as system::Trait>::Hashing::hash_of(&0),
-                                dna: <T as system::Trait>::Hashing::hash_of(&0),
-                                price: <T::Balance as As<u64>>::sa(0),
+                                id: hash_of_zero,
+                                dna: hash_of_zero,
+                                price: my_zero_balance,
                                 gen: 0,
                             };
 
