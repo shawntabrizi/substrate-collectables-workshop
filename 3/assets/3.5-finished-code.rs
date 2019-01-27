@@ -139,7 +139,7 @@ decl_module! {
             Ok(())
         }
 
-        fn breed_cat(origin, name: Vec<u8>, kitty_id_1: T::Hash, kitty_id_2: T::Hash) -> Result{
+        fn breed_kitty(origin, name: Vec<u8>, kitty_id_1: T::Hash, kitty_id_2: T::Hash) -> Result{
             let sender = ensure_signed(origin)?;
 
             ensure!(<Kitties<T>>::exists(kitty_id_1), "This cat 1 does not exist");
