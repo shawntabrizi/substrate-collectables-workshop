@@ -1,5 +1,6 @@
 var template = initializeAceSession();
 var final = initializeAceSession();
+var hintRevealed = false;
 
 function initializeAceSession() {
     var session = new ace.EditSession("");
@@ -41,6 +42,7 @@ window.$docsify.plugins.push(
         });
 
         hook.doneEach(function () {
+            hintRevealed = false;
             if (document.getElementById("editor")) {
                 var editor = ace.edit("editor");
                 editor.setTheme("ace/theme/vibrant_ink");
@@ -64,14 +66,25 @@ window.$docsify.plugins.push(
         })
     })
 
+function toggleHint() {
+    hintRevealed = !hintRevealed
+    if (hintRevealed) {
+        showHint();
+    } else {
+        hideHint();
+    }
+}
+
 function showHint() {
     var editor = ace.edit("editor");
     var scroll = template.getScrollTop();
     final.setScrollTop(scroll);
     editor.setSession(final);
+    document.getElementById("hint_link").innerText = "Hide the solution...";
 }
 
 function hideHint() {
     var editor = ace.edit("editor");
     editor.setSession(template);
+    document.getElementById("hint_link").innerText = "Reveal the solution...";
 }
