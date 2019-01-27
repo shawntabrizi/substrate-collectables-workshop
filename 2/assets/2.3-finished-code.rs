@@ -7,7 +7,6 @@ use rstd::prelude::*;
 #[derive(Encode, Decode, Default, Clone, PartialEq)]
 pub struct Kitty<Hash, Balance> {
     id: Hash,
-    name: Vec<u8>,
     dna: Hash,
     price: Balance,
     gen: u64,
@@ -47,7 +46,7 @@ decl_module! {
 
         fn deposit_event<T>() = default;
 
-        fn create_kitty(origin, name: Vec<u8>) -> Result {
+        fn create_kitty(origin) -> Result {
             let sender = ensure_signed(origin)?;
 
             let all_kitties_count = Self::all_kitties_count();
@@ -65,7 +64,6 @@ decl_module! {
 
             let new_kitty = Kitty {
                                 id: random_hash,
-                                name: name,
                                 dna: random_hash,
                                 price: <T::Balance as As<u64>>::sa(0),
                                 gen: 0,

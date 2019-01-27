@@ -6,7 +6,6 @@ use rstd::prelude::*;
 #[derive(Encode, Decode, Default, Clone, PartialEq)]
 pub struct Kitty<Hash, Balance> {
     id: Hash,
-    name: Vec<u8>,
     dna: Hash,
     price: Balance,
     gen: u64,
@@ -23,12 +22,11 @@ decl_storage! {
 decl_module! {
     pub struct Module<T: Trait> for enum Call where origin: T::Origin {
 
-        fn create_kitty(origin, name: Vec<u8>) -> Result {
+        fn create_kitty(origin) -> Result {
             let sender = ensure_signed(origin)?;
 
             let new_kitty = Kitty {
                                 id: <T as system::Trait>::Hashing::hash_of(&0),
-                                name: name,
                                 dna: <T as system::Trait>::Hashing::hash_of(&0),
                                 price: <T::Balance as As<u64>>::sa(0),
                                 gen: 0,

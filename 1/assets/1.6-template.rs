@@ -7,7 +7,6 @@ use system::ensure_signed;
 pub struct Kitty<Hash, Balance> {
     // ACTION: Define the properties of your kitty struct here
     //      - `id` as a `Hash`
-    //      - `name` as a `Vec<u8>`
     //      - `dna` as a `Hash`
     //      - `price` as a `Balance`
     //      - `gen` as a `u64`
@@ -25,7 +24,7 @@ decl_storage! {
 decl_module! {
     pub struct Module<T: Trait> for enum Call where origin: T::Origin {
 
-        fn create_kitty(origin, name: Vec<u8>) -> Result {
+        fn create_kitty(origin) -> Result {
             let sender = ensure_signed(origin)?;
 
             // ACTION: Create a `Kitty` object named `new_kitty` here

@@ -7,7 +7,6 @@ use rstd::prelude::*;
 #[derive(Encode, Decode, Default, Clone, PartialEq)]
 pub struct Kitty<Hash, Balance> {
     id: Hash,
-    name: Vec<u8>,
     dna: Hash,
     price: Balance,
     gen: u64,
@@ -44,7 +43,7 @@ decl_module! {
         // ACTION: Define your generic `deposit_event<T>()` function
         //      REMINDER: You can use the default implementation provided by the `decl_module!` macro with `default`
 
-        fn create_kitty(origin, name: Vec<u8>) -> Result {
+        fn create_kitty(origin) -> Result {
             let sender = ensure_signed(origin)?;
 
             let nonce = <Nonce<T>>::get();
@@ -55,7 +54,6 @@ decl_module! {
 
             let new_kitty = Kitty {
                                 id: random_hash,
-                                name: name,
                                 dna: random_hash,
                                 price: <T::Balance as As<u64>>::sa(0),
                                 gen: 0,
