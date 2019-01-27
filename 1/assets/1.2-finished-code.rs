@@ -1,4 +1,4 @@
-use srml_support::{StorageValue, dispatch::Result};
+use srml_support::StorageValue;
 
 pub trait Trait: system::Trait {}
 
