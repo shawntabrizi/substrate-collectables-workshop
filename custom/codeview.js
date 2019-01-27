@@ -1,13 +1,30 @@
+var template = initializeAceSession();
+var final = initializeAceSession();
+
+function initializeAceSession() {
+    var session = new ace.EditSession("");
+    var RustMode = ace.require("ace/mode/rust").Mode;
+    session.setMode(new RustMode());
+    session.setUseWrapMode(true);
+    session.setWrapLimitRange(0, 80);
+
+    return session;
+}
+
 window.$docsify.plugins.push(
     function (hook, vm) {
         hook.afterEach(function (html) {
             var parser = new DOMParser();
             var htmlDoc = parser.parseFromString(html, 'text/html');
-            if (htmlDoc.getElementsByClassName("lang-embed")[0]) {
+            if (htmlDoc.getElementsByClassName("lang-embed-template")[0] ||
+                htmlDoc.getElementsByClassName("lang-embed-final")[0])
+            {
                 var two_col = [
                     '<div class="row">',
-                    '<div class="lesson column">', html, '</div>',
-                    '<div class="code column"><div id="editor">Failed to load rust code...</div></div>',
+                        '<div class="lesson column">', html, '</div>',
+                        '<div class="code column">',
+                            '<div id="editor">Failed to load rust code...</div>',
+                        '</div>',
                     '</div>'
                 ].join('');
 
@@ -24,19 +41,37 @@ window.$docsify.plugins.push(
         });
 
         hook.doneEach(function () {
-            var editor = ace.edit("editor");
-            editor.setTheme("ace/theme/vibrant_ink");
+            if (document.getElementById("editor")) {
+                var editor = ace.edit("editor");
+                editor.setTheme("ace/theme/vibrant_ink");
 
-            var RustMode = ace.require("ace/mode/rust").Mode;
-            editor.session.setMode(new RustMode());
-            editor.getSession().setUseWrapMode(true);
-            editor.session.setWrapLimitRange(0, 80);
+                var rust_final = document.getElementsByClassName("lang-embed-final")[0]
+                if (rust_final) {
+                    final.setValue(rust_final.innerText);
+                    editor.setSession(final);
 
-            var rust_code_element = document.getElementsByClassName("lang-embed")[0];
-            if (rust_code_element) {
-                editor.session.setValue(rust_code_element.innerText);
+                    document.querySelectorAll('[data-lang="embed-final"]')[0].hidden = true;
+                }
 
-                document.querySelectorAll('[data-lang="embed"]')[0].hidden = true;
+                var rust_template = document.getElementsByClassName("lang-embed-template")[0];
+                if (rust_template) {
+                    template.setValue(rust_template.innerText);
+                    editor.setSession(template);
+
+                    document.querySelectorAll('[data-lang="embed-template"]')[0].hidden = true;
+                }
             }
         })
     })
+
+function showHint() {
+    var editor = ace.edit("editor");
+    var scroll = template.getScrollTop();
+    final.setScrollTop(scroll);
+    editor.setSession(final);
+}
+
+function hideHint() {
+    var editor = ace.edit("editor");
+    editor.setSession(template);
+}
