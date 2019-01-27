@@ -47,16 +47,16 @@ decl_module! {
 
             let nonce = <Nonce<T>>::get();
             let random_hash = (<system::Module<T>>::random_seed(), &sender, nonce)
-                                .using_encoded(<T as system::Trait>::Hashing::hash);
+                .using_encoded(<T as system::Trait>::Hashing::hash);
 
             ensure!(!<KittyOwner<T>>::exists(random_hash), "Kitty already exists");
 
             let new_kitty = Kitty {
-                                id: random_hash,
-                                dna: random_hash,
-                                price: <T::Balance as As<u64>>::sa(0),
-                                gen: 0,
-                            };
+                id: random_hash,
+                dna: random_hash,
+                price: <T::Balance as As<u64>>::sa(0),
+                gen: 0,
+            };
 
             <Kitties<T>>::insert(random_hash, new_kitty);
             <KittyOwner<T>>::insert(random_hash, &sender);

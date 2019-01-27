@@ -69,18 +69,18 @@ decl_module! {
             // `nonce` and `random_hash` generation can stay here
             let nonce = <Nonce<T>>::get();
             let random_hash = (<system::Module<T>>::random_seed(), &sender, nonce)
-                                .using_encoded(<T as system::Trait>::Hashing::hash);
+                .using_encoded(<T as system::Trait>::Hashing::hash);
 
             // ACTION: Move this collision check to the `_mint()` function
             ensure!(!<KittyOwner<T>>::exists(random_hash), "Kitty already exists");
 
             // Creating the `Kitty` object can stay here
             let new_kitty = Kitty {
-                                id: random_hash,
-                                dna: random_hash,
-                                price: <T::Balance as As<u64>>::sa(0),
-                                gen: 0,
-                            };
+                id: random_hash,
+                dna: random_hash,
+                price: <T::Balance as As<u64>>::sa(0),
+                gen: 0,
+            };
 
             // ACTION: Move all of the kitty related storage updates to the `_mint()` function
             <Kitties<T>>::insert(random_hash, new_kitty);

@@ -56,14 +56,14 @@ decl_module! {
             let sender = ensure_signed(origin)?;
             let nonce = <Nonce<T>>::get();
             let random_hash = (<system::Module<T>>::random_seed(), &sender, nonce)
-                                .using_encoded(<T as system::Trait>::Hashing::hash);
+                .using_encoded(<T as system::Trait>::Hashing::hash);
 
             let new_kitty = Kitty {
-                                id: random_hash,
-                                dna: random_hash,
-                                price: <T::Balance as As<u64>>::sa(0),
-                                gen: 0,
-                            };
+                id: random_hash,
+                dna: random_hash,
+                price: <T::Balance as As<u64>>::sa(0),
+                gen: 0,
+            };
 
             Self::_mint(sender, random_hash, new_kitty)?;
             
@@ -144,7 +144,7 @@ decl_module! {
 
             let nonce = <Nonce<T>>::get();
             let random_hash = (<system::Module<T>>::random_seed(), &sender, nonce)
-                                .using_encoded(<T as system::Trait>::Hashing::hash);
+                .using_encoded(<T as system::Trait>::Hashing::hash);
 
             let kitty_1 = Self::kitty(kitty_id_1);
             let kitty_2 = Self::kitty(kitty_id_2);
@@ -158,11 +158,11 @@ decl_module! {
             }
 
             let new_kitty = Kitty {
-                                id: random_hash,
-                                dna: final_dna,
-                                price: <T::Balance as As<u64>>::sa(0),
-                                gen: cmp::max(kitty_1.gen, kitty_2.gen) + 1,
-                            };
+                id: random_hash,
+                dna: final_dna,
+                price: <T::Balance as As<u64>>::sa(0),
+                gen: cmp::max(kitty_1.gen, kitty_2.gen) + 1,
+            };
 
             Self::_mint(sender, random_hash, new_kitty)?;
 

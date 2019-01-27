@@ -25,11 +25,11 @@ decl_module! {
             let sender = ensure_signed(origin)?;
 
             let new_kitty = Kitty {
-                                id: <T as system::Trait>::Hashing::hash_of(&0),
-                                dna: <T as system::Trait>::Hashing::hash_of(&0),
-                                price: <T::Balance as As<u64>>::sa(0),
-                                gen: 0,
-                            };
+                id: <T as system::Trait>::Hashing::hash_of(&0),
+                dna: <T as system::Trait>::Hashing::hash_of(&0),
+                price: <T::Balance as As<u64>>::sa(0),
+                gen: 0,
+            };
 
             <OwnedKitty<T>>::insert(&sender, new_kitty);
 

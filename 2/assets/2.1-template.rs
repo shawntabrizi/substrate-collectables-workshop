@@ -40,11 +40,11 @@ decl_module! {
 
             // ACTION: Update our Kitty to use this `random_hash` as the `id` and the `dna`
             let new_kitty = Kitty {
-                                id: <T as system::Trait>::Hashing::hash_of(&0),
-                                dna: <T as system::Trait>::Hashing::hash_of(&0),
-                                price: <T::Balance as As<u64>>::sa(0),
-                                gen: 0,
-                            };
+                id: <T as system::Trait>::Hashing::hash_of(&0),
+                dna: <T as system::Trait>::Hashing::hash_of(&0),
+                price: <T::Balance as As<u64>>::sa(0),
+                gen: 0,
+            };
 
             // ACTION: "Insert" the storage for `Kitties`, should point from our kitty's id to the `Kitty` object
             // ACTION: "Insert" the storage for `KittyOwner`, should point from our kitty's id to the owner
