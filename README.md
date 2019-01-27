@@ -97,9 +97,9 @@ cd substrate-collectables-workshop;
 
 Open source projects like Substrate and this workshop could not be successful without the collective minds and collaborative effort of the development community.
 
-The Substratekitties workshop stands on the backs of giants like [Cryptokitties](https://www.cryptokitties.co/), [Cryptozombies](https://cryptozombies.io/), [Docsify](https://docsify.js.org/), [Ace Editor](https://ace.c9.io/), [David Revoy's Cat Avatar Generator](https://framagit.org/Deevad/cat-avatar-generator), and numerous guinea pigs to report errors and bugs along the way.
+The Substratekitties workshop stands on the backs of giants like [Cryptokitties](https://www.cryptokitties.co/), [Cryptozombies](https://cryptozombies.io/), [Docsify](https://docsify.js.org/), [Ace Editor](https://ace.c9.io/), [David Revoy's Cat Avatar Generator](https://framagit.org/Deevad/cat-avatar-generator), and numerous volunteers to report errors and bugs along the way.
 
-I hope this educational material teaches you something new, and in turn, you teach others too.
+We hope this educational material teaches you something new, and in turn, you teach others too.
 
 ---
 
