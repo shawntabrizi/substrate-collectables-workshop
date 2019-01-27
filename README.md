@@ -25,71 +25,9 @@ Substrate is a rapidly evolving project, which means that breaking changes may c
 ---
 ## How to run the workshop on your local machine and contribute
 
-* Fork the repo: https://github.com/shawntabrizi/substrate-collectables-workshop
+* Fork and clone the repo: https://github.com/shawntabrizi/substrate-collectables-workshop
 
-* Install Git
-  * macOS
-    ```
-    brew install git;
-    echo "export PATH=/usr/local/bin:$PATH" >> ~/.bash_profile;
-    source ~/.bash_profile;
-    ```
-
-  * Windows
-    * Download [Git for Windows](https://gitforwindows.org/)
-
-  * Ubuntu
-    * Install dependencies
-
-      ```
-      sudo apt update;
-      sudo apt install -y git;
-      ```
-
-* Clone your fork
-
-```bash
-git clone https://github.com/<YOUR_GITHUB_USERNAME>/substrate-collectables-workshop;
-cd substrate-collectables-workshop;
-```
-
-* Install Ruby
-  * macOS
-
-    * Copy/paste and run the following in your terminal to install the latest version using RBEnv:
-
-    ```bash
-    xcode-select --install;
-    brew install rbenv;
-    rbenv init;
-    echo 'if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi' >> ~/.bash_profile;
-    source ~/.bash_profile;
-    rbenv install $(rbenv install -l | grep -v - | tail -1);
-    rbenv global $(rbenv install -l | grep -v - | tail -1);
-    ```
-
-  * Windows
-    * [Download and install Ruby](https://rubyinstaller.org/)
-    * Restart your terminal window (if necessary)
-    * Run Git Bash (right-click the Git Bash icon and choose "Run as administrator") 
-    * Check Ruby version `ruby --version`
-
-  * Ubuntu
-    * Install RVM and Ruby https://rvm.io/rvm/install
-
-* Install Jekyll and plug-ins
-
-  ```bash
-  gem install github-pages
-  ```
-
-* Run the Jekyll server that watches for changes
-
-  ```bash
-  jekyll serve
-  ```
-
-* View the Jekyll website in your browser at: http://127.0.0.1:4000/
+* Launch a local development server with a tool like [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) for [Visual Studio Code](https://code.visualstudio.com/)
 
 * Contribute by commiting and pushing changes to a branch of your origin fork and creating a Pull Request to the upstream repository
 
