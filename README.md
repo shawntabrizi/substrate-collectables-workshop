@@ -1,7 +1,7 @@
 # [Substrate Collectables][main link]
 > The interactive hands-on build-your-first-blockchain with [Substrate][] workshop
 
-![A screenshot of Substrate kitties](./substrate-collectables.png)
+![A screenshot of Substrate kitties](./media/substrate-collectables.png)
 
 ## What this is
 
