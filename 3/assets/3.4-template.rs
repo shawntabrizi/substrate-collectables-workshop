@@ -5,7 +5,7 @@ use runtime_primitives::traits::{As, Hash, Zero};
 use rstd::prelude::*;
 use rstd::cmp;
 
-#[derive(Encode, Decode, Default, Clone, PartialEq, Debug)]
+#[derive(Encode, Decode, Default, Clone, PartialEq)]
 pub struct Kitty<Hash, Balance> {
     id: Hash,
     name: Vec<u8>,

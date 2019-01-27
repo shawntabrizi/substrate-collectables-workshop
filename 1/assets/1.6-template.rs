@@ -3,7 +3,7 @@ use system::ensure_signed;
 // ACTION: Continue to add required libraries here
 
 
-#[derive(Encode, Decode, Default, Clone, PartialEq, Debug)]
+#[derive(Encode, Decode, Default, Clone, PartialEq)]
 pub struct Kitty<Hash, Balance> {
     // ACTION: Define the properties of your kitty struct here
     //      - `id` as a `Hash`
