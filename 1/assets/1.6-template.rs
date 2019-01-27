@@ -1,7 +1,7 @@
 use srml_support::{StorageMap, dispatch::Result};
 use system::ensure_signed;
+use runtime_primitives::traits::As;
 // ACTION: Continue to add required libraries here
-
 
 #[derive(Encode, Decode, Default, Clone, PartialEq)]
 pub struct Kitty<Hash, Balance> {
