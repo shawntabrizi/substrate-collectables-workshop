@@ -93,6 +93,14 @@ cd substrate-collectables-workshop;
 
 * Contribute by commiting and pushing changes to a branch of your origin fork and creating a Pull Request to the upstream repository
 
+## Acknowledgements
+
+Open source projects like Substrate and this workshop could not be successful without the collective minds and collaborative effort of the development community.
+
+The Substratekitties workshop stands on the backs of giants like [Cryptokitties](https://www.cryptokitties.co/), [Cryptozombies](https://cryptozombies.io/), [Docsify](https://docsify.js.org/), [Ace Editor](https://ace.c9.io/), [David Revoy's Cat Avatar Generator](https://framagit.org/Deevad/cat-avatar-generator), and numerous guinea pigs to report errors and bugs along the way.
+
+I hope this educational material teaches you something new, and in turn, you teach others too.
+
 ---
 
 [main link]: https://shawntabrizi.github.io/substrate-collectables-workshop/
