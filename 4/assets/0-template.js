@@ -38,8 +38,7 @@ export class App extends ReactiveComponent {
 		this.seed = new Bond;
 		this.seedAccount = this.seed.map(s => s ? secretStore().accountFromPhrase(s) : undefined)
 		this.seedAccount.use()
-        this.runtime = new Bond;
-        // ACTION: Create a new bond named `ckaccount`
+		this.runtime = new Bond;
 	}
 
 	readyRender() {
@@ -226,20 +225,12 @@ export class App extends ReactiveComponent {
 					<Icon name='paw' />
 					<Header.Content>
 						Substrate Kitties
-						<Header.Subheader>There are <Pretty value={runtime.substratekitties.allKittiesCount}/> kitties purring.</Header.Subheader>
+                        {/* ACTION: Update `0` to be a `Pretty` value of `runtime.substratekitties.allKittiesCount` */}
+						<Header.Subheader>There are 0 kitties purring.</Header.Subheader>
 					</Header.Content>
 				</Header>
 				<div style={{ paddingBottom: '1em' }}></div>
-                {/* ACTION: Create a `SignerBond` for your new `ckaccount` bond */}
-                {/* ACTION: Create a `TransactButton` to create a new kitty
-                    - `content` as "Create Kitty"
-                    - `icon` as "paw"
-                    - `tx` with
-                        - `sender` as your account bond (check the examples above to help you)
-                        - `call` as `calls.substratekitties.createKitty()`
-                */}
 			</Segment>
 		</div>);
 	}
 }
-
