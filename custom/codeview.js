@@ -85,7 +85,7 @@ function showHint() {
 
 function hideHint() {
     var editor = ace.edit("editor");
-    var scroll = template.getScrollTop();
+    var scroll = final.getScrollTop();
     template.setScrollTop(scroll);
     editor.setSession(template);
     document.getElementById("hint_link").innerText = "Reveal the solution...";
