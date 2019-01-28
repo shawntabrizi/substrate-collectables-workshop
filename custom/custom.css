@@ -9,7 +9,6 @@ body {
 }
 
 .lesson {
-    width: 45%;
     border-right: 1px solid rgba(0,0,0,0.07);
     padding-right: 10px;
 }
@@ -24,17 +23,19 @@ body {
     width: 55%;
 }
 
+.row {
+    display: flex;
+}
+
 .column {
-    height: 100vh; /* percent relative to viewport height */
-    float: left;
-    overflow: scroll;
+  width: 50%;
+  overflow-y: scroll;
+  height: 100vh;
 }
 
 .content {
     padding-left: 10px;
     padding-top: 0px;
-    height: 100vh;
-    left: 200px;
 }
 
 /* Clear floats after the columns */
@@ -47,11 +48,6 @@ body {
 .markdown-section {
     max-width: 100%;
     padding: 0;
-}
-
-.sidebar,
-.sidebar-toggle {
-    width: 200px;
 }
 
 .markdown-section pre > code {
@@ -84,12 +80,5 @@ body {
 }
 
 .sidebar {
-    min-width: 300px;
-    width: 22vw;
     font-size: 16px;
-}
-
-.sidebar ul li a {
-    display: inline;
-    font-size: inherit;
 }
