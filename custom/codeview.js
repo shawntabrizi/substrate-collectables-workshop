@@ -50,6 +50,7 @@ window.$docsify.plugins.push(
                 var rust_final = document.getElementsByClassName("lang-embed-final")[0]
                 if (rust_final) {
                     final.setValue(rust_final.innerText);
+                    final.setScrollTop(0);
                     editor.setSession(final);
 
                     document.querySelectorAll('[data-lang="embed-final"]')[0].hidden = true;
@@ -58,6 +59,7 @@ window.$docsify.plugins.push(
                 var rust_template = document.getElementsByClassName("lang-embed-template")[0];
                 if (rust_template) {
                     template.setValue(rust_template.innerText);
+                    template.setScrollTop(0);
                     editor.setSession(template);
 
                     document.querySelectorAll('[data-lang="embed-template"]')[0].hidden = true;
@@ -85,6 +87,8 @@ function showHint() {
 
 function hideHint() {
     var editor = ace.edit("editor");
+    var scroll = final.getScrollTop();
+    template.setScrollTop(scroll);
     editor.setSession(template);
     document.getElementById("hint_link").innerText = "Reveal the solution...";
 }

@@ -2,6 +2,7 @@ use srml_support::{StorageMap, dispatch::Result};
 use system::ensure_signed;
 use runtime_primitives::traits::{As, Hash};
 
+
 #[derive(Encode, Decode, Default, Clone, PartialEq)]
 pub struct Kitty<Hash, Balance> {
     id: Hash,
@@ -10,6 +11,7 @@ pub struct Kitty<Hash, Balance> {
     gen: u64,
 }
 
+
 pub trait Trait: balances::Trait {}
 
 decl_storage! {
@@ -17,6 +19,7 @@ decl_storage! {
         OwnedKitty: map T::AccountId => Kitty<T::Hash, T::Balance>;
     }
 }
+
 
 decl_module! {
     pub struct Module<T: Trait> for enum Call where origin: T::Origin {

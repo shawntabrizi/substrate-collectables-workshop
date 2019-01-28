@@ -1,5 +1,5 @@
-![logo](media/substratekitty.png ':size=300px')
-![substrate-logo](media/icon-parity-substrate-light.png ':size=300px')
+![logo](media/substratekitty.png ':size=300')
+![substrate-logo](media/icon-parity-substrate-light.png ':size=300')
 
 # Substrate Collectables Workshop
 
