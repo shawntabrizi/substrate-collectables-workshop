@@ -7,7 +7,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="//unpkg.com/docsify/themes/dark.css">
+  <!-- Theme: Simple Dark -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple-dark.css">
   <link rel="stylesheet" href="./custom/custom.css">
 </head>
 
@@ -18,7 +19,12 @@
       repo: 'https://github.com/paritytech/substrate/',
       loadSidebar: true,
       coverpage: true,
-      ga: 'UA-133304142-1'
+      ga: 'UA-133304142-1',
+
+      themeable: {
+          readyTransition : true, // default
+          responsiveTables: true  // default
+      }
     };
   </script>
   <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
