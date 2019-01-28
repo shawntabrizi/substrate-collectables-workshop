@@ -15,6 +15,7 @@ pub trait Trait: balances::Trait {
     type Event: From<Event<Self>> + Into<<Self as system::Trait>::Event>;
 }
 
+
 decl_event!(
     pub enum Event<T>
     where
@@ -39,6 +40,7 @@ decl_module! {
     pub struct Module<T: Trait> for enum Call where origin: T::Origin {
 
         fn deposit_event<T>() = default;
+
 
         fn create_kitty(origin) -> Result {
             let sender = ensure_signed(origin)?;

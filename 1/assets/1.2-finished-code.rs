@@ -1,5 +1,6 @@
 use srml_support::StorageValue;
 
+
 pub trait Trait: system::Trait {}
 
 decl_storage! {

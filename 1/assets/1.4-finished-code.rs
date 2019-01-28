@@ -1,5 +1,7 @@
+
 use srml_support::{StorageMap, dispatch::Result};
 use system::ensure_signed;
+
 
 pub trait Trait: balances::Trait {}
 
@@ -8,6 +10,7 @@ decl_storage! {
         Value: map T::AccountId => u64;
     }
 }
+
 
 decl_module! {
     pub struct Module<T: Trait> for enum Call where origin: T::Origin {

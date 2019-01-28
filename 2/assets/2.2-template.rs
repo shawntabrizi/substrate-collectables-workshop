@@ -64,6 +64,8 @@ decl_module! {
 
             <Nonce<T>>::mutate(|n| *n += 1);
 
+            // ACTION: Deposit your event here
+
             Ok(())
         }
     }

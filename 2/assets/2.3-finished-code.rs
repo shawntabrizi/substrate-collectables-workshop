@@ -34,6 +34,7 @@ decl_storage! {
         AllKittiesCount get(all_kitties_count): u64;
         AllKittiesIndex: map T::Hash => u64;
 
+
         OwnedKitty get(kitty_of_owner): map T::AccountId => T::Hash;
 
         Nonce: u64;
@@ -74,6 +75,7 @@ decl_module! {
             <AllKittiesArray<T>>::insert(all_kitties_count, random_hash);
             <AllKittiesCount<T>>::put(new_all_kitties_count);
             <AllKittiesIndex<T>>::insert(random_hash, all_kitties_count);
+
 
             <OwnedKitty<T>>::insert(&sender, random_hash);
 
