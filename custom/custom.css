@@ -82,3 +82,14 @@ body {
         width: 100%;
     }
 }
+
+.sidebar {
+    min-width: 300px;
+    width: 22vw;
+    font-size: 16px;
+}
+
+.sidebar ul li a {
+    display: inline;
+    font-size: inherit;
+}
