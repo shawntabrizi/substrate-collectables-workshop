@@ -35,6 +35,14 @@
     - [Playing our Game](3/3.5-playing-our-game.md)
 
 - [#4 Web-UI](4/4.0-introduction.md)
- 
 
-- [Glossary](0/glossary.md)
+    - [Setup Substrate UI](4/4.1-set-up-substrate-ui.md)
+    - [Explore](4/4.2-explore.md)
+    - [Rendering Kitties](4/4.3-rendering-kitties.md)
+    - [Creating Kitties](4/4.4-creating-kitties.md)
+
+- [#5 Wrap Up](5/5.0-wrapping-up.md)
+
+- [Glossary](https://substrate.readme.io/docs/glossary)
+- [Documentation](https://substrate.readme.io/docs)
+- [r/substrate](https://www.reddit.com/r/substrate)
