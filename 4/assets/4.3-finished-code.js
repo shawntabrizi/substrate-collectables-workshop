@@ -39,7 +39,7 @@ export class App extends ReactiveComponent {
 		this.seedAccount = this.seed.map(s => s ? secretStore().accountFromPhrase(s) : undefined)
 		this.seedAccount.use()
 		this.runtime = new Bond;
-		this.ckaccount = new Bond;
+		this.skAccount = new Bond;
 	}
 
 	readyRender() {
@@ -230,12 +230,12 @@ export class App extends ReactiveComponent {
 					</Header.Content>
 				</Header>
 				<div style={{ paddingBottom: '1em' }}></div>
-				<SignerBond bond={this.ckaccount}/>
+				<SignerBond bond={this.skAccount}/>
 				<TransactButton
 					content="Create Kitty"
 					icon='paw'
 					tx={{
-						sender: runtime.indices.tryIndex(this.ckaccount),
+						sender: runtime.indices.tryIndex(this.skAccount),
 						call: calls.substratekitties.createKitty()
 					}}
 				/>

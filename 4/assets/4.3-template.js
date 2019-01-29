@@ -39,7 +39,7 @@ export class App extends ReactiveComponent {
 		this.seedAccount = this.seed.map(s => s ? secretStore().accountFromPhrase(s) : undefined)
 		this.seedAccount.use()
         this.runtime = new Bond;
-        // ACTION: Create a new bond named `ckaccount`
+        // ACTION: Create a new bond named `skAccount`
 	}
 
 	readyRender() {
@@ -230,7 +230,7 @@ export class App extends ReactiveComponent {
 					</Header.Content>
 				</Header>
 				<div style={{ paddingBottom: '1em' }}></div>
-                {/* ACTION: Create a `SignerBond` for your new `ckaccount` bond */}
+                {/* ACTION: Create a `SignerBond` for your new `skAccount` bond */}
                 {/* ACTION: Create a `TransactButton` to create a new kitty
                     - `content` as "Create Kitty"
                     - `icon` as "paw"
