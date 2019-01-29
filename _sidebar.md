@@ -38,8 +38,8 @@
 
     - [Setup Substrate UI](4/4.1-set-up-substrate-ui.md)
     - [Explore](4/4.2-explore.md)
-    - [Rendering Kitties](4/4.3-rendering-kitties.md)
-    - [Creating Kitties](4/4.4-creating-kitties.md)
+    - [Rendering Kitties](4/4.3-creating-kitties.md)
+    - [Creating Kitties](4/4.4-rendering-kitties.md)
 
 - [#5 Wrap Up](5/5.0-wrapping-up.md)
 
