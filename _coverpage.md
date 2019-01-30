@@ -6,5 +6,3 @@
 > Learn to build blockchains with Parity Substrate
 
 [Get Started](README.md)
-
-![color](#2f2f2f)
