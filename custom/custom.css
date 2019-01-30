@@ -1,41 +1,35 @@
+/* Make the whole site have larger text*/
 body {
     font-size: 1.25rem;
 }
 
+/* CSS for ACE to make sure it uses the full screen space */
 #editor {
     position: absolute;
     width: 100%;
     height: 100vh;
 }
 
+/* Add separation between the Editor and the tutorial */
 .lesson {
     border-right: 1px solid rgba(0,0,0,0.07);
     padding-right: 10px;
 }
 
+/* When the page does not have code, this style is used to hold the main content */
 .fullpage {
     max-width: 1000px;
     margin: auto;
     padding: 30px;
 }
 
-.code {
-    width: 55%;
-}
-
-.row {
-    display: flex;
-}
-
+/* Responsive Two Column Layout */
+/* Create two equal columns that floats next to each other */
 .column {
-  width: 50%;
-  overflow-y: scroll;
-  height: 100vh;
-}
-
-.content {
-    padding-left: 10px;
-    padding-top: 0px;
+    float: left;
+    width: 50%;
+    overflow-y: scroll;
+    height: 100vh;
 }
 
 /* Clear floats after the columns */
@@ -44,41 +38,28 @@ body {
     display: table;
     clear: both;
 }
+  
+/* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 1024px) {
+    .column {
+        width: 100%;
+        overflow-y: initial;
+        height: initial;
+    }
+}
+/* End Responsive Layout */
+
+
+.content {
+    padding-left: 10px;
+    padding-top: 0px;
+}
 
 .markdown-section {
     max-width: 100%;
     padding: 0;
 }
 
-.markdown-section pre > code {
-    color: #ffffff;
-}
-
-.markdown-section code {
-    color: #ffffff;
-}
-
-.token.punctuation {
-    color: #ffffff;
-}
-
-.token.operator {
-    color: #e96900;
-}
-
-.token.macro-rules {
-    color: #e96900;
-}
-
-@media screen and (max-width: 1024px) {
-    .lesson {
-        width: 100%;
-    }
-    .code {
-        width: 100%;
-    }
-}
-
 .sidebar {
-    font-size: 16px;
+    font-size: 1rem;
 }
