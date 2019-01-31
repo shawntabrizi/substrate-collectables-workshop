@@ -54,17 +54,13 @@ decl_module! {
 
             let owned_kitty_count = Self::owned_kitty_count(&sender);
 
-            let new_owned_kitty_count = match owned_kitty_count.checked_add(1) {
-                Some(c) => c,
-                None => return Err("Overflow adding a new kitty to account balance"),
-            };
+            let new_owned_kitty_count = owned_kitty_count.checked_add(1)
+                .ok_or("Overflow adding a new kitty to account balance")?;
 
             let all_kitties_count = Self::all_kitties_count();
 
-            let new_all_kitties_count = match all_kitties_count.checked_add(1) {
-                Some (c) => c,
-                None => return Err("Overflow adding a new kitty to total supply"),
-            };
+            let new_all_kitties_count = all_kitties_count.checked_add(1)
+                .ok_or("Overflow adding a new kitty to total supply")?;
 
             let nonce = <Nonce<T>>::get();
             let random_hash = (<system::Module<T>>::random_seed(), &sender, nonce)

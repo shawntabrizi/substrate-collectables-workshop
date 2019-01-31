@@ -77,10 +77,7 @@ decl_module! {
 
             ensure!(<Kitties<T>>::exists(kitty_id), "This cat does not exist");
 
-            let owner = match Self::owner_of(kitty_id) {
-                Some(c) => c,
-                None => return Err("No owner for this kitty"),
-            };
+            let owner = Self::owner_of(kitty_id).ok_or("No owner for this kitty")?;
             ensure!(owner == sender, "You do not own this cat");
 
             let mut kitty = Self::kitty(kitty_id);
@@ -96,10 +93,7 @@ decl_module! {
         fn transfer(origin, to: T::AccountId, kitty_id: T::Hash) -> Result {
             let sender = ensure_signed(origin)?;
 
-            let owner = match Self::owner_of(kitty_id) {
-                Some(o) => o,
-                None => return Err("No owner for this kitty"),
-            };
+            let owner = Self::owner_of(kitty_id).ok_or("No owner for this kitty")?;
             ensure!(owner == sender, "You do not own this kitty");
 
             Self::_transfer_from(sender, to, kitty_id)?;
@@ -112,10 +106,7 @@ decl_module! {
 
             ensure!(<Kitties<T>>::exists(kitty_id), "This cat does not exist");
 
-            let owner = match Self::owner_of(kitty_id) {
-                Some(o) => o,
-                None => return Err("No owner for this kitty"),
-            };
+            let owner = Self::owner_of(kitty_id).ok_or("No owner for this kitty")?;
             ensure!(owner != sender, "You can't buy your own cat");
 
             let mut kitty = Self::kitty(kitty_id);
@@ -179,17 +170,13 @@ impl<T: Trait> Module<T> {
 
         let owned_kitty_count = Self::owned_kitty_count(&to);
 
-        let new_owned_kitty_count = match owned_kitty_count.checked_add(1) {
-            Some(c) => c,
-            None => return Err("Overflow adding a new kitty to account balance"),
-        };
+        let new_owned_kitty_count = owned_kitty_count.checked_add(1)
+            .ok_or("Overflow adding a new kitty to account balance")?;
 
         let all_kitties_count = Self::all_kitties_count();
 
-        let new_all_kitties_count = match all_kitties_count.checked_add(1) {
-            Some (c) => c,
-            None => return Err("Overflow adding a new kitty to total supply"),
-        };
+        let new_all_kitties_count = all_kitties_count.checked_add(1)
+            .ok_or("Overflow adding a new kitty to total supply")?;
 
         <Kitties<T>>::insert(kitty_id, new_kitty);
         <KittyOwner<T>>::insert(kitty_id, &to);
@@ -208,25 +195,18 @@ impl<T: Trait> Module<T> {
     }
 
     fn _transfer_from(from: T::AccountId, to: T::AccountId, kitty_id: T::Hash) -> Result {
-        let owner = match Self::owner_of(kitty_id) {
-            Some(c) => c,
-            None => return Err("No owner for this kitty"),
-        };
+        let owner = Self::owner_of(kitty_id).ok_or("No owner for this kitty")?;
 
         ensure!(owner == from, "'from' account does not own this kitty");
 
         let owned_kitty_count_from = Self::owned_kitty_count(&from);
         let owned_kitty_count_to = Self::owned_kitty_count(&to);
 
-        let new_owned_kitty_count_to = match owned_kitty_count_to.checked_add(1) {
-            Some(c) => c,
-            None => return Err("Transfer causes overflow of 'to' kitty balance"),
-        };
+        let new_owned_kitty_count_to = owned_kitty_count_to.checked_add(1)
+            .ok_or("Transfer causes overflow of 'to' kitty balance")?;
 
-        let new_owned_kitty_count_from = match owned_kitty_count_from.checked_sub(1) {
-            Some (c) => c,
-            None => return Err("Transfer causes underflow of 'from' kitty balance"),
-        };
+        let new_owned_kitty_count_from = owned_kitty_count_from.checked_sub(1)
+            .ok_or("Transfer causes underflow of 'from' kitty balance")?;
 
         // "Swap and pop"
         let kitty_index = <OwnedKittiesIndex<T>>::get(kitty_id);
