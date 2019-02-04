@@ -27,7 +27,9 @@ Our challenge to the reader is to extend the Substratekitties runtime and includ
 
 Here are some ideas:
 
-- Track the parents of a kitty during when `breed_kitty()` is called.
+- Track the parents of a kitty during when `breed_kitty()` is called. Maybe as just an event...?
+
+- Limit the number of kitties that can be created by `create_kitty()`, and/or add a price curve to make each new kitty cost more to create.
 
 - Add a cost to breeding kitties that the person receiving the new kitty has to pay. Make sure funds are correctly sent to each user. Make sure a person can breed using their own kitties.
 
