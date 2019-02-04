@@ -15,7 +15,7 @@ Substrate is built using [Rust][], a modern statically typed systems programming
 
 Just go through the material chapter by chapter, do one exercise at a time. While the material is meant for you to be able to do on your own, we highly recommend you to get together and work on it with others, in learning groups or hosted workshops. It is totally normal to get stuck from time to time or to not understand what the material is attempting to explain. In those situations it helps a lot to have others around to talk to about it and resolve that frustration. That said, we highly appreciate any [feedback regarding the material, and where you might got stuck][feedback].
 
-# [Let's go](/0/0.0-introduction.md)
+# [Let's go!](/0/introduction.md)
 
 ---
 **NOTE**
