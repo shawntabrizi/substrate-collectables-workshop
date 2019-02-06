@@ -32,8 +32,8 @@ window.$docsify.plugins.push(
                     '<div class="row">',
                     '<div class="lesson column">', html, '</div>',
                     '<div class="code column">',
-                    '<div id="editor_bar" class="editor-bar"></div>',
                     '<div id="editor" class="editor"></div>',
+                    '<div id="editor_bar" class="editor-bar"></div>',
                     '</div>',
                     '</div>'
                 ].join('');
@@ -57,24 +57,16 @@ window.$docsify.plugins.push(
 
                 if (window.code_template) {
                     var template_button = document.createElement("button");
-                    template_button.innerText = "Template";
+                    template_button.innerHTML = "&#x1F6E0; Starting Point";
                     template_button.classList += "editor-button";
                     template_button.onclick = function () { loadEditor(window.code_template, false, true) };
                     editor_bar.appendChild(template_button);
                     loadEditor(window.code_template, false, true);
                 }
 
-                if (window.code_template && window.code_final) {
-                    var diff_button = document.createElement("button");
-                    diff_button.innerText = "Diff View";
-                    diff_button.classList += "editor-button";
-                    diff_button.onclick = function () { loadDiffEditor(window.code_template, window.code_final); };
-                    editor_bar.appendChild(diff_button);
-                }
-
                 if (window.code_final) {
                     var final_button = document.createElement("button");
-                    final_button.innerText = "Solution";
+                    final_button.innerHTML = "&#x2705; Potential Solution";
                     final_button.classList += "editor-button";
                     final_button.onclick = function () { loadEditor(window.code_final, true, false); };
                     editor_bar.appendChild(final_button);
@@ -82,6 +74,14 @@ window.$docsify.plugins.push(
                     if (!window.code_template) {
                         loadEditor(window.code_final, true, false);
                     }
+                }
+
+                if (window.code_template && window.code_final) {
+                    var diff_button = document.createElement("button");
+                    diff_button.innerHTML = "&#x1D321; Diff View";
+                    diff_button.classList += "editor-button";
+                    diff_button.onclick = function () { loadDiffEditor(window.code_template, window.code_final); };
+                    editor_bar.appendChild(diff_button);
                 }
             }
         })

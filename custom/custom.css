@@ -5,13 +5,13 @@ body {
 
 /* CSS for editor div to make sure it uses the full height */
 .editor {
-    height: calc(100vh - 20px);
+    height: calc(100vh - 25px);
     overflow: hidden;
 }
 
 .editor-bar {
-    height: 20px;
-    font-size: 12px;
+    height: 25px;
+    font-size: 14px;
 }
 
 .editor-button {
@@ -20,7 +20,8 @@ body {
     color: #ffffff;
     border: none;
     border-radius: 5px;
-    padding-bottom: 10px;
+    padding-top: 10px;
+    margin-top: -10px;
 }
 
 /* Add separation between the Editor and the tutorial */
