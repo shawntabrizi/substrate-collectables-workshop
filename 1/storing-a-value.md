@@ -63,11 +63,17 @@ We can use the `ensure_signed()` function from `system::ensure_signed` to check 
 
 Use the template to create a `set_value()` function which will allow a user to send a signed message which puts a `u64` into the runtime storage.
 
+<!-- tabs:start -->
+
+#### ** Template **
+
 [embedded-code](./assets/1.3-template.rs ':include :type=code embed-template')
 
-<a href="javascript:toggleHint()" id="hint_link">Reveal the solution...</a>
+#### ** Solution **
 
 [embedded-code-final](./assets/1.3-finished-code.rs ':include :type=code embed-final')
+
+<!-- tabs:end -->
 
 ---
 **Learn More**

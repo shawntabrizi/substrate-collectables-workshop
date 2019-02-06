@@ -185,8 +185,14 @@ Do you want to test your React + JavaScript + Bonds skills? We have only integra
 
 Also think about how you might need to change the `KittyCards` component if you introduce a way to remove kitties from your runtime (setting them free!).
 
+<!-- tabs:start -->
+
+#### ** Template **
+
 [embedded-code](./assets/4.4-template.js ':include :type=code embed-template')
 
-<a href="javascript:toggleHint()" id="hint_link">Reveal the solution...</a>
+#### ** Solution **
 
 [embedded-code-final](./assets/4.4-finished-code.js ':include :type=code embed-final')
+
+<!-- tabs:end -->

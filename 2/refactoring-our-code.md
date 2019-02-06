@@ -58,8 +58,14 @@ The `create_kitty()` function also generates the property of the new kitty, but 
 
 Our template provides the function declaration for `_mint()`, and will guide you to refactor the code and update any variables to match the new schema. It might be good to double check your work in the Polkadot-JS Apps UI once again before you move on.
 
+<!-- tabs:start -->
+
+#### ** Template **
+
 [embedded-code](./assets/2.6-template.rs ':include :type=code embed-template')
 
-<a href="javascript:toggleHint()" id="hint_link">Reveal the solution...</a>
+#### ** Solution **
 
 [embedded-code-final](./assets/2.6-finished-code.rs ':include :type=code embed-final')
+
+<!-- tabs:end -->

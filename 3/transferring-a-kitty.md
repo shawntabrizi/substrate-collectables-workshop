@@ -38,8 +38,14 @@ We want to make the transfer function reusable, so we have already structured th
 
 Follow the template to complete the `_transfer_from()` private function to power your public `transfer()` function exposed by your module.
 
+<!-- tabs:start -->
+
+#### ** Template **
+
 [embedded-code](./assets/3.2-template.rs ':include :type=code embed-template')
 
-<a href="javascript:toggleHint()" id="hint_link">Reveal the solution...</a>
+#### ** Solution **
 
 [embedded-code-final](./assets/3.2-finished-code.rs ':include :type=code embed-final')
+
+<!-- tabs:end -->

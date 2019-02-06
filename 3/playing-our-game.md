@@ -43,4 +43,10 @@ What other ideas can you think of?
 
 In the next section we will be creating a custom UI for this game using Substrate JavaScript libraries. This custom UI is sensitive to changes in naming conventions, so you may need to copy the final Substratekitties code to ensure compatibility.
 
+<!-- tabs:start -->
+
+#### ** Solution **
+
 [embedded-code-final](./assets/3.5-finished-code.rs ':include :type=code embed-final')
+
+<!-- tabs:end -->

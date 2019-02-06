@@ -50,8 +50,14 @@ You now have all the tools necessary to update your `Kitty` object. Remember, **
 
 Follow the template in this section to help you create the `set_price()` function.
 
+<!-- tabs:start -->
+
+#### ** Template **
+
 [embedded-code](./assets/3.1-template.rs ':include :type=code embed-template')
 
-<a href="javascript:toggleHint()" id="hint_link">Reveal the solution...</a>
+#### ** Solution **
 
 [embedded-code-final](./assets/3.1-finished-code.rs ':include :type=code embed-final')
+
+<!-- tabs:end -->

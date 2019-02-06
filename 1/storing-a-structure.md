@@ -87,11 +87,17 @@ let my_zero_balance = <T::Balance as As<u64>>::sa(0);
 
 We will also have `gen` start as `0`.
 
+<!-- tabs:start -->
+
+#### ** Template **
+
 [embedded-code](./assets/1.6-template.rs ':include :type=code embed-template')
 
-<a href="javascript:toggleHint()" id="hint_link">Reveal the solution...</a>
+#### ** Solution **
 
 [embedded-code-final](./assets/1.6-finished-code.rs ':include :type=code embed-final')
+
+<!-- tabs:end -->
 
 ---
 **Learn More**

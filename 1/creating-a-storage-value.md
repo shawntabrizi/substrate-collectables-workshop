@@ -78,11 +78,16 @@ Create a storage value called `Value` which stores a `u64`.
 
 Make sure to import any required libraries required by the compiler. Your code should compile successfully.
 
+<!-- tabs:start -->
+
+#### ** Template **
+
 [embedded-code](./assets/1.2-template.rs ':include :type=code embed-template')
 
-You click and hold "Reveal the solution..." to see the final version of this section.
-
-<a href="javascript:toggleHint()" id="hint_link">Reveal the solution...</a>
+#### ** Solution **
 
 [embedded-code-final](./assets/1.2-finished-code.rs ':include :type=code embed-final')
+
+<!-- tabs:end -->
+
 

@@ -95,11 +95,17 @@ let also_my_value = Self::some_value_getter(key);
 
 Update your simple storage example to now store a map from an `AccountId` to a `u64`.
 
+<!-- tabs:start -->
+
+#### ** Template **
+
 [embedded-code](./assets/1.4-template.rs ':include :type=code embed-template')
 
-<a href="javascript:toggleHint()" id="hint_link">Reveal the solution...</a>
+#### ** Solution **
 
 [embedded-code-final](./assets/1.4-finished-code.rs ':include :type=code embed-final')
+
+<!-- tabs:end -->
 
 ---
 **Learn More**

@@ -37,8 +37,14 @@ This function both "verifies" and "writes", so you will need to be careful exact
 
 Follow the template provided to program in the necessary code to complete the `buy_kitty()` function. Feel free to test your new function in the Polkadot-JS Apps UI for any bugs.
 
+<!-- tabs:start -->
+
+#### ** Template **
+
 [embedded-code](./assets/3.3-template.rs ':include :type=code embed-template')
 
-<a href="javascript:toggleHint()" id="hint_link">Reveal the solution...</a>
+#### ** Solution **
 
 [embedded-code-final](./assets/3.3-finished-code.rs ':include :type=code embed-final')
+
+<!-- tabs:end -->
