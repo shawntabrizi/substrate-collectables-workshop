@@ -13,7 +13,7 @@ To point the UI to your local node, you need to adjust the **Settings**:
 Settings > remote node/endpoint to connect to > Local Node (127.0.0.1:9944)
 ```
 
-Also change the `Default Interface Language` to `Substrate`.
+Also change the `Default Interface Theme` to `Substrate`.
 
 ![An image of the settings in Polkadot-JS Apps UI](./assets/polkadot-js-settings.png)
 
