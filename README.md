@@ -24,7 +24,9 @@ Substrate is a rapidly evolving project, which means that breaking changes may c
 
 ---
 
-## How to run the workshop on your local machine and contribute
+## How to contribute
+
+* Open issues on our [GitHub](https://github.com/shawntabrizi/substrate-collectables-workshop/issues)
 
 * Fork and clone the repo: https://github.com/shawntabrizi/substrate-collectables-workshop
 
