@@ -175,6 +175,20 @@ h6,
     padding: 0;
 }
 
+/* Styling for Cover Page Buttons */
+
+section.cover .cover-main > p:last-child a:first-child {
+    background-color: var(--theme-color, #ea6f5a);
+    color: #fff;
+}
+
+section.cover .cover-main > p:last-child a:last-child {
+    background-color: unset;
+    color: var(--theme-color);
+}
+
+/* End Styling for Cover Page Buttons */
+
 /* Custom Styling for other parts of markdown */
 
 .markdown-section h1,
