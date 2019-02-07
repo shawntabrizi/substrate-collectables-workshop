@@ -172,3 +172,35 @@ h6,
     max-width: 100%;
     padding: 0;
 }
+
+/* Custom Styling For Code Blocks */
+
+.token.function {
+    color: #dcdca9;
+}
+
+.token.keyword {
+    color: #569cd6;
+}
+
+.markdown-section code {
+    background-color: #1b1b1b;
+    color: #d4d4d4;
+}
+.markdown-section pre > code {
+    color: #d4d4d4;
+}
+
+.token.punctuation {
+    color: #d4d4d4;
+}
+
+.token.comment {
+    color: #618a50;
+}
+
+.token.string {
+    color: #cd917a;
+}
+
+/* End Custom Styling for Code Blocks */
