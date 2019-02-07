@@ -28,7 +28,7 @@ This function both "verifies" and "writes", so you will need to be careful exact
 ```rust
 // end of verifications
 
-<balances::Module<T>>::make_transfer(&to, &from, value)?;
+<balances::Module<T>>::make_transfer(&from, &to, value)?;
 
 // beginning of writing to storage
 ```
