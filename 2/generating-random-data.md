@@ -66,8 +66,14 @@ Now that we have set up all these new storage items, we will need to also update
 
 Follow the instructions on the template for this section to get things running!
 
+<!-- tabs:start -->
+
+#### ** Template **
+
 [embedded-code](./assets/2.1-template.rs ':include :type=code embed-template')
 
-<a href="javascript:toggleHint()" id="hint_link">Reveal the solution...</a>
+#### ** Solution **
 
 [embedded-code-final](./assets/2.1-finished-code.rs ':include :type=code embed-final')
+
+<!-- tabs:end -->

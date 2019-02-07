@@ -52,6 +52,8 @@ addCodecTransform('Kitty<Hash,Balance>', {
 
 We can add this to our application's `constructor()` function to ensure it gets loaded at the start. After this, we can interact with the attributes of the `Kitty` object like we could any other JSON object.
 
+> Note: The codec transform uses a key/value pair to look up the object structure that should be used for deserialization. As a result, it is important that your "object name" matches exactly what is expected. In this situation, note there are no spaces in the object name. If the Substrate UI cannot find the right key for a custom object, it will give you an error in your browser console with the exact object name it is expecting.
+
 ## Peek Inside Our Custom Component
 
 Since we won't have you build this component, we will show you some of the working pieces instead.
@@ -185,8 +187,14 @@ Do you want to test your React + JavaScript + Bonds skills? We have only integra
 
 Also think about how you might need to change the `KittyCards` component if you introduce a way to remove kitties from your runtime (setting them free!).
 
+<!-- tabs:start -->
+
+#### ** Template **
+
 [embedded-code](./assets/4.4-template.js ':include :type=code embed-template')
 
-<a href="javascript:toggleHint()" id="hint_link">Reveal the solution...</a>
+#### ** Solution **
 
 [embedded-code-final](./assets/4.4-finished-code.js ':include :type=code embed-final')
+
+<!-- tabs:end -->

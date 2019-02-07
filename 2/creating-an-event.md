@@ -106,8 +106,14 @@ You will need to update your module to support events. We have taught you all th
 
 Use the instructions in the template of this section to help you get your module talking! Remember you will need to update `lib.rs` too!
 
+<!-- tabs:start -->
+
+#### ** Template **
+
 [embedded-code-template](./assets/2.2-template.rs ':include :type=code embed-template')
 
-<a href="javascript:toggleHint()" id="hint_link">Reveal the solution...</a>
+#### ** Solution **
 
 [embedded-code-final](./assets/2.2-finished-code.rs ':include :type=code embed-final')
+
+<!-- tabs:end -->

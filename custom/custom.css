@@ -1,13 +1,127 @@
-/* Make the whole site have larger text*/
-body {
-    font-size: 1.25rem;
+
+/* PARITY STYLING -- https://www.parity.io/assets/css/theme-parity.css?v=1c871864d6 */
+:root {
+    --theme-color: #FF1864;
 }
 
-/* CSS for ACE to make sure it uses the full screen space */
-#editor {
-    position: absolute;
-    width: 100%;
-    height: 100vh;
+/* Make the whole site have larger text*/
+body {
+    background-color: #282828;
+    font-size: 1em;
+    line-height: 1.85714286em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.sidebar {
+    background-color: #1b1b1b;
+    font-size: 1rem;
+    width: 200px;
+}
+
+input[type="search"], 
+.markdown-section pre,
+.markdown-section pre > code {
+    background-color: #1b1b1b;
+}
+
+input[type="search"]:focus {
+    color: var(--theme-color);
+}
+
+.sidebar-toggle {
+    width: unset;
+}
+
+.sidebar-toggle span {
+    width: 24px;
+    height: 4px;
+}
+
+h1, h2, h3, h4, h5 {
+    font-family: 'ManifoldCF', 'Helvetica', 'Arial', sans-serif;
+    font-weight: 600;
+    font-variant-ligatures: common-ligatures;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+
+h1,
+.h1 {
+  font-size: 3.14285714em;
+  line-height: 1.31818182em;
+}
+h2,
+.h2 {
+  font-size: 2.35714286em;
+  line-height: 1.36363636em;
+}
+h3,
+.h3 {
+  font-size: 1.78571429em;
+  line-height: 1.5em;
+}
+h4,
+.h4 {
+  font-size: 1.35714286em;
+  line-height: 1.36842105em;
+}
+h5,
+.h5 {
+  font-size: 1em;
+  line-height: 1.85714286em;
+}
+h6,
+.h6 {
+  font-size: 0.85714286em;
+  line-height: 2.16666667em;
+}
+.lead {
+  font-size: 1.35714286em;
+  line-height: 1.68421053em;
+}
+@media all and (max-width: 767px) {
+  h1,
+  .h1 {
+    font-size: 2.35714286em;
+    line-height: 1.36363636em;
+  }
+  h2,
+  .h2 {
+    font-size: 1.78571429em;
+    line-height: 1.5em;
+  }
+  h3,
+  .h3 {
+    font-size: 1.35714286em;
+    line-height: 1.85714286em;
+  }
+  .lead {
+    font-size: 1.35714286em;
+    line-height: 1.36842105em;
+  }
+}
+
+/* CSS for editor div to make sure it uses the full height */
+.editor {
+    height: calc(100vh - 25px);
+    overflow: hidden;
+}
+
+.editor-bar {
+    height: 25px;
+    font-size: 14px;
+}
+
+.editor-button {
+    background-color: #1e1e1e;
+    margin-left: 10px;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    padding-top: 10px;
+    margin-top: -10px;
 }
 
 /* Add separation between the Editor and the tutorial */
@@ -53,6 +167,7 @@ body {
 .content {
     padding-left: 10px;
     padding-top: 0px;
+    left: 200px;
 }
 
 .markdown-section {
@@ -60,6 +175,69 @@ body {
     padding: 0;
 }
 
-.sidebar {
-    font-size: 1rem;
+/* Styling for Cover Page Buttons */
+
+section.cover .cover-main > p:last-child a:first-child {
+    background-color: var(--theme-color, #ea6f5a);
+    color: #fff;
 }
+
+section.cover .cover-main > p:last-child a:last-child {
+    background-color: unset;
+    color: var(--theme-color);
+}
+
+/* End Styling for Cover Page Buttons */
+
+/* Custom Styling for other parts of markdown */
+
+.markdown-section h1,
+.markdown-section h2,
+.markdown-section h3,
+.markdown-section h4,
+.markdown-section strong,
+.markdown-section blockquote {
+    color: #989898;
+}
+
+.markdown-section a {
+    font-weight: unset;
+}
+
+/* End custom markdown styling */
+
+/* Custom Styling For Code Blocks */
+
+.token.function {
+    color: #dcdca9;
+}
+
+.token.keyword {
+    color: #569cd6;
+}
+
+.markdown-section code {
+    background-color: #1b1b1b;
+    color: #d4d4d4;
+}
+.markdown-section pre > code {
+    color: #d4d4d4;
+}
+
+.token.punctuation {
+    color: #d4d4d4;
+}
+
+.token.comment {
+    color: #618a50;
+}
+
+.token.string {
+    color: #cd917a;
+}
+
+.token.number {
+    color: #b6cda9;
+}
+
+/* End Custom Styling for Code Blocks */

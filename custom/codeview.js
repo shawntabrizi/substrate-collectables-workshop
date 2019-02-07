@@ -1,31 +1,40 @@
-var template = initializeAceSession();
-var final = initializeAceSession();
-var hintRevealed = false;
+require.config({ paths: { 'vs': 'https://unpkg.com/monaco-editor@0.15.6/min/vs' } });
 
-function initializeAceSession() {
-    var session = new ace.EditSession("");
-    var RustMode = ace.require("ace/mode/rust").Mode;
-    session.setMode(new RustMode());
-    session.setUseWrapMode(true);
-    session.setWrapLimitRange(0, 80);
-
-    return session;
-}
+// Before loading vs/editor/editor.main, define a global MonacoEnvironment that overwrites
+// the default worker url location (used when creating WebWorkers). The problem here is that
+// HTML5 does not allow cross-domain web workers, so we need to proxy the instantiation of
+// a web worker through a same-domain script
+window.MonacoEnvironment = {
+    getWorkerUrl: function (workerId, label) {
+        return `data:text/javascript;charset=utf-8,${encodeURIComponent(`
+            self.MonacoEnvironment = {
+            baseUrl: 'https://unpkg.com/monaco-editor@0.15.6/min/'
+            };
+            importScripts('https://unpkg.com/monaco-editor@0.15.6/min/vs/base/worker/workerMain.js');`
+        )}`;
+    }
+};
 
 window.$docsify.plugins.push(
     function (hook, vm) {
+        console.log("Docsify Window")
         hook.afterEach(function (html) {
             var parser = new DOMParser();
             var htmlDoc = parser.parseFromString(html, 'text/html');
-            if (htmlDoc.getElementsByClassName("lang-embed-template")[0] ||
-                htmlDoc.getElementsByClassName("lang-embed-final")[0])
-            {
+            var template_element = htmlDoc.getElementsByClassName("lang-embed-template")[0];
+            var final_element = htmlDoc.getElementsByClassName("lang-embed-final")[0];
+
+            window.code_template = template_element ? template_element.innerText : null;
+            window.code_final = final_element ? final_element.innerText : null;
+
+            if (template_element || final_element) {
                 var two_col = [
                     '<div class="row">',
-                        '<div class="lesson column">', html, '</div>',
-                        '<div class="code column">',
-                            '<div id="editor">Failed to load rust code...</div>',
-                        '</div>',
+                    '<div class="lesson column">', html, '</div>',
+                    '<div class="code column">',
+                    '<div id="editor" class="editor"></div>',
+                    '<div id="editor_bar" class="editor-bar"></div>',
+                    '</div>',
                     '</div>'
                 ].join('');
 
@@ -44,51 +53,110 @@ window.$docsify.plugins.push(
         hook.doneEach(function () {
             hintRevealed = false;
             if (document.getElementById("editor")) {
-                var editor = ace.edit("editor");
-                editor.setTheme("ace/theme/vibrant_ink");
+                var editor_bar = document.getElementById("editor_bar");
 
-                var rust_final = document.getElementsByClassName("lang-embed-final")[0]
-                if (rust_final) {
-                    final.setValue(rust_final.innerText);
-                    final.setScrollTop(0);
-                    editor.setSession(final);
-
-                    document.querySelectorAll('[data-lang="embed-final"]')[0].hidden = true;
+                if (window.code_template) {
+                    var template_button = document.createElement("button");
+                    template_button.innerHTML = "&#x1F6E0; Starting Point";
+                    template_button.classList += "editor-button";
+                    template_button.onclick = function () { loadEditor(window.code_template, false, true) };
+                    editor_bar.appendChild(template_button);
+                    loadEditor(window.code_template, false, true);
                 }
 
-                var rust_template = document.getElementsByClassName("lang-embed-template")[0];
-                if (rust_template) {
-                    template.setValue(rust_template.innerText);
-                    template.setScrollTop(0);
-                    editor.setSession(template);
+                if (window.code_final) {
+                    var final_button = document.createElement("button");
+                    final_button.innerHTML = "&#x2705; Potential Solution";
+                    final_button.classList += "editor-button";
+                    final_button.onclick = function () { loadEditor(window.code_final, true, false); };
+                    editor_bar.appendChild(final_button);
 
-                    document.querySelectorAll('[data-lang="embed-template"]')[0].hidden = true;
+                    if (!window.code_template) {
+                        loadEditor(window.code_final, true, false);
+                    }
+                }
+
+                if (window.code_template && window.code_final) {
+                    var diff_button = document.createElement("button");
+                    diff_button.innerHTML = "&#x1D321; Diff View";
+                    diff_button.classList += "editor-button";
+                    diff_button.onclick = function () { loadDiffEditor(window.code_template, window.code_final); };
+                    editor_bar.appendChild(diff_button);
                 }
             }
         })
-    })
+    });
 
-function toggleHint() {
-    hintRevealed = !hintRevealed
-    if (hintRevealed) {
-        showHint();
-    } else {
-        hideHint();
+function loadEditor(editor_text, read_only, template_update) {
+    require(['vs/editor/editor.main'], function () {
+        if (window.monaco_editor) {
+            window.view_state = window.monaco_editor.saveViewState();
+            window.monaco_editor.dispose();
+        }
+
+        window.monaco_editor = monaco.editor.create(document.getElementById('editor'), {
+            language: "rust",
+            theme: "vs-dark",
+            readOnly: read_only,
+            automaticLayout: true
+        });
+
+        window.monaco_editor.setValue(editor_text)
+        if (template_update) {
+            window.monaco_editor.onDidChangeModelContent(function () {
+                window.code_template = window.monaco_editor.getValue();
+            });
+        }
+
+        window.monaco_editor.restoreViewState(currentView());
+
+        removeElement(document.getElementsByClassName("docsify-tabs")[0]);
+    });
+}
+
+function loadDiffEditor(original_text, modified_text) {
+    require(['vs/editor/editor.main'], function () {
+        if (window.monaco_editor) {
+            window.view_state = window.monaco_editor.saveViewState();
+            window.monaco_editor.dispose();
+        }
+
+        window.monaco_editor = monaco.editor.createDiffEditor(document.getElementById('editor'), {
+            language: "rust",
+            theme: "vs-dark",
+            enableSplitViewResizing: false,
+            renderSideBySide: false,
+            readOnly: true,
+            automaticLayout: true
+        });
+
+        var originalModel = monaco.editor.createModel(original_text, "rust");
+        var modifiedModel = monaco.editor.createModel(modified_text, "rust");
+
+
+        window.monaco_editor.setModel({
+            original: originalModel,
+            modified: modifiedModel
+        });
+
+        window.monaco_editor.restoreViewState({ original: currentView() });
+
+        removeElement(document.getElementsByClassName("docsify-tabs")[0]);
+    });
+}
+
+function removeElement(element) {
+    if (element) {
+        element.parentNode.removeChild(element);
     }
 }
 
-function showHint() {
-    var editor = ace.edit("editor");
-    var scroll = template.getScrollTop();
-    final.setScrollTop(scroll);
-    editor.setSession(final);
-    document.getElementById("hint_link").innerText = "Hide the solution...";
-}
+function currentView() {
+    if (window.view_state) {
+        if (window.view_state.modified) {
+            return window.view_state.modified;
+        }
 
-function hideHint() {
-    var editor = ace.edit("editor");
-    var scroll = final.getScrollTop();
-    template.setScrollTop(scroll);
-    editor.setSession(template);
-    document.getElementById("hint_link").innerText = "Reveal the solution...";
+        return window.view_state;
+    }
 }

@@ -44,8 +44,8 @@
     - [Introduction](4/introduction.md)
     - [Set Up Substrate UI](4/set-up-substrate-ui.md)
     - [Explore](4/explore.md)
-    - [Rendering Kitties](4/creating-kitties.md)
-    - [Creating Kitties](4/rendering-kitties.md)
+    - [Creating Kitties](4/creating-kitties.md)
+    - [Rendering Kitties](4/rendering-kitties.md)
 
 - [Glossary](https://substrate.readme.io/docs/glossary)
 - [Documentation](https://substrate.readme.io/docs)

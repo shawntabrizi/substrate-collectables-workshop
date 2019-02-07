@@ -99,8 +99,14 @@ In the template, we currently have a `Subheader` which says:
 
 Update the `0` value to represent the current number of kitties tracked in our runtime. Then add some kitties using the Polkadot UI and confirm the value is automatically updated.
 
+<!-- tabs:start -->
+
+#### ** Template **
+
 [embedded-code](./assets/4.2-template.js ':include :type=code embed-template')
 
-<a href="javascript:toggleHint()" id="hint_link">Reveal the solution...</a>
+#### ** Solution **
 
 [embedded-code-final](./assets/4.2-finished-code.js ':include :type=code embed-final')
+
+<!-- tabs:end -->

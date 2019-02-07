@@ -88,8 +88,14 @@ Then you will want to connect that `SignerBond` to a `TransactionButton` which m
 
 Once you have completed this, test your button by creating some new kitties! Watch your "kitty counter" increase as new kitties enter your system.
 
+<!-- tabs:start -->
+
+#### ** Template **
+
 [embedded-code](./assets/4.3-template.js ':include :type=code embed-template')
 
-<a href="javascript:toggleHint()" id="hint_link">Reveal the solution...</a>
+#### ** Solution **
 
 [embedded-code-final](./assets/4.3-finished-code.js ':include :type=code embed-final')
+
+<!-- tabs:end -->

@@ -54,11 +54,17 @@ There should be nothing too surprising here... just doing some more accounting.
 
 Follow the template to introduce our final set of storage items, and make sure the `create_kitty()` function manages these storage items correctly. It should feel very similar to the previous section.
 
+<!-- tabs:start -->
+
+#### ** Template **
+
 [embedded-code](./assets/2.4-template.rs ':include :type=code embed-template')
 
-<a href="javascript:toggleHint()" id="hint_link">Reveal the solution...</a>
+#### ** Solution **
 
 [embedded-code-final](./assets/2.4-finished-code.rs ':include :type=code embed-final')
+
+<!-- tabs:end -->
 
 ---
 **Learn More**

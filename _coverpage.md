@@ -7,3 +7,6 @@
 
 [Get Started](README.md)
 [GitHub](https://github.com/shawntabrizi/substrate-collectables-workshop)
+
+<!-- Overwrite Background Image with black -->
+![color](#3a3a3a)

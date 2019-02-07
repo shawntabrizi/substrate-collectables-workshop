@@ -125,7 +125,13 @@ At the end of every section in this tutorial, your code should compile without e
 
 Now it's time to start adding some of our own logic!
 
+<!-- tabs:start -->
+
+#### ** Solution **
+
 [embedded-code](./assets/1.1-finished-code.rs ':include :type=code embed-final')
+
+<!-- tabs:end -->
 
 ---
 **Learn More**

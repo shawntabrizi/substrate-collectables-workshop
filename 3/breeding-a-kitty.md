@@ -58,8 +58,14 @@ Then pass that kitty object to the `_mint()` function to create your new kitty!
 
 Finally, if you are feeling brave, do a live runtime upgrade to add this new feature to your blockchain. You should find that all of your existing storage items will be unaffected by the upgrade, however, you will now have access to this new function!
 
+<!-- tabs:start -->
+
+#### ** Template **
+
 [embedded-code](./assets/3.4-template.rs ':include :type=code embed-template')
 
-<a href="javascript:toggleHint()" id="hint_link">Reveal the solution...</a>
+#### ** Solution **
 
 [embedded-code-final](./assets/3.4-finished-code.rs ':include :type=code embed-final')
+
+<!-- tabs:end -->

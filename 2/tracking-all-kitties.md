@@ -106,11 +106,17 @@ Now that you know what is necessary to keep track of all of your kitties, let's 
 
 Follow the template to add new storage items, and update your `create_kitty` function to **"verify first, write last"** whenever a new kitty is created.
 
+<!-- tabs:start -->
+
+#### ** Template **
+
 [embedded-code](./assets/2.3-template.rs ':include :type=code embed-template')
 
-<a href="javascript:toggleHint()" id="hint_link">Reveal the solution...</a>
+#### ** Solution **
 
 [embedded-code-final](./assets/2.3-finished-code.rs ':include :type=code embed-final')
+
+<!-- tabs:end -->
 
 ---
 **Learn More**
