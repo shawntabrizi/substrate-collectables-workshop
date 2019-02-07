@@ -1,6 +1,105 @@
+
+/* PARITY STYLING -- https://www.parity.io/assets/css/theme-parity.css?v=1c871864d6 */
+:root {
+    --theme-color: #FF1864;
+}
+
 /* Make the whole site have larger text*/
 body {
-    font-size: 1.25rem;
+    background-color: #282828;
+    font-size: 1em;
+    line-height: 1.85714286em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.sidebar {
+    background-color: #1b1b1b;
+    font-size: 1rem;
+}
+
+input[type="search"], 
+.markdown-section pre,
+.markdown-section pre > code {
+    background-color: #1b1b1b;
+}
+
+input[type="search"]:focus {
+    color: var(--theme-color);
+}
+
+.sidebar-toggle {
+    width: unset;
+}
+
+.sidebar-toggle span {
+    width: 24px;
+    height: 4px;
+}
+
+h1, h2, h3, h4, h5 {
+    font-family: 'ManifoldCF', 'Helvetica', 'Arial', sans-serif;
+    font-weight: 600;
+    font-variant-ligatures: common-ligatures;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+
+h1,
+.h1 {
+  font-size: 3.14285714em;
+  line-height: 1.31818182em;
+}
+h2,
+.h2 {
+  font-size: 2.35714286em;
+  line-height: 1.36363636em;
+}
+h3,
+.h3 {
+  font-size: 1.78571429em;
+  line-height: 1.5em;
+}
+h4,
+.h4 {
+  font-size: 1.35714286em;
+  line-height: 1.36842105em;
+}
+h5,
+.h5 {
+  font-size: 1em;
+  line-height: 1.85714286em;
+}
+h6,
+.h6 {
+  font-size: 0.85714286em;
+  line-height: 2.16666667em;
+}
+.lead {
+  font-size: 1.35714286em;
+  line-height: 1.68421053em;
+}
+@media all and (max-width: 767px) {
+  h1,
+  .h1 {
+    font-size: 2.35714286em;
+    line-height: 1.36363636em;
+  }
+  h2,
+  .h2 {
+    font-size: 1.78571429em;
+    line-height: 1.5em;
+  }
+  h3,
+  .h3 {
+    font-size: 1.35714286em;
+    line-height: 1.85714286em;
+  }
+  .lead {
+    font-size: 1.35714286em;
+    line-height: 1.36842105em;
+  }
 }
 
 /* CSS for editor div to make sure it uses the full height */
@@ -72,8 +171,4 @@ body {
 .markdown-section {
     max-width: 100%;
     padding: 0;
-}
-
-.sidebar {
-    font-size: 1rem;
 }
