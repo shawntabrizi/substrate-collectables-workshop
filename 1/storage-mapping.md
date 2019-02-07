@@ -9,7 +9,7 @@ To enable this, we will replace our simple single value storage with a storage m
 
 Before we jump into storage mappings, let's talk about some substrate specific types we will be using.
 
-Your default runtime template includes a bunch of modules which expose types which you would expect to get from a blockchain. You might even find yourself exposing new types to other parts of the runtime as you do more module development.
+Your default runtime template includes a bunch of modules that expose types that you would expect to get from a blockchain. You might even find yourself exposing new types to other parts of the runtime as you do more module development.
 
 In this tutorial we will only be using 3 substrate specific types:
 
@@ -17,7 +17,7 @@ In this tutorial we will only be using 3 substrate specific types:
  2. Balance
  3. Hash
 
-Our module does not natively have access to these types, but we can easily gain access by having our module's `Trait` inherent from the modules which defined these types. In this case the `balances` module has everything we need:
+Our module does not natively have access to these types, but we can easily gain access by having our module's `Trait` inherit from the modules that defined these types. In this case the `balances` module has everything we need:
 
 ```rust
 pub trait Trait: balances::Trait {}
