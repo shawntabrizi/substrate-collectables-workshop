@@ -77,7 +77,7 @@ error[E0502]: cannot borrow `s` as immutable because it is also borrowed as muta
 error[E0499]: cannot borrow `s` as mutable more than once at a time
 ```
 
-For example the following malicious code
+For example, the following code will not compile:
 
 ```rust
 fn main() {
@@ -89,8 +89,7 @@ fn main() {
 		      // This is broken since both are references to the same underlying string.
 }
 ```
-
-results in the following error message
+Borrowing error:
 
 ```
 error[E0502]: cannot borrow `s` as mutable because it is also borrowed as immutable
