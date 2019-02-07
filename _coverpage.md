@@ -9,4 +9,4 @@
 [GitHub](https://github.com/shawntabrizi/substrate-collectables-workshop)
 
 <!-- Overwrite Background Image with black -->
-![](base64:iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=)
+![color](#3a3a3a)

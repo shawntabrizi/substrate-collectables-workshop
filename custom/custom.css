@@ -16,6 +16,7 @@ body {
 .sidebar {
     background-color: #1b1b1b;
     font-size: 1rem;
+    width: 200px;
 }
 
 input[type="search"], 
@@ -166,12 +167,30 @@ h6,
 .content {
     padding-left: 10px;
     padding-top: 0px;
+    left: 200px;
 }
 
 .markdown-section {
     max-width: 100%;
     padding: 0;
 }
+
+/* Custom Styling for other parts of markdown */
+
+.markdown-section h1,
+.markdown-section h2,
+.markdown-section h3,
+.markdown-section h4,
+.markdown-section strong,
+.markdown-section blockquote {
+    color: #989898;
+}
+
+.markdown-section a {
+    font-weight: unset;
+}
+
+/* End custom markdown styling */
 
 /* Custom Styling For Code Blocks */
 
@@ -201,6 +220,10 @@ h6,
 
 .token.string {
     color: #cd917a;
+}
+
+.token.number {
+    color: #b6cda9;
 }
 
 /* End Custom Styling for Code Blocks */
