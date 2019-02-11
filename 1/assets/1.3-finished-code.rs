@@ -1,4 +1,4 @@
-use srml_support::{StorageValue, dispatch::Result};
+use srml_support::{decl_storage, decl_module, StorageValue, dispatch::Result};
 use system::ensure_signed;
 
 pub trait Trait: system::Trait {}

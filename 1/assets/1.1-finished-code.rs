@@ -1,3 +1,5 @@
+use srml_support::{decl_storage, decl_module};
+
 pub trait Trait: system::Trait {}
 
 decl_storage! {

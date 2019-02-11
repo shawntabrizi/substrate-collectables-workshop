@@ -1,5 +1,6 @@
 use parity_codec::Encode;
-use srml_support::{StorageValue, StorageMap, dispatch::Result};
+use srml_support::{decl_storage, decl_module, StorageValue, StorageMap,
+    dispatch::Result, ensure};
 use system::ensure_signed;
 use runtime_primitives::traits::{As, Hash};
 

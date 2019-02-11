@@ -1,4 +1,4 @@
-use srml_support::{StorageMap, dispatch::Result};
+use srml_support::{decl_storage, decl_module, StorageMap, dispatch::Result};
 use system::ensure_signed;
 
 
