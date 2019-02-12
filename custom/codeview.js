@@ -133,7 +133,6 @@ function loadDiffEditor(original_text, modified_text) {
         var originalModel = monaco.editor.createModel(original_text, "rust");
         var modifiedModel = monaco.editor.createModel(modified_text, "rust");
 
-
         window.monaco_editor.setModel({
             original: originalModel,
             modified: modifiedModel

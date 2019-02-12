@@ -71,7 +71,6 @@ You can then use this bond to power a `TransactButton`, where we will use the va
 
 Because the `TransactionButton` has a dependency on `this.account`, it won't be active until the `SignerBond` has a valid input. Once it does, you can easily submit a transaction on behalf of that user.
 
-
 ## Other Components
 
 We won't go deep into each component available through the Substrate UI. However, most of these components should be relatively easy to understand and reuse in your own sections.

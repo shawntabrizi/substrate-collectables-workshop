@@ -46,7 +46,6 @@ h1, h2, h3, h4, h5 {
     margin-bottom: 0;
 }
 
-
 h1,
 .h1 {
   font-size: 3.14285714em;
@@ -162,7 +161,6 @@ h6,
     }
 }
 /* End Responsive Layout */
-
 
 .content {
     padding-left: 10px;

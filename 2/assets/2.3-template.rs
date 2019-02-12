@@ -54,9 +54,6 @@ decl_module! {
             // ACTION: Create a `new_all_kitties_count` by doing a `checked_add()` to increment `all_kitties_count`
             //      REMINDER: Return an `Err()` if there is an overflow
 
-
-
-
             let nonce = <Nonce<T>>::get();
             let random_hash = (<system::Module<T>>::random_seed(), &sender, nonce)
                 .using_encoded(<T as system::Trait>::Hashing::hash);

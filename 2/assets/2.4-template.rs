@@ -56,10 +56,6 @@ decl_module! {
             // ACTION: Generate variables `owned_kitty_count` and `new_owned_kitty_count`
             //         similar to `all_kitties_count` below
 
-
-
-
-
             let all_kitties_count = Self::all_kitties_count();
 
             let new_all_kitties_count = all_kitties_count.checked_add(1)
@@ -87,8 +83,6 @@ decl_module! {
 
             // ACTION: Update this to maintain the state of our new storage items
             <OwnedKitty<T>>::insert(&sender, random_hash);
-
-
 
             <Nonce<T>>::mutate(|n| *n += 1);
 

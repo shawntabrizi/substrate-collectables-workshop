@@ -1,6 +1,5 @@
 use support::{decl_storage, decl_module, StorageValue};
 
-
 pub trait Trait: system::Trait {}
 
 decl_storage! {

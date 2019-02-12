@@ -60,7 +60,6 @@ Since we won't have you build this component, we will show you some of the worki
 
 ![An image of the kitty cards in the UI](./assets/kitty-cards.png)
 
-
 ### Dynamic Card Loading
 
 Let's quickly walk through the parts of `/KittyCards/index.jsx` to show how we are able to dynamically load new cards when kitties are added to the system.

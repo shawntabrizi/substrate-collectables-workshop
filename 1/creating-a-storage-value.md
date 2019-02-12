@@ -89,5 +89,3 @@ Make sure to import any required libraries required by the compiler. Your code s
 [embedded-code-final](./assets/1.2-finished-code.rs ':include :type=code embed-final')
 
 <!-- tabs:end -->
-
-

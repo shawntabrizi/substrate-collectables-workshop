@@ -57,7 +57,6 @@ Then select a user who has called the `createKitty()` function. You should then 
 
 ![Image of viewing a kitty object in the Polkadot UI](./assets/view-kitty.png)
 
-
 ---
 **Learn More**
 
