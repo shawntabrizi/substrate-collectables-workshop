@@ -30,7 +30,7 @@ We provide you with the gene splicing algorithm in your template, but feel free 
 
 ## Chain Upgrade (Optional)
 
-One of the cool features of Substrate is the ability to do forkless, real-time chain upgrades which introduce new features and functionality to your blockchain.
+One of the cool features of Substrate is the ability to do forkless, real-time chain upgrades which introduce new features and functionality to your blockchain without breaking existing nodes.
 
 Rather than purging your chain and rebuilding the native binaries to introduce the `breed_kitty()` function, we will show you how you can use just the Wasm runtime to upgrade your chain.
 
@@ -43,10 +43,29 @@ Keep your node running from the previous section, and in a new terminal run just
 This will generate a new compact Wasm binary in the following path:
 
 ```
-./runtime/wasm/target/wasm32-unknown-unknown/release/substratekitties_runtime.compact.wasm
+./runtime/wasm/target/wasm32-unknown-unknown/release/node_template_runtime_wasm.compact.wasm
 ```
 
-[TODO: finish upgrade]
+We can now use this file in the Polkadot UI to upgrade your chain. Go to the **Extrinsics** section of the Polkadot UI, and select:
+
+```
+submit the following extrinsic: sudo > sudo(proposal)
+    proposal: Proposal (extrinsic): consensus > setCode(new)
+```
+
+![Image of the runtime extrinsic](./assets/runtime-upgrade-extrinsic.png)
+
+Then use the `compact.wasm` file as the input into this call. Make sure to call this function as **Alice** who was set in the genesis configuration to be the 'admin' allowed to make `Sudo` calls.
+
+After you press **Submit Transaction** and a block is created, you should see a `Sudid` event appear showing that the contract upgrade was successful!
+
+![Image of the Sudid event](./assets/sudid-event.png)
+
+Finally, if we refresh the page and look at the extrinsics available in our Substratekitties module, we will find the `breedKitty()` function now appearing.
+
+![Image of the breed kitty function](./assets/breed-kitty-function.png)
+
+If you had any saved state before the upgrade (for example Kitties, balances, etc...), you will see that this state is preserved after the Runtime upgrade. At this point, your blockchain is running the Wasm version of the runtime through the Wasm interpreter provided by Substrate. This runtime lives on the blockchain, which means that it gets synced to all nodes running your chain, and thus keeps your network in sync with each other. Running Wasm in an interpreter is slower than running native code, so you can always do a full node upgrade by building a new executable with `cargo build --release` and restarting your node.
 
 ## Your Turn!
 
