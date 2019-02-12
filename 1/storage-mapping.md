@@ -40,7 +40,7 @@ decl_storage! {
 
 You can see that mappings can be pretty useful when you want to represent "owned" data. Since we can create a mapping from a user (`AccountId`) to some value such as with `MyValue`, we can keep in storage information about that user. We can even build logic in our runtime which manages who is allowed to modify those values, a common pattern we will be using throughout this tutorial.
 
-To use a storage map, you will need to import the `srml_support::StorageMap` type.
+To use a storage map, you will need to import the `support::StorageMap` type.
 
 ### Working with a StorageMap
 

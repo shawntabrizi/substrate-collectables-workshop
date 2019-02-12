@@ -1,4 +1,4 @@
-use srml_support::{decl_storage, decl_module, StorageMap, dispatch::Result};
+use support::{decl_storage, decl_module, StorageMap, dispatch::Result};
 use system::ensure_signed;
 use runtime_primitives::traits::As;
 // ACTION: Continue to add required libraries here

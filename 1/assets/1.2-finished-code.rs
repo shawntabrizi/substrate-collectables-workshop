@@ -1,4 +1,4 @@
-use srml_support::{decl_storage, decl_module, StorageValue};
+use support::{decl_storage, decl_module, StorageValue};
 
 
 pub trait Trait: system::Trait {}

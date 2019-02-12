@@ -1,5 +1,5 @@
 use parity_codec::Encode;
-use srml_support::{decl_storage, decl_module, StorageValue, StorageMap,
+use support::{decl_storage, decl_module, StorageValue, StorageMap,
     dispatch::Result, ensure, decl_event};
 use system::ensure_signed;
 // ACTION: Import the Zero trait

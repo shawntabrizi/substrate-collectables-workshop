@@ -1,4 +1,4 @@
-use srml_support::{decl_storage, decl_module, StorageValue, dispatch::Result};
+use support::{decl_storage, decl_module, StorageValue, dispatch::Result};
 // ACTION: Import any required libraries here
 
 pub trait Trait: system::Trait {}

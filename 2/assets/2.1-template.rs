@@ -1,4 +1,4 @@
-use srml_support::{decl_storage, decl_module, StorageValue, StorageMap, dispatch::Result};
+use support::{decl_storage, decl_module, StorageValue, StorageMap, dispatch::Result};
 use system::ensure_signed;
 use runtime_primitives::traits::{As, Hash};
 

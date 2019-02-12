@@ -44,7 +44,7 @@ Refer to definition of [Origin](https://substrate.readme.io/docs/glossary#sectio
 
 ### Result
 
-Additionally, these functions must return the `Result` type from the `srml_support::dispatch` module. This means that a successful function call will always return `Ok(())`, otherwise, the logic should catch any errors which may cause a problem and return an `Err()`.
+Additionally, these functions must return the `Result` type from the `support::dispatch` module. This means that a successful function call will always return `Ok(())`, otherwise, the logic should catch any errors which may cause a problem and return an `Err()`.
 
 Since these are dispatched functions, there are two extremely important things to remember:
 
