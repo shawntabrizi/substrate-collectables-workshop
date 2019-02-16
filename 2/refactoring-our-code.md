@@ -24,9 +24,9 @@ decl_module! {
     pub struct Module<T: Trait> for enum Call where origin: T::Origin {
         fn adder_to_storage(origin, num1: u32, num2: u32) -> Result {
             let _sender = ensure_signed(origin)?;
-            let result = _adder(num1, num2);
+            let result = Self::_adder(num1, num2);
 
-            _store_value(result)?;
+            Self::_store_value(result)?;
 
             Ok(())
         }
