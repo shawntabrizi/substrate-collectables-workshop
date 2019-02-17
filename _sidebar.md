@@ -38,6 +38,7 @@
     - [Buying a Kitty](3/buying-a-kitty.md)
     - [Breeding a Kitty](3/breeding-a-kitty.md)
     - [Playing our Game](3/playing-our-game.md)
+    - [Auction a Kitty](3/auction-a-kitty.md)
 
 - **#4 Web-UI**
 
