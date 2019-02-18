@@ -29,7 +29,7 @@ So let's try to make a call to create a new kitty. To do that, we can make a `po
 
 ```javascript
 post({
-    sender: "5GoKvZWG5ZPYL1WUovuHW3zJBWBP5eT8CbqjdRY4Q6iMaDtZ",
+    sender: '5GoKvZWG5ZPYL1WUovuHW3zJBWBP5eT8CbqjdRY4Q6iMaDtZ',
     call: calls.substratekitties.createKitty()
 }).tie(console.log)
 ```
@@ -48,7 +48,7 @@ Now that we know how to make a call to our runtime, we will want to integrate th
 
 If you look at the code for the other sections on the page, you will find examples of how to integrate these parts.
 
-The `SignerBond` creates an input field where a person can write the name of the account they want to sign some message. This account gets placed inside of a `bond`.
+The `SignerBond` creates an input field where a person can write the name of the account they want to sign some message with. This account gets placed inside of a `bond`.
 
 ```javascript
 this.account = new Bond;
@@ -60,7 +60,7 @@ You can then use this bond to power a `TransactButton`, where we will use the va
 
 ```javascript
 <TransactButton
-    content="Submit Transaction"
+    content='Submit Transaction'
     icon='send'
     tx={{
         sender: runtime.indices.tryIndex(this.account),

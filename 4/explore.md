@@ -71,9 +71,9 @@ You can see that this example runtime has 8 kitties, all of which you can access
 
 We can start off simple and try to update the Substrate UI to include a live kitty count on the page.
 
-The variables we showed above are Bonds, which means their values will update automatically as changes to your blockchain happen. However, that also means that you need to work with these variables a little differently than normal (note that we used promises in the example above).
+The variables we showed above are Bonds, which means their values will update automatically as changes to your blockchain happen. However, that also means that you need to work with these variables a little differently than normal (note that we used JavaScript Promises in the example above).
 
-Fortunately, for our example, we will use some of the components already built for us. In this case we will use an aptly-named component called `Pretty` which turns most any bond into a readable string. You can see it being used on other parts of the page.
+Fortunately, for our example, we will use some of the components already built for us. In this case we will use an aptly-named component called `Pretty` which turns almost any bond into a readable string. You can see it being used on other parts of the page.
 
 In our example blockchain:
 

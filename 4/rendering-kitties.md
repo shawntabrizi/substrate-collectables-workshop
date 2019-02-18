@@ -5,7 +5,7 @@ If you made it this far, then you have truly earned what we are about to do in t
 
 ## Adding Our Custom `KittyCard` Component
 
-We have built a custom React component for showing kitties. It is not so complicated, but for the purposes of this workshop, we will not have you build it. You can download the component as a `.zip` [here](./assets/KittyCards.zip).
+We have built a custom React component for showing kitties. It is not so complicated, but for the purposes of this workshop, we will not have you build it. You can download the component as a `.zip` [here](https://github.com/shawntabrizi/substrate-collectables-workshop/raw/master/4/assets/KittyCards.zip).
 
 To add it, you must place the `KittyCards` folder in your `src` folder:
 
@@ -26,18 +26,18 @@ substratekitties-ui
 Then, inside the main `app.jsx` file you need to import this component:
 
 ```javascript
-import {KittyCards} from './KittyCards';
+import { KittyCards } from './KittyCards';
 ```
 
 This will give you access to the `<KittyCards>` component:
 
 ```
-<KittyCards count={runtime.substratekitties.allKittiesCount}/>
+<KittyCards count={runtime.substratekitties.allKittiesCount} />
 ```
 
 ### Add the `Kitty` Type
 
-Before this component will work, we need to add tell the Substrate UI about our custom `Kitty` type. We can do that with the `addCodecTransform()` function made available to us by the oo7 JavaScript.
+Before this component will work, we need to tell the Substrate UI about our custom `Kitty` type. We can do that with the `addCodecTransform()` function made available to us by the oo7 JavaScript library.
 
 In the case of our kitty object, it would look like this:
 
@@ -52,7 +52,7 @@ addCodecTransform('Kitty<Hash,Balance>', {
 
 We can add this to our application's `constructor()` function to ensure it gets loaded at the start. After this, we can interact with the attributes of the `Kitty` object like we could any other JSON object.
 
-> Note: The codec transform uses a key/value pair to look up the object structure that should be used for deserialization. As a result, it is important that your "object name" matches exactly what is expected. In this situation, note there are no spaces in the object name. If the Substrate UI cannot find the right key for a custom object, it will give you an error in your browser console with the exact object name it is expecting.
+> Note: The codec transform uses a key/value pair to look up the object structure that should be used for deserialization. As a result, it is important that your "object name" matches exactly what is expected. In this situation, note there are no spaces in the object name `Kitty<Hash,Balance>`. If the Substrate UI cannot find the right key for a custom object, it will give you an error in your browser console with the exact object name it is expecting.
 
 ## Peek Inside Our Custom Component
 
@@ -64,10 +64,10 @@ Since we won't have you build this component, we will show you some of the worki
 
 Let's quickly walk through the parts of `/KittyCards/index.jsx` to show how we are able to dynamically load new cards when kitties are added to the system.
 
-We call the `KittyCard` component from our  UI with:
+We call the `KittyCard` component from our UI with:
 
 ```
-<KittyCards count={runtime.substratekitties.allKittiesCount}/>
+<KittyCards count={runtime.substratekitties.allKittiesCount} />
 ```
 
 This component is tied to the `allKittiesCount` bond, that will automatically update as the state of our blockchain changes.
@@ -77,6 +77,7 @@ When `allKittiesCount` changes, the `readyRender()` part of our `KittyCards` com
 ```javascript
     readyRender() {
         let kitties = [];
+
         for (var i=0; i < this.state.count; i++){
             kitties.push(
                 <div className="column" key={i}>
@@ -86,24 +87,31 @@ When `allKittiesCount` changes, the `readyRender()` part of our `KittyCards` com
         }
 ```
 
-This then send the kitty id `Hash` to the `KittyWrap` component which does a simple lookup for the `owner` and the `Kitty` object. If the `hash` sent to `KittyWrap` doesn't change between loops, then React will simply skip the re-rendering process.
+This then sends the kitty id `Hash` to the `KittyWrap` component which does a simple lookup for the `owner` and the `Kitty` object. If the `hash` sent to `KittyWrap` doesn't change between loops, then React will simply skip the re-rendering process.
 
 ```javascript
 class KittyWrap extends ReactiveComponent {
     constructor(props) {
-        super(['hash'])
+        super(['hash']);
     }
 
     readyRender() {
-        return <KittyCard
-            kitty={runtime.substratekitties.kitties(this.state.hash)}
-            owner={runtime.substratekitties.kittyOwner(this.state.hash)}
-        />
+        const { hash } = this.state; // Object destructuring assignment syntax
+
+        return (
+            <KittyCard
+                kitty={runtime.substratekitties.kitties(hash)}
+                owner={runtime.substratekitties.kittyOwner(hash)}
+            />
+        );
     }
 }
 ```
 
 Finally, `KittyWrap` calls `KittyCard` which actually produces the contents of each card.
+
+Note that we have used JavaScript [Object Destructuring Assignment Syntax](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#Object_destructuring) to unpack the `hash` property from
+`this.state` since we are reusing the value multiple times (rather than repeatedly having to write `this.state.hash`).
 
 ### Card Contents
 
@@ -119,15 +127,31 @@ Our `KittyCard` component takes the `Kitty` object passed from `KittyWrap`, as w
 <Card>
     <KittyAvatar dna={kitty.dna} />
     <Card.Content>
-        <Card.Header><Pretty value={kitty.id} className="limit-name" /></Card.Header>
+        <Card.Header>
+            <Pretty
+                value={kitty.id}
+                className='limit-name'
+            />
+        </Card.Header>
         <Card.Meta>
-            <Pretty value={kitty.dna} className="limit-dna" />
+            <Pretty
+                value={kitty.dna}
+                className='limit-dna'
+            />
         </Card.Meta>
         <Rspan>
-            <b>Owner</b>: {secretStore().find(this.state.owner).name}
+            <b>Owner</b>: {
+                secretStore()
+                    .find(this.state.owner)
+                    .name
+            }
         </Rspan>
         &nbsp;
-        <Identicon key={this.state.owner} account={this.state.owner} size={16}/>
+        <Identicon
+            key={this.state.owner}
+            account={this.state.owner}
+            size={16}
+        />
         <br />
         <Rspan>
             <b>Generation</b>: {kitty.gen}
@@ -135,7 +159,10 @@ Our `KittyCard` component takes the `Kitty` object passed from `KittyWrap`, as w
         <br />
     </Card.Content>
     <Card.Content extra>
-        <Pretty value={kitty.price} prefix="$" />
+        <Pretty
+            value={kitty.price}
+            prefix='$'
+        />
     </Card.Content>
 </Card>;
 ```
@@ -152,9 +179,7 @@ The core function in the component is `dnaToAttributes()`:
 
 ```
 function dnaToAttributes(dna) {
-    let attribute = (index, options) => {
-        return dna[index] % options
-    };
+    let attribute = (index, options) => dna[index] % options;
 
     return {
         body: IMAGES.body[attribute(0, 15)],
@@ -162,7 +187,7 @@ function dnaToAttributes(dna) {
         accessory: IMAGES.accessories[attribute(2, 20)],
         fur: IMAGES.fur[attribute(3, 10)],
         mouth: IMAGES.mouth[attribute(4, 10)]
-    }
+    };
 } 
 ```
 
