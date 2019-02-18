@@ -64,7 +64,7 @@ Doing that is relatively simple, you just need to provide the values that go alo
 let my_value = 1337;
 let my_balance = <T::Balance as As<u64>>::sa(1337);
 
-Self::deposit_event(RawEvent::MyEvent(my_value, my_balance);
+Self::deposit_event(RawEvent::MyEvent(my_value, my_balance));
 ```
 
 ## Updating `lib.rs` to Include Events
