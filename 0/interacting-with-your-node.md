@@ -35,4 +35,4 @@ Here you can see just how quickly we set up, ran, and interacted with our own lo
 
 The [Substrate UI](https://github.com/paritytech/substrate-ui) that has been built using the [oo7-substrate library](https://github.com/paritytech/oo7/tree/master/packages/oo7-substrate) is an alternative front-end interface to the [Polkadot-JS Apps UI](https://github.com/polkadot-js/apps) for interacting with your Substrate chain.
 
-When building your own UI, remember to refer to the [Polkadot-JS API Documentation](https://polkadot.js.org/api/) and the [oo7 API Documentation](https://tomusdrw.github.io/oo7/).
+When building your own UI, remember to refer to the [Polkadot-JS API Documentation](https://polkadot.js.org/api/) and the [oo7 API Documentation](https://paritytech.github.io/oo7/).

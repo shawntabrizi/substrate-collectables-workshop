@@ -9,4 +9,4 @@ Since this course is primarily about runtime development, what you will learn in
 
 We will be using a React template called the [Substrate UI](https://github.com/paritytech/substrate-ui) which is built using the [oo7-substrate library](https://github.com/paritytech/oo7/tree/master/packages/oo7-substrate). It is an alternative front-end interface to the [Polkadot-JS Apps UI](https://github.com/polkadot-js/apps) for interacting with your Substrate chain.
 
-When building your own UI, remember to refer to the [Polkadot-JS API Documentation](https://polkadot.js.org/api/) and the [oo7 API Documentation](https://tomusdrw.github.io/oo7/).
+When building your own UI, remember to refer to the [Polkadot-JS API Documentation](https://polkadot.js.org/api/) and the [oo7 API Documentation](https://paritytech.github.io/oo7/).
