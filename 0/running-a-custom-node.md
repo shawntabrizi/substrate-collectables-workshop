@@ -22,6 +22,8 @@ If you are successful, you should see blocks being produced.
 
 ![An image of the node producing new blocks](./assets/building-blocks.png)
 
+> As mentioned earlier in the workshop, Substrate is rapidly evolving, and may introduce some breaking changes. If you find that your node is not running correctly, you can try to clone [this repository](https://github.com/shawntabrizi/substrate-package) which should have a stable, known working version of substrate set up with the correct dependencies.
+
 ---
 **Learn More**
 
