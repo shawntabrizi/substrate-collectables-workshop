@@ -93,9 +93,13 @@ Once you complete your auction functionality, you should run the following manua
 
 - Create an auction for a kitty.
 
-- Bid for this auction with other accounts.
+- Create bids for this auction from other accounts.
 
-- Check if the auction is resolved when its expiration block number is reached.
+- [x] Check if bidder's bid amount is reserved and the bid is recorded in Bids. Also check if the reserved balance is increased correctly as the same bidder increases the bid (the reserve balabce should be equal to the latest bid amount of the account)
+
+- [ ] Check if the auctioned kitty is sold to the high bidder for the high bid when the auction is finalized (high bidder should be the new owner, and the previous owner and bidder balances should be updated).
+
+- [ ] Check if the losing bidders' reserved balances are freed.
 
 > REMINDER: Remember to reset your chain so that you start of fresh when interacting with the UI.
 

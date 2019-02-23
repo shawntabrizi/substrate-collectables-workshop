@@ -39,6 +39,9 @@ decl_event!(
         PriceSet(AccountId, Hash, Balance),
         Transferred(AccountId, AccountId, Hash),
         Bought(AccountId, AccountId, Hash, Balance),
+        // ACTION: Add an event for AuctionCreated
+        // ACTION: Add an event for AuctionFinalized
+        // ACTION: Add an event for Bid
     }
 );
 
@@ -59,8 +62,12 @@ decl_storage! {
                 // We will retrieve this mapping by kitty_id
         // ACTION: Add an item to store list of Auctions
                 // We will retrieve this mapping by block number
-        // ACTION: Add a config item to store AuctionDurationLimit
-                // We will use this config to limit long auction expiration periods
+        // ACTION: Add a config item to store AuctionPeriodLimit as a BlockNumber
+                // We will use this for limiting long auction expiration periods
+        // ACTION: Add an item to store Bids
+                // We will use this to track which account bids how much for which kitty auction
+        // ACTION: Add an item to store BidAccounts
+                //  We will use this to track all the accounts that bid for a given kitty auction
 
         Nonce: u64;
     }
@@ -181,7 +188,7 @@ decl_module! {
             Ok(())
         }
 
-        fn create_auction(origin, kitty_id: T::Hash, min_bid: T::Balance, expiry_in_minutes: u64) -> Result {
+        fn create_auction(origin, kitty_id: T::Hash, min_bid: T::Balance, expiry: T::BlockNumber) -> Result {
             let sender = ensure_signed(origin)?;
 
             ensure!(<Kitties<T>>::exists(kitty_id), "This cat does not exist");
@@ -189,7 +196,7 @@ decl_module! {
             let owner = Self::owner_of(kitty_id).ok_or("No owner for this kitty")?;
             ensure!(owner == sender, "You can't set an auction for a cat you don't own");
 
-            // ACTION: convert the expiry_in_minutes into a block_number
+            // ACTION: make sure the expiry value is not lower than current block number
 
             // ACTION: make sure the expiry does not exceed the auction duration limit
 
@@ -198,7 +205,7 @@ decl_module! {
 
             // ACTION: Store your `new_auction` into the runtime storage <KittyAuction> and <Auctions>
 
-            // ACTION: add an event for Auction
+            // ACTION: deposit the event AuctionCreated
 
             Ok (())
         }
@@ -215,31 +222,64 @@ decl_module! {
 
             // ACTION: ensure the existing auction is not expired
 
-            // ACTION: ensure the bid is greater than the minimum bid
-
             // ACTION: ensure the bid greater than the highest bid
 
-            // ACTION: set the new new high_bid and high_bidder
+            // ACTION: ensure the bidder has enough free balance for this bid
 
-            // ACTION: insert the updated auction into <KittyAuction> and <Auctions>
+            // ACTION: set the new high_bid and high_bidder values
 
-            // ACTION: add an event for Bid
+            // ACTION: insert the updated auction into <KittyAuction>
+
+            // ACTION: mutate <Auctions> list with the updated auction high_bid and high_bidder values
+
+            // ACTION: add the sender's bid to the <Bids> list,
+                    // if this account has no existing bids
+                        // reserve the full bid amount
+                    // else
+                        // reserve only the difference (bid amount - escrow amunt)
+                    // update <Bids>
+                    // update <BidAccounts> list with the new sender
+
+            // ACTION: deposit the event Bid
 
             Ok (())
         }
 
         fn on_finalise() {
-            // ACTION: get auctions that will expire at the current block number
+            // ACTION: get auctions that expire at the current block number
 
             for auction in &auctions {
-                // ACTION: make sure bidder is not equal to kitty owner (if it is equal, this means no bidders)
+                // before writing to storage we check kitty owner, high bidder, and
+                // make sure the bidder is not the kitty owner (if they are equal, it means no bidders)
+                let owned_kitty_count_from = Self::owned_kitty_count(&auction.kitty_owner);
+                let owned_kitty_count_to = Self::owned_kitty_count(&auction.high_bidder);
+                if owned_kitty_count_to.checked_add(1).is_some() &&
+                   owned_kitty_count_from.checked_sub(1).is_some() &&
+                   auction.kitty_owner != auction.high_bidder
+                {
+                    // ACTION: Remove current auction from <KittyAuction>
 
-                    // ACTION: transfer kitty from the owner the high bidder
+                    // ACTION: unreserve the bidder's reserved balance
 
                     // ACTION: pay the bid price from high bidder to kitty owner
 
-                // ACTION: clean up the storgae, remove the auction from <KittyAuction> and <Auctions>
+                    // ACTION: if balance transfer is successful,
+                            // then transfer kitty from the owner the high bidder
 
+                    // ACTION: if the kitty transfer is succesful, deposit AuctionFinalized event
+                }
+            }
+            for auction in &auctions {
+                // ACTION: clean up the storgae, remove the auction from <Auctions>
+
+                // ACTION: get all the bid accounts for this auction
+
+                // ACTION: for each account,
+                    // unreserve the balance
+                    // deposit Unreserved event
+                    // remove from <Bids>
+
+                // ACTION: finally remove the kitty_id from the BidAccounts
             }
         }
     }
@@ -279,6 +319,8 @@ impl<T: Trait> Module<T> {
         let owner = Self::owner_of(kitty_id).ok_or("No owner for this kitty")?;
 
         ensure!(owner == from, "'from' account does not own this kitty");
+
+        // ACTION: enssure sure this kitty does not have an open auction in <KittyAuction>
 
         let owned_kitty_count_from = Self::owned_kitty_count(&from);
         let owned_kitty_count_to = Self::owned_kitty_count(&to);
