@@ -6,7 +6,6 @@ Let's introduce an auction system for kitty owners who do not want to simply set
 We will implement an [English auction](https://en.wikipedia.org/wiki/Auction#Types), where new bids increase the price until the auction ends at a fixed time, and the account who bid the highest price wins the auction.
 
 First, the owner of a kitty will create an auction with 3 parameters:
-
 1. The kitty id
 2. The minimum bid (the base price for the kitty)
 3. An expiration time (as a block number)
@@ -15,19 +14,11 @@ Second, the accounts who want this kitty will bid with 2 parameters:
 1. The kitty id
 2. The price they want to bid for that kitty
 
-Finally, we will check if the auction expiration time is reached and finalize the auction by transferring the kitty to the highest bidder and paying from bidder to the kitty owner. The auction will close after the expiration time has passed even when no one has placed a bid.
+The highest bidder will win when the auction ends, that is when our chain's current block number reaches the auction expiration time in blocks. We will finalize the auction by paying from bidder to the kitty owner, and transferring the kitty to the highest bidder. We will clean up all the bids and the auction from the storage.
 
 ## Create an Auction
 
-We learned how to create a  kitty struct for our runtime earlier. This time we will create another one for an auction. In addition to other types we used earlier, the `Auction` struct will use a new substrate specific type `BlockNumber`, which will help us trigger finalizing the auction when the blockchain reaches the expiration block number.
-
-You can get the current block height from the SRML system module:
-
-```rust
-let current_block_number = <system::Module<T>>::block_number();
-```
-
-[TODO: Maybe give block number its own small section]
+We learned how to create a kitty struct for our runtime earlier. This time we will create another one for an auction. In addition to other types we used earlier, the `Auction` struct will use a new substrate specific type `BlockNumber`, which will help us trigger finalizing the auction when the blockchain reaches the expiration block number.
 
 An `Auction` struct should have the following properties:
 - `kitty_id`: `Hash`
@@ -39,10 +30,18 @@ An `Auction` struct should have the following properties:
 
 After adding the `Auction` struct, create a storage item for the auction so that it can be retrieved by a `kitty_id`. Notice there may be many kitties each with an open auction that expires at the same block height. So you should store a list of auctions which have the same `expiry` value as a block number. This will also help optimize the finalization of auctions later.
 
-Finally, we don't want infinitely long auctions to overflow our storage, so we should add a variable to limit long auction expiration periods. You can set this variable as a `BlockNumber`. Assuming a block is produced every 5 seconds and you want 24 hours as your limit, you can set it as (24 hours/day * 60 minutes/hour * 60 seconds/min) / 5 seconds/block = 17280 blocks per day.
+### Blocknumber
+
+Finally, we don't want infinitely long auctions to overflow our storage, so we should add a variable to limit long auction expiration periods. You can set this limit variable as a `BlockNumber`. Assuming a block is produced every 5 seconds and you want 24 hours as your limit, you can set it as (24 hours/day * 60 minutes/hour * 60 seconds/min) / 5 seconds/block = 17280 blocks per day.
 
 ```rust
 let a_future_block_number = T::BlockNumber::sa(17280);
+```
+
+Later, we will check this limit against the current block height from the SRML system module:
+
+```rust
+let current_block_number = <system::Module<T>>::block_number();
 ```
 
 Now that we created our storage items for auction, we can implement the `create_auction()` method in our module. Aside from the sender signature and kitty ownership checks, we want to check if the new auction's duration is within the limit we configured. The owner of the kitty will set the auction expiry in minutes, so you need to convert this input into block number, like the way we did above.
@@ -55,11 +54,11 @@ Finally, we will add this new auction to our storage.
 
 Now, we want people to bid prices for our kitty auction. We will add a `bid_auction()` method for handling bids. We want to ensure that:
 
-* the cat has an existing auction
-* the bid is greater than minimum required bid
+* the cat has an existing auction and it is not expired
 * the bid is greater than the existing high bid
+* the bidder has enough free balance for this bid
 
-Then we can store this bid as the new high bid for this kitty.
+Then, we can store this bid as the new high bid for this kitty.
 
 If this incoming bid is higher than the existing high bid, we can set its respective values as the new `high_bid` and `high_bidder`. To complete this function, we should insert these new values into our storage mappings. Follow the template for implementing these steps.
 
@@ -75,9 +74,13 @@ let auctions = Self::auctions_expire_at(<system::Module<T>>::block_number());
 
 We will go through each auction and resolve it:
 
-1. We transfer the kitty from its `owner` to the winning `high_bidder`
-2. Then we pay the final bid price from the bidder to the owner
-3. Finally, we should cleanup the storage by removing the resolved auction from `<KittyAuction>` and `<Auctions>`.
+1. Before writing to storage we check kitty owner, high bidder, and make sure the bidder is not the kitty owner (if they are equal, it means no bidders).
+2. The winning bidder's reserved balance will be freed using the `unreserve` function.
+3. We pay the final bid price from the bidder to the kitty owner.
+4. We transfer the kitty from its `owner` to the winning `high_bidder`.
+5. Finally, we cleanup the storage by removing the resolved auction and its bids from `<Bids>`, `<BidAccounts>`, `<KittyAuction>`, and `<Auctions>`.
+
+We also add a check to `_transfer_from` function for disabling any sales of the kitty while there is an open auction.
 
 ## Your Turn!
 
@@ -95,11 +98,11 @@ Once you complete your auction functionality, you should run the following manua
 
 - Create bids for this auction from other accounts.
 
-- [x] Check if bidder's bid amount is reserved and the bid is recorded in Bids. Also check if the reserved balance is increased correctly as the same bidder increases the bid (the reserve balabce should be equal to the latest bid amount of the account)
+- Check if bidder's bid amount is reserved and the bid is recorded in Bids. Also check if the reserved balance is increased correctly as the same bidder increases the bid (the reserve balance should be equal to the latest bid amount of the account)
 
-- [ ] Check if the auctioned kitty is sold to the high bidder for the high bid when the auction is finalized (high bidder should be the new owner, and the previous owner and bidder balances should be updated).
+- Check if the auctioned kitty is sold to the high bidder for the high bid when the auction is finalized (high bidder should be the new owner, and the previous owner and bidder balances should be updated).
 
-- [ ] Check if the losing bidders' reserved balances are freed.
+- Check if the losing bidders' reserved balances are freed.
 
 > REMINDER: Remember to reset your chain so that you start of fresh when interacting with the UI.
 
