@@ -39,7 +39,8 @@ decl_event!(
         PriceSet(AccountId, Hash, Balance),
         Transferred(AccountId, AccountId, Hash),
         Bought(AccountId, AccountId, Hash, Balance),
-        Auction(Hash, Balance, BlockNumber), // kitty_id, min_bid, expiry
+        AuctionCreated(Hash, Balance, BlockNumber), // kitty_id, min_bid, expiry
+        AuctionFinalized(Hash, Balance, BlockNumber), // kitty_id, high_bid, expiry
         Bid(Hash, Balance, AccountId), // kitty_id, high_bid, bidder
     }
 );
@@ -59,7 +60,9 @@ decl_storage! {
 
         KittyAuction get(auction_of): map T::Hash => Option<Auction<T::Hash, T::Balance, T::BlockNumber, T::AccountId>>;
         Auctions get(auctions_expire_at): map T::BlockNumber => Vec<(Auction<T::Hash, T::Balance, T::BlockNumber, T::AccountId>)>;
-        AuctionDurationLimit get(auction_duration_limit) config(): T::BlockNumber = T::BlockNumber::sa(17280);
+        AuctionPeriodLimit get(auction_period_limit) config(): T::BlockNumber = T::BlockNumber::sa(17280);
+        Bids get(bid_of): map (T::Hash, T::AccountId) => T::Balance;
+        BidAccounts get(bid_accounts): map T::Hash => Vec<T::AccountId>;
 
         Nonce: u64;
     }
@@ -180,7 +183,7 @@ decl_module! {
             Ok(())
         }
 
-        fn create_auction(origin, kitty_id: T::Hash, min_bid: T::Balance, expiry_in_minutes: u64) -> Result {
+        fn create_auction(origin, kitty_id: T::Hash, min_bid: T::Balance, expiry: T::BlockNumber) -> Result {
             let sender = ensure_signed(origin)?;
 
             ensure!(<Kitties<T>>::exists(kitty_id), "This cat does not exist");
@@ -188,8 +191,8 @@ decl_module! {
             let owner = Self::owner_of(kitty_id).ok_or("No owner for this kitty")?;
             ensure!(owner == sender, "You can't set an auction for a cat you don't own");
 
-            let expiry = <system::Module<T>>::block_number() + T::BlockNumber::sa(expiry_in_minutes*12);
-            ensure!(expiry <= <system::Module<T>>::block_number() + Self::auction_duration_limit(), "The auction duration should be less than 5 days");
+            ensure!(expiry > <system::Module<T>>::block_number(), "The expiry has to be greater than the current block number");
+            ensure!(expiry <= <system::Module<T>>::block_number() + Self::auction_period_limit(), "The expiry has be lower than the limit block number");
 
             let new_auction = Auction {
                 kitty_id,
@@ -201,9 +204,9 @@ decl_module! {
             };
 
             <KittyAuction<T>>::insert(kitty_id, &new_auction);
-            <Auctions<T>>::insert(expiry, vec![new_auction.clone()]);
+            <Auctions<T>>::mutate(expiry, |auctions| auctions.push(new_auction.clone()));
 
-            Self::deposit_event(RawEvent::Auction(kitty_id, min_bid, expiry));
+            Self::deposit_event(RawEvent::AuctionCreated(kitty_id, min_bid, expiry));
 
             Ok (())
         }
@@ -219,14 +222,30 @@ decl_module! {
             let mut auction = Self::auction_of(kitty_id).ok_or("No auction for this cat")?;
             ensure!(<system::Module<T>>::block_number() < auction.expiry, "This auction is expired.");
 
-            ensure!(bid > auction.min_bid, "Your bid has to be greater than the minimum bid.");
-
             ensure!(bid > auction.high_bid, "Your bid has to be greater than the highest bid.");
+
+            ensure!(<balances::Module<T>>::free_balance(sender.clone()) >= bid, "You don't have enough free balance for this bid");
 
             auction.high_bid = bid;
             auction.high_bidder = sender.clone();
+
             <KittyAuction<T>>::insert(kitty_id, &auction);
-            <Auctions<T>>::insert(auction.expiry, vec![auction.clone()]);
+            <Auctions<T>>::mutate(auction.expiry, |auctions| {
+                for stored_auction in auctions {
+                    if stored_auction.kitty_id == kitty_id {
+                        *stored_auction = auction.clone();
+                    }
+                }
+            });
+
+            if <Bids<T>>::exists((kitty_id, sender.clone())) {
+                let escrow_balance = Self::bid_of((kitty_id, sender.clone()));
+                <balances::Module<T>>::reserve(&sender, bid - escrow_balance)?;
+            } else {
+                <balances::Module<T>>::reserve(&sender, bid)?;
+            }
+            <Bids<T>>::insert((kitty_id, sender.clone()), bid);
+            <BidAccounts<T>>::mutate(kitty_id, |accounts| accounts.push(sender.clone()));
 
             Self::deposit_event(RawEvent::Bid(kitty_id, auction.high_bid, auction.high_bidder));
 
@@ -235,13 +254,47 @@ decl_module! {
 
         fn on_finalise() {
             let auctions = Self::auctions_expire_at(<system::Module<T>>::block_number());
+
             for auction in &auctions {
-                if <system::Module<T>>::block_number() >= auction.expiry && auction.kitty_owner != auction.high_bidder {
-                    let _ = Self::_transfer_from(auction.kitty_owner.clone(), auction.high_bidder.clone(), auction.kitty_id);
-                    let _ = <balances::Module<T>>::make_transfer(&auction.high_bidder, &auction.kitty_owner, auction.high_bid);
+                let owned_kitty_count_from = Self::owned_kitty_count(&auction.kitty_owner);
+                let owned_kitty_count_to = Self::owned_kitty_count(&auction.high_bidder);
+                if owned_kitty_count_to.checked_add(1).is_some() &&
+                   owned_kitty_count_from.checked_sub(1).is_some() &&
+                   auction.kitty_owner != auction.high_bidder
+                {
+                    <KittyAuction<T>>::remove(auction.kitty_id);
+
+                    let _ = <balances::Module<T>>::unreserve(&auction.high_bidder, auction.high_bid);
+                    Self::deposit_event(RawEvent::Unreserved(auction.high_bidder.clone(), auction.high_bid));
+
+                    let _currency_transfer = <balances::Module<T>>::make_transfer(&auction.high_bidder, &auction.kitty_owner, auction.high_bid);
+                    match _currency_transfer {
+                        Err(_e) => continue,
+                        Ok(_v) => {
+                            let _kitty_transfer = Self::_transfer_from(auction.kitty_owner.clone(), auction.high_bidder.clone(), auction.kitty_id);
+                            match _kitty_transfer {
+                                Err(_e) => continue,
+                                Ok(_v) => {
+                                    Self::deposit_event(RawEvent::AuctionFinalized(auction.kitty_id, auction.high_bid, auction.expiry));
+                                },
+                            }
+                        },
+                    }
                 }
-                <KittyAuction<T>>::remove(auction.kitty_id);
+            }
+
+            for auction in &auctions {
                 <Auctions<T>>::remove(<system::Module<T>>::block_number());
+
+                let bid_accounts = Self::bid_accounts(auction.kitty_id);
+
+                for account in bid_accounts {
+                    let bid_balance = Self::bid_of((auction.kitty_id, account.clone()));
+                    let _ = <balances::Module<T>>::unreserve(&account, bid_balance);
+                    Self::deposit_event(RawEvent::Unreserved(account.clone(), bid_balance));
+                    <Bids<T>>::remove((auction.kitty_id, account));
+                }
+                <BidAccounts<T>>::remove(auction.kitty_id);
             }
         }
     }
@@ -281,6 +334,8 @@ impl<T: Trait> Module<T> {
         let owner = Self::owner_of(kitty_id).ok_or("No owner for this kitty")?;
 
         ensure!(owner == from, "'from' account does not own this kitty");
+
+        ensure!(!<KittyAuction<T>>::exists(kitty_id), "This kitty has an open auction.");
 
         let owned_kitty_count_from = Self::owned_kitty_count(&from);
         let owned_kitty_count_to = Self::owned_kitty_count(&to);
