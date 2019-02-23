@@ -270,7 +270,7 @@ decl_module! {
                 }
             }
             for auction in &auctions {
-                // ACTION: clean up the storgae, remove the auction from <Auctions>
+                // ACTION: clean up the storage, remove the auction from <Auctions>
 
                 // ACTION: get all the bid accounts for this auction
 
