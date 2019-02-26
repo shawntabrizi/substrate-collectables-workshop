@@ -20,6 +20,12 @@ pub struct MyStruct<A, B> {
 
 This should look pretty normal compared to defining structs in other languages. However you will notice two oddities about this declaration for runtime development.
 
+To use the custom `Encode` and `Decode` traits, you will need to import them from the `parity_codec_derive` crate:
+
+```rust
+use parity_codec_derive::{Encode, Decode};
+```
+
 ### Using Generics
 
 You will notice that we define our example struct using a generic as one of the types that we store. This will be important when trying to use custom Substrate types like `AccountId` or `Balances` within our struct as we will need to pass in these types every time we use our struct.

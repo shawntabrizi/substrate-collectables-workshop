@@ -4,6 +4,7 @@ use support::{decl_storage, decl_module, StorageValue, StorageMap,
 use system::ensure_signed;
 // ACTION: Import the Zero trait
 use runtime_primitives::traits::{As, Hash};
+use parity_codec_derive::{Encode, Decode};
 
 #[derive(Encode, Decode, Default, Clone, PartialEq)]
 pub struct Kitty<Hash, Balance> {
