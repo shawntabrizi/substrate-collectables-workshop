@@ -32,16 +32,15 @@ decl_event!(
     where
         <T as system::Trait>::AccountId,
         <T as system::Trait>::Hash,
-        <T as balances::Trait>::Balance,
-        <T as system::Trait>::BlockNumber
+        <T as balances::Trait>::Balance
     {
         Created(AccountId, Hash),
         PriceSet(AccountId, Hash, Balance),
         Transferred(AccountId, AccountId, Hash),
         Bought(AccountId, AccountId, Hash, Balance),
-        AuctionCreated(Hash, Balance, BlockNumber), // kitty_id, min_bid, expiry
-        AuctionFinalized(Hash, Balance, BlockNumber), // kitty_id, high_bid, expiry
-        Bid(Hash, Balance, AccountId), // kitty_id, high_bid, bidder
+        AuctionCreated(Hash, Balance, BlockNumber),
+        Bid(Hash, Balance, AccountId),
+        // ACTION: Add an event for AuctionFinalized
     }
 );
 
@@ -253,48 +252,40 @@ decl_module! {
         }
 
         fn on_finalise() {
-            let auctions = Self::auctions_expire_at(<system::Module<T>>::block_number());
+            // ACTION: get auctions that expire at the current block number
 
             for auction in &auctions {
+                // before writing to storage we check kitty owner, high bidder, and
+                // make sure the bidder is not the kitty owner (if they are equal, it means no bidders)
                 let owned_kitty_count_from = Self::owned_kitty_count(&auction.kitty_owner);
                 let owned_kitty_count_to = Self::owned_kitty_count(&auction.high_bidder);
                 if owned_kitty_count_to.checked_add(1).is_some() &&
                    owned_kitty_count_from.checked_sub(1).is_some() &&
                    auction.kitty_owner != auction.high_bidder
                 {
-                    <KittyAuction<T>>::remove(auction.kitty_id);
+                    // ACTION: Remove current auction from <KittyAuction>
 
-                    let _ = <balances::Module<T>>::unreserve(&auction.high_bidder, auction.high_bid);
-                    Self::deposit_event(RawEvent::Unreserved(auction.high_bidder.clone(), auction.high_bid));
+                    // ACTION: unreserve the bidder's reserved balance
 
-                    let _currency_transfer = <balances::Module<T>>::make_transfer(&auction.high_bidder, &auction.kitty_owner, auction.high_bid);
-                    match _currency_transfer {
-                        Err(_e) => continue,
-                        Ok(_v) => {
-                            let _kitty_transfer = Self::_transfer_from(auction.kitty_owner.clone(), auction.high_bidder.clone(), auction.kitty_id);
-                            match _kitty_transfer {
-                                Err(_e) => continue,
-                                Ok(_v) => {
-                                    Self::deposit_event(RawEvent::AuctionFinalized(auction.kitty_id, auction.high_bid, auction.expiry));
-                                },
-                            }
-                        },
-                    }
+                    // ACTION: pay the bid price from high bidder to kitty owner
+
+                    // ACTION: if balance transfer is successful,
+                            // then transfer kitty from the owner the high bidder
+
+                    // ACTION: if the kitty transfer is succesful, deposit AuctionFinalized event
                 }
             }
-
             for auction in &auctions {
-                <Auctions<T>>::remove(<system::Module<T>>::block_number());
+                // ACTION: clean up the storage, remove the auction from <Auctions>
 
-                let bid_accounts = Self::bid_accounts(auction.kitty_id);
+                // ACTION: get all the bid accounts for this auction
 
-                for account in bid_accounts {
-                    let bid_balance = Self::bid_of((auction.kitty_id, account.clone()));
-                    let _ = <balances::Module<T>>::unreserve(&account, bid_balance);
-                    Self::deposit_event(RawEvent::Unreserved(account.clone(), bid_balance));
-                    <Bids<T>>::remove((auction.kitty_id, account));
-                }
-                <BidAccounts<T>>::remove(auction.kitty_id);
+                // ACTION: for each account,
+                    // unreserve the balance
+                    // deposit Unreserved event
+                    // remove from <Bids>
+
+                // ACTION: finally remove the kitty_id from the <BidAccounts>
             }
         }
     }
@@ -335,7 +326,7 @@ impl<T: Trait> Module<T> {
 
         ensure!(owner == from, "'from' account does not own this kitty");
 
-        ensure!(!<KittyAuction<T>>::exists(kitty_id), "This kitty has an open auction.");
+        // ACTION: enssure sure this kitty does not have an open auction in <KittyAuction>
 
         let owned_kitty_count_from = Self::owned_kitty_count(&from);
         let owned_kitty_count_to = Self::owned_kitty_count(&to);

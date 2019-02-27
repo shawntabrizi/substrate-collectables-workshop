@@ -15,13 +15,12 @@ pub struct Kitty<Hash, Balance> {
 
 #[derive(Encode, Decode, Default, Clone, PartialEq, Debug)]
 pub struct Auction<Hash, Balance, BlockNumber, AccountId> {
-    // ACTION: Define the properties of your auction struct here
-    //      - `kitty_id` as a `Hash`
-    //      - `kitty_owner` as a `AccountID`
-    //      - `expiry` as a `BlockNumber`
-    //      - `min_bid` as a `Balance`
-    //      - `high_bid` as a `Balance`
-    //      - `high_bidder` as a `AccountId`
+    kitty_id: Hash,
+    kitty_owner: AccountId,
+    expiry: BlockNumber,
+    min_bid: Balance,
+    high_bid: Balance,
+    high_bidder: AccountId,
 }
 
 pub trait Trait: balances::Trait {
@@ -39,8 +38,7 @@ decl_event!(
         PriceSet(AccountId, Hash, Balance),
         Transferred(AccountId, AccountId, Hash),
         Bought(AccountId, AccountId, Hash, Balance),
-        // ACTION: Add an event for AuctionCreated
-        // ACTION: Add an event for AuctionFinalized
+        AuctionCreated(Hash, Balance, BlockNumber),
         // ACTION: Add an event for Bid
     }
 );
@@ -58,12 +56,10 @@ decl_storage! {
         OwnedKittiesCount get(owned_kitty_count): map T::AccountId => u64;
         OwnedKittiesIndex: map T::Hash => u64;
 
-        // ACTION: Add an item to store `Auction<T::Hash, T::Balance, T::BlockNumber, T::AccountId>`
-                // We will retrieve this mapping by kitty_id
-        // ACTION: Add an item to store list of Auctions
-                // We will retrieve this mapping by block number
-        // ACTION: Add a config item to store AuctionPeriodLimit as a BlockNumber
-                // We will use this for limiting long auction expiration periods
+        KittyAuction get(auction_of): map T::Hash => Option<Auction<T::Hash, T::Balance, T::BlockNumber, T::AccountId>>;
+        Auctions get(auctions_expire_at): map T::BlockNumber => Vec<(Auction<T::Hash, T::Balance, T::BlockNumber, T::AccountId>)>;
+        AuctionPeriodLimit get(auction_period_limit) config(): T::BlockNumber = T::BlockNumber::sa(17280);
+
         // ACTION: Add an item to store Bids
                 // We will use this to track which account bids how much for which kitty auction
         // ACTION: Add an item to store BidAccounts
@@ -196,16 +192,22 @@ decl_module! {
             let owner = Self::owner_of(kitty_id).ok_or("No owner for this kitty")?;
             ensure!(owner == sender, "You can't set an auction for a cat you don't own");
 
-            // ACTION: make sure the expiry value is not lower than current block number
+            ensure!(expiry > <system::Module<T>>::block_number(), "The expiry has to be greater than the current block number");
+            ensure!(expiry <= <system::Module<T>>::block_number() + Self::auction_period_limit(), "The expiry has be lower than the limit block number");
 
-            // ACTION: make sure the expiry does not exceed the auction duration limit
+            let new_auction = Auction {
+                kitty_id,
+                kitty_owner: owner,
+                expiry,
+                min_bid,
+                high_bid: min_bid,
+                high_bidder: sender,
+            };
 
-            // ACTION: Create an `Auction` object named `new_auction` here
-                // initalize the high_bidder as the kitty owner, we will ensure the high_bidder != kitty_owner while resolving the auction
+            <KittyAuction<T>>::insert(kitty_id, &new_auction);
+            <Auctions<T>>::mutate(expiry, |auctions| auctions.push(new_auction.clone()));
 
-            // ACTION: Store your `new_auction` into the runtime storage <KittyAuction> and <Auctions>
-
-            // ACTION: deposit the event AuctionCreated
+            Self::deposit_event(RawEvent::AuctionCreated(kitty_id, min_bid, expiry));
 
             Ok (())
         }
@@ -245,43 +247,6 @@ decl_module! {
             Ok (())
         }
 
-        fn on_finalise() {
-            // ACTION: get auctions that expire at the current block number
-
-            for auction in &auctions {
-                // before writing to storage we check kitty owner, high bidder, and
-                // make sure the bidder is not the kitty owner (if they are equal, it means no bidders)
-                let owned_kitty_count_from = Self::owned_kitty_count(&auction.kitty_owner);
-                let owned_kitty_count_to = Self::owned_kitty_count(&auction.high_bidder);
-                if owned_kitty_count_to.checked_add(1).is_some() &&
-                   owned_kitty_count_from.checked_sub(1).is_some() &&
-                   auction.kitty_owner != auction.high_bidder
-                {
-                    // ACTION: Remove current auction from <KittyAuction>
-
-                    // ACTION: unreserve the bidder's reserved balance
-
-                    // ACTION: pay the bid price from high bidder to kitty owner
-
-                    // ACTION: if balance transfer is successful,
-                            // then transfer kitty from the owner the high bidder
-
-                    // ACTION: if the kitty transfer is succesful, deposit AuctionFinalized event
-                }
-            }
-            for auction in &auctions {
-                // ACTION: clean up the storage, remove the auction from <Auctions>
-
-                // ACTION: get all the bid accounts for this auction
-
-                // ACTION: for each account,
-                    // unreserve the balance
-                    // deposit Unreserved event
-                    // remove from <Bids>
-
-                // ACTION: finally remove the kitty_id from the BidAccounts
-            }
-        }
     }
 }
 
@@ -319,8 +284,6 @@ impl<T: Trait> Module<T> {
         let owner = Self::owner_of(kitty_id).ok_or("No owner for this kitty")?;
 
         ensure!(owner == from, "'from' account does not own this kitty");
-
-        // ACTION: enssure sure this kitty does not have an open auction in <KittyAuction>
 
         let owned_kitty_count_from = Self::owned_kitty_count(&from);
         let owned_kitty_count_to = Self::owned_kitty_count(&to);

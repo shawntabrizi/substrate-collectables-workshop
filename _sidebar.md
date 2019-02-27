@@ -38,7 +38,6 @@
     - [Buying a Kitty](3/buying-a-kitty.md)
     - [Breeding a Kitty](3/breeding-a-kitty.md)
     - [Playing our Game](3/playing-our-game.md)
-    - [Auction a Kitty](3/auction-a-kitty.md)
 
 - **#4 Web-UI**
 
@@ -47,6 +46,13 @@
     - [Explore](4/explore.md)
     - [Creating Kitties](4/creating-kitties.md)
     - [Rendering Kitties](4/rendering-kitties.md)
+
+- **#5 Auction**
+
+    - [Introduction](5/introduction.md)
+    - [Creating an auction](5/creating-an-auction.md)
+    - [Bidding an auction](5/bidding-an-auction.md)
+    - [Finalizing an auction](5/finalizing-an-auction.md)
 
 - [Report an Issue](https://github.com/shawntabrizi/substrate-collectables-workshop/issues)
 - [Glossary](https://substrate.readme.io/docs/glossary)
