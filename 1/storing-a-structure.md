@@ -28,9 +28,9 @@ use parity_codec_derive::{Encode, Decode};
 
 ### Using Generics
 
-You will notice that we define our example struct using a generic as one of the types that we store. This will be important when trying to use custom Substrate types like `AccountId` or `Balances` within our struct as we will need to pass in these types every time we use our struct.
+You will notice that we define our example struct using a generic as one of the types that we store. This will be important when trying to use custom Substrate types like `AccountId` or `Balance` within our struct as we will need to pass in these types every time we use our struct.
 
-So if we wanted to store an `AccountId` in `some_generic`, we would need to define our storage item like this:
+So if we wanted to store a `Balance` in `some_generic` and `Hash` in `some_other_generic`, we would need to define our storage item like this:
 
 ```rust
 decl_storage! {
