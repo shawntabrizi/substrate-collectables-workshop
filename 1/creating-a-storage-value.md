@@ -7,7 +7,7 @@ To do this, we will first need to define a storage variable for a [**Storage Ite
 
 ## Declaring a Storage Value
 
-Substrate natively supports all the primitive types available in Rust (`bool`, `u8`, `u32`, etc..) and as well some custom types specific to Substrate (`AccountId`, `Balance`, `Hash`, [and more](https://github.com/paritytech/oo7/blob/master/packages/oo7-substrate/src/types.js)...)
+Substrate natively supports all the primitive types available in Rust (`bool`, `u8`, `u32`, etc..) and as well some custom types specific to Substrate (`AccountId`, `Balance`, `Hash`, [and more](https://polkadot.js.org/api/types/)...)
 
 You can declare a simple storage item like this:
 
