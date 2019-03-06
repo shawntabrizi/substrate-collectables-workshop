@@ -20,10 +20,10 @@ pub struct MyStruct<A, B> {
 
 This should look pretty normal compared to defining structs in other languages. However you will notice two oddities about this declaration for runtime development.
 
-To use the custom `Encode` and `Decode` traits, you will need to import them from the `parity_codec_derive` crate:
+To use the custom `Encode` and `Decode` traits, you will need to import them from the `parity_codec` crate:
 
 ```rust
-use parity_codec_derive::{Encode, Decode};
+use parity_codec::{Encode, Decode};
 ```
 
 ### Using Generics
