@@ -5,7 +5,7 @@ By the end of this tutorial we will have you create your own custom UI to intera
 
 Open **Chrome** and navigate to:
 
-https://polkadot.js.org/apps/
+https://substrate-ui.parity.io/
 
 To point the UI to your local node, you need to adjust the **Settings**:
 
@@ -13,11 +13,9 @@ To point the UI to your local node, you need to adjust the **Settings**:
 Settings > remote node/endpoint to connect to > Local Node (127.0.0.1:9944)
 ```
 
-Also change the `Default Interface Theme` to `Substrate`.
-
 ![An image of the settings in Polkadot-JS Apps UI](./assets/polkadot-js-settings.png)
 
-After you press **Save and Reload**, you should notice the Polkadot-JS Apps UI come to life; new tabs such as *Explorer* and *Transfer* should appear.
+After you press **Save and Reload**, you should notice the Polkadot-JS Apps UI come to life.
 Note that you should have your `./target/substratekitties --dev` chain up and running while browsing the Polkadot UI.
 
 Note that we will importing a JSON file with additional type definitions later on in section "Registering a Custom Struct" of Section 1 > Viewing a Structure.
