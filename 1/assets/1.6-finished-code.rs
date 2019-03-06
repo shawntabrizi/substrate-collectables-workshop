@@ -1,7 +1,7 @@
 use support::{decl_storage, decl_module, StorageMap, dispatch::Result};
 use system::ensure_signed;
 use runtime_primitives::traits::{As, Hash};
-use parity_codec_derive::{Encode, Decode};
+use parity_codec::{Encode, Decode};
 
 #[derive(Encode, Decode, Default, Clone, PartialEq)]
 pub struct Kitty<Hash, Balance> {

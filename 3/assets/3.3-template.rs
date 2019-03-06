@@ -1,10 +1,9 @@
-use parity_codec::Encode;
 use support::{decl_storage, decl_module, StorageValue, StorageMap,
     dispatch::Result, ensure, decl_event};
 use system::ensure_signed;
 // ACTION: Import the Zero trait
 use runtime_primitives::traits::{As, Hash};
-use parity_codec_derive::{Encode, Decode};
+use parity_codec::{Encode, Decode};
 
 #[derive(Encode, Decode, Default, Clone, PartialEq)]
 pub struct Kitty<Hash, Balance> {
