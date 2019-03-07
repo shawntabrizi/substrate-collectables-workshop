@@ -24,6 +24,14 @@ decl_storage! {
 decl_module! {
     pub struct Module<T: Trait> for enum Call where origin: T::Origin {
 
+        fn set_value(origin, value: u64) -> Result {
+            let sender = ensure_signed(origin)?;
+
+            <Value<T>>::insert(sender, value);
+
+            Ok(())
+        }
+
         fn create_kitty(origin) -> Result {
             let sender = ensure_signed(origin)?;
 
