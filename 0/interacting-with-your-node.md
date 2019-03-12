@@ -7,7 +7,7 @@ Open **Chrome** and navigate to:
 
 https://substrate-ui.parity.io/
 
-To point the UI to your local node, you need to adjust the **Settings**:
+To point the UI to your local node, you need to adjust the **Settings**. Just select 'Local Node (127.0.0.1:9944)' from the endpoint dropdown:
 
 ```
 Settings > remote node/endpoint to connect to > Local Node (127.0.0.1:9944)
