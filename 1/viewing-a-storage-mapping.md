@@ -20,7 +20,7 @@ If we go back into the [Polkadot-JS Apps UI](https://polkadot.js.org/apps), we s
 
 ## Submit a Transaction
 
-Go to the **Extrinsics** tab, and using the "from extrinsic section" dropdown select:
+Go to the **Extrinsics** app, and using the "from extrinsic section" dropdown select:
 
 ```
 substratekitties > setValue(value)
@@ -34,7 +34,7 @@ Type in a value and press `Submit Transaction`:
 
 Now that you have submitted a transaction to put a value into storage, we should take a look that the value is actually there.
 
-Go to the **Chain state** tab, and select:
+Go to the **Chain state** app and select:
 
 ```
 kittyStorage > value(AccountId): u64

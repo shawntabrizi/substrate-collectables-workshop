@@ -33,7 +33,7 @@ Go back to the **Settings** app. Under the **Developer** section, you can either
 
 ## Creating a Kitty
 
-Now we can go and create a new kitty. In the **Extrinsics** tab, go to:
+Now we can go and create a new kitty. In the **Extrinsics** app, go to:
 
 ```
 substratekitties > createKitty()
@@ -45,7 +45,7 @@ Once you press submit, you should see the transaction finalize:
 
 ## Viewing a Kitty
 
-Finally, we can go into the **Chain State** tab, and view our stored kitty object. Select:
+Finally, we can go into the **Chain State** app and view our stored kitty object. Select:
 
 ```
 kittyStorage > ownedKitty(AccountId): Kitty

@@ -20,7 +20,7 @@ Note that you should have your `./target/substratekitties --dev` chain up and ru
 
 Note that we will importing a JSON file with additional type definitions later on in section "Registering a Custom Struct" of Section 1 > Viewing a Structure.
 
-Let's go into the **Transfer** tab, and make a transaction. The default account named "Alice" is pre-funded with a ton of *Units*.
+Let's go into the **Transfer** app, and make a transaction. The default account named "Alice" is pre-funded with a ton of *Units*.
 
 Share some with "Bob" by creating a transaction. You should see a confirmation appear when the transaction has completed, and Bob's balance will also be updated.
 
