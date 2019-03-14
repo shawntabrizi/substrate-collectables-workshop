@@ -161,7 +161,7 @@ Our `KittyCard` component takes the `Kitty` object passed from `KittyWrap`, as w
     <Card.Content extra>
         <Pretty
             value={kitty.price}
-            prefix='$'
+            prefix="$"
         />
     </Card.Content>
 </Card>;
