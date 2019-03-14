@@ -10,17 +10,15 @@ We have built a custom React component for showing kitties. It is not so complic
 To add it, you must place the `KittyCards` folder in your `src` folder:
 
 ```
-substratekitties-ui
+substratekitties-ui/
 |
-+-- src
++-- src/
     |
-    +-- src
-        |
-        +-- KittyCards      <-- Place here
-        |
-        +-- AccountIdBond.jsx
-        |
-        +-- ...
+    +-- KittyCards/      <-- Place here
+    |
+    +-- AccountIdBond.jsx
+    |
+    +-- ...
 ```
 
 Then, inside the main `app.jsx` file you need to import this component:
