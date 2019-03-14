@@ -46,7 +46,7 @@ This will generate a new compact Wasm binary in the following path:
 ./runtime/wasm/target/wasm32-unknown-unknown/release/node_template_runtime_wasm.compact.wasm
 ```
 
-We can now use this file in the Polkadot UI to upgrade your chain. Go to the **Extrinsics** section of the Polkadot UI, and select:
+We can now use this file in the Polkadot UI to upgrade your chain. Go to the **Extrinsics** app of the Polkadot UI, and select:
 
 ```
 submit the following extrinsic: sudo > sudo(proposal)

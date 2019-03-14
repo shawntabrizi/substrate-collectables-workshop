@@ -34,7 +34,7 @@ post({
 }).tie(console.log)
 ```
 
-In this sample, the `sender` is the address of one of our accounts. We can retrieve this for any of our accounts in the **Address Book** section of the Substrate UI:
+In this sample, the `sender` is the address of one of our accounts. We can retrieve this for any of our accounts in the **Address Book** app of the Substrate UI:
 
 ![An image of the Address Book section](./assets/address-book.png)
 

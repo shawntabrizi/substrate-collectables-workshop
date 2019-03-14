@@ -18,7 +18,7 @@ We have introduced a custom structure to our chain, and while the Polkadot-JS Ap
 
 Fortunately, the Polkadot-JS Apps UI provides us with a very simple way to import custom structures so that the page will be able to decode the information correctly.
 
-In the **Settings** tab, under the **developer** section, there is an input field where you can submit a JSON file. Save this JSON object into a `.json` file and submit that file into the Polkadot-JS Apps UI.
+Go back to the **Settings** app. Under the **Developer** section, you can either submit a JSON file with your custom structure or add it manually through a code editor. Copy & paste this JSON object into the code editor and press `Save`.
 
 ```
 {
@@ -31,11 +31,9 @@ In the **Settings** tab, under the **developer** section, there is an input fiel
 }
 ```
 
-Finally press `Save & Reload`.
-
 ## Creating a Kitty
 
-Now we can go and create a new kitty. In the **Extrinsics** tab, go to:
+Now we can go and create a new kitty. In the **Extrinsics** app, go to:
 
 ```
 substratekitties > createKitty()
@@ -47,7 +45,7 @@ Once you press submit, you should see the transaction finalize:
 
 ## Viewing a Kitty
 
-Finally, we can go into the **Chain State** tab, and view our stored kitty object. Select:
+Finally, we can go into the **Chain State** app and view our stored kitty object. Select:
 
 ```
 kittyStorage > ownedKitty(AccountId): Kitty
