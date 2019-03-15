@@ -21,7 +21,7 @@ calls.substratekitties.
 
 ![An image of `calls.substratekitties` autocomplete](./assets/calls-substratekitties-autocomplete.png)
 
-This is a list of all the functions we created in the `decl_module!` macro. Note that our private functions like `_mint()` and `_transfer()` are not here since they are not supposed to be part of our public API.
+This is a list of all the functions we created in the `decl_module!` macro. Note that our private functions like `mint()` and `_transfer()` are not here since they are not supposed to be part of our public API.
 
 ## Making a Call
 

@@ -67,7 +67,7 @@ decl_module! {
                 gen: 0,
             };
 
-            Self::_mint(sender, random_hash, new_kitty)?;
+            Self::mint(sender, random_hash, new_kitty)?;
             
             <Nonce<T>>::mutate(|n| *n += 1);
 
@@ -98,7 +98,7 @@ decl_module! {
             let owner = Self::owner_of(kitty_id).ok_or("No owner for this kitty")?;
             ensure!(owner == sender, "You do not own this kitty");
 
-            Self::_transfer_from(sender, to, kitty_id)?;
+            Self::transfer_from(sender, to, kitty_id)?;
 
             Ok(())
         }
@@ -119,7 +119,7 @@ decl_module! {
 
             <balances::Module<T>>::make_transfer(&sender, &owner, kitty_price)?;
 
-            Self::_transfer_from(owner.clone(), sender.clone(), kitty_id)?;
+            Self::transfer_from(owner.clone(), sender.clone(), kitty_id)?;
 
             kitty.price = <T::Balance as As<u64>>::sa(0);
             <Kitties<T>>::insert(kitty_id, kitty);
@@ -155,7 +155,7 @@ decl_module! {
             //      - the max of the parent's `gen` + 1
             //          - Hint: `rstd::cmp::max(1, 5) + 1` is `6`
 
-            // ACTION: `_mint()` your new kitty
+            // ACTION: `mint()` your new kitty
 
             // ACTION: Update the <Nonce<T>>
 
@@ -165,7 +165,7 @@ decl_module! {
 }
 
 impl<T: Trait> Module<T> {
-    fn _mint(to: T::AccountId, kitty_id: T::Hash, new_kitty: Kitty<T::Hash, T::Balance>) -> Result {
+    fn mint(to: T::AccountId, kitty_id: T::Hash, new_kitty: Kitty<T::Hash, T::Balance>) -> Result {
         ensure!(!<KittyOwner<T>>::exists(kitty_id), "Kitty already exists");
 
         let owned_kitty_count = Self::owned_kitty_count(&to);
@@ -194,7 +194,7 @@ impl<T: Trait> Module<T> {
         Ok(())
     }
 
-    fn _transfer_from(from: T::AccountId, to: T::AccountId, kitty_id: T::Hash) -> Result {
+    fn transfer_from(from: T::AccountId, to: T::AccountId, kitty_id: T::Hash) -> Result {
         let owner = Self::owner_of(kitty_id).ok_or("No owner for this kitty")?;
 
         ensure!(owner == from, "'from' account does not own this kitty");

@@ -36,7 +36,7 @@ To do a transfer, you will need to use the tools you have learned so far, but no
 
 We want to make the transfer function reusable, so we have already structured the template to help you here.
 
-Follow the template to complete the `_transfer_from()` private function to power your public `transfer()` function exposed by your module.
+Follow the template to complete the `transfer_from()` private function to power your public `transfer()` function exposed by your module.
 
 <!-- tabs:start -->
 

@@ -69,11 +69,11 @@ If you had any saved state before the upgrade (for example Kitties, balances, et
 
 ## Your Turn!
 
-You will find that refactoring our `_mint()` function in chapter 2 will help us a lot for this final step. Generate a new kitty using the gene splicing algorithm on two input kitties.
+You will find that refactoring our `mint()` function in chapter 2 will help us a lot for this final step. Generate a new kitty using the gene splicing algorithm on two input kitties.
 
 Make sure to increment the `gen` value to be one more than the max of the parent kitties. This way, we can keep track of breeded kitties versus one generated from scratch.
 
-Then pass that kitty object to the `_mint()` function to create your new kitty!
+Then pass that kitty object to the `mint()` function to create your new kitty!
 
 Finally, if you are feeling brave, do a live runtime upgrade to add this new feature to your blockchain. You should find that all of your existing storage items will be unaffected by the upgrade, however, you will now have access to this new function!
 

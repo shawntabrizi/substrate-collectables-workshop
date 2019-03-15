@@ -52,13 +52,13 @@ decl_module! {
         fn create_kitty(origin) -> Result {
             let sender = ensure_signed(origin)?;
 
-            // ACTION: Move this `owned_kitty_count` and `new_owned_kitty_count` logic into the `_mint()` function
+            // ACTION: Move this `owned_kitty_count` and `new_owned_kitty_count` logic into the `mint()` function
             let owned_kitty_count = Self::owned_kitty_count(&sender);
 
             let new_owned_kitty_count = owned_kitty_count.checked_add(1)
                 .ok_or("Overflow adding a new kitty to account balance")?;
 
-            // ACTION: Move this `all_kitties_count` and `new_all_kitties_count` logic into the `_mint()` function
+            // ACTION: Move this `all_kitties_count` and `new_all_kitties_count` logic into the `mint()` function
             let all_kitties_count = Self::all_kitties_count();
 
             let new_all_kitties_count = all_kitties_count.checked_add(1)
@@ -69,7 +69,7 @@ decl_module! {
             let random_hash = (<system::Module<T>>::random_seed(), &sender, nonce)
                 .using_encoded(<T as system::Trait>::Hashing::hash);
 
-            // ACTION: Move this collision check to the `_mint()` function
+            // ACTION: Move this collision check to the `mint()` function
             ensure!(!<KittyOwner<T>>::exists(random_hash), "Kitty already exists");
 
             // Creating the `Kitty` object can stay here
@@ -80,7 +80,7 @@ decl_module! {
                 gen: 0,
             };
 
-            // ACTION: Move all of the kitty related storage updates to the `_mint()` function
+            // ACTION: Move all of the kitty related storage updates to the `mint()` function
             <Kitties<T>>::insert(random_hash, new_kitty);
             <KittyOwner<T>>::insert(random_hash, &sender);
 
@@ -95,7 +95,7 @@ decl_module! {
             // Nonce update can stay here
             <Nonce<T>>::mutate(|n| *n += 1);
 
-            // ACTION: Move this event to the `_mint()` function
+            // ACTION: Move this event to the `mint()` function
             Self::deposit_event(RawEvent::Created(sender, random_hash));
 
             Ok(())
@@ -104,13 +104,13 @@ decl_module! {
 }
 
 impl<T: Trait> Module<T> {
-    fn _mint(to: T::AccountId, kitty_id: T::Hash, new_kitty: Kitty<T::Hash, T::Balance>) -> Result {
+    fn mint(to: T::AccountId, kitty_id: T::Hash, new_kitty: Kitty<T::Hash, T::Balance>) -> Result {
         // ACTION: Refactored code goes here
         //      NOTE: Some variables have been renamed to generalize the function
         //
         // In the end, you should remember add the following call to `create_kitty()`:
-        // `Self::_mint(sender, random_hash, new_kitty)?;`
-        //      HINT: This `_mint()` function has checks which could fail AND will write to storage, so place it carefully
+        // `Self::mint(sender, random_hash, new_kitty)?;`
+        //      HINT: This `mint()` function has checks which could fail AND will write to storage, so place it carefully
 
         Ok(())
     }

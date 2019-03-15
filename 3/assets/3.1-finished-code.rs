@@ -64,7 +64,7 @@ decl_module! {
                 gen: 0,
             };
 
-            Self::_mint(sender, random_hash, new_kitty)?;
+            Self::mint(sender, random_hash, new_kitty)?;
             
             <Nonce<T>>::mutate(|n| *n += 1);
 
@@ -92,7 +92,7 @@ decl_module! {
 }
 
 impl<T: Trait> Module<T> {
-    fn _mint(to: T::AccountId, kitty_id: T::Hash, new_kitty: Kitty<T::Hash, T::Balance>) -> Result {
+    fn mint(to: T::AccountId, kitty_id: T::Hash, new_kitty: Kitty<T::Hash, T::Balance>) -> Result {
         ensure!(!<KittyOwner<T>>::exists(kitty_id), "Kitty already exists");
 
         let owned_kitty_count = Self::owned_kitty_count(&to);
