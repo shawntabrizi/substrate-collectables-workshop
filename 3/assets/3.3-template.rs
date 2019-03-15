@@ -120,7 +120,7 @@ decl_module! {
 
             // ACTION: Use the `Balances` module's `make_transfer()` function to safely transfer funds
 
-            // ACTION: Transfer the kitty
+            // ACTION: Transfer the kitty using `tranfer_from()` including a proof of why it cannot fail
 
             // ACTION: Reset kitty price back to zero, and update the storage
 

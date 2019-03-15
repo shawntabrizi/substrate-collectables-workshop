@@ -118,7 +118,12 @@ decl_module! {
 
             <balances::Module<T>>::make_transfer(&sender, &owner, kitty_price)?;
 
-            Self::transfer_from(owner.clone(), sender.clone(), kitty_id)?;
+            Self::transfer_from(owner.clone(), sender.clone(), kitty_id)
+                .expect("`owner` is shown to own the kitty; \
+                `owner` must have greater than 0 kitties, so transfer cannot cause underflow; \
+                `all_kitty_count` shares the same type as `owned_kitty_count`, \
+                which means transfer cannot cause an overflow; \
+                qed");
 
             kitty.price = <T::Balance as As<u64>>::sa(0);
             <Kitties<T>>::insert(kitty_id, kitty);
