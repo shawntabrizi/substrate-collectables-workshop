@@ -35,7 +35,9 @@ If you look at the [`make_transfer()`](https://crates.parity.io/srml_balances/st
 // beginning of writing to storage
 ```
 
-Note that in our template, we chain execute the `transfer_from()` function after `make_transfer()`, and `transfer_from()` also has the ability to fail...
+If you take a look at our template, you will see that we suggest you execute the `transfer_from()` function directly after you call `make_transfer()`.
+
+Notice a problem?
 
 ```rust
 // nothing after this line should fail
