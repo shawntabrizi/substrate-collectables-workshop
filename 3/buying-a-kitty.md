@@ -50,12 +50,12 @@ Well... not exactly. If you can make checks ahead of time to guarantee that this
 
 Let's take a second look at the checks which could fail within `transfer_from()`:
 
-* No owner exists for the kitty
-* The "from" account does not own the kitty in question
-* There will be an underflow when subtracting the kitty from the user's `owned_kitty_count`
-* There will be an overflow when adding the kitty to a user's `owned_kitty_count`
+* No owner could exists for the kitty
+* The "from" account could not own the kitty in question
+* There could be an underflow when subtracting the kitty from the user's `owned_kitty_count`
+* There could be an overflow when adding the kitty to a user's `owned_kitty_count`
 
-So, before we can chain the functions like we want, we need to make sure that all of these checks will succeed. This is actually pretty easy!
+So, before we can chain the functions like we want, we need to make sure that all of these checks will succeed:
 
 1. Make sure your `buy_kitty` function checks that the kitty has an owner
 2. Use that owner value to directly power your `transfer_from()` function
@@ -68,14 +68,15 @@ So, in the context of our `buy_kitty()` function, we can actually use `expect()`
 Self::transfer_from(owner.clone(), sender.clone(), kitty_id)
     .expect("`owner` is shown to own the kitty; \
     `owner` must have greater than 0 kitties, so transfer cannot cause underflow; \
-    `all_kitty_count` shares the same type as `owned_kitty_count`, \
+    `all_kitty_count` shares the same type as `owned_kitty_count` \
+    and minting ensure there won't ever be more than `max()` kitties, \ 
     which means transfer cannot cause an overflow; \
     qed");
 ```
 
 You will actually find proofs just like this [scattered throughout the substrate repository](https://github.com/paritytech/substrate/search?q=expect).
 
-Remember, as a blockchain developer, it is your duty to verify the sanctity of your code and logic within it. Substrate is not a framework built to protect you from errors, like a smart contract platform may provide.
+Remember, as a blockchain developer, it is your duty to verify the sanctity of your code and logic within it. Substrate is not a framework built to protect you from errors like a smart contract platform may provide.
 
 Take a second to lean back in your chair, and ponder this last section, as it will be important to keep in mind when you start to develop your own projects with substrate.
 
