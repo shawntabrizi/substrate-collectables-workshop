@@ -5,6 +5,7 @@ use runtime_primitives::traits::{As, Hash, Zero};
 use parity_codec::{Encode, Decode};
 
 #[derive(Encode, Decode, Default, Clone, PartialEq)]
+#[cfg_attr(feature = "std", derive(Debug))]
 pub struct Kitty<Hash, Balance> {
     id: Hash,
     dna: Hash,

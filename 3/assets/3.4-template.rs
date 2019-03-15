@@ -6,6 +6,7 @@ use parity_codec::{Encode, Decode};
 use rstd::cmp;
 
 #[derive(Encode, Decode, Default, Clone, PartialEq)]
+#[cfg_attr(feature = "std", derive(Debug))]
 pub struct Kitty<Hash, Balance> {
     id: Hash,
     dna: Hash,

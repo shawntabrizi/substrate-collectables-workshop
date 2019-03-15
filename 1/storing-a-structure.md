@@ -11,6 +11,7 @@ You can define a custom struct for your runtime like so:
 
 ```rust
 #[derive(Encode, Decode, Default, Clone, PartialEq)]
+#[cfg_attr(feature = "std", derive(Debug))]
 pub struct MyStruct<A, B> {
     some_number: u32,
     some_generic: A,
@@ -44,7 +45,7 @@ For the purposes of clarity, we will name a generic type for `T::AccountId` as `
 
 ### Derive Macro
 
-The other thing you will notice is `#[derive(...)]` at the top. This is an attribute provided by the Rust compiler which allows basic implementations of some traits. You can learn more about that [here](https://doc.rust-lang.org/rust-by-example/trait/derive.html). For the purposes of this tutorial you can treat it like magic.
+The other thing you will notice is `#[derive(...)]` at the top. This is an attribute provided by the Rust compiler which allows basic implementations of some traits. The second line, `#[cfg_attr(feature = "std", derive(Debug))]` does the same thing for the `Debug` trait, but only when using the "standard" libraries, i.e. when compiling the native binaries and not the Wasm. You can learn more about that [here](https://doc.rust-lang.org/rust-by-example/trait/derive.html). For the purposes of this tutorial you can treat it like magic.
 
 ## Custom Struct in Module Function
 

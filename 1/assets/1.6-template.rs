@@ -4,6 +4,7 @@ use runtime_primitives::traits::As;
 // ACTION: Continue to add required libraries here
 
 #[derive(Encode, Decode, Default, Clone, PartialEq)]
+#[cfg_attr(feature = "std", derive(Debug))]
 pub struct Kitty<Hash, Balance> {
     // ACTION: Define the properties of your kitty struct here
     //      - `id` as a `Hash`
