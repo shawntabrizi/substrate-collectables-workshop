@@ -71,7 +71,7 @@ Self::transfer_from(owner.clone(), sender.clone(), kitty_id)
     .expect("`owner` is shown to own the kitty; \
     `owner` must have greater than 0 kitties, so transfer cannot cause underflow; \
     `all_kitty_count` shares the same type as `owned_kitty_count` \
-    and minting ensure there won't ever be more than `max()` kitties, \ 
+    and minting ensure there won't ever be more than `max()` kitties, \
     which means transfer cannot cause an overflow; \
     qed");
 ```
