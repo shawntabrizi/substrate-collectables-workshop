@@ -47,12 +47,12 @@
     - [Creating Kitties](4/creating-kitties.md)
     - [Rendering Kitties](4/rendering-kitties.md)
 
-- **#5 Auction**
-
-    - [Introduction](5/introduction.md)
-    - [Creating an auction](5/creating-an-auction.md)
-    - [Bidding an auction](5/bidding-an-auction.md)
-    - [Finalizing an auction](5/finalizing-an-auction.md)
+- [**Extras**](Extras/)
+    - **Kitty Auction**
+        - [Introduction](Extras/Auction/introduction.md)
+        - [Creating an auction](Extras/Auction/creating-an-auction.md)
+        - [Bidding an auction](Extras/Auction/bidding-an-auction.md)
+        - [Finalizing an auction](Extras/Auction/finalizing-an-auction.md)
 
 - [Report an Issue](https://github.com/shawntabrizi/substrate-collectables-workshop/issues)
 - [Glossary](https://substrate.readme.io/docs/glossary)
