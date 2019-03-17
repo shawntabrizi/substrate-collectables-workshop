@@ -17,6 +17,6 @@ Second, the accounts who want this kitty will bid with 2 parameters:
 Finally, the account with the highest bid will win when the auction ends, that is when our chain's current block number reaches the auction expiration time in blocks. We will finalize the auction by paying from bidder to the kitty owner, and transferring the kitty to the highest bidder. We will clean up all the bids and the auction from the storage.
 
 In this section, you will learn the following technical concepts:
-- How to use block numbers, the concept of time on chain?
-- How to create an escrow system using reserve balance?
-- How to implement a process that needs to be done at the end of the block?
+- What is the concept of time on chain?
+- How do I create an escrow system using reserve balance?
+- How do I implement a process that needs to be done at the start or end of a block?
