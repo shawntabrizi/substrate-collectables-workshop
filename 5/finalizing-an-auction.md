@@ -23,7 +23,7 @@ In the `on_finalise` function, we will go through each auction and resolve it:
 
 6. We free the escrow amounts of all losing bidders using the `unreserve` function.
 
-We also add a check to `_transfer_from` function for disabling any sales of the kitty while there is an open auction.
+We also add a check to `transfer_from` function for disabling any sales of the kitty while there is an open auction.
 
 ## Your Turn!
 
