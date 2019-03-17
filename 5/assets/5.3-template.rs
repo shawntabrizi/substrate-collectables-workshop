@@ -32,7 +32,8 @@ decl_event!(
     where
         <T as system::Trait>::AccountId,
         <T as system::Trait>::Hash,
-        <T as balances::Trait>::Balance
+        <T as balances::Trait>::Balance,
+        <T as system::Trait>::BlockNumber
     {
         Created(AccountId, Hash),
         PriceSet(AccountId, Hash, Balance),
@@ -277,13 +278,13 @@ decl_module! {
             }
             for auction in &auctions {
                 // ACTION: clean up the storage, remove the auction from <Auctions>
-
+                
                 // ACTION: get all the bid accounts for this auction
 
                 // ACTION: for each account,
-                    // unreserve the balance
-                    // deposit Unreserved event
-                    // remove from <Bids>
+                //      unreserve the balance
+                //      deposit Unreserved event
+                //      remove from <Bids>
 
                 // ACTION: finally remove the kitty_id from the <BidAccounts>
             }

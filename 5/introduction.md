@@ -20,3 +20,7 @@ In this section, you will learn the following technical concepts:
 - What is the concept of time on chain?
 - How do I create an escrow system using reserve balance?
 - How do I implement a process that needs to be done at the start or end of a block?
+
+---
+
+Thank you [@arikan](https://github.com/arikan) for creating this content!

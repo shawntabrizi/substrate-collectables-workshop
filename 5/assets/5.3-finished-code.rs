@@ -39,9 +39,9 @@ decl_event!(
         PriceSet(AccountId, Hash, Balance),
         Transferred(AccountId, AccountId, Hash),
         Bought(AccountId, AccountId, Hash, Balance),
-        AuctionCreated(Hash, Balance, BlockNumber), // kitty_id, min_bid, expiry
-        Bid(Hash, Balance, AccountId), // kitty_id, high_bid, bidder
-        AuctionFinalized(Hash, Balance, BlockNumber), // kitty_id, high_bid, expiry
+        AuctionCreated(Hash, Balance, BlockNumber),
+        Bid(Hash, Balance, AccountId),
+        AuctionFinalized(Hash, Balance, BlockNumber),
     }
 );
 
@@ -294,6 +294,7 @@ decl_module! {
                     Self::deposit_event(RawEvent::Unreserved(account.clone(), bid_balance));
                     <Bids<T>>::remove((auction.kitty_id, account));
                 }
+                
                 <BidAccounts<T>>::remove(auction.kitty_id);
             }
         }

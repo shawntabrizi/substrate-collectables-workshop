@@ -32,7 +32,8 @@ decl_event!(
     where
         <T as system::Trait>::AccountId,
         <T as system::Trait>::Hash,
-        <T as balances::Trait>::Balance
+        <T as balances::Trait>::Balance,
+        <T as system::Trait>::BlockNumber
     {
         Created(AccountId, Hash),
         PriceSet(AccountId, Hash, Balance),
@@ -59,11 +60,10 @@ decl_storage! {
         KittyAuction get(auction_of): map T::Hash => Option<Auction<T::Hash, T::Balance, T::BlockNumber, T::AccountId>>;
         Auctions get(auctions_expire_at): map T::BlockNumber => Vec<(Auction<T::Hash, T::Balance, T::BlockNumber, T::AccountId>)>;
         AuctionPeriodLimit get(auction_period_limit) config(): T::BlockNumber = T::BlockNumber::sa(17280);
-
         // ACTION: Add an item to store Bids
-                // We will use this to track which account bids how much for which kitty auction
+        //      We will use this to track which account bids how much for which kitty auction
         // ACTION: Add an item to store BidAccounts
-                //  We will use this to track all the accounts that bid for a given kitty auction
+        //      We will use this to track all the accounts that bid for a given kitty auction
 
         Nonce: u64;
     }
@@ -221,7 +221,6 @@ decl_module! {
             ensure!(owner != sender, "You can't bid for your own cat");
 
             // ACTION: ensure the kitty has an existing auction
-
             // ACTION: ensure the existing auction is not expired
 
             // ACTION: ensure the bid greater than the highest bid
@@ -231,18 +230,17 @@ decl_module! {
             // ACTION: set the new high_bid and high_bidder values
 
             // ACTION: insert the updated auction into <KittyAuction>
-
             // ACTION: mutate <Auctions> list with the updated auction high_bid and high_bidder values
 
             // ACTION: add the sender's bid to the <Bids> list,
-                    // if this account has no existing bids
-                        // reserve the full bid amount
-                    // else
-                        // reserve only the difference (bid amount - escrow amunt)
-                    // update <Bids>
-                    // update <BidAccounts> list with the new sender
+            //      if this account has no existing bids
+            //      reserve the full bid amount
+            // else
+            //      reserve only the difference (bid amount - escrow amunt)
+            //      update <Bids>
+            //      update <BidAccounts> list with the new sender
 
-            // ACTION: deposit the event Bid
+            // ACTION: deposit the Bid event
 
             Ok (())
         }

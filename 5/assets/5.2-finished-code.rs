@@ -39,8 +39,8 @@ decl_event!(
         PriceSet(AccountId, Hash, Balance),
         Transferred(AccountId, AccountId, Hash),
         Bought(AccountId, AccountId, Hash, Balance),
-        AuctionCreated(Hash, Balance, BlockNumber), // kitty_id, min_bid, expiry
-        Bid(Hash, Balance, AccountId), // kitty_id, high_bid, bidder
+        AuctionCreated(Hash, Balance, BlockNumber),
+        Bid(Hash, Balance, AccountId),
     }
 );
 
