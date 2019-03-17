@@ -4,6 +4,8 @@ use system::ensure_signed;
 use runtime_primitives::traits::{As, Hash, Zero};
 use parity_codec::{Encode, Decode};
 use rstd::cmp;
+use rstd::prelude::*;
+use support::traits::Currency;
 
 #[derive(Encode, Decode, Default, Clone, PartialEq)]
 #[cfg_attr(feature = "std", derive(Debug))]
@@ -273,7 +275,6 @@ decl_module! {
                     <KittyAuction<T>>::remove(auction.kitty_id);
 
                     let _ = <balances::Module<T>>::unreserve(&auction.high_bidder, auction.high_bid);
-                    Self::deposit_event(RawEvent::Unreserved(auction.high_bidder.clone(), auction.high_bid));
 
                     let _currency_transfer = <balances::Module<T>>::make_transfer(&auction.high_bidder, &auction.kitty_owner, auction.high_bid);
                     match _currency_transfer {
@@ -299,10 +300,9 @@ decl_module! {
                 for account in bid_accounts {
                     let bid_balance = Self::bid_of((auction.kitty_id, account.clone()));
                     let _ = <balances::Module<T>>::unreserve(&account, bid_balance);
-                    Self::deposit_event(RawEvent::Unreserved(account.clone(), bid_balance));
                     <Bids<T>>::remove((auction.kitty_id, account));
                 }
-                
+
                 <BidAccounts<T>>::remove(auction.kitty_id);
             }
         }
