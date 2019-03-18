@@ -1,11 +1,11 @@
 Introduction to Kitty Auctions
 ===
 
-Auctions are compelling use cases for blockchains in general and Substrate Runtime provides a good platform to implement this. Let's introduce an auction system for kitty owners who do not want to simply set a fix price for their kitty.
+Let's introduce an auction system for kitty owners who do not want to simply set a fix price for their kitty.
 
-We will implement an [English auction](https://en.wikipedia.org/wiki/Auction#Types), where new bids increase the price until the auction ends at a fixed time, and the account who bid the highest price wins the auction.
+In this section, we will implement an [English auction](https://en.wikipedia.org/wiki/Auction#Types), where new bids increase the price until the auction ends at a fixed time, and the account who bid the highest price wins the auction.
 
-First, the owner of a kitty will create an auction with 3 parameters:
+Our auction system will allow the owner of a Kitty
 1. The kitty id
 2. The minimum bid (the base price for the kitty)
 3. An expiration time (as a block number)
