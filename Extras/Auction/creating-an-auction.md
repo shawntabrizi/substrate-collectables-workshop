@@ -1,4 +1,4 @@
-Create an Auction
+Creating an Auction
 ===
 
 We learned how to create a `Kitty` struct for our runtime [back in chapter 1](/1/storing-a-structure.md). This time, we will create another struct for an auction. In addition to other Substrate specific types we used earlier, the `Auction` struct will use the `BlockNumber` type, which will help us trigger the end of an auction.
