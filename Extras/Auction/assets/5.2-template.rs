@@ -5,7 +5,8 @@ use runtime_primitives::traits::{As, Hash, Zero};
 use parity_codec::{Encode, Decode};
 use rstd::cmp;
 use rstd::prelude::*;
-// Import the Currency trait from support::trait
+// Import the Currency trait from support::traits
+// Import the ReservableCurrency trait from support::traits
 
 #[derive(Encode, Decode, Default, Clone, PartialEq)]
 #[cfg_attr(feature = "std", derive(Debug))]
