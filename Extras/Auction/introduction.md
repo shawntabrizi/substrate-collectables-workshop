@@ -5,7 +5,7 @@ Let's introduce an auction system for kitty owners who do not want to simply set
 
 In this section, we will implement an [English auction](https://en.wikipedia.org/wiki/Auction#Types), where new bids increase the price until the auction ends at a fixed time, and the account who bid the highest price wins the auction.
 
-Our auction system will allow the owner of a Kitty
+Our auction system will allow the owner of a Kitty to start an auction with 3 parameters:
 1. The kitty id
 2. The minimum bid (the base price for the kitty)
 3. An expiration time (as a block number)
