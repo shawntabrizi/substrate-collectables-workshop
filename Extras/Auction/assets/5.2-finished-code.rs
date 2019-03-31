@@ -5,8 +5,7 @@ use runtime_primitives::traits::{As, Hash, Zero};
 use parity_codec::{Encode, Decode};
 use rstd::cmp;
 use rstd::prelude::*;
-use support::traits::Currency;
-use support::traits::ReservableCurrency;
+use support::traits::{Currency, ReservableCurrency};
 
 #[derive(Encode, Decode, Default, Clone, PartialEq)]
 #[cfg_attr(feature = "std", derive(Debug))]
