@@ -25,6 +25,14 @@ In the `on_finalise` function, we will go through each auction and resolve it:
 
 We also add a check to `transfer_from` function for disabling any sales of the kitty while there is an open auction.
 
+## Bounding loops while finalizing a block
+
+If you let the users of your chain to create arbitrary amount of auctions that will end in a certain block, than all those auctions will be looped in the `on_finalise()` function. This is an attack vector, it can halt your chain. So, you should prevent this possibility by introducing a limit to the number of auctions that will end in a block. So you should do the following:
+
+1. Add a constant `MAX_AUCTIONS_PER_BLOCK` to limit the number of auctions per block.
+
+2. Ensure the number of auctions that will expire in the current block does not exceed the limit of max auctions per block.
+
 ## Your Turn!
 
 The `on_finalise()` skeleton functions are ready for you to add logic. Follow the template provided to program in the necessary code to complete the kitty auction functionality.

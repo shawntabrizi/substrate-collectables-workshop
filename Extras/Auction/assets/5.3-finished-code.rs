@@ -6,6 +6,7 @@ use parity_codec::{Encode, Decode};
 use rstd::cmp;
 use rstd::prelude::*;
 use support::traits::Currency;
+use support::traits::ReservableCurrency;
 
 #[derive(Encode, Decode, Default, Clone, PartialEq)]
 #[cfg_attr(feature = "std", derive(Debug))]
@@ -30,6 +31,8 @@ pub struct Auction<Hash, Balance, BlockNumber, AccountId> {
 pub trait Trait: balances::Trait {
     type Event: From<Event<Self>> + Into<<Self as system::Trait>::Event>;
 }
+
+const MAX_AUCTIONS_PER_BLOCK: usize = 2;
 
 decl_event!(
     pub enum Event<T>
@@ -203,6 +206,9 @@ decl_module! {
 
             ensure!(expiry > <system::Module<T>>::block_number(), "The expiry has to be greater than the current block number");
             ensure!(expiry <= <system::Module<T>>::block_number() + Self::auction_period_limit(), "The expiry has be lower than the limit block number");
+
+            let auctions = Self::auctions_expire_at(expiry);
+            ensure!(auctions.len() < MAX_AUCTIONS_PER_BLOCK, "Maximum number of auctions is reached for the target block, try another block");
 
             let new_auction = Auction {
                 kitty_id,
