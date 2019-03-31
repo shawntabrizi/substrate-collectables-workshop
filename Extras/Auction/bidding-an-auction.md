@@ -24,6 +24,12 @@ We will add the sender's bid to the `Bids` list and escrow this amount from thei
 <balances::Module<T>>::reserve(sender, amount)?;
 ```
 
+In the next step, while finalizing the function, the reserved balaced will be released using the balances module's `unreserve` function.
+
+```rust
+<balances::Module<T>>::unreserve(sender, amount)?;
+```
+
 We should make sure that new bids from the same user take into account how much we have already escrowed.
 
 Follow the template for implementing these steps.
