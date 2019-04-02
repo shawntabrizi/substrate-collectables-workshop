@@ -9,13 +9,13 @@ These commands will:
 - Install the core Substrate binaries
 - Install [additional helper scripts](https://github.com/paritytech/substrate-up) for quick development of new Substrate nodes
 
-When you're ready, run the following to download and install Substrate:
+When you're ready, run the following to download and install Substrate dependencies:
 
 ```bash
-curl https://getsubstrate.io -sSf | bash
+curl https://getsubstrate.io -sSf | bash -s -- --fast
 ```
 
-This process can take a while since it will be compiling multiple binaries from the source.
+> Note that we are using the `--fast` flag which skips the `cargo install` of `substrate` and `subkey` which can take a while. These are not necessary to complete this workshop, however may be used in other Substrate tutorials/guides you follow.
 
 Unfortunately, since the installation process can be unique per operating system and machine, this script may not yet always work out of the box. You can [take a look at the script directly](https://github.com/paritytech/scripts/blob/master/get-substrate.sh), and any [PRs](https://github.com/paritytech/scripts/pulls) that may contain improvement that you could use and adjust it for your particular development environment. We're trying to bundle installation of relevant dependencies into a single script.
 
