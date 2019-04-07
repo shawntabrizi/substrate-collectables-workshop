@@ -392,4 +392,3 @@ class SubstratekittiesSegment extends React.Component {
 		</Segment>
 	}
 }
-

@@ -27,12 +27,6 @@ yarn run dev
 Make sure your Substrate node is up and running and open [localhost:8000](http://localhost:8000) in your Chrome browser.
 
 ----
-**Learn More**
-
-The UI uses WebSockets to connect to the local Substrate node instance through an unencrypted connection. Most Browsers disallow this kind of connection for security and privacy reasons, only Chrome allows this connection _if it is connecting to localhost_. That is why we are using Chrome in this workshop. If you want to connect to the browser using a different computer in the network, it must be served through a secured connection.
-
-If you want to use a different browser
-
 **Debug**
 
 You may need to remove the existing `yarn` (a legacy command line tool) and install via `npm`:
