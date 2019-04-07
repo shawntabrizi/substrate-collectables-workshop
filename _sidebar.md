@@ -48,6 +48,6 @@
     - [Rendering Kitties](4/rendering-kitties.md)
 
 - [Report an Issue](https://github.com/shawntabrizi/substrate-collectables-workshop/issues)
-- [Glossary](https://substrate.readme.io/docs/glossary)
-- [Documentation](https://substrate.readme.io/docs)
+- [Glossary](https://docs.substrate.dev/docs/glossary)
+- [Documentation](https://docs.substrate.dev/docs)
 - [r/substrate](https://www.reddit.com/r/substrate)

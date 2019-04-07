@@ -1,32 +1,64 @@
 Running a Custom Node
 ===
 
-Now that you have successfully installed the Substrate framework on your machine, we can quickly spin up a custom Substrate node using pre-configured templates.
+Now that you have successfully installed all of the prerequisites on your machine, we can quickly spin up a custom Substrate node using a pre-configured template.
 
-In your terminal window, navigate to your working directory and run `substrate-node-new --help` to view usage instructions. We will choose "substratekitties" as the name of our project for the purposes of this walkthrough, but you can modify this name for future projects you work on. Now run the following, where `<AUTHOR>` is your first name:
+Substrate is a rapidly evolving project, which means that breaking changes may be introduced from time to time. In order to improve the development experience in this workshop, we have created a stable, known working version of a Substrate node and a compatible Substrate UI which you will use for this tutorial.
+
+As long as you start with this Substrate package, you should be able to complete the rest of this tutorial without issue, but please let us know if that is not the case. To get the package, run the following command in your working directory:
 
 ```bash
-substrate-node-new substratekitties <AUTHOR>
+git clone https://github.com/shawntabrizi/substrate-package
 ```
 
-> **NOTE**: If you want to peek behind the magic of `substrate-node-new` you can take a look [here](https://github.com/paritytech/substrate-up/blob/master/substrate-node-new).
+The `substrate-package` repository consists of two folder:
 
-Once your custom node is done compiling, you should be able to run the following command to start the node:
+1. `substrate-node-template`
+2. `substrate-ui`
+
+We won't touch the `substrate-ui` folder until Chapter 4 of this workshop, but as you might guess, it includes a pre-built UI, written in [React](https://reactjs.org/), which can later be extended for custom experiences.
+
+Instead, we will primarily be working in the `substrate-node-template` folder which contains a minimal, working Substrate node which we will start to hack on top of.
+
+Let's rename our project and project folders using the `substrate-package-rename.sh` script:
+
+```bash
+./substrate-package-rename.sh substratekitties <your_name>
+```
+
+Then let's go into the now renamed `substratekitties` folder and build our pre-configured node:
 
 ```bash
 cd substratekitties
+./init.sh
+./build.sh
+cargo build --release
+```
+
+This process may take a little while, but once it is done, you should be able to start your node with:
+
+```bash
 ./target/release/substratekitties --dev
 ```
 
-If you are successful, you should see blocks being produced.
+If you've done everything right so far, you should see blocks being produced.
 
 ![An image of the node producing new blocks](./assets/building-blocks.png)
 
-> As mentioned earlier in the workshop, Substrate is rapidly evolving, and may introduce some breaking changes. If you find that your node is not running correctly, you can try to clone [this repository](https://github.com/shawntabrizi/substrate-package) which should have a stable, known working version of substrate set up with the correct dependencies.
+Nice, you just started your own custom blockchain!
 
 ---
 **Learn More**
 
-Using the `--dev` flag tells your node binaries to run a specific chain 
+The `substrate-package` repository is made using [some custom commands](https://github.com/paritytech/substrate-up) provided by the `getsubstrate.io` one-liner we ran earlier.
+
+If you are starting a new project and want to get the latest version of Substrate, you can build your own Substrate package by running:
+
+```bash
+substrate-node-new <project_name> <your_name>
+substrate-ui-new <project_name>
+```
+
+As mentioned earlier, the one downside of this method is that these scripts pull directly from different GitHub repositories, which means there may be times of incompatibility during breaking changes.
 
 ---

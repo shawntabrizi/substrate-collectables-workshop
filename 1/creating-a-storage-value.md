@@ -3,7 +3,7 @@ Creating a Storage Value
 
 Let's add the most simple logic we can to our runtime: a function which stores a variable.
 
-To do this, we will first need to define a storage variable for a [**Storage Item**](https://substrate.readme.io/docs/glossary#section-storage-items) in the [**`decl_storage!`**](https://wiki.parity.io/decl_storage) macro. This allows for type-safe usage of the Substrate storage database, so you can keep things around between blocks.
+To do this, we will first need to define a storage variable for a [**Storage Item**](https://docs.substrate.dev/docs/glossary#section-storage-items) in the [**`decl_storage!`**](https://crates.parity.io/srml_support_procedural/macro.decl_storage.html) macro. This allows for type-safe usage of the Substrate storage database, so you can keep things around between blocks.
 
 ## Declaring a Storage Value
 

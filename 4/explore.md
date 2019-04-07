@@ -16,7 +16,7 @@ The `substrate-ui` template comes with a number of prebuilt features that you mi
 
 Up until now, we have had you "purge" your chain and generate new binaries every time you wanted to make changes to your runtime. However, Substrate is unique in that it allows for "forkless upgrades" where you are able to upgrade your runtime logic without causing problems to your network.
 
-You might try this if you make logical changes to some of your functions as suggested in the challenges at the end of chapter 3. Take a look [here](https://substrate.readme.io/docs/creating-a-custom-substrate-chain#section-step-5-upgrade-our-chain) for some more details.
+You might try this if you make logical changes to some of your functions as suggested in the challenges at the end of chapter 3. Take a look [here](https://docs.substrate.dev/docs/creating-a-custom-substrate-chain#section-step-5-upgrade-our-chain) for some more details.
 
 ## React Components
 

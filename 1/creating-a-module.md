@@ -138,6 +138,6 @@ Now it's time to start adding some of our own logic!
 ---
 **Learn More**
 
-Check out the documentation for the `construct_runtime!` macro [here](https://substrate.readme.io/docs/construct_runtime).
+Check out the documentation for the `construct_runtime!` macro [here](https://docs.substrate.dev/docs/construct_runtime).
 
 ---

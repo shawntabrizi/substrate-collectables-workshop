@@ -40,7 +40,7 @@ The first argument of these functions is always `origin`. `origin` contains info
 - Root calls that are allowed to be made only by the governance system.
 - Inherent calls that are allowed to be made only by the block authors and validators.
 
-Refer to definition of [Origin](https://substrate.readme.io/docs/glossary#section-origin) in the Substrate Glossary.
+Refer to definition of [Origin](https://docs.substrate.dev/docs/glossary#section-origin) in the Substrate Glossary.
 
 ### Result
 
