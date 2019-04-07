@@ -1,9 +1,3 @@
-<div align="right">
-    Language:
-    <a title="英语" href="../README.md">EN</a>
-    <a title="中文" href="./README.md">CN</a>
-</div>
-
 # [Substrate Collectables][main link]
 
 > 使用 [Substrate][] 交互式地构建你的第一条区块链
