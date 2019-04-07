@@ -11,12 +11,8 @@ The `substrate-ui` template comes with a number of prebuilt features that you mi
 - An address book to get details about accounts
 - A transfer function to send funds between accounts
 - A runtime upgrade UX to make easy updates to your runtime
-
-## Runtime Upgrade
-
-Up until now, we have had you "purge" your chain and generate new binaries every time you wanted to make changes to your runtime. However, Substrate is unique in that it allows for "forkless upgrades" where you are able to upgrade your runtime logic without causing problems to your network.
-
-You might try this if you make logical changes to some of your functions as suggested in the challenges at the end of chapter 3. Take a look [here](https://docs.substrate.dev/docs/creating-a-custom-substrate-chain#section-step-5-upgrade-our-chain) for some more details.
+- A key/value storage modification UX
+- A custom transaction submitter
 
 ## React Components
 
