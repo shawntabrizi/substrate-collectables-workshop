@@ -1,5 +1,6 @@
 use support::{decl_storage, decl_module, StorageValue, StorageMap,
     dispatch::Result, ensure, decl_event};
+// ACTION: Import the Currency trait
 use system::ensure_signed;
 // ACTION: Import the Zero trait
 use runtime_primitives::traits::{As, Hash};
@@ -118,7 +119,7 @@ decl_module! {
 
             // ACTION: Check `kitty_price` is less than or equal to max_price
 
-            // ACTION: Use the `Balances` module's `make_transfer()` function to safely transfer funds
+            // ACTION: Use the `Balances` module's `Currency` trait and `transfer()` function to safely transfer funds
 
             // ACTION: Transfer the kitty using `tranfer_from()` including a proof of why it cannot fail
 
