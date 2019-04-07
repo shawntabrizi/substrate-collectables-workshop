@@ -16,7 +16,7 @@ The `substrate-package` repository consists of two folder:
 1. `substrate-node-template`
 2. `substrate-ui`
 
-We won't touch the `substrate-ui` folder until Chapter 4 of this workshop, but as you might guess, it includes a pre-built UI, written in [React](https://reactjs.org/), which can later be extended for custom experiences.
+We won't touch the `substrate-ui` folder until Chapter 4 of this workshop, but as the name implies, it includes a pre-built UI, written in [React](https://reactjs.org/), which can later be extended for custom experiences.
 
 Instead, we will primarily be working in the `substrate-node-template` folder which contains a minimal, working Substrate node which we will start to hack on top of.
 
