@@ -6,6 +6,7 @@
 > Learn to build blockchains with Parity Substrate
 
 [Get Started](README.md)
+[开始吧](zh-cn/README.md)
 [GitHub](https://github.com/shawntabrizi/substrate-collectables-workshop)
 
 <!-- Overwrite Background Image with black -->
