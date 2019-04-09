@@ -1,7 +1,7 @@
 # [Substrate Collectables][main link]
 > インタラクティブハンズオンではじめてのブロックチェーンを作る[Substrate][] ワークショップ
 
-![A screenshot of Substrate kitties](./media/substrate-collectables.png)
+![A screenshot of Substrate kitties](../media/substrate-collectables.png)
 
 ## これは何?
 
@@ -28,7 +28,7 @@
 
 ## 貢献の仕方
 
-* [issues on our GitHub](https://github.com/shawntabrizi/substrate-collectables-workshop/issues)を開く
+* [私たちのGithubでissues](https://github.com/shawntabrizi/substrate-collectables-workshop/issues)を開く
 
 * [repository](https://github.com/shawntabrizi/substrate-collectables-workshop)のフォークとクローン
 
@@ -40,7 +40,7 @@
 
 サブストレートやこのワークショップのようなオープンソースプロジェクトは、開発者コミュニティの総意と共同作業なしには成功しません。
 
-Substratekittiesワークショップが提供できるのは[Cryptokitties]（https://www.cryptokitties.co/）、[Cryptozombies]（https://cryptozombies.io/）、[Docsify]（https：// docsify.js.org/）、[モナコエディタ]（https://microsoft.github.io/monaco-editor/）、[David Revoyの猫用アバタージェネレータ]（https://framagit.org/Deevad/cat-avatar-generator)のようなジャイアント達と、途中でエラーやバグを報告してくれた多数のボランティアのお陰です。
+Substratekittiesワークショップが提供できるのは[Cryptokitties](https://www.cryptokitties.co/), [Cryptozombies](https://cryptozombies.io/), [Docsify](https://docsify.js.org/), [Monaco Editor](https://microsoft.github.io/monaco-editor/), [David Revoy's Cat Avatar Generator](https://framagit.org/Deevad/cat-avatar-generator) のようなジャイアント達と、途中でエラーやバグを報告してくれた多数のボランティアのお陰です。
 
 このワークショップがあなたに何か新しいことを教え、その代わり、あなたが他の人に教えてくれることを願います。
 
