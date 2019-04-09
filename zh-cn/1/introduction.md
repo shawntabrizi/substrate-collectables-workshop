@@ -22,7 +22,7 @@
 
 [这些](https://github.com/paritytech/substrate/tree/master/srml)是代码库中提供的所有 modules，你可以轻松地将其包含在 runtime 中。Substrate 提供的这些默认 module 集合被称为 Substrate Runtime Module Library [**SRML**](https://docs.substrate.dev/docs/glossary#section-srml-substrate-runtime-module-library-)
 
-使用 Substrate 框架，你可以轻松地在 runtime 中创建和包含新的 module。这就是我们在本教程中将要做的！
+使用 Substrate 框架，你可以轻松地在 runtime 中创建新的 module。这就是我们在本教程中将要做的！
 
 ## Rust
 
@@ -32,7 +32,7 @@
 
 ### Ownership 和 Borrowing
 
-From the [Rust docs](https://doc.rust-lang.org/book/ownership.html):
+引用自 [Rust docs](https://doc.rust-lang.org/book/ownership.html):
 
 > Ownership is Rust’s most unique feature, and it enables Rust to make memory safety guarantees without needing a garbage collector.
 >
@@ -42,15 +42,15 @@ From the [Rust docs](https://doc.rust-lang.org/book/ownership.html):
 
 你将在整个教程中看到我们将在一些变量前面添加一个与号（＆），这意味着我们正在借用该值。如果我们需要在整个函数中多次重用该值，这种方式将非常有用。
 
-它基本上阻止了你在处理内存时会犯的一些愚蠢错误 - 所以如果 Rust 编译器建议你不要做某件事，请心存感激。
+它基本上阻止了你在处理内存时会犯的一些愚蠢错误，所以当 Rust 编译器建议你不要做某件事，请心存感激。
 
 ### Traits
 
-From the [Rust docs](https://doc.rust-lang.org/book/traits.html):
+引用自 [Rust docs](https://doc.rust-lang.org/book/traits.html):
 
 > Traits abstract over behavior that types can have in common.
 
-如果你熟悉 interfaces，Traits 是 [Rust 中唯一的 interface 概念](https://blog.rust-lang.org/2015/05/11/traits.html)。[**译者注**： 我不认同把 traits 说成是 interface，不过对常用 OOP 范式的开发者来看，它在使用上的确更接近 interface 的概念，而对常用 FP 范式的开发者来说，它在使用上更接近于 Haskell 中的 typeclass 概念]
+如果你熟悉 interfaces，Traits 是 [Rust 中唯一的 interface 概念](https://blog.rust-lang.org/2015/05/11/traits.html)。[**译者注**： traits 不能完全说成是 interface，它是属于 Rust 独有的部分。不过对常用 OOP 范式的开发者来看，它在使用上的确更接近 interface 的概念，但对常用 FP 范式的开发者来说，它在使用上更接近于 Haskell 中的 typeclass 概念]
 
 ### 使用 Result 创建 Recoverable Errors
 
@@ -67,7 +67,7 @@ match my_function() {
 
 你可以在[此处](https://doc.rust-lang.org/book/ch09-02-recoverable-errors-with-result.html)了解更多相关信息。
 
-这些类型的典型错误是
+下面是开发过程中会碰到的典型错误
 
 ```
 error[E0382]: borrow of moved value: `s`
@@ -103,7 +103,7 @@ error[E0502]: cannot borrow `s` as mutable because it is also borrowed as immuta
   |                 --- immutable borrow later used here
 ```
 
-简单修复这种特定类型错误的方法是克隆字符串而不是对它进行引用。
+简单修复这种错误的方法是克隆字符串而不是对它进行引用。
 
 ```rust
 fn main() {
@@ -118,19 +118,19 @@ Works!
 
 ### Macros
 
-From the [Rust docs](https://doc.rust-lang.org/book/macros.html):
+引用自 [Rust docs](https://doc.rust-lang.org/book/macros.html):
 
 > While functions and types abstract over code, macros abstract at a syntactic level.
 
 更简单地说，宏是编写代码的代码，通常用于简化代码或使代码更具可读性。
 
-Substrate 在整个 Runtime 开发过程中使用了很多宏，它们支持十分特有的语法，而且它们返回的错误可读性相当差。[**译者注**： 推荐使用 [cargo-expand 工具](https://github.com/dtolnay/cargo-expand) 来展开宏，以便理解具体调用逻辑]
+Substrate 在整个 Runtime 开发过程中使用了很多宏，它们支持十分特有的语法，但是它们返回的错误可读性相当差。[**译者注**： 推荐使用 [cargo-expand 工具](https://github.com/dtolnay/cargo-expand) 来展开宏，以便理解具体调用逻辑]
 
 ---
 
 **Learn More**
 
-Result/? 如何工作？
+Result 和 ? 如何工作？
 
 介绍 Traits 和 interfaces 的关系？
 

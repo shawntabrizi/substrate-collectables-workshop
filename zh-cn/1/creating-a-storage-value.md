@@ -56,13 +56,13 @@ fn kill<S: Storage>(storage: &S) {
 }
 ```
 
-所以如果你想 “put” `MyU32` 的值，你可以这样写：
+所以如果你想 "put" `MyU32` 的值，你可以这样写：
 
 ```rust
 <MyU32<T>>::put(1337);
 ```
 
-如果你想 “get” `MyBool` 的值，你可以选择以下任一一种写法：
+如果你想 "get" `MyBool` 的值，你可以选择以下任一一种写法：
 
 ```rust
 let my_bool = <MyBool<T>>::get();

@@ -1,6 +1,6 @@
 # 查看 Structure
 
-现在我们已经构建了 runtime 来制作 kitty，现在需要检查一下我们的工作！
+现在我们已经为 kitty 构建好了 runtime，现在需要检查一下我们的工作！
 
 我们已经为我们的链引入了一个自定义结构，虽然 Polkadot-JS Apps UI 非常善于适应我们的变化，但在这种情况下，我们需要给出一个关于如何反序列化结构体数据的提示。
 
@@ -17,7 +17,7 @@
 
 幸运的是，Polkadot-JS Apps UI 为我们提供了一种非常简单的方法来导入自定义结构，以便页面能够正确解码信息。
 
-在 **Settings** tab 页面的 **developer** 部分，有一个输入区域，你可以在其中提交 JSON 文件。将此 JSON 对象保存到一个 `.json` 文件中，并将该文件提交到 Polkadot-JS Apps UI 中。
+在 **Settings** app 页面的 **Developer** 部分中，你可以提交包含有自定义 struct 的 JSON 文件或者通过代码编辑器手动添加。将此JSON object 复制并粘贴到代码编辑器中，然后按下 `Save`。
 
 ```json
 {
@@ -30,23 +30,21 @@
 }
 ```
 
-最后按下 `Save & Reload`。
-
 ## 创建一个 Kitty
 
-现在我们可以去创造一个新的 kitty。在 **Extrinsics** tab 页面中，进入：
+现在我们可以去创造一个新的 kitty。在 **Extrinsics** app 页面中，进入：
 
 ```
 substratekitties > createKitty()
 ```
 
-按下提交后，你应该看到交易完成：
+一旦你按下提交后，你应该能看到交易完成：
 
 ![Image of creating a kitty in the Polkadot-JS Apps UI](../../1/assets/creating-a-kitty.png)
 
 ## 查看 Kitty
 
-最后，我们可以进入 **Chain State** tab 页面，查看我们存储的 kitty 对象。选择：
+最后，我们可以进入 **Chain State** app 页面，查看我们存储的 kitty 对象。选择：
 
 ```
 kittyStorage > ownedKitty(AccountId): Kitty
@@ -65,3 +63,5 @@ kittyStorage > ownedKitty(AccountId): Kitty
 我们如何简单地传输原始字节
 
 [TODO: make this a page]
+
+---

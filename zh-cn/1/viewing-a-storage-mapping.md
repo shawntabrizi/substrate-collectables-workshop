@@ -10,7 +10,7 @@ cargo build --release
 ./target/release/substratekitties purge-chain --dev
 ```
 
-我们可以启动我们的节点：
+我们可以启动节点：
 
 ```bash
 ./target/release/substratekitties --dev
@@ -32,7 +32,7 @@ substratekitties > setValue(value)
 
 ## 查看存储
 
-现在你已经提交了一个将值存入存储的交易，我们看看该值是否实际存在。
+现在你已经提交了一个将值存入存储的交易，我们看看该值实际上存在与否。
 
 转到 **Chain state** app 页面，然后选择：
 

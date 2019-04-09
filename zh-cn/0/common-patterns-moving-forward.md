@@ -15,7 +15,7 @@
 - WebAssembly（Wasm）image
 - 标准二进制可执行文件
 
-Wasm 文件用作标准二进制文件编译的一部分，因此在构建可执行文件之前首先编译 Wasm image 非常重要。
+Wasm 文件用作标准二进制文件编译的一部分，因此在构建可执行文件之前需要先编译 Wasm image。
 
 模式应该是：
 
@@ -26,7 +26,7 @@ cargo build --release    // Build binary
 
 此外，当你对节点进行更改时，之前旧版本节点生成的块仍然存在。你可能会注意到，当重启节点时，块只会从中断处继续生成。
 
-但是，如果你对 runtime 的更改很重要，则可能需要使用以下命令清除你链上所有先前块：
+但是，如果你对 runtime 的更改很重要，那么可能需要使用以下命令清除链上先前所有的块：
 
 ```bash
 ./target/release/substratekitties purge-chain --dev
@@ -52,6 +52,6 @@ cargo build --release    // Build binary
 ./init.sh
 ```
 
-此脚本只是简单更新 Rust，并确保你没有奇怪的编译错误。如果你还记得，我们已经在本教程的 instructions 部分提到了。
+此脚本只是简单更新 Rust 版本和相关工具。确保你没有奇怪的编译错误。如果你有相关问题，请记得联系我们，具体方式我们已经在本教程的 instructions 部分提到过了。
 
 ---

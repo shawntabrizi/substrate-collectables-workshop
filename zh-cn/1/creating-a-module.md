@@ -77,7 +77,7 @@ impl substratekitties::Trait for Runtime {}
 ...
 ```
 
-最后，我们可以在 `construct_runtime!` 的末尾添加这一行定义：
+最后，我们可以在 `construct_runtime!` 的末尾添加一行定义：
 
 ```rust
 // `lib.rs`
@@ -137,3 +137,5 @@ cargo build --release
 **Learn More**
 
 查看 `construct_runtime!` 宏的[文档](https://docs.substrate.dev/docs/construct_runtime)。
+
+---

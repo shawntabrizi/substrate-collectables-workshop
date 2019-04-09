@@ -48,15 +48,15 @@ fn foo(origin, bar: Bar, baz: Baz, ...) -> Result;
 由于这些是调度函数，因此需要记住两件非常重要的事情：
 
 - MUST NOT PANIC: 在任何情况下（保存，或者存储进入一个不可挽回的损坏状态）函数都不能 panic。
-- NO SIDE-EFFECTS ON ERROR: 此函数要么完全完成并返回 `Ok(())`，要么它必须对存储没有副作用并返回 `Err('某些原因'）`。
+- NO SIDE-EFFECTS ON ERROR: 此函数要么完全完成并返回 `Ok(())`，要么它必须对存储没有副作用并返回 `Err('Some reason'）`。
 
 我们稍后会谈到这些。在本教程中，我们将确保满足这两个条件，并且我们也提醒你这样做。
 
 ## 检查签名消息
 
-如上所述，任何这些模块函数中的第一个参数是 `origin`。`system` 中有三个方便的调用函数 `ensure_signed`, `ensure_root` 和 `ensure_inherent`，可以调用三者中匹配的函数并返回一个方便的结果。**在你的函数中做的第一件事应该总是从这三个调用函数中选择匹配的函数**。
+如上所述，任何这些模块函数中的第一个参数是 `origin`。`system` module 中有三个方便的调用函数 `ensure_signed`, `ensure_root` 和 `ensure_inherent`，可以调用三者中匹配的函数并返回一个结果。**在你的函数中做的第一件事应该总是从这三个调用函数中选择匹配的函数**。
 
-我们可以使用 `system` 中的 `ensure_signed()` 函数来检查 origin，并 “ensure” 消息是由有效帐户签名的。我们甚至可以从函数调用的结果中派生签名帐户，如上面的示例函数所示。
+我们可以使用 `system` 中的 `ensure_signed()` 函数来检查 origin，并 "ensure" 消息是由有效帐户签名的。我们甚至可以从函数调用的结果中派生签名帐户，如上面的示例函数所示。
 
 ## 轮到你了！
 
@@ -98,4 +98,6 @@ help: possible candidate is found in another module, you can import it into scop
 use system::ensure_signed;
 ```
 
-正如 “[common patterns](../0/common-patterns-moving-forward.md)” 部分所述，Rust 在整个 runtime 开发过程中 Rust 编译器将成为你的朋友，并且可以帮助你克服代码中的 *大部分* 问题。
+正如 “[common patterns](../0/common-patterns-moving-forward.md)” 部分所述，在整个 runtime 开发过程中 Rust 编译器将成为你的朋友，并且可以帮助你解决代码中的 *大部分* 问题。之后，当你需要导入一个新库时，我们都会尽力提起，但在编译器向你发送一些错误时不要担心，接受它可能给你的有用建议。
+
+---
