@@ -7,6 +7,7 @@
 
 [Get Started](README.md)
 [开始吧](zh-cn/README.md)
+[はじめる](ja-JP/README.md)
 [GitHub](https://github.com/shawntabrizi/substrate-collectables-workshop)
 
 <!-- Overwrite Background Image with black -->

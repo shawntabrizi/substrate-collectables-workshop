@@ -1,33 +1,34 @@
-Storage Mapping
+ストレージマッピング
 ===
 
-Our last runtime only allowed us to store a single value across all users of our blockchain. As we start thinking toward our collectables chain, it makes sense to add support for each user to have their own value stored.
+前回のランタイムでは、ブロックチェーンの単一の値を保存することしかできませんでした。私達が目指しているコレクタブルチェーンの開発を考えたとき、各ユーザーのために別の形でストレージに保存できる必要があるでしょう。
 
-To enable this, we will replace our simple single value storage with a storage mapping.
+これを可能にするために、単純な単一値ストレージをストレージマッピングに置き換えます。
 
-## Substrate Specific Types
+## Substrate特有のタイプ
 
-Before we jump into storage mappings, let's talk about some substrate specific types we will be using.
+ストレージマッピングに入る前に、使用するSubstrate特有のタイプについて説明します。
 
-Your default runtime template includes a bunch of modules that expose types that you would expect to get from a blockchain. You might even find yourself exposing new types to other parts of the runtime as you do more module development.
+デフォルトのランタイムテンプレートには、ブロックチェーンから取得可能なタイプを公開する多数のモジュールが含まれています。より多くのモジュールを開発するにつれて、ランタイムの他の部分に新しいタイプを公開することさえあるかもしれません。
 
-In this tutorial we will only be using 3 substrate specific types:
+このチュートリアルでは、以下の3種類のSubstrate特有のタイプのみを使用します：
 
  1. AccountId
  2. Balance
  3. Hash
 
-Our module does not natively have access to these types, but we can easily gain access by having our module's `Trait` inherit from the modules that defined these types. In this case the `balances` module has everything we need:
+私たちのモジュールは本来これらの型にアクセスすることはできませんが、モジュールの`Trait`にこれらの型を定義したモジュールから継承させることでアクセスが可能になります。この場合、私達に必要なものは全て`balances`モジュールに備わっています：
 
 ```rust
 pub trait Trait: balances::Trait {}
 ```
 
-We can access these types anywhere we have specified the generic `<T: Trait>` using `T::Type` like we have done in the example above.
+上の例ではTraitという名前のtraitにbalances::Traitを継承しています。
+`T::Type`を使用することにより、ジェネリックな`<T：Trait>`を指定したところならどこでもこれらの型にアクセスできます。
 
-## Declaring a Storage Map
+## ストレージマップの宣言
 
-A Storage Map allows you to put a basic (key, value) pair into your runtime storage. It can be declared like this:
+ストレージマップを使用すると、基本（key, value）のペアをランタイムストレージに格納putできます。これは次のように宣言できます。
 
 ```rust
 decl_storage! {
@@ -38,13 +39,13 @@ decl_storage! {
 }
 ```
 
-You can see that mappings can be pretty useful when you want to represent "owned" data. Since we can create a mapping from a user (`AccountId`) to some value such as with `MyValue`, we can keep in storage information about that user. We can even build logic in our runtime which manages who is allowed to modify those values, a common pattern we will be using throughout this tutorial.
+「所有されている」データを表したい場合、マッピングは非常に便利な格納方法となります。ユーザ（`AccountId`）から`MyValue`のような値へのマッピングを作成することができるので、そのユーザに関する情報をkey毎に保存することができます。このチュートリアルでは誰がそれらの値を変更できるかを管理するロジックをランタイムで構築する方法も学びます。
 
-To use a storage map, you will need to import the `support::StorageMap` type.
+ストレージマップを使うには、`support::StorageMap`タイプをインポートする必要があります。
 
-### Working with a StorageMap
+### ストレージマップを使って作業する
 
-The functions used to access a `StorageMap` are in [the same place as `StorageValue`](https://github.com/paritytech/substrate/blob/master/srml/support/src/storage/generator.rs#L162):
+`StorageMap`にアクセスするために使われる関数は[StorageValueと同じ場所](https://github.com/paritytech/substrate/blob/master/srml/support/src/storage/generator.rs#L162)にあります：
 
 ```rust
 /// Get the prefix key in storage.
@@ -78,13 +79,13 @@ fn remove<S: Storage>(key: &K, storage: &S) {
 fn mutate<R, F: FnOnce(&mut Self::Query) -> R, S: Storage>(key: &K, f: F, storage: &S) -> R;
 ```
 
-So if you want to "insert" a value into a StorageMapping, you need to provide the key and value like so:
+そのため、StorageMappingに値を「挿入」したい場合は、次のようにキーと値を指定する必要があります：
 
 ```rust
 <SomeValue<T>>::insert(key, value);
 ```
 
-You could then query that value with either:
+そしてその値を以下のいずれかの方法でクエリ(問い合わせ)することができます：
 
 ```rust
 let my_value = <SomeValue<T>>::get(key);
@@ -93,24 +94,24 @@ let also_my_value = Self::some_value_getter(key);
 
 ## Your Turn!
 
-Update your simple storage example to now store a map from an `AccountId` to a `u64`.
+簡単なストレージ例題を更新して、今度は `AccountId`から`u64`へのマップを保存します。
 
 <!-- tabs:start -->
 
 #### ** Template **
 
-[embedded-code](./assets/1.4-template.rs ':include :type=code embed-template')
+[embedded-code](../../1/assets/1.4-template.rs ':include :type=code embed-template')
 
 #### ** Solution **
 
-[embedded-code-final](./assets/1.4-finished-code.rs ':include :type=code embed-final')
+[embedded-code-final](../../1/assets/1.4-finished-code.rs ':include :type=code embed-final')
 
 <!-- tabs:end -->
 
 ---
-**Learn More**
+**詳細解説**
 
-Talk about funding accounts to enable transactions
+トランザクションを行うためにアカウントに預金する
 
 [TODO: make this a page]
 

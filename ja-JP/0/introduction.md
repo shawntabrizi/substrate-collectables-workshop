@@ -1,22 +1,21 @@
-Introduction
+イントロダクション
 ===
+まずははじめに、簡単な開発環境の構築を行います。
 
-We are going to start off easy and just get our development environment set up.
+このプロセスは、コンピュータがRustコードをどれだけ速くコンパイルできるかに応じて、約15〜30分かかります。
 
-This process takes about 15-30 min depending on how quickly your computer can compile Rust code.
-
-At the end of this section, you will have started a custom Substrate node using the `substrate-node-template` and interact with it using the Polkadot-JS Apps UI.
+このセクションの終わりに、 `substrate-node-template`を使ってカスタムのSubstrateノードを立ち上げ、それを通してPolkadot-JS Apps UIを触ってみます。
 
 ---
 **CONTACT US**
 
-Substrate and the Substrate Collectables Workshop are open source projects built by passionate and friendly developers. We want you to provide feedback, tell us about issues, and help us shape the development of this project.
+Substrate と Substrate Collectables Workshopは、熱心でフレンドリーな開発者によって構築されたオープンソースプロジェクトです。ぜひあなたもフィードバックや問題の報告を通して、このプロジェクトの発展に貢献してください。
 
-If at any point you want to ask or tell us something, please use the most appropriate platform and we will be happy to chat!
+私たちに何か尋ねたいことがあれば、以下から適切なプラットフォームを利用してください。
 
 - [Substrate GitHub](https://github.com/paritytech/substrate)
-- [Substrate Collectables Workshop GitHub](https://github.com/shawntabrizi/substrate-collectables-workshop)
-- [Substrate Community Chat](https://docs.substrate.dev/docs/feedback)
+- [Substrateコレクタブルワークショップ GitHub](https://github.com/shawntabrizi/substrate-collectables-workshop)
+- [Substrateコミュニティチャット](https://docs.substrate.dev/docs/feedback)
 
 Have fun and good luck!
 

@@ -1,13 +1,13 @@
-Storing a Value
+値を保存する
 ===
 
-Now that we have our storage value declared in our runtime, we can actually create a function to push a value to it.
+ランタイムにストレージ値を宣言したので、実際に値をプッシュする関数を作成できます。
 
-## Declaring a Public Function
+##パブリック関数を宣言する
 
-We need to define runtime functions that will set and modify our storage values. This can be done within our `decl_module!` macro, which declares all the entry points that your module handles.
+ストレージ値を設定および変更するランタイム関数を定義する必要があります。これは`decl_module！`マクロの中で行うことができ、このマクロはモジュールが扱うすべてのエントリポイントを宣言します。
 
-Here is an example of an exposed function declaration:
+これはパブリック関数宣言の一例です。
 
 ```rust
 decl_module! {
@@ -24,61 +24,59 @@ decl_module! {
 }
 ```
 
-## Function Structure
+## ファンクション構造
 
-Module functions exposed here should always take the form:
+パブリックなモジュール関数は以下のフォーマットに従う必要があります：
 
 ```rust
 fn foo(origin, bar: Bar, baz: Baz, ...) -> Result;
 ```
-
 ### Origin
 
-The first argument of these functions is always `origin`. `origin` contains information about where the call originated from. This is generally split into three groups:
+これらの関数の最初の引数は常に `origin`です。`origin`は呼び出しがどこから来たのかについての情報を含んでいます。これは通常、以下の3つのグループに分けられます。
 
-- Public calls that are signed by an external account.
-- Root calls that are allowed to be made only by the governance system.
-- Inherent calls that are allowed to be made only by the block authors and validators.
+ - 外部アカウントによって署名されているパブリックコール
+ - ガバナンスシステムによってのみ許可されているルートコール
+ - ブロックの作成者とバリデータによってのみ許可されている内部コール
 
-Refer to definition of [Origin](https://docs.substrate.dev/docs/glossary#section-origin) in the Substrate Glossary.
+詳しくはSubstrate Glossaryの[Originの定義](https://docs.substrate.dev/docs/glossary#section-origin)を参照してください。
 
 ### Result
+さらに、これらの関数は `support::dispatch`モジュールから`Result`型を返さなければなりません。つまり、成功した関数コールは常に`Ok(())`を返し、エラーをキャッチした場合は`Err()`を返さなければなりません。
 
-Additionally, these functions must return the `Result` type from the `support::dispatch` module. This means that a successful function call will always return `Ok(())`, otherwise, the logic should catch any errors which may cause a problem and return an `Err()`.
+これらはディスパッチされた関数なので、2つの非常に重要なルールがあります。
 
-Since these are dispatched functions, there are two extremely important things to remember:
+ -  PANICしない：いかなる状況下でも(おそらく、修復不可能な損傷を受けた状態になっているストレージをセーブして)この機能はパニックしてはいけません。
+ - エラーが副作用を起こさない：完全に完了してOk(())を返さなければならないか、あるいはストレージに副作用を与えずにErr（その理由）を返さなければなりません。
 
-- MUST NOT PANIC: Under no circumstances (save, perhaps, storage getting into an irreparably damaged state) must this function panic.
-- NO SIDE-EFFECTS ON ERROR: This function must either complete totally and return `Ok(())`, or it must have no side-effects on storage and return `Err('Some reason')`.
+これらの詳細は後に説明しますが、このチュートリアルを通して、上の二つの条件が満たされているかを確認してください。
 
-We will talk about these more later. Throughout this tutorial, we will make sure that both of these conditions are satisfied, and we will remind you to do the same.
+## 署名されたメッセージを確認する
 
-## Checking for a Signed Message
+前述したように、これらのモジュール関数のいずれにおいても最初の引数は `origin`になります。`system`には、マッチングを行い便利な結果を返す3つの便利なコールがあります：`confirm_signed`、`ensure_root`、そして`confirm_inherent`です。 **関数を定義する際には、まず最初にこのいずれかのコールを使う必要があります**
 
-As mentioned, the first argument in any of these module functions is the `origin`. There are three convenience calls in `system` that do the matching for you and return a convenient result: `ensure_signed`, `ensure_root` and `ensure_inherent`. **You should always match against them as the first thing you do in your function.**
-
-We can use the `ensure_signed()` function from `system::ensure_signed` to check the origin, and "ensure" that the messaged is signed by a valid account. We can even derive the signing account from the result of the function call as shown in the example function above.
+`system :: confirm_signed`からの`confirm_signed（）`関数を使ってOriginをチェックし、メッセージが有効なアカウントで署名されていることを"確かめる"ことができます。上記の関数例のように、関数呼び出しの結果から署名アカウントを変数`sender`などに導出することもできます。
 
 ## Your Turn!
 
-Use the template to create a `set_value()` function which will allow a user to send a signed message which puts a `u64` into the runtime storage.
+テンプレートを使用して `set_value（）`関数を作成します。これによりユーザーは署名されたメッセージを送信してランタイムストレージに`u64`を置くことができます。
 
 <!-- tabs:start -->
 
 #### ** Template **
 
-[embedded-code](./assets/1.3-template.rs ':include :type=code embed-template')
+[embedded-code](../../1/assets/1.3-template.rs ':include :type=code embed-template')
 
 #### ** Solution **
 
-[embedded-code-final](./assets/1.3-finished-code.rs ':include :type=code embed-final')
+[embedded-code-final](../../1/assets/1.3-finished-code.rs ':include :type=code embed-final')
 
 <!-- tabs:end -->
 
 ---
-**Learn More**
+**詳細解説**
 
-If you try to compile the code samples we showed above without importing the required libraries, you will get some errors:
+必要なライブラリをインポートせずに上記のコードサンプルをコンパイルしようとすると、エラーが発生します。
 
 ```rust
 error[E0425]: cannot find function `ensure_signed` in this scope
@@ -92,12 +90,18 @@ help: possible candidate is found in another module, you can import it into scop
    |
 ```
 
-As you can see, we added some functionality in our code that we had not yet imported into our module. Rust actually can help us here by suggesting ways to solve these problems. If we listen to Rust, then we can simply add these `use` statements at the very top to get our code to compile again:
+ご覧のとおり、まだモジュールにインポートしていない機能がコードに追加されています。Rustのエラーメッセージはこの様な問題を解決するのに非常に役に立ちます。Rustが言うには、コンパイルを成功させるためには`use`ステートメントを一番上に追加する必要があります：
 
 ```rust
 use system::ensure_signed;
 ```
 
-As mentioned in "common patterns" section, Rust will be your friend throughout runtime development, and *should mostly* help you overcome any issues in your code. Moving forward we will try to mention whenever you need to import a new library, but don't be worried when the compiler sends you some errors. Instead embrace the helpful suggestions it might be giving you.
+「進行上の一般的なパターン」のセクションで述べたように、Rustはランタイム開発全体を通してあなたの問題を解決する良き友となるでしょう。問題があるときにRustコンパイラが発するエラーは決して怒っているのではありません。あなたがよりセキュアな、美しいコードを書けるようにお手伝いしているのです。受け入れてください。
+
+"どんな結果に対しても、僕はそれを受け入れる。
+失敗したときの自分の立場が怖いからといって、変な理由づけはしません。
+だから僕の発している言葉に嘘はないはずです。"
+
+イチロー
 
 ---

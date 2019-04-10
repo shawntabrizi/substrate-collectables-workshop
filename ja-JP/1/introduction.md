@@ -1,63 +1,63 @@
-Introduction
+イントロダクション
 ===
 
-In this section, we will show you the basics of creating a custom runtime:
+このセクションでは、カスタムランタイム作成のベーシックを教えます：
 
-- How to use runtime storage
-- How to expose runtime functions
-- How to use the Polkadot-JS Apps UI to interact with your runtime
+- ランタイムストレージの使い方
+- ランタイム機能のエクスポーズ方法
+- Polkadot-JS Apps UIを使ったランタイムへのアクセス方法
 
-## What is a Runtime?
+## ランタイムとは?
 
-In short, the [*Runtime*](https://docs.substrate.dev/docs/glossary#section-runtime) is block execution logic of a blockchain, sometimes referred to as the state transition function [**STF**](https://docs.substrate.dev/docs/glossary#section-stf-state-transition-function-). In [Substrate](https://docs.substrate.dev/docs/glossary#section-substrate), this is stored on-chain in an implementation-neutral, machine-executable format as a WebAssembly binary. Other systems tend to express it only in human-readable format (e.g. Ethereum) or not at all (e.g. Bitcoin).
+簡単に言うと、[*Runtime*](https://docs.substrate.dev/docs/glossary#section-runtime)はブロックチェーンのブロック実行ロジックで、時にステイトトランジションファンクション([**STF**](https://docs.substrate.dev/docs/glossary#section-stf-state-transition-function-))とも呼ばれます。[Substrate](https://docs.substrate.dev/docs/glossary#section-substrate)では, これは、実装に依存しない、機械実行可能な形式でWebAssemblyバイナリとしてチェーン上に保存されます。他のシステムはそれを人間が読める形式（例えばEthereum）で表現するか、まったく表現しない（例えばBitcoin）などがあります。
 
-## What is a Module?
+## モジュールとは?
 
-Your blockchain's runtime is composed of multiple features and functionalities which work together to power your blockchain. Things like:
+ブロックチェーンのランタイムは、あなたのブロックチェーンを構成する複数の機能です。例えば：
 
-- Account Management
-- Token Balances
-- Governance
-- Runtime Upgrades
-- and more...
+- アカウント管理
+- トークン残高
+- ガバナンス
+- ランタイムアップグレード
+- など...
 
-These are all modules that are provided [here](https://github.com/paritytech/substrate/tree/master/srml) in the codebase for you to easily include into your runtime. These default set of modules provided by Substrate are known as the Substrate Runtime Module Library [**SRML**](https://docs.substrate.dev/docs/glossary#section-srml-substrate-runtime-module-library-)
+これら全てのモジュールはランタイムに簡単に導入できるように[コードベース](
+https://github.com/paritytech/substrate/tree/master/srml)で提供されています。Substrateが提供するこれらのデフォルトのモジュールのセットはSubstrate Runtime Module Library ([**SRML**](https://docs.substrate.dev/docs/glossary#section-srml-substrate-runtime-module-library-))と呼ばれます。
 
-With the Substrate framework, you are able to easily create and include new modules into your runtime. That is what we will be doing in this tutorial!
+Substrateフレームワークを使用すると、新しいモジュールを簡単に作成してランタイムに導入することができます。それがこのチュートリアルでやることです！
 
 ## Rust
 
-At the moment, Substrate and Runtime development uses the [Rust programming language](https://www.parity.io/why-rust/).
+現時点では、SubstrateとRuntimeの開発は[Rustプログラミング言語]（https://www.parity.io/why-rust/）を使用しています。
 
-This tutorial is **not** a course in learning Rust, but we should go over some of the basic differences you may encounter when following this guide compared to programming in other languages.
+このチュートリアルは、**Rustを学ぶコースではありません**が、他の言語でのプログラミングと比較して、このガイドに従うときに遭遇する可能性のある基本的な違いのいくつかを紹介します。
 
-### Ownership and Borrowing
+### 所有権と借用
 
-From the [Rust docs](https://doc.rust-lang.org/book/ownership.html):
+[Rust docs](https://doc.rust-lang.org/book/ownership.html)からの引用：
 
-> Ownership is Rust’s most unique feature, and it enables Rust to make memory safety guarantees without needing a garbage collector.
+>所有権はRustの最もユニークな機能であり、これによりRustはガベージコレクタを必要とせずにメモリの安全性を保証できます。
 >
-> - Each value in Rust has a variable that’s called its owner.
-> - There can only be one owner at a time.
-> - When the owner goes out of scope, the value will be dropped.
+>  - Rustのそれぞれの値は、所有者と呼ばれる変数を持ちます。
+>  - 一度に所有者は一人だけしか存在できません。
+>  - 所有者がスコープから外れるとになると、値はドロップされます。
 
-You will see throughout the tutorial we will add an ampersand (`&`) in front of some variables which implies that we are borrowing the value. This is useful if we need to reuse the value multiple times throughout a function.
+チュートリアルを通して、いくつかの変数の前にアンパサンド（ `＆`）を追加します。これは、値を借用していることを意味します。これは、関数全体で値を複数回再利用する必要がある場合に便利です。
 
-It basically hinders you from doing stupid mistakes in handling memory - so be thankful if the Rust compiler advises you not to do a certain thing.
+これによりメモリ処理でしょーもないミスを防ぐことができるので、エラーを教えてくれるRustコンパイラー様には感謝をしましょう。
 
-### Traits
+### トレイト
 
-From the [Rust docs](https://doc.rust-lang.org/book/traits.html):
+[Rust docs](https://doc.rust-lang.org/book/traits.html)からの引用:
+> トレイトはタイプが持つ共通の振る舞いを定義します。
 
-> Traits abstract over behavior that types can have in common.
+違いはあるものの、トレイトは他の言語でよく[インターフェイス](https://blog.rust-lang.org/2015/05/11/traits.html)と呼ばれる機能に類似しています。
 
-If you are familiar with interfaces, Traits are [Rust's sole notion of an interface](https://blog.rust-lang.org/2015/05/11/traits.html).
+### Resultで回復可能なエラー
 
-### Recoverable Errors with Result
+モジュール関数は、関数内のエラーを処理するために、`Result`型を返さなければなりません。`Result`は、成功した場合は` Ok() `、失敗した場合は` Err()`を返します。
 
-You will learn later that module functions must return the `Result` type which allows us to handle errors within our functions. The returned `Result` is either `Ok()` for success or `Err()` for a failure. 
-
-Throughout this tutorial we will use the question mark operator (`?`) at the end of functions which return a `Result`. When calling a function like this, for example `my_function()?`, Rust simply expands the code to:
+このチュートリアルを通して、`Result`を返す関数の最後に疑問符演算子（`?`）を使います。このような関数、例えば `my_function()?`を呼び出すとき、Rustは単にコードを以下のように展開します:
 
 ```rust
 match my_function() {
@@ -66,9 +66,9 @@ match my_function() {
 }
 ```
 
-You can learn more about [this here](https://doc.rust-lang.org/book/ch09-02-recoverable-errors-with-result.html).
+詳細を学びたい方は[ここ](https://doc.rust-jp.rs/book/second-edition/ch09-02-recoverable-errors-with-result.html)を参考にしてください。
 
-Typical error of these kinds are
+典型的なエラー；
 
 ```
 error[E0382]: borrow of moved value: `s`
@@ -77,7 +77,7 @@ error[E0502]: cannot borrow `s` as immutable because it is also borrowed as muta
 error[E0499]: cannot borrow `s` as mutable more than once at a time
 ```
 
-For example, the following code will not compile:
+例えば、下のコードをコンパイルするとエラーを返します:
 
 ```rust
 fn main() {
@@ -89,7 +89,8 @@ fn main() {
 		      // This is broken since both are references to the same underlying string.
 }
 ```
-Borrowing error:
+
+借用エラー：
 
 ```
 error[E0502]: cannot borrow `s` as mutable because it is also borrowed as immutable
@@ -103,7 +104,7 @@ error[E0502]: cannot borrow `s` as mutable because it is also borrowed as immuta
   |                 --- immutable borrow later used here
 ```
 
-An easy fix for this particular error is cloning the string instead of having another reference to it.
+このようなエラーに対する簡単な対処法は、stringを参照するのではなく、クローンすることです。
 
 ```rust
 fn main() {
@@ -114,25 +115,25 @@ fn main() {
 }
 ```
 
-Works!
+やったぜ！
 
-### Macros
+### マクロ
 
-From the [Rust docs](https://doc.rust-lang.org/book/macros.html):
+[Rust docs](https://doc.rust-jp.rs/book/second-edition/appendix-04-macros.html)からの引用:
 
-> While functions and types abstract over code, macros abstract at a syntactic level.
+> 基本的に、マクロは、他のコードを記述するコードを書く術であり、これはメタプログラミングとして知られています。メタプログラミングは、書いて管理しなければならないコード量を減らすのに有用で、これは、関数の役目の一つでもあります。
 
-More simply, macros are code that write code, usually to simplify or make code more readable.
+簡単に言えば、マクロはコードを書くコードであり、通常はコードを簡易化したり、読みやすくするのに使われます。
 
-Substrate uses a lot of macros throughout the Runtime development process, and they are quite specific in the syntax they support and quite poor in the errors they return.
+Substrateはランタイム開発プロセスで多くのマクロを使っており、シンタックス特化していたり、返されるエラー情報が乏しいことが結構あります。
 
 ---
-**Learn More**
+**詳細解説**
+ 
+ Resultがどう動くか？
 
- how does Result/? work maybe?
+ トレイトの導入　→　インターフェイスとのコネクション？
 
- Introduce Traits -> Connection to interfaces?
-
-[TODO: make this a page]
+[TODO: これに関するページを作る]
 
 ---

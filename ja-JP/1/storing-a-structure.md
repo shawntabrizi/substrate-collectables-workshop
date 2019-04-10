@@ -1,13 +1,14 @@
-Storing a Structure
+
+構造を保存する
 ===
 
-If you thought everyone getting their own number was cool, lets try to give them all digital kitties!
+もしみんな自分のユニークな番号を持てたなら？このクールなアイデアを全員にデジタルキティを配って実現しよう！
 
-First we need to define what properties our kitties have in the form of a `struct`, and then we need to learn how to store these custom `structs` in our runtime storage.
+最初に、キティたちが持つ特性を`struct`の形で定義する必要があり、それからこれらのカスタム`struct`をランタイムストレージに格納する方法を学びます。
 
-## Defining a Custom Struct
+## カスタム構造体を定義する
 
-You can define a custom struct for your runtime like so:
+以下のようにあなたのランタイム用にカスタム構造体を定義することができます：
 
 ```rust
 #[derive(Encode, Decode, Default, Clone, PartialEq)]
@@ -19,19 +20,19 @@ pub struct MyStruct<A, B> {
 }
 ```
 
-This should look pretty normal compared to defining structs in other languages. However you will notice two oddities about this declaration for runtime development.
+他の言語で構造体を定義するのと比べて、これはかなり普通に見えるはずです。しかし、ランタイム開発に関するこの宣言については、2つの奇妙な点があります。
 
-To use the custom `Encode` and `Decode` traits, you will need to import them from the `parity_codec` crate:
+カスタムの`Encode`と`Decode`特性を使うには、それらを `parity_codec`クレートからインポートする必要があります：
 
 ```rust
 use parity_codec::{Encode, Decode};
 ```
 
-### Using Generics
+### ジェネリックタイプを使う
 
-You will notice that we define our example struct using a generic as one of the types that we store. This will be important when trying to use custom Substrate types like `AccountId` or `Balance` within our struct as we will need to pass in these types every time we use our struct.
+私たちが格納している型の1つとしてジェネリックを使って私たちの例の構造体を定義していることに気付くでしょう。構造体の中で `AccountId`や`Balance`のようなカスタムのSubstrate型を使おうとすると、構造体を使うたびにこれらの型を渡す必要があるので、これは重要になります。
 
-So if we wanted to store a `Balance` in `some_generic` and `Hash` in `some_other_generic`, we would need to define our storage item like this:
+`some_generic`に`Balance`を、そして`some_other_generic`に`Hash`を格納したいのであれば、以下のようにストレージアイテムを定義する必要があります:
 
 ```rust
 decl_storage! {
@@ -42,16 +43,17 @@ decl_storage! {
 ```
 
 For the purposes of clarity, we will name a generic type for `T::AccountId` as `AccountId` or `T::Balance` as `Balance`. You can use comma separate and add more generics as needed following this pattern.
+わかりやすくするために、`T::AccountId`タイプを`AccountId`、そして`T::Balance`タイプを`Balance`と名付けます。このパターンに従い、必要に応じてカンマ区切りを使用してジェネリックを追加できます。
 
-### Derive Macro
+### 派生マクロ
 
-The other thing you will notice is `#[derive(...)]` at the top. This is an attribute provided by the Rust compiler which allows basic implementations of some traits. The second line, `#[cfg_attr(feature = "std", derive(Debug))]` does the same thing for the `Debug` trait, but only when using the "standard" libraries, i.e. when compiling the native binaries and not the Wasm. You can learn more about that [here](https://doc.rust-lang.org/rust-by-example/trait/derive.html). For the purposes of this tutorial you can treat it like magic.
+あなたが気づくもう一つのことは一番上の `＃[derive（...）]`です。これはRustコンパイラによって提供される属性で、いくつかの特性の基本的な実装を可能にします。 2行目、`＃[cfg_attr(feature ="std", derive(Debug))]`は `Debug`トレイトについても同じことを行いますが、"標準 "ライブラリを使うとき、すなわちネイティブバイナリをコンパイルするときだけです。Wasmでは行いません。詳しく学びたい方は[ここ](https://doc.rust-lang.org/rust-by-example/trait/derive.html)を参照してください。このチュートリアルでは、おまじないだと思ってください。
 
-## Custom Struct in Module Function
+## モジュール関数内のカスタム構造体
 
-Now that we have initialized our custom struct in our runtime storage, we can now push values and modify it.
+ランタイム記憶域でカスタム構造体を初期化したので、次に値をプッシュして変更することができます。
 
-Here is an example of creating and inserting a struct into storage using a module function:
+モジュール関数を使用して構造体を作成して記憶域に挿入する例をお見せします：
 
 ```rust
 decl_module! {
@@ -73,18 +75,18 @@ decl_module! {
 
 ## Your Turn!
 
-Update your storage mapping runtime to store a `Kitty` struct instead of a u64.
+u64の代わりに`Kitty`構造体を格納するようにストレージマッピングランタイムを更新してください。
 
-A `Kitty` should have the following properties:
+`Kitty`には以下のプロパティを持たせましょう：
 
  - `id` : `Hash`
  - `dna` : `Hash`
  - `price` : `Balance`
  - `gen` : `u64`
 
-We have created a skeleton of the `create_kitty()` function for you, but you will need to add the logic. Include code to create a `new_kitty` using the `Kitty` object and store that object into your runtime storage.
+あなたのために`create_kitty（）`関数のスケルトンが作成されていますので、その中にロジックを追加してください。`Kitty`オブジェクトを使って`new_kitty`を作成し、そのオブジェクトをあなたのランタイムストレージに保存するコードを含めてください。
 
-To initialize your `T::Hash` and `T::Balance` you can use:
+あなたの`T::Hash`と`T::Balance`を初期化するには以下を実行してください：
 
 ```rust
 let hash_of_zero = <T as system::Trait>::Hashing::hash_of(&0);
@@ -92,27 +94,27 @@ let hash_of_zero = <T as system::Trait>::Hashing::hash_of(&0);
 let my_zero_balance = <T::Balance as As<u64>>::sa(0);
 ```
 
-We will also have `gen` start as `0`.
+`gen`は`0`から始めましょう。
 
 <!-- tabs:start -->
 
 #### ** Template **
 
-[embedded-code](./assets/1.6-template.rs ':include :type=code embed-template')
+[embedded-code](../../1/assets/1.6-template.rs ':include :type=code embed-template')
 
 #### ** Solution **
 
-[embedded-code-final](./assets/1.6-finished-code.rs ':include :type=code embed-final')
+[embedded-code-final](../../1/assets/1.6-finished-code.rs ':include :type=code embed-final')
 
 <!-- tabs:end -->
 
 ---
-**Learn More**
+**詳細解説**
 
-### Strings in Substrate
+### SubstrateでのString
 
- You might expect that one of the properties we add for our kitties is a name! After all, who doesn't name the things they love?
+あなたはもしかしたらキティに加える特性の一つが名前(String)であるはずだと思うかもしれません！実際、愛するものに名前がないことほど悲しいことはないでしょう。
 
-Substrate does not directly support `Strings`. Runtime storage is there to store the state of the business logic on which the runtime operates. It is not to store general data that the UI needs. If you really need to store some arbitrary data into your runtime, you can always create a bytearray (`Vec<u8>`), however the more logical thing to do is to store a hash to a service like IPFS to then use to fetch data for your UI. This is currently beyond the scope of this workshop, but may be added later to support additional metadata about your kitty.
+残念ながらSubstrateは`Strings`を直接サポートしません。ランタイムストレージは、ランタイムが動作するビジネスロジックの状態を格納するためにあります。UIが必要とする一般的なデータを格納するのではありません。ランタイムに任意のデータを本当に保存する必要がある場合は、常にバイト配列（`Vec <u8>`）を作成することができますが、もっと合理的な方法はIPFSのようなサービスにハッシュを保存してからフェッチすることです。これは現在このワークショップの範囲外ですが、キティに関する追加のメタデータをサポートする目的で今後のアップデートで追加されるかもしれません。
 
 ---

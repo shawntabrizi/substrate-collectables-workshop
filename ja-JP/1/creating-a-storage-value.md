@@ -1,15 +1,14 @@
-Creating a Storage Value
+ストレージの値を作成する
 ===
+実行可能な最も簡単なロジックであるストレージ（変数を格納する関数）を追加しましょう。
 
-Let's add the most simple logic we can to our runtime: a function which stores a variable.
-
-To do this, we will first need to define a storage variable for a [**Storage Item**](https://docs.substrate.dev/docs/glossary#section-storage-items) in the [**`decl_storage!`**](https://crates.parity.io/srml_support_procedural/macro.decl_storage.html) macro. This allows for type-safe usage of the Substrate storage database, so you can keep things around between blocks.
+これを行うには、最初に[**Storage Item**](https://vdocs.substrate.dev/docs/glossary#section-storage-items)のストレージ変数を[**`decl_storage！`**](https://crates.parity.io/srml_support_procedural/macro.decl_storage.html)マクロで定義する必要があります。これにより、Substrateストレージデータベースのタイプセーフな使用が可能になるため、ブロック間の状況を把握することができます。
 
 ## Declaring a Storage Value
 
-Substrate natively supports all the primitive types available in Rust (`bool`, `u8`, `u32`, etc..) and as well some custom types specific to Substrate (`AccountId`, `Balance`, `Hash`, [and more](https://polkadot.js.org/api/types/)...)
+SubstrateはRustで利用可能なすべてのプリミティブ型(`bool`、`u8`、`u32`など）と、Substrate固有のカスタム型（`AccountId`、`Balance`、`Hash`、[その他](https://polkadot.js.org/api/types/)...)をネイティブでサポートしています。
 
-You can declare a simple storage item like this:
+以下の様に書くことで簡単なストレージアイテムを宣言することができます：
 
 ```rust
 decl_storage! {
@@ -20,13 +19,13 @@ decl_storage! {
 }
 ```
 
-Here we have defined two variables: a `u32` and a `bool` with a getter function named `my_bool_getter`. The `get` parameter is optional, but if you add it to your storage item it will expose a getter function with the name specified (`fn getter_name() -> Type`).
+ここでは2つの変数を定義しました：`my_bool_getter`という名前の取得関数を持つ`u32`と `bool`です。 `get`パラメータはオプションですが、ストレージアイテムに追加することにより、指定された名前を持つgetter関数を使えるようになります(`fn getter_name() -> Type`)。
 
-To store these basic storage values, you need to import the `support::StorageValue` module.
+これらの基本的なストレージ値を保存するためには、`support::StorageValue`というモジュールをインポートする必要があります。
 
 ### Working with a Storage Value
 
-The functions used to access a `StorageValue` are defined in the [`srml/support` folder](https://github.com/paritytech/substrate/blob/master/srml/support/src/storage/generator.rs#L98):
+`StorageValue`にアクセスするために使われる関数は[`srml/support`フォルダ](https://github.com/paritytech/substrate/blob/master/srml/support/src/storage/generator.rs#L98)に定義されています。：
 
 ```rust
 /// Get the storage key.
@@ -57,35 +56,35 @@ fn kill<S: Storage>(storage: &S) {
 }
 ```
 
-So if you want to "put" the value of `MyU32`, you could write:
+`MyU32`に値を"put"したいなら、以下のように書けます：
 
 ```rust
 <MyU32<T>>::put(1337);
 ```
 
-If you wanted to "get" the value of `MyBool`, you could write either:
+`MyBool`の値を"get"したいなら、以下のどちらかの方法で書けます：
 
 ```rust
 let my_bool = <MyBool<T>>::get();
 let also_my_bool = Self::my_bool_getter();
 ```
 
-We will show you exactly how to integrate these calls into your module in the next section.
+次のセクションでは、これらの呼び出しを自分のモジュールに統合する方法を説明します。
 
 ## Your Turn!
 
-Create a storage value called `Value` which stores a `u64`.
+`u64`を格納する`Value`という格納値を作成してください。
 
-Make sure to import any required libraries required by the compiler. Your code should compile successfully.
+コンパイラーが必要とする必要なライブラリーを必ずインポートしてください。するとコードは正常にコンパイルされるはずです。
 
 <!-- tabs:start -->
 
 #### ** Template **
 
-[embedded-code](./assets/1.2-template.rs ':include :type=code embed-template')
+[embedded-code](../../1/assets/1.2-template.rs ':include :type=code embed-template')
 
 #### ** Solution **
 
-[embedded-code-final](./assets/1.2-finished-code.rs ':include :type=code embed-final')
+[embedded-code-final](../../1/assets/1.2-finished-code.rs ':include :type=code embed-final')
 
 <!-- tabs:end -->

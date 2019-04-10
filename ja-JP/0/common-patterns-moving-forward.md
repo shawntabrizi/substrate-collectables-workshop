@@ -1,57 +1,57 @@
-Common Patterns Moving Forward
+進行上の一般的なパターン
 ===
 
-## The Rust Compiler is Your Friend
+## Rustのコンパイラーは友達！
 
-One of the many advantages of using a strongly typed programming language like Rust
+Rustのような強く型付けされたプログラミング言語を使うことの多くの利点の一つ
 
-[TODO: Make it seem like RUST is your friend and will help you add code when needed]
+[TODO：RUSTはあなたの１番の友達となり、安全なコーディングの手助けをしてくれます。]
 
-## Making Updates to Your Runtime
+## Runtimeをアップデートする
 
-Before we jump into creating a custom Substrate runtime, you should be familiar with a few patterns which will help you iterate and run your code.
+カスタムSubstrateランタイムの作成に入る前に、コードを実行するのに役立ついくつかのパターンに慣れておく必要があります。
 
-Your Substrate runtime code is compiled into two versions:
+Substrateランタイムコードは2つのバージョンにコンパイルされています。
 
- - A [WebAssembly](https://webassembly.org/) (Wasm) image
- - A standard binary executable
+- [WebAssembly](https://webassembly.org/)(Wasm)ファイル
+- 標準バイナリ実行ファイル
 
-The Wasm file is used as a part of the compilation of the standard binary, so it is important that you always compile your Wasm image first before you build the executable.
+Wasmファイルは標準バイナリのコンパイルの一部として使用されるので、実行可能ファイルをビルドする前に必ずWasmイメージを最初にコンパイルする必要があります。
 
-The pattern should be:
+パターンは次のようになります：
 
 ```bash
-./build.sh               // Build Wasm
-cargo build --release    // Build binary
+./build.sh               // Wasmのビルド
+cargo build --release    // binaryのビルド
 ```
 
-Additionally, when you make changes to your node, the blocks produced in the past by older versions of your node persist. You may notice that when restarting your node, block production simply picks up where it left off.
+さらに、ノードに変更が加えられても、以前のバージョンノードで作られた古いブロックは存続します。ノードを再起動した場合、ブロック生産は中断したところから再開します。
 
-However, if your changes to the runtime are significant, you may need to purge your chain of all the previous blocks with this handy command:
+ただし、ランタイムに対する変更が必要な場合は、次のコマンドを使用して、以前のすべてのブロックのチェーンデータを削除する必要があります：
 
 ```bash
 ./target/release/substratekitties purge-chain --dev
 ```
 
-After all this, then you will be able to start up your node again, fresh, with all the latest changes:
+上のコマンドを実行すると、最新の変更を反映してフレッシュなノードを始めることができます。
 
 ```bash
 ./target/release/substratekitties --dev
 ```
 
-Remember this pattern; you will be using it a lot.
+今回紹介したパターンは開発で重要になるので、覚えてください。
 
 ---
-**Learn More**
+**詳細解説**
 
-You should always be using the latest version of Rust stable and nightly when hacking on Substrate.
+Substrateをハックするときは、常に最新バージョンのRust stableとnightlyを使用してください。
 
-We provide another script in the same directory as `build.sh` that you should run whenever you are starting a new project:
+新しいプロジェクトを始めるときには、毎回走らせるべきもう一つのスクリプトを `build.sh`と同じディレクトリに提供します：
 
 ```bash
 ./init.sh
 ```
 
-This script simply updates Rust, and ensures that you don't have strange compilation errors. If you remember, we already did this as a part of the workshop instructions.
+このスクリプトはRustを更新し、予期せぬコンパイルエラーを起こさないようにします。
 
 ---

@@ -1,11 +1,11 @@
-Viewing a Structure
+構造体を見る
 ===
 
-Now that we have set up our runtime to make kitties, we should check our work!
+ここまでで、キティを作るためのランタイムを設定したので、結果を確認します。
 
-We have introduced a custom structure to our chain, and while the Polkadot-JS Apps UI is very good at adapting to our changes, in this situation, we need to give it a hint on how to deserialize our structured data.
+前回はカスタム構造をチェーンに導入しました。Polkadot-JS Apps UIは更新を適応するのに非常に優れていますが、この状況では、構造化データをデシリアライズする方法を教えてあげる必要があります。
 
-> REMINDER: Remember to reset your chain so that you start of fresh when interacting with the UI:
+>注意：ランタイムを更新してノードを立ち上げる時には、チェーンをリセットすることを忘れないでください：
 >
 > ```
 > ./build.sh
@@ -14,11 +14,11 @@ We have introduced a custom structure to our chain, and while the Polkadot-JS Ap
 > ./target/release/substratekitties --dev
 > ```
 
-## Registering a Custom Struct
+## カスタム構造体を登録する
 
-Fortunately, the Polkadot-JS Apps UI provides us with a very simple way to import custom structures so that the page will be able to decode the information correctly.
+幸いなことに、Polkadot-JS Apps UIは、ページが情報を正しくデコードできるように、カスタム構造をインポートするための非常に簡単な方法を提供しています。
 
-Go back to the **Settings** app. Under the **Developer** section, you can either submit a JSON file with your custom structure or add it manually through a code editor. Copy & paste this JSON object into the code editor and press `Save`.
+アプリ上の**Settings**に戻ります。**Developer**セクションでは、カスタム構造を持つJSONファイルを送信するか、コードエディタを通して手動で追加することができます。以下のJSONオブジェクトをコピーしてコードエディタに貼り付け、`Save`を押します。
 
 ```
 {
@@ -31,36 +31,36 @@ Go back to the **Settings** app. Under the **Developer** section, you can either
 }
 ```
 
-## Creating a Kitty
+## キティを作る
 
-Now we can go and create a new kitty. In the **Extrinsics** app, go to:
+いよいよ新しいキティを作ることができます。アプリ内の**Extrinsics**で、以下を選択してください：
 
 ```
 substratekitties > createKitty()
 ```
 
-Once you press submit, you should see the transaction finalize:
+Submitを押すと、トランザクションがファイナライズします。
 
-![Image of creating a kitty in the Polkadot-JS Apps UI](./assets/creating-a-kitty.png)
+![Image of creating a kitty in the Polkadot-JS Apps UI](../../1/assets/creating-a-kitty.png)
 
-## Viewing a Kitty
+## キティを見る
 
-Finally, we can go into the **Chain State** app and view our stored kitty object. Select:
+最後に、保存されているキティオブジェクトを表示して確認するにはアプリの**Chain State**にアクセスして、以下を選択してください：
 
 ```
 kittyStorage > ownedKitty(AccountId): Kitty
 ```
 
-Then select a user who has called the `createKitty()` function. You should then be able to see the individual properties of the `Kitty` object:
+それから`createKitty()`関数を呼び出したユーザを選択してください。これで `Kitty`オブジェクトの個々のプロパティを見ることができるはずです：
 
-![Image of viewing a kitty object in the Polkadot UI](./assets/view-kitty.png)
+![Image of viewing a kitty object in the Polkadot UI](../../1/assets/view-kitty.png)
 
 ---
-**Learn More**
+**詳細解説**
 
-Talk about serialization and deserialization.
+シリアライゼーションとデシリアライゼーションについて
 
-How we simply transfer and transmit raw bytes
+rawバイトを単純に転送および送信する方法
 
 [TODO: make this a page]
 

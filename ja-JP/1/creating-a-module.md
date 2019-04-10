@@ -1,7 +1,7 @@
-Creating a Module
+モジュールを作成する
 ===
 
-To start, we need to create a new module for our runtime. For that we will work with an empty module template which we will place in a new `substratekitties.rs` file:
+はじめに、ランタイム用に新しいモジュールを作成する必要があります。そのために、空のモジュールテンプレートを使って作業します。これを新しい`substratekitties.rs`ファイルに配置します。
 
 ```
 substratekitties
@@ -35,21 +35,21 @@ decl_module! {
 }
 ```
 
-You can see that this template allows us to start writing the most basic parts of our module, the public functions and the storage.
+このテンプレートを使うことによりモジュールの最も基本的な部分である、パブリック関数とストレージを簡単に書きはじめることができます。
 
-But before we even start doing that, we should include this file into our overall runtime which is defined in the `lib.rs` file located in the same directory.
+しかし、それを始める前に一つしなければいけないことがあります：同ディレクトリにある `lib.rs`ファイルに定義されている全体のランタイムに、このランタイムファイルを含める必要があります。
 
-## Updating our Runtime
+## ランタイムのアップデート
 
-If you take a closer look at the `lib.rs` file, you will notice it contains details about all the modules that make up your runtime. For each module, we:
+`lib.rs`ファイルをよく見ると、ランタイムを構成するすべてのモジュールについての詳細が含まれていることに気付きます。モジュールごとに以下のことをする必要があります：
 
-- Import the Rust file containing the module
-- Implement its `Trait`
-- Include the module into the `construct_runtime!` macro
+ - モジュールを含むRustファイルをインポートする
+ - その「トレイト」を実装する
+ - モジュールを `construct_runtime！`マクロに含める
 
-So we will need to do the same here.
+よって、私たちのランタイムファイルにも同様のことをします。
 
-To include the new module file we created, we can add the following line (indicated with the `// Add this line` comment) near the top of our file:
+作成した新しいモジュールファイルを含めるためには、私たちのファイルの先頭近く(`// Add this line`コメントで示されている)に次の行を追加します：
 
 ```rust
 // `lib.rs`
@@ -63,7 +63,7 @@ mod substratekitties;
 ...
 ```
 
-Since we have not defined anything in our module, our `Trait` implementation is also very simple. We can include this line after the other trait implementations:
+まだモジュールには何も定義していないので、`トレイト`の実装は非常にシンプルです。これは他のトレイト実装の下に書きます。
 
 ```rust
 // `lib.rs`
@@ -78,7 +78,7 @@ impl substratekitties::Trait for Runtime {}
 ...
 ```
 
-Finally, we can add this line at the end of our `construct_runtime!` definition:
+最後にこのラインを`construct_runtime!`の最後に追加しましょう。
 
 ```rust
 // `lib.rs`
@@ -102,10 +102,9 @@ construct_runtime!(
 );
 ...
 ```
+この定義に3つの `types`である`Module`、`Call`、`Storage`を追加したことに注目してください。これらは全て、テンプレートで定義されたマクロによって生成されています。
 
-Note that we have added three `types` to this definition (`Module`, `Call`, `Storage`), all of which are produced by the macros defined in our template.
-
-As is, this code is valid and should compile. Give it a shot with:
+正しく追加できていれば、このコードは問題なくコンパイルするでしょう。試して見ましょう！
 
 ```bash
 ./build.sh
@@ -114,28 +113,28 @@ cargo build --release
 
 ## Your Turn!
 
-If you have not already, follow the instructions on this page to set up your `substrate-node-template`. If you completed everything successfully, you should be able to compile your code successfully without errors:
+まだ実際に手を動かしていない場合は、このページの指示に従ってあなたの`substrate-node-template`を作成してください。全部間違いなく書けたなら、エラーなしでコードを正常にコンパイルできるはずです：
 
 ```bash
 ./build.sh
 cargo build --release
 ```
 
-At the end of every section in this tutorial, your code should compile without errors. Most of the changes throughout this tutorial will take place in the `substratekitties.rs` file, but we will need to update the `lib.rs` file one more time at a later point.
+このチュートリアルの各セクションの最後には、コードがエラーなくコンパイルできるように設計されています。このチュートリアルでの作業の大部分は `substratekitties.rs`ファイルで行われますが、後々もう一度`lib.rs`ファイルを更新する必要があります。
 
-Now it's time to start adding some of our own logic!
+それでは、楽しいハッキングを開始しましょう！
 
 <!-- tabs:start -->
 
 #### ** Solution **
 
-[embedded-code](./assets/1.1-finished-code.rs ':include :type=code embed-final')
+[embedded-code](../../1/assets/1.1-finished-code.rs ':include :type=code embed-final')
 
 <!-- tabs:end -->
 
 ---
-**Learn More**
+**詳細解説**
 
-Check out the documentation for the `construct_runtime!` macro [here](https://docs.substrate.dev/docs/construct_runtime).
+`construct_runtime!`マクロのドキュメンテーションは[ここ](https://docs.substrate.dev/docs/construct_runtime)で確認してください。
 
 ---

@@ -1,32 +1,32 @@
-Running a Custom Node
+カスタムノードを走らせる
 ===
 
-Now that you have successfully installed all of the prerequisites on your machine, we can quickly spin up a custom Substrate node using a pre-configured template.
+マシンに環境構築ができたので、事前に用意されたテンプレートを使用してカスタムSubstrateノードをすぐに始められます。
 
-Substrate is a rapidly evolving project, which means that breaking changes may be introduced from time to time. In order to improve the development experience in this workshop, we have created a stable, known working version of a Substrate node and a compatible Substrate UI which you will use for this tutorial.
+Substrateは急速に発展しているプロジェクトなので、最新版には予期せぬバグが潜んでいるかもしれません。このワークショップでの開発をスムーズに行うために、安定版のSubstrateノードと、それに互換性のあるSubstrate UIを作成します。
 
-As long as you start with this Substrate package, you should be able to complete the rest of this tutorial without issue, but please let us know if that is not the case. To get the package, run the following command in your working directory:
+このSubstrateパッケージを使う場合、残りのチュートリアルを問題なく完了できるはずですが、そうでない場合はお知らせください。パッケージを入手するには、作業ディレクトリで次のコマンドを実行します。
 
 ```bash
 git clone https://github.com/shawntabrizi/substrate-package
 ```
 
-The `substrate-package` repository consists of two folder:
+`substrate-package`レポジトリは以下の二つのフォルダで構成されます：
 
 1. `substrate-node-template`
 2. `substrate-ui`
 
-We won't touch the `substrate-ui` folder until Chapter 4 of this workshop, but as the name implies, it includes a pre-built UI, written in [React](https://reactjs.org/), which can later be extended for custom experiences.
+`substrate-ui`フォルダはこのワークショップの第4章までは触れませんが、その名前が示すように、[React](https://reactjs.org/)で書かれた既成のUIが含まれています。後でカスタムエクスペリエンス用に拡張できます。
 
-Instead, we will primarily be working in the `substrate-node-template` folder which contains a minimal, working Substrate node which we will start to hack on top of.
+代わりに、`substrate-node-template`フォルダでミニマムな作業用ノードテンプレートを使い、ハックを始めます。
 
-Let's rename our project and project folders using the `substrate-package-rename.sh` script:
+それでは、`substrate-package-rename.sh`スクリプトを使ってプロジェクトとプロジェクトフォルダの名前を変更しましょう：
 
 ```bash
-./substrate-package-rename.sh substratekitties <your_name>
+./substrate-package-rename.sh substratekitties <あなたの名前>
 ```
 
-Then let's go into the now renamed `substratekitties` folder and build our pre-configured node:
+次に、名前変更された`substratekitties`フォルダに移動し、事前準備されたノードをビルドします：
 
 ```bash
 cd substratekitties
@@ -35,30 +35,30 @@ cd substratekitties
 cargo build --release
 ```
 
-This process may take a little while, but once it is done, you should be able to start your node with:
+このプロセスはマシンの性能により時間がかかる場合があるのでコーヒーでも淹れて待ちましょう。ビルド完了したら、ノードを立ち上げます：
 
 ```bash
 ./target/release/substratekitties --dev
 ```
 
-If you've done everything right so far, you should see blocks being produced.
+以上を正しく行えば、ブロックが生成され始めます。
 
-![An image of the node producing new blocks](./assets/building-blocks.png)
+![An image of the node producing new blocks](../../0/assets/building-blocks.png)
 
-Nice, you just started your own custom blockchain!
+やったね！これであなたの初めてのカスタムノードを走らせることができました！
 
 ---
-**Learn More**
+**詳細解説**
 
-The `substrate-package` repository is made using [some custom commands](https://github.com/paritytech/substrate-up) provided by the `getsubstrate.io` one-liner we ran earlier.
+`substrate-package`リポジトリは、先ほど実行した` getsubstrate.io`が提供する[いくつかのカスタムコマンド](https://github.com/paritytech/substrate-up)使用して作成されています。
 
-If you are starting a new project and want to get the latest version of Substrate, you can build your own Substrate package by running:
+新しいプロジェクトを始めるために最新バージョンのSubstrateを入手したい場合は、次のコマンドを実行して独自のSubstrateパッケージを構築することができます：
 
 ```bash
 substrate-node-new <project_name> <your_name>
 substrate-ui-new <project_name>
 ```
 
-As mentioned earlier, the one downside of this method is that these scripts pull directly from different GitHub repositories, which means there may be times of incompatibility during breaking changes.
+前述したように、この方法の欠点は、このスクリプトは別のGitHubリポジトリから直接取得することです。つまり、バージョンによっては互換性が失われることがあるということです。
 
 ---
