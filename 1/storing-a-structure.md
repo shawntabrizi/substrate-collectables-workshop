@@ -56,12 +56,13 @@ Here is an example of creating and inserting a struct into storage using a modul
 ```rust
 decl_module! {
     pub struct Module<T: Trait> for enum Call where origin: T::Origin {
-        fn create_struct(origin, value: u32, user: T::AccountId) -> Result {
+        fn create_struct(origin, value: u32, balance: T::Balance, hash: T::Hash) -> Result {
             let sender = ensure_signed(origin)?;
 
             let new_struct = MyStruct {
                 some_number: value,
-                some_generic: user,
+                some_generic: balance,
+                some_other_generic: hash,
             };
 
             <MyItem<T>>::insert(sender, new_struct);
