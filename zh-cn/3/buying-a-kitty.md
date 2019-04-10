@@ -1,6 +1,6 @@
-# 购买一个 Kitty
+# 购买 Kitty
 
-现在我们可以设置 kitty 的价格并转让 kitty 的所有权，我们拥有构建 `buy_kitty` 功能所需的一切。
+现在我们可以设置 kitty 的价格并转让 kitty 的所有权，我们拥有构建 `buy_kitty` 函数所需的一切。
 
 ## 检查用于出售的 Kitty
 
@@ -14,15 +14,15 @@ ensure!(my_value.is_zero(), "Value is not zero");
 // `ensure` will succeed and execution continues here
 ```
 
-如果你想改善这一点，我们可能会将价格定为 `Option<T::Balance>`，其中 0 将是有效价格，而由 `None` 表示不能出售... 但我们会将其当作挑战，留给读者自己实现。
+如果你想改善这一点，我们可以将价格定为 `Option<T::Balance>`，其中 0 将是有效价格，而由 `None` 表示不能出售... 但我们会将其当作挑战，留给读者自己实现。
 
 ## 进行付款
 
 到目前为止，我们的链完全独立于 `Balances` module 提供的内部货币。`Balances` module 使我们能够完全管理每个用户的内部货币，这意味着我们需要谨慎使用它。
 
-幸运的是，`Balances` module 暴露出了一个名为 `Currency` 的trait, 它实现了一个叫 [`transfer()`](https://crates.parity.io/srml_support/traits/trait.Currency.html#tymethod.transfer) 的函数，它允许你安全地将 units 从一个帐户转移到另一个帐户，检查是否有足够的余额，上溢，下溢，甚至是因为获得 tokens 的账户创建。
+幸运的是，`Balances` module 暴露出了一个名为 `Currency` 的 trait, 它实现了一个叫 [`transfer()`](https://crates.parity.io/srml_support/traits/trait.Currency.html#tymethod.transfer) 的函数，它允许你安全地将 units 从一个帐户转移到另一个帐户，检查是否有足够的余额，是否上溢或下溢，甚至还能检查为获取 tokens 而创建的账户。
 
-要访问 `Currency` trait 及其所有已实现的函数，你需要将 trait 导入到模块中：
+要访问 `Currency` trait 及其实现的所有函数，你需要将 trait 导入到模块中：
 
 ```rust
 use support::traits::Currency;
@@ -34,9 +34,9 @@ use support::traits::Currency;
 <balances::Module<T> as Currency<_>>::transfer(&from, &to, value)?;
 ```
 
-## 记住： "Verify First, Write Last"
+## 记住："Verify First, Write Last"
 
-如果你看一下`transfer（）`函数的实现，它既可以 “verifies” 也可以 “writes”，这意味着你需要小心谨慎地将它作为模块逻辑的一部分包含在内。
+如果你看一下`transfer（）`函数的实现，它既可以 "verifies" 也可以 "writes"，这意味着你需要小心谨慎地将它作为模块逻辑的一部分包含在内。
 
 ```rust
 // end of verifications
@@ -46,7 +46,7 @@ use support::traits::Currency;
 // beginning of writing to storage
 ```
 
-如果你看一下我们的模板，你会看到我们建议你在调用 `transfer()` 之后直接执行 `transfer_from()` 函数。
+如果你看过我们的模板，你会看到我们会建议你在调用 `transfer()` 之后直接执行 `transfer_from()` 函数。
 
 注意到一个问题？
 
@@ -72,8 +72,8 @@ Self::transfer_from(owner.clone(), sender.clone(), kitty_id)?;
 
 1. 确保你的 `buy_kitty` 函数检查 kitty 是否有所有者
 2. 使用该所有者的值直接驱动你的 `transfer_from()` 函数
-3. 要确保如果存在 kitty 的所有者，那么该所有者的 kitty 计数大于 0。
-4. 确保 `all_kitties_count` 和 `owned_kitties_count` 使用相同的类型（`u64`）来跟踪小猫的数量。 我们的 mint 函数要确保 `all_kitties_count` 永远不会溢出。因此，我们可以自信地说 `owned_kitties_count` 永远不会溢出，因为这个数字必须小于或等于 `all_kitties_count`。
+3. 要确保如果存在 kitty 的所有者，那么该所有者的 kitty 计数大于 0（否则你在 runtime 中会遇到更大的问题）。
+4. 确保 `all_kitties_count` 和 `owned_kitties_count` 使用相同的类型（`u64`）来跟踪小猫的数量。 我们的 mint 函数要确保 `all_kitties_count` 永远不会溢出。因为 `owned_kitties_count` 必须小于或等于 `all_kitties_count`，所以我们可以自信地说 `owned_kitties_count` 永远不会溢出。
 
 因此，在我们的 `buy_kitty()` 函数的上下文中，我们实际上可以使用 `expect()` 来证明为什么这个函数不会失败。像这样：
 
@@ -87,15 +87,15 @@ Self::transfer_from(owner.clone(), sender.clone(), kitty_id)
     qed");
 ```
 
-你实际上将会在 [substrate 仓库]((https://github.com/paritytech/substrate/search?q=expect)) 中的找到类似的地方。
+你实际上将会在 [substrate 仓库](https://github.com/paritytech/substrate/search?q=expect) 中找到类似的地方。
 
-请记住，作为区块链开发人员，你有责任验证其中的代码和逻辑的正确性。Substrate不是为保护你免受智能合约平台可能提供的错误而构建的框架。
+请记住，作为区块链开发人员，你有责任验证其中的代码和逻辑的正确性。Substrate 不是为让你免受智能合约平台可能遇到的错误而构建的框架。
 
-花一点时间靠在椅子上，并思考最后一节，因为当你开始用 substrate 开发自己的项目时要记住这一点很重要。
+花一点时间坐下想想上面所做的，因为当你开始用 substrate 开发自己的项目时要记住这一点很重要。
 
 ## 轮到你了！
 
-按照提供的模板编程，在必要的代码中完成 `buy_kitty()` 函数。随意在 Polkadot-JS Apps UI 中测试你的新函数是否存在任何错误。
+按照提供的模板编程，在必要的代码中完成 `buy_kitty()` 函数。在 Polkadot-JS Apps UI 中测试你的新函数是否存在任何错误。
 
 <!-- tabs:start -->
 

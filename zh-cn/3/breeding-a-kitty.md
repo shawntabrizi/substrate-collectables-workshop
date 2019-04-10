@@ -1,4 +1,4 @@
-# 培育一只 Kitty
+# 培育 Kitty
 
 原始 CryptoKitties 游戏中最独特的部分可能是从现有 kitty 中培育出新的 kitty。
 
@@ -39,7 +39,7 @@ Substrate 的一个很酷的功能是能够进行无分叉的实时链升级，�
 ./build.sh
 ```
 
-这将在以下路径中生成一个新的紧凑的 Wasm 二进制文件：
+这将在以下路径中生成一个新的 compact Wasm binary：
 
 ```bash
 ./runtime/wasm/target/wasm32-unknown-unknown/release/node_template_runtime_wasm.compact.wasm
@@ -54,13 +54,13 @@ submit the following extrinsic: sudo > sudo(proposal)
 
 ![Image of the runtime extrinsic](../../3/assets/runtime-upgrade-extrinsic.png)
 
-然后使用 `compact.wasm` 文件作为此次调用的输入。确保执行此函数， 因为在 genesis 配置中设置的 **Alice** 是允许进行 `Sudo` 调用的 `admin`。
+然后使用 `compact.wasm` 文件作为此次调用的输入。确保执行此函数，因为在 genesis 配置中 **Alice** 是被设置为允许进行 `Sudo` 调用的 `admin`。
 
 按下 **Submit Transaction** 创建一个块后，你应该可以看到一个显示合同升级成功的 `Sudid` event！
 
 ![Image of the Sudid event](../../3/assets/sudid-event.png)
 
-最后，如果我们刷新页面并查看 Substratekitties module 中可用的 extrinsics，我们会发现现在出现了 `breedKitty()` 函数。
+最后，如果我们刷新页面并查看 Substratekitties module 中可用的 extrinsics，我们会发现出现了 `breedKitty()` 函数。
 
 ![Image of the breed kitty function](../../3/assets/breed-kitty-function.png)
 
@@ -70,11 +70,11 @@ submit the following extrinsic: sudo > sudo(proposal)
 
 你将发现在第 2 章中我们重构的 `mint()` 函数将对我们的最后一步有很大帮助。使用基因拼接算法在两个输入的 kitties 上生成一个新的 kitty。
 
-确保新 kitty 增加的 `gen` 值只比父母 kitties 的最大值大一。通过这种方式，我们可以追踪那些从一开始培育的 kitties。
+确保新 kitty 增加的 `gen` 值为父母 kitties 的最大值加一。通过这种方式，我们就可以追踪那些从最开始培育的 kitties。
 
 然后将该 kitty 对象传递给 `mint()` 函数以创建新的 kitty！
 
-最后，如果你够勇敢的话，请进行实时 runtime 升级，从而将此新功能添加到区块链中。你会发现所有现有存储项都不受升级的影响，现在你可以访问这个新功能了！
+最后，如果你喜欢挑战的话，请进行实时 runtime 升级，从而将此新功能添加到区块链中。你会发现所有现有存储项都不受升级的影响，现在你可以使用这个新功能了！
 
 <!-- tabs:start -->
 
