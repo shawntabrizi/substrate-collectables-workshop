@@ -1,8 +1,8 @@
 # 创建一个 Event
 
-在Substrate上，[**Transactions**](https://docs.substrate.dev/docs/glossary#section-transaction) 的处理方式与以往在以太坊上的处理方式不同。即使 transaction 可能已经完成，但并不一定意味着该 transaction 执行的函数完全成功。
+在Substrate上，[**Transactions**](https://docs.substrate.dev/docs/glossary#section-transaction) 的处理方式与以往在 Ethereum 上的处理方式不同。即使 transaction 可能已经完成，但并不一定意味着该 transaction 执行的函数完全成功。
 
-为了知道执行函数是否完全成功，我们应该在函数结束时发出一个 [**`Event`**](https://docs.substrate.dev/docs/glossary#section-events)，不仅要报告成功，还要告诉 “off-chain world” 某些特定的状态转换已经发生了。
+为了知道执行函数是否完全成功，我们应该在函数结束时发出一个 [**`Event`**](https://docs.substrate.dev/docs/glossary#section-events)，不仅要报告成功，还要告诉 "off-chain world" 某些特定的状态转换已经发生了。
 
 ## 声明一个 Event
 
@@ -35,9 +35,9 @@ pub trait Trait: balances::Trait {
 }
 ```
 
-## Depositing an Event
+## Depositing 一个 Event
 
-为了在 runtime 中使用 event，你需要添加一个 deposit 这些 event 的函数。由于这是 runtime 开发中的常见模式，因此 [**`decl_module!`**](https://github.com/paritytech/wiki/pull/272) 宏可以自动添加一个默认实现到你的 module 中。
+为了在 runtime 中使用 event，你需要添加一个 deposit 这些 events 的函数。由于这是 runtime 开发中的常见模式，因此 [**`decl_module!`**](https://github.com/paritytech/wiki/pull/272) 宏可以在你的 module 中自动添加一个默认实现。
 
 只需在 module 中添加一个新函数，如下所示：
 
@@ -55,9 +55,9 @@ fn deposit_event() = default;
 
 ### 调用 `deposit_event()`
 
-现在你已经在 module 中构建了东西，你可能想要在函数结束时 deposit event。
+现在你已经在 module 中构建了一些东西，你可能想要在函数结束时 deposit event。
 
-这样做相对简单，你只需提供与 `Event` 定义一起提供的值：
+这样做相对简单，你只需提供与 `Event` 定义中类型相同的值：
 
 ```rust
 let my_value = 1337;
@@ -101,9 +101,9 @@ construct_runtime!(
 
 ## 轮到你了！
 
-你需要更新 module 以支持 event。我们已经教了你所有不同的部分，你只需要把它拼凑起来。
+你需要更新 module 以支持 event。我们已经教了你所需的所有部分，你只需要把它拼凑起来。
 
-使用本节模板中的说明来帮助你的 module 实际运行起来! 记住你也需要更新 `lib.rs`！
+使用本节模板中的说明来帮助你的 module 运行起来! 记住你也需要更新 `lib.rs`！
 
 <!-- tabs:start -->
 

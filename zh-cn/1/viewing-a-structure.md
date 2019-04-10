@@ -58,7 +58,7 @@ kittyStorage > ownedKitty(AccountId): Kitty
 
 **Learn More**
 
-谈论序列化和反序列化。
+聊聊序列化和反序列化。
 
 我们如何简单地传输原始字节
 

@@ -110,7 +110,7 @@ let also_my_value = Self::some_value_getter(key);
 
 **Learn More**
 
-谈谈 funding accounts 如何发起交易
+聊聊 funding accounts 如何发起交易
 
 [TODO: make this a page]
 
