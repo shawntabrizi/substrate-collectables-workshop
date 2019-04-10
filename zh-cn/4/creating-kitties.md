@@ -1,6 +1,6 @@
 # 创建 Kitties
 
-现在既然我们已经尝试了 bonds 并从 UI 访问 runtime 存储，那么让我们实际构建一些交互。
+我们既然已经尝试了 bonds，并从 UI 访问了 runtime 存储，那么让我们实际构建一些交互。
 
 ## 调用我们的 Runtime
 
@@ -12,7 +12,7 @@ calls.
 
 ![An image of the `calls` autocomplete](../../4/assets/calls-autocomplete.png)
 
-我们再次看到，我们可以自动访问所有 modules，包括我们刚刚创建的 module。深入了解 `substratekitties`，我们发现：
+我们发现可以再次自动获取访问所有 modules 的权限，包括我们刚刚创建的 module。深入了解 `substratekitties`，我们发现：
 
 ```
 calls.substratekitties.
@@ -20,11 +20,11 @@ calls.substratekitties.
 
 ![An image of `calls.substratekitties` autocomplete](../../4/assets/calls-substratekitties-autocomplete.png)
 
-这是我们在 `decl_module!` 宏中创建的所有函数的列表。请注意，我们的私有函数如 `mint()` 和 `_transfer()` 不在此处，因为它们不应该是我们的公共 API 的一部分。
+这是我们在 `decl_module!` 宏中创建的所有函数的列表。请注意，我们的私有函数如 `mint()` 和 `_transfer()` 不在此处，因为它们不应该是我们公共 API 的一部分。
 
-## 创建调用
+## 创建 Call
 
-所以我们试着创建一个调用来创建一个新的 kitty。为此，我们可以向 runtime 发出 `post()` 请求，如下所示：
+所以我们试着创建一个 Call 来创建一个新的 kitty。为此，我们可以向 runtime 发出 `post()` 请求，如下所示：
 
 ```javascript
 post({
@@ -41,13 +41,13 @@ post({
 
 ![An image of creating a kitty from console](../../4/assets/transaction-from-console.png)
 
-## 创建一个交易按钮
+## 创建交易按钮
 
-现在我们知道如何调用我们的 runtime，我们希望将它集成到我们的 UX 中。同样，我们将利用 Substrate UI 提供给我们的名为 `TransactionButton` 和 `SignerBond` 的组件。
+现在我们知道如何调用我们的 runtime，我们希望将它集成到我们的 UX 中。同样，我们将利用 Substrate UI 提供的 `TransactionButton` 和 `SignerBond` 的组件。
 
 如果你查看页面上其他部分的代码，你将找到如何集成这些部分的示例。
 
-`SignerBond` 创建一个输入区域，在里面每个人可以写入帐户名称，用于他们签署某些消息。该账户被置于 `bond` 内。
+`SignerBond` 创建一个输入区域，在里面每个人可以写入他们想要签名的帐户名称。该账户被置于 `bond` 内。
 
 ```javascript
 this.account = new Bond;
@@ -55,7 +55,7 @@ this.account = new Bond;
 <SignerBond bond={this.account}/>
 ```
 
-然后你可以使用此 bond 为 `TransactButton` 提供支持，我们将使用存储在 bond 中的值为交易的 `sender` 字段提供支持：
+然后你可以使用此 bond 为 `TransactButton` 提供支持，我们将提供存储在 bond 中的值给交易的 `sender` 字段：
 
 ```javascript
 <TransactButton
@@ -68,13 +68,13 @@ this.account = new Bond;
 />
 ```
 
-因为 `TransactionButton` 依赖于 `this.account`，所以在 `SignerBond` 具有有效输入之前它不会处于活动状态。完成后，你可以代表该用户轻松提交交易。
+因为 `TransactionButton` 依赖于 `this.account`，所以在 `SignerBond` 具有有效输入之前它不会处于激活。完成后，你可以代表该用户轻松提交交易。
 
 ## 其他组件
 
 我们不会深入了解 Substrate UI 提供的每个组件。但是，这些组件中的大多数应该都相对容易理解并能在你自己的代码里重用。
 
-除了 [React 组件](https://reactjs.org/docs/react-component.html) 中可见的内容之外，几乎没有什么神奇的事情发生，所以这将是一个你开始扩展知识的好时候。
+除了 [React 组件](https://reactjs.org/docs/react-component.html) 中可见的内容之外，几乎没有什么 magic 发生，所以这将是一个你开始扩展知识的好时候。
 
 ## 轮到你了！
 
@@ -84,7 +84,7 @@ this.account = new Bond;
 
 然后，你需要将 `SignerBond` 连接到 `TransactionButton`，后者会调用 `createKitty()`。你可以使用 `paw` 图标为你的交易按钮增加一点额外的效果。
 
-完成此操作后，通过创建一些新的 kitty 来测试你的按钮！当新的 kitty 进入你的系统时，观察你的 “kitty counter” 是否增加。
+完成此操作后，通过创建一些新的 kitty 来测试你的按钮！当新的 kitty 进入你的系统时，观察你的 "kitty counter" 是否增加。
 
 <!-- tabs:start -->
 

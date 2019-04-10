@@ -23,7 +23,7 @@ yarn install
 yarn run dev
 ```
 
-确保你的节点已启动并运行，并在 Chrome 中打开 [localhost:8000](http://localhost:8000)。
+确保你的节点已启动并运行，并在 Chrome 浏览器中打开 [localhost:8000](http://localhost:8000)。
 
 ----
 **Debug**
@@ -36,6 +36,6 @@ sudo apt remove yarn
 sudo npm install -g yarn
 ```
 
-`yarn install` 应该会按预期工作。
+`yarn install` 现在应该能按预期工作了。
 
 ---
