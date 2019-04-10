@@ -2,11 +2,11 @@
 
 在本教程结束时，我们将为你创建自己的定制 UI，以便与你的区块链进行交互。与此同时，我们可以使用 [Polkadot-JS](https://polkadot.js.org) Apps UI，它是一个适应你自定义节点的通用界面。
 
-打开 **Chrome** 并导航至，只需从下拉列表中选择 'Local Node (127.0.0.1:9944)'：
+打开 **Chrome** 并导航至:
 
-https://polkadot.js.org/apps/
+https://substrate-ui.parity.io/
 
-要将 UI 指向本地节点，你需要调整 **设置**:
+要将 UI 指向 local node，你需要调整 **设置**，只需从下拉列表中选择 'Local Node (127.0.0.1:9944)'：
 
 ```
 Settings > remote node/endpoint to connect to > Local Node (127.0.0.1:9944)

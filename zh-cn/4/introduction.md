@@ -6,6 +6,6 @@
 
 ## 参考资料
 
-我们将使用一个名为 [Substrate UI](https://github.com/paritytech/substrate-ui) 的 React 模板，它使用 [oo7-substrate library](https://github.com/paritytech/oo7/tree/master/packages/oo7-substrate) 构建。它是 [Polkadot-JS Apps UI](https://github.com/polkadot-js/apps) 用户界面的一个替代品，用于与你的 Substrate 链进行交互。
+我们将使用一个名为 [Substrate UI](https://github.com/paritytech/substrate-ui) 的 React 模板，它使用 [oo7-substrate library](https://github.com/paritytech/oo7/tree/master/packages/oo7-substrate) 构建。它是另一个可替代 [Polkadot-JS Apps UI](https://github.com/polkadot-js/apps) 的前端界面，用于与你的 Substrate 链进行交互。
 
 构建自己的 UI 时，请记住参考 [Polkadot-JS API文档](https://polkadot.js.org/api/) 和 [oo7 API文档](https://paritytech.github.io/oo7/)。
