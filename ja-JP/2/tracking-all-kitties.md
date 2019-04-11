@@ -1,25 +1,25 @@
-Tracking All Kitties
+キティを追跡する
 ===
 
-Now that we have enabled each user to create their own unique kitty, we should probably start tracking them!
+各ユーザーが独自の独自のキティを作成できるようになったので、次はそれらを追跡できるようにする必要があります。
 
-It makes sense for our game to track a total number of kitties created, as well as a way to track who owns each kitty.
+私たちのゲームでは、作成されたキティの総数、および各キティを誰が所有しているかを追跡する必要があります
 
-## "Verify First, Write Last"
+## "最初に検証、最後に書き込み"
 
-> IMPORTANT: This section is important
+> 重要: このセクションは重要です。
 
-As a developer building on Substrate, it is critical that you make a distinction about how you should design your runtime logic versus developing a smart contract on a platform like Ethereum.
+Substrateの開発者として、ランタイムロジックを設計する方法と、Ethereumのようなプラットフォームでスマートコントラクトを開発する方法を区別する必要があります。
 
-On Ethereum, if at any point your transaction fails (error, out of gas, etc...), the state of your smart contract will be unaffected. However, on Substrate this is not the case. As soon as a transaction starts to modify the storage of the blockchain, those changes are permanent, even if the transaction would fail at a later time during runtime execution.
+Ethereumの場合、トランザクションがどこかの時点で失敗したとしても（エラー、ガス切れなど）、スマートコントラクトのステイトは影響を受けません。しかしながら、Substrateでは異なります。トランザクションがブロックチェーンのストレージに変更を加え始めると、たとえトランザクションがランタイム実行中に失敗したとしても、それらの変更は永続的です。
 
-This is necessary for blockchain systems since you may want to track things like the nonce of a user or subtract gas fees for any computation that occurred. Both of these things actually happen in the Ethereum state transition function for failed transactions, but you have never had to worry about managing those things as a contract developer.
+これはブロックチェーンシステムには必要です。これはユーザーのノンス(Nonce)のようなものを追跡したり、発生した計算に対するガス代を差し引くことが必要になる場合があるためです。これらのことは両方とも実際には失敗したトランザクションに対するEthereumの状態遷移機能で発生しますが、これらを開発者として管理することについて心配する必要はありませんでした。
 
-Now that you are a Substrate runtime developer, you will have to be conscious of any changes you make to the state of your blockchain, and ensure that it follows the **"verify first, write last"** pattern. We will be helping you do this throughout the tutorial.
+あなたがSubstrateランタイム開発者である今、あなたはブロックチェーンのステイトトランジションにより意識しなければならず、そしてそれが **"最初に検証、最後に書き込み"** に従わなければならない理由です。今回のチュートリアルでその方法を教えます。
 
-## Creating a List
+## リストを作る
 
-Substrate does not natively support a list type since it may encourage dangerous habits. In runtime development, list iteration is, generally speaking, evil. Unless explicitly guarded against, it will add unbounded O(N) complexity to an operation that will only charge O(1) fees. As a result, your chain becomes attackable. Instead, a list can be emulated with a mapping and a counter like so:
+危険な習慣を導く可能性があるため、Substrateはネイティブでリストタイプをサポートしていません。ランタイム開発では、リストの反復は悪と言われています。明示的に保護されていない限り、O(1)の料金のみを請求する操作に限りないO(N)の複雑さが加わります。その結果、あなたのチェーンは攻撃可能となる脆弱性を孕みます。そこで、以下のようにマッピングとカウンターでエミュレートすることで、リストの機能を代替することができます。
 
 ```rust
 decl_storage! {
@@ -30,17 +30,19 @@ decl_storage! {
 }
 ```
 
-Here we are storing a list of people in our runtime represented by `AccountId`s. We just need to be careful to properly maintain these storage items to keep them accurate and up to date.
+ここでは`AccountId`で表されるアカウントを`u32`でマッピングすることにより、リストを再現しています。これらのストレージ項目を正確かつ最新の状態に保つために、ストレージ項目を適切に取り扱うことに注意する必要があります。
 
-## Checking for Overflow/Underflow
+## オーバーフロー/アンダーフローの確認
 
 If you have developed on Ethereum, you may be familiar with all the problems that can happen if you do not perform "safe math". Overflows and underflows are an easy way to cause your runtime to panic or for your storage to get messed up.
 
-You must always be proactive about checking for possible runtime errors before you make changes to your storage state. Remember that unlike Ethereum, when a transaction fails, the state is NOT reverted back to before the transaction, so it is your responsibility to ensure that there are no side effects on error.
+Ethereum上での開発経験があるなら、"safe math"を使わないといけない問題を知っているかもしれません。オーバーフローとアンダーフローは、ランタイムをパニックにさせたり、ストレージを汚したりしてしまいます。
 
-Fortunately, checking for these kinds of errors are quite simple in Rust where primitive number types have [`checked_add()`](https://doc.rust-lang.org/std/primitive.u32.html#method.checked_add) and [`checked_sub()`](https://doc.rust-lang.org/std/primitive.u32.html#method.checked_sub) functions.
+ストレージの状態を変更する前に、実行時エラーの可能性を常にチェックするようにしてください。Ethereumとは異なり、トランザクションが失敗した場合、状態はトランザクションの前に戻されないため、エラーに副作用がないことを確認するのは開発者の責任です。
 
-Let's say we wanted to add an item to our `AllPeopleArray`, we should first check that we can successfully increment the `AllPeopleCount` like so:
+幸いなことに、これらの種類のエラーのチェックは、基本的の数値型が[`checked_add()`](https://doc.rust-lang.org/std/primitive.u32.html#method.checked_add)と[`checked_sub()`](https://doc.rust-lang.org/std/primitive.u32.html#method.checked_sub)関数を持つRustでは非常に簡単です。
+
+あるアイテムを`AllPeopleArray`に追加したいとしましょう。そうするにはまず、`AllPeopleCount`を問題なく増やすことができることを確認する必要があります：
 
 ```rust
 let all_people_count = Self::num_of_people();
@@ -48,7 +50,7 @@ let all_people_count = Self::num_of_people();
 let new_all_people_count = all_people_count.checked_add(1).ok_or("Overflow adding a new person")?;
 ```
 
-Using `ok_or` is the same as writing:
+`ok_or`は以下と同等です:
 
 ```rust
 let new_all_people_count = match all_people_count.checked_add(1) {
@@ -57,15 +59,15 @@ let new_all_people_count = match all_people_count.checked_add(1) {
 };
 ```
 
-However, `ok_or` it is more is more clear and readable than `match`; you just need to make sure to remember the `?` at the end!
+ok_or`は`match`よりも明確で読みやすいですが、文末の`?`を忘れないようにしてください。
 
-If we were successfully able to increment `AllPeopleCount` without an overflow, then it will simply assign the new value to `new_all_people_count`. If not, our module will return an `Err()` which can be gracefully handled by our runtime. The error message will also appear directly in our node's console output.
+オーバーフローが起こらずに`AllPeopleCount`を増やすことに成功したら、その更新された新しい値を`new_all_people_count`に代入します。問題が見つかった場合は、`Err()`を返します。エラーメッセージはブロック生成中のノードのコンソールに直接出力され、デバックを簡単に行うことができます。
 
-## Updating our List in Storage
+## ストレージ内のリストを更新する
 
-Now that we have checked that we can safely increment our list, we can finally push changes to our storage. Remember that when you update your list, the "last index" of your list is one less than the count. For example, in a list with 2 items, the first item is index 0, and the second item is index 1.
+リストに安全に追加できることを確認したので、最後のストレージへの書き込みを行います。リストは0から数えるため、リストを更新するとき、「最後のインデックス」はカウントより1つ少ないことを覚えていてください。
 
-A complete example of adding a new person to our list of people would look like:
+人のリストに新しい人を追加する完全な例は次のようになります：
 
 ```rust
 fn add_person(origin, new_person: T::AccountId) -> Result {
@@ -82,46 +84,46 @@ fn add_person(origin, new_person: T::AccountId) -> Result {
 }
 ```
 
-We should probably add collision detection to this function too! Do you remember how to do that?
+おそらくこの機能にも衝突検出を追加するべきです！その方法を覚えていますか？
 
-## Deleting From Our List
+## リストから削除する
 
-One problem that this `map` and `count` pattern introduces is holes in our list when we try to remove elements from the middle. Fortunately, the order of the list we want to manage in this tutorial is not important, so we can use a "swap and pop" method to efficiently mitigate this issue.
+この `map`と`count`パターンがもたらす一つの問題は、真ん中から要素を削除することで、リストに穴が開いてしまうことです。幸いにも、このチュートリアルで管理したいリストに順番は重要ではないのですが、この問題への解決法として"swap and pop"メソッドが考えられます。
 
-The "swap and pop" method switches the position of the item we want to remove and the last item in our list. Then, we can simply remove the last item without introducing any holes to our list.
+"swap and pop"メソッドは削除したいアイテムの位置とリストの最後のアイテムを入れ替えます。そうすれば、リストに穴を開けずに最後の項目を簡単に削除できます。
 
-Rather than run a loop to find the index of the item we want to remove each time we remove an item, we will use a little extra storage to keep track of each item and its position in our list.
+アイテムを削除するたびに、削除するアイテムのインデックスを見つけるためにループを実行するのではなく、各アイテムとそのリスト内の位置を追跡するために、少し余分なストレージを使用します。
 
-We won't introduce the logic for "swap and pop" until later, but we will ask you to start tracking the index of each item using an `Index` storage like this example:
+"swap and pop"のロジックについては後ほど詳しく紹介しますが、次の例のように`Index`ストレージを使って各項目のインデックスを追跡します：
 
 ```rust
 AllPeopleIndex: map T::AccountId => u32;
 ```
 
-This is really just an inverse of the content in `AllPeopleArray`. Note that we do not need a getter function here since this storage item is used internally, and does not need to be exposed as part of our modules API.
+これは実は`AllPeopleArray`の内容の逆です。このストレージアイテムは内部的に使用されており、モジュールAPIの一部として公開する必要はないため、ここではgetter関数は必要ありません。
 
-## Your Turn!
+## あなたの番です!
 
-Now that you know what is necessary to keep track of all of your kitties, let's update your runtime to do this.
+すべてのキティを追跡するために何が必要かがわかったので、これを実装するためにランタイムを更新しましょう。
 
-Follow the template to add new storage items, and update your `create_kitty` function to **"verify first, write last"** whenever a new kitty is created.
+テンプレートに従って新しいストレージアイテムを追加し、新しいキティが作成されるたびに`create_kitty`関数を **"最初に検証し、最後に書き込む"** にしたがって更新します。
 
 <!-- tabs:start -->
 
 #### ** Template **
 
-[embedded-code](./assets/2.3-template.rs ':include :type=code embed-template')
+[embedded-code](../../2/assets/2.3-template.rs ':include :type=code embed-template')
 
 #### ** Solution **
 
-[embedded-code-final](./assets/2.3-finished-code.rs ':include :type=code embed-final')
+[embedded-code-final](../../2/assets/2.3-finished-code.rs ':include :type=code embed-final')
 
 <!-- tabs:end -->
 
 ---
 **Learn More**
 
-Talk about cloning and borrowing...
+クローンと借用について
 
 [TODO: make this a page]
 

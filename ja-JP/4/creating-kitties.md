@@ -11,7 +11,7 @@ In the last section we explored the `runtime` variable created by the Substrate 
 calls.
 ```
 
-![An image of the `calls` autocomplete](./assets/calls-autocomplete.png)
+![An image of the `calls` autocomplete](../../4/assets/calls-autocomplete.png)
 
 Again, we see that we automatically gain access to all of our modules, including the one we just created. Diving into the `substratekitties` we find:
 
@@ -19,7 +19,7 @@ Again, we see that we automatically gain access to all of our modules, including
 calls.substratekitties.
 ```
 
-![An image of `calls.substratekitties` autocomplete](./assets/calls-substratekitties-autocomplete.png)
+![An image of `calls.substratekitties` autocomplete](../../4/assets/calls-substratekitties-autocomplete.png)
 
 This is a list of all the functions we created in the `decl_module!` macro. Note that our private functions like `mint()` and `_transfer()` are not here since they are not supposed to be part of our public API.
 
@@ -36,11 +36,11 @@ post({
 
 In this sample, the `sender` is the address of one of our accounts. We can retrieve this for any of our accounts in the **Address Book** app of the Substrate UI:
 
-![An image of the Address Book section](./assets/address-book.png)
+![An image of the Address Book section](../../4/assets/address-book.png)
 
 When we submit this in our console, we will see a few things happen in the background, and then our transaction is `finalised` and the number of kitties increases:
 
-![An image of creating a kitty from console](./assets/transaction-from-console.png)
+![An image of creating a kitty from console](../../4/assets/transaction-from-console.png)
 
 ## Creating a Transaction Button
 
@@ -91,10 +91,10 @@ Once you have completed this, test your button by creating some new kitties! Wat
 
 #### ** Template **
 
-[embedded-code](./assets/4.3-template.js ':include :type=code embed-template')
+[embedded-code](../../4/assets/4.3-template.js ':include :type=code embed-template')
 
 #### ** Solution **
 
-[embedded-code-final](./assets/4.3-finished-code.js ':include :type=code embed-final')
+[embedded-code-final](../../4/assets/4.3-finished-code.js ':include :type=code embed-final')
 
 <!-- tabs:end -->

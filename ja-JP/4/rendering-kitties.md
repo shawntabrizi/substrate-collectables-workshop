@@ -213,10 +213,10 @@ Also think about how you might need to change the `KittyCards` component if you 
 
 #### ** Template **
 
-[embedded-code](./assets/4.4-template.js ':include :type=code embed-template')
+[embedded-code](../../4/assets/4.4-template.js ':include :type=code embed-template')
 
 #### ** Solution **
 
-[embedded-code-final](./assets/4.4-finished-code.js ':include :type=code embed-final')
+[embedded-code-final](../../4/assets/4.4-finished-code.js ':include :type=code embed-final')
 
 <!-- tabs:end -->

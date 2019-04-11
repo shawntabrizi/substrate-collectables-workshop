@@ -1,75 +1,74 @@
-Owning Multiple Kitties
+複数のキティを所有する
 ===
 
-Have you noticed a problem with our runtime? What would happen if the same user called the `create_kitty()` function?
+あなたは現在のランタイムにある問題に気づきましたか？同じユーザーが `create_kitty()`関数を呼び出した場合どうなると思いますか？
 
-Right now our storage can only track one kitty per user, but our total supply of kitties will keep going up! Let's fix that by enabling users to own multiple kitties!
+今のところ、私たちのストレージは1ユーザーあたり1つのキティしか追跡することができませんが、キティの数は増え続けるでしょう！ユーザーが複数のキティを所有できるようにすることでその問題に対処します！
 
-## Using Tuples to Emulate Higher Order Arrays
+## 高次配列をエミュレートするためのタプルの使用
 
-We are going to need to introduce some more complex storage items to represent ownership of multiple items across multiple users.
+複数のユーザーにわたる複数のアイテムの所有権を表すために、より複雑なストレージアイテムをいくつか導入する必要があります。
 
-Fortunately, for our needs, using a [tuple](https://doc.rust-lang.org/rust-by-example/primitives/tuples.html) of `AccountId` and `Index` can pretty much solve our problems here.
+`AccountId`と`Index`の[tuple](https://doc.rust-lang.org/rust-by-example/primitives/tuples.html)を使うことで、私たちのニーズを満たすことができます。
 
-Here is how we could build a "friends list" unique to each person using such a structure:
+この構造を利用することで、各自に固有の「友達リスト」を作成することもできます：
 
 ```rust
 MyFriendsArray get(my_friends_array): map (T::AccountId, u32) => T::AccountId;
 MyFriendsCount get(my_friends_count): map T::AccountId => u32;
 ```
 
-This should emulate a more standard two-dimensional array like:
+このケースではもっと標準の２次元配列をエミュレートした方がいいでしょう；
 
 ```rust
 MyFriendsArray[AccountId][Index] -> AccountId
 ```
 
-Also we can get the number of friends for a user like:
+ユーザごとの友達の番号は以下のように取得できます；
 
 ```rust
 MyFriendsArray[AccountId].length()
 ```
 
-## Relative Index
+## 相対的インデックス
 
-Just as before, we can optimize the computational work our runtime needs to do by indexing the location of items. The general approach to this would be to reverse the mapping of `MyFriendsArray`, and create a storage item like this:
+以前と同様に、アイテムの位置をインデックス化することで、ランタイムが行う必要がある計算作業を最適化できます。これに対する一般的なアプローチは、 `MyFriendsArray`のマッピングを逆にして、次のようなストレージアイテムを作成することです：
 
 ```rust
 MyFriendsIndex: map (T::AccountId, T::AccountId) => u32;
 ```
 
-Where the `AccountId`s would represent the user, their friend, and the returned value would be the index of `MyFriendsArray` for that user where the friend is stored.
+一つ目の`AccountId`がユーザー、二つ目が友人を表します。
+この戻り値はその友人が保存されている`MyFriendsArray`のインデックスになります。
 
-However, since our kitties all have unique identifiers as a `Hash`, and cannot be owned by more than one user, we can actually simplify this structure:
+しかし、私たちのキティはすべて `Hash`として一意の識別子(`dna`)を持ち、複数のユーザが所有することはできないので、実際にはこの構造を単純化することができます。
 
 ```rust
 MyKittiesIndex: map T::Hash => u32;
 ```
 
-This index tells us for a given kitty, where to look in the *owners* array for that item.
+戻り値はその`Hash`を持つキティの**所有者**配列内の、そのキティのインデックスになります。
 
-## Your Turn!
+## あなたの番！
 
-There should be nothing too surprising here... just doing some more accounting.
-
-Follow the template to introduce our final set of storage items, and make sure the `create_kitty()` function manages these storage items correctly. It should feel very similar to the previous section.
+テンプレートに従って最後のストレージアイテムを導入し、`create_kitty()`関数がこれらのストレージアイテムを正しく管理していることを確認してください。前回のセクションと非常によく似ているので、それほど難しくはないはずです。
 
 <!-- tabs:start -->
 
 #### ** Template **
 
-[embedded-code](./assets/2.4-template.rs ':include :type=code embed-template')
+[embedded-code](../../2/assets/2.4-template.rs ':include :type=code embed-template')
 
 #### ** Solution **
 
-[embedded-code-final](./assets/2.4-finished-code.rs ':include :type=code embed-final')
+[embedded-code-final](../../2/assets/2.4-finished-code.rs ':include :type=code embed-final')
 
 <!-- tabs:end -->
 
 ---
-**Learn More**
+**詳細解説**
 
-Talk about Option<T::AccountID>
+<T::AccountID>について
 
 [TODO: make this a page]
 

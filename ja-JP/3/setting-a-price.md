@@ -54,10 +54,10 @@ Follow the template in this section to help you create the `set_price()` functio
 
 #### ** Template **
 
-[embedded-code](./assets/3.1-template.rs ':include :type=code embed-template')
+[embedded-code](../../3/assets/3.1-template.rs ':include :type=code embed-template')
 
 #### ** Solution **
 
-[embedded-code-final](./assets/3.1-finished-code.rs ':include :type=code embed-final')
+[embedded-code-final](../../3/assets/3.1-finished-code.rs ':include :type=code embed-final')
 
 <!-- tabs:end -->

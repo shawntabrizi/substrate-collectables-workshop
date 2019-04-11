@@ -1,4 +1,4 @@
 - Translations
   - [:us: English](/README.md)
   - [:cn: 中文](/zh-cn/)
-  - [:ja: 日本語](/ja-JP/)
+  - [:jp: 日本語](/ja-jp/)

@@ -81,10 +81,10 @@ Finally, if you are feeling brave, do a live runtime upgrade to add this new fea
 
 #### ** Template **
 
-[embedded-code](./assets/3.4-template.rs ':include :type=code embed-template')
+[embedded-code](../../3/assets/3.4-template.rs ':include :type=code embed-template')
 
 #### ** Solution **
 
-[embedded-code-final](./assets/3.4-finished-code.rs ':include :type=code embed-final')
+[embedded-code-final](../../3/assets/3.4-finished-code.rs ':include :type=code embed-final')
 
 <!-- tabs:end -->

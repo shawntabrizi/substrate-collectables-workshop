@@ -42,10 +42,10 @@ Follow the template to complete the `transfer_from()` private function to power 
 
 #### ** Template **
 
-[embedded-code](./assets/3.2-template.rs ':include :type=code embed-template')
+[embedded-code](../../3/assets/3.2-template.rs ':include :type=code embed-template')
 
 #### ** Solution **
 
-[embedded-code-final](./assets/3.2-finished-code.rs ':include :type=code embed-final')
+[embedded-code-final](../../3/assets/3.2-finished-code.rs ':include :type=code embed-final')
 
 <!-- tabs:end -->

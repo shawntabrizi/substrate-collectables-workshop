@@ -1,30 +1,30 @@
-Generating Random Data
+ランダムなデータを生成する
 ===
 
-At the end of the last section, we allowed each user to create their own kitty. However, they weren't very unique... Let's fix that.
+前回のセクションの終盤で、各ユーザーに自分のキティを作ることを許可しました。しかし、キティはまだユニークではありません。今回はユニークさを実装します。
 
-## Generating a Random Seed
-If we want to be able to tell these kitties apart, we need to start giving them unique properties! For our app, we need to generate a unique `id` for each kitty and some random `dna`.
+## ランダムシードを生成する
+キティを区別することができるようにしたい場合は、それらに固有の特性を付与する必要があります。我々のアプリでは、それぞれのキティといくつかのランダムな `dna`に対してユニークな`id`を生成する必要があります。
 
-We can securely fetch some randomness from our chain using the `system` module:
+チェーンでランダム性を安全に取得するには、SRMLの`system`モジュールを使いましょう。Rustによって提供されている`rand`モジュールなどは脆弱性があり、ブロックチェーンのランタイムには不適切です。
 
 ```rust
 <system::Module<T>>::random_seed()
 ```
 
-Substrate uses a safe mixing algorithm that uses the entropy of previous blocks to generate new random data for each subsequent block.
+Substrateは、前のブロックのエントロピーを使用して、後続の各ブロックの新しいランダムデータを生成する安全な混合アルゴリズムを使用します。
 
-However, since it is dependent on previous blocks, it can take over 80 blocks to fully warm up, and you may notice the seed will not change until then.
+ただし、前のブロックに依存しているため、完全な効果を発揮するのに80ブロック以上必要であり、それまではシードが変化しないかもしれません。
 
-### Using a Nonce
+### ナンス(Nonce)を使う
 
-Since the random seed does not change for multiple transactions in the same block, and since it may not even generate a random seed for the first 80 blocks, it is important that we also introduce a `nonce` which our module can manage. Furthermore, we can also use a user specific property like the `AccountId` to introduce a bit more entropy.
+ランダムシードは同じブロック内の複数のトランザクションに対して変化せず、さらには最初の80ブロックに対してはランダムシードを生成さえしないかもしれません。なので、モジュールが管理可能な`nonce`を導入することは非常に重要です。さらに、`AccountId`のようなユーザー固有のプロパティを追加のエントロピーとして導入することで、より安全なランダム性を再現することができます。
 
-If we are able to hash this combined data, we should get enough randomness for our needs.
+これらのデータのコンビネーションをハッシュ化することができれば、今回のニーズに十分なランダム性を手に入れられます。
 
-## Hashing Data
+## データのハッシュ化
 
-A random number generator on substrate will look something like this:
+Substrateでは以下のようにランダムな数字を作成できます：
 
 ```rust
 let sender = ensure_signed(origin)?;
@@ -36,44 +36,44 @@ let random_hash = (random_seed, sender, nonce).using_encoded(<T as system::Trait
 <Nonce<T>>::mutate(|n| *n += 1);
 ```
 
-`Nonce` will be a new item in our storage which we will simply increment whenever we use it.
+`Nonce`はストレージ内の新しいアイテムになり、使用するたびに`1`ずつ増加させています。
 
-We can use this `random_hash` to populate both the `id` and `dna` for our kitty.
+この`random_hash`をキティの`id`と`dna`として使用します。
 
-## Checking for Collision
+## 衝突検証
 
-To easily track all of our kitties, it would be helpful to standardize our logic to use a unique id as the global key for our storage items. This means that a single unique key will point to our `Kitty` object, and all other ownership links or maps will point to that key.
+複数のキティを追跡するには、ユニークなIDをグローバルキーとして使用するようにロジックを標準化すると便利です。`Kitty`オブジェクトの`id`はその目的を果たしますが、新しくストレージに追加されるキティの`id`が既存のキティの`id`と被ることが無いことを保証しなくてはなりません。
 
-The `id` on the `Kitty` object will serve that purpose, but we need to make sure that the `id` for a new kitty is always unique. We can do this with a new storage item `Kitties` which will be a mapping from `id` (`Hash`) to the `Kitty` object.
+衝突検証には`id`（`Hash`）から`Kitty`オブジェクトへのマッピングとなる、新しいストレージ項目の`Kitties`を使います。
 
-With this object, we can easily check for collisions by simply checking whether this storage item already contains a mapping using a particular `id`. Something like:
+これにより、特定の`id`を使ったマッピングが`Kitties`内に既に含まれているかどうかを確認することができます：
 
 ```rust
 ensure!(!<Kitties<T>>::exists(new_id), "This new id already exists");
 ```
 
-However unlikely it is that two randomly generated hashes may collide, it is important to make this check as we may introduce other ways to generate kitties, and our storage structure depends on this uniqueness.
+ランダムに生成された2つのハッシュが衝突する可能性は低いですが、キティを生成するための他の方法を導入する可能性があるため、このチェックを行うことが重要です。
 
-## Your Turn!
+## あなたの番です!
 
-Let's update our module to support generating random data for our kitties, and use that random data to create unique `id`s which will be the basis for our storage and logic.
+ユニークな特性をキティに持たせるために、ランダムデータを生成してユニークな`id`を作りましょう。
 
-We will introduce a new `Kitties` storage items which will map an `id` to a `Kitty` object. We will also want to create a `KittyOwner` storage item which will map an `id` to the `AccountId` who owns the kitty.
+`id`を`Kitty`オブジェクトにマッピングする新しい`Kitties`ストレージアイテムを紹介します。また、キティを所有する`AccountId`に`id`をマッピングする`KittyOwner`ストレージアイテムも作成したいと思います。
 
-Finally we can update our `OwnedKitty` object to point to this unique `id` rather than have a duplicate copy of the `Kitty` object in our storage.
+最後に、`Kitty`オブジェクトのコピーを持つのではなく、このユニークな`id`を指すように`OwnedKitty`オブジェクトを更新します。
 
-Now that we have set up all these new storage items, we will need to also update our `create_kitty()` function to correctly update these storage items when a kitty is made.
+新しいストレージアイテムをすべて設定したので、次は、キティが作られたときにこれらのストレージアイテムを正しく更新するために`create_kitty()`関数も更新する必要があります。
 
-Follow the instructions on the template for this section to get things running!
+セクションのテンプレートの指示に従って作業を進めてください。
 
 <!-- tabs:start -->
 
 #### ** Template **
 
-[embedded-code](./assets/2.1-template.rs ':include :type=code embed-template')
+[embedded-code](../../2/assets/2.1-template.rs ':include :type=code embed-template')
 
 #### ** Solution **
 
-[embedded-code-final](./assets/2.1-finished-code.rs ':include :type=code embed-final')
+[embedded-code-final](../../2/assets/2.1-finished-code.rs ':include :type=code embed-final')
 
 <!-- tabs:end -->

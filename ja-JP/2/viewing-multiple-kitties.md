@@ -1,9 +1,9 @@
-Viewing Multiple Kitties
+複数のキティを確認する
 ===
 
-We added a lot of items to our runtime storage since we last played around with the Polkadot UI, not to mention that our storage structure is also a bit more complex. Now is a good opportunity to take a look at what we have done so far, and check out how we can navigate through the kitties being generated in our runtime.
+最後にPolkadot UIを動かしてから、ランタイムにストレージやイベントなど沢山追加しました。少し複雑になってきたランタイムを使い、キティをどのように生成できるか、ナビゲートできるかをチェックする良い機会です。
 
-Remember to start a clean version of your chain before jumping into the UI:
+UIに飛び込む前に、あなたのチェーンを初期化することを忘れないでください：
 
 ```
 ./build.sh
@@ -12,42 +12,42 @@ cargo build --release
 ./target/release/substratekitties --dev
 ```
 
-## Funding and Using Multiple Accounts
+## 複数の口座への送金して使用する
 
-The first thing you want to do is transfer funds from Alice to a few of the provided accounts. Let's send funds to both Bob and Charlie.
+あなたがしたい最初のことはAliceが持つ大量の資金を他のアカウントに移すことです。BobとCharlieに資金を送ってみましょう。
 
-Now we will go into the **Extrinsics** tab, where we will select our `create_kitty()` function in the UI:
+アプリを開いて**Extrinsics**タブに行き、`create_kitty()`関数を選択してSubmitします：
 
 ```
 substratekitties > createKitty()
 ```
 
-For our test we will have Alice create 3 kitties, Bob create 2 kitties, and Charlie create 1.
+私たちのテストでは、Aliceに３匹のキティ、Bobに2匹、そしてCharlieに1匹作成させます。
 
-![An image of Alice creating a Kitty](./assets/alice-creates-kitty.png)
+![An image of Alice creating a Kitty](../../2/assets/alice-creates-kitty.png)
 
-## Viewing Our Storage
+## ストレージを確認する
 
-Now we can explore all the storage items we set up an make sure things are working correctly.
+これで、セットアップしたすべてのストレージ項目を調べることにより、キティ作成と保存が正しく行われていることを確認できます。
 
-First we should check the total number of kitties in our system:
+まず、システム内のキティの総数を確認します：
 
 ```
 kittyStorage > allKittiesCount(): u64
 ```
 
-If all went right, we should get the value `6` returned.
+すべてうまくいけば、値(`6`)が返されるはずです。
 
-![An image of AllKittiesCount](./assets/all-kitties-count.png)
+![An image of AllKittiesCount](../../2/assets/all-kitties-count.png)
 
-Next we should check the kitty count for each user, expecting 3 for Alice, 2 for Bob, and 1 for Charlie:
+次に、Aliceに3、Bobに2、Charlieに1が返ることを期待して、各ユーザーのキティ数を確認します。
 
-![An image of individual kitty count](./assets/owner-kitty-count.png)
+![An image of individual kitty count](../../2/assets/owner-kitty-count.png)
 
-If we look at `AllKittiesArray`, we should be able to get each kitty by their global index. I will look at the 5th kitty (which is index 4), and confirm the owner is Bob. Furthermore, we can confirm that this is Bob's 2nd kitty since the relative `OwnedKittiesIndex` is `1`.
+AllKittiesArrayを見れば、各キティをグローバルインデックスで取得できるはずです。例えば、5番目のキティ（インデックス4）を見て、所有者がボブであることを確認します。さらに、相対的な`OwnedKittiesIndex`が`1`なので、これがボブの2番目の子猫であることも確認できます。
 
-![An image of Bob's kitty in storage](./assets/bob-owned-kitty.png)
+![An image of Bob's kitty in storage](../../2/assets/bob-owned-kitty.png)
 
-## Your Turn!
+## あなたの番です!
 
-There are still a couple of storage items we didn't check out yet. Spend some time and a little bit of brain juice to make sure everything works as it should. If you find an error, go back to your runtime to see if you can spot where the problem is.
+まだ確認していないストレージアイテムがまだいくつかあります。少し時間をかけて脳みそジュースを絞って、すべてが正常に機能することを確認してみてください。エラーが見つかった場合は、ランタイムに戻って問題がどこにあるのかを確認してください。

@@ -1,13 +1,13 @@
-Refactoring Our Code
+コードのリファクタリング
 ===
 
-Our `create_kitty()` function is pretty bulky and has code we will probably want to use later when we introduce kitty breeding and other ways to "mint" new kitties.
+ここまでのコードを見ると`create_kitty()`関数はかなり汚くなってしまいました。後で交配や他の方法でキティを「ミント」する方法を導入することを考え、少しリファクタリングが必要でしょう。
 
-We will take this opportunity to teach you about writing private internal functions which are not directly exposed through your runtime's API, but are still accessible by your module.
+この機会を利用して、ランタイムのAPIから呼び出しができない、プライベートな内部関数の作り方を教えます。
 
-## Public Interfaces and Private Functions
+## パブリックインタフェースとプライベート関数
 
-Within your runtime, you are able to include an implementation of your runtime module like so:
+ランタイム内には、モジュールの実装を以下のように行うことができます。
 
 ```rust
 impl<T: Trait> Module<T> {
@@ -15,9 +15,9 @@ impl<T: Trait> Module<T> {
 }
 ```
 
-Functions in this block are usually public interfaces or private functions. Public interfaces should be labeled `pub` and generally fall into inspector functions that do not write to storage and operation functions that do. Private functions are your usual private utilities unavailable to other modules.
+このブロック内の関数は通常、パブリックインタフェースまたはプライベート関数です。パブリックインタフェースは`pub`とラベル付けされ、一般的にストレージに書き込まないインスペクタ関数とそうするオペレーション関数に分類されます。プライベート関数は他のモジュールに利用できない実装されたランタイム内部でしか呼び出しができないプライベートユーティリティです。
 
-You can call functions defined here using the `Self::function_name()` pattern you have seen before. Here is an intentionally overcomplicated example:
+ここで定義した関数は、以前扱った`Self::function_name()`パターンを使って呼び出すことができます。以下の例は意図的に複雑にしています：
 
 ```rust
 decl_module! {
@@ -46,26 +46,26 @@ impl<T: Trait> Module<T> {
 }
 ```
 
-Remember that we still need to follow a "verify first, write last"  pattern, so it is important to not daisy chain private functions which do writes to storage where there is a chance one will throw an error.
+ここでも「最初に検証し、最後に書き込み」というパターンに従う必要があることを忘れないでください。したがって、エラーが発生する可能性がある場合にストレージに書き込みを行うプライベート関数をデイジーチェーン接続(数珠つなぎ)しないことが重要です。
 
-## Your Turn!
+## あなたの番です!
 
-For us, the process of creating a new kitty from a `Kitty` object and updating all the storage variables is something that we should make reusable so that we can create other kitties whilst taking advantage of the same code.
+私たちにとって、`Kitty`オブジェクトから新しいキティを作成し、すべてのストレージ変数を更新するプロセスは、同じコードを利用しながら他のキティを作成できるように再利用可能にすべきものです。
 
-Whereas the `create_kitty()` function assumes that the kitty generated will always be given to the user who submitted the transaction, our reusable `mint()` function should not make that assumption.
+`create_kitty()`関数は生成されたキティが常にトランザクションを送信したユーザに渡されると仮定していますが、私たちの再利用可能な `mint()`関数はその限りではありません。
 
-The `create_kitty()` function also generates the property of the new kitty, but we should not move this to the `mint()` function. There may be multiple ways to generate a kitty object in the future. This function should only ensure that the kitty being created is unique, and that all the storage items are properly updated.
+`create_kitty()`関数は新しいキティのプロパティも生成しますが、これを `mint()`関数に移すべきではありません。将来、キティオブジェクトを生成する方法は複数あるかもしれません。この機能は、作成されているキティがユニークであること、およびすべてのストレージインデックスが正しく更新されていることを確認するためだけに使用します。
 
-Our template provides the function declaration for `mint()`, and will guide you to refactor the code and update any variables to match the new schema. It might be good to double check your work in the Polkadot-JS Apps UI once again before you move on.
+`mint()`の関数宣言のためのテンプレートは既に提供されています。それに従い、コードをリファクタリングしてください。先に進む前に、もう一度Polkadot-JS Apps UIで作業内容を確認することをお勧めします。
 
 <!-- tabs:start -->
 
 #### ** Template **
 
-[embedded-code](./assets/2.6-template.rs ':include :type=code embed-template')
+[embedded-code](../../2/assets/2.6-template.rs ':include :type=code embed-template')
 
 #### ** Solution **
 
-[embedded-code-final](./assets/2.6-finished-code.rs ':include :type=code embed-final')
+[embedded-code-final](../../2/assets/2.6-finished-code.rs ':include :type=code embed-final')
 
 <!-- tabs:end -->

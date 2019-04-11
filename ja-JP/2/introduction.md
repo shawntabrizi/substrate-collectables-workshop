@@ -1,19 +1,18 @@
-Introduction
+イントロダクション
 ===
 
-[CryptoKitties](https://www.cryptokitties.co/) is a popular Ethereum dApp that at one point accounted for more than 20% of all incoming transactions on the Ethereum blockchain. In this tutorial, we will try to follow in their footsteps and create the next viral application on Substrate.
+[CryptoKitties](https://www.cryptokitties.co/)は、ご存知の方も多いとは思いますが、ピーク時にはEthereumブロックチェーン上の全トランザクションの20％以上を占めていたこともある、超人気Ethereum dAppです。このチュートリアルでは、dAppの王者でもあるCryptoKittiesの足跡をたどり、Substrate上にネクストヒットとなるdAppを作ります。
 
-In this section, we will show you how to create a runtime which allows users create and own non-fungible tokens.
+このセクションでは、ユーザーが非代替トークン(non-fungible token)を作成および所有できるようにするランタイムの作成方法を説明します。
 
-## Non-Fungible Token
+## Non-Fungible Token(NFT)
 
-CryptoKitties and other similar dApps use *non-fungible tokens* to represent their assets. A non-fungible token (NFT) is a token which is unique and distinguishable in nature. Whereas you can trade your Bitcoin for someone elses Bitcoin without really changing anything, when you create a kitty on CryptoKitties, you are generating a one of a kind, unique and irreplaceable item.
+CryptoKittiesおよび他の同様のdAppは、資産のユニーク性を表すために**NFT**を使用します。非代替トークン（NFT）は、ユニークで区別可能なトークンです。Bitcoinは他の人のBitcoinと交換しても特に違いはありませんが、CryptoKittiesでキティを作成すると、決して代替不可能な世界に一つだけの種類のアイテムが生成されます。
 
-NFTs are particularly exciting not just because they are unique, but because of the things you can do with them! You can own a token, trade your tokens, buy or sell tokens, track the specific history of a token, and even have tokens interact with one another.
+NFTは、それらがユニークであるという理由だけではなく、それらを使って可能になることがたくさん思いつきます。あなたは、トークンを所有、交換、購入または売却、トークンの履歴を追跡、そしてトークン同士をインタラクさせることさえもできます。
 
 ## ERC-721
 
-[ERC-721](http://erc721.org/) is an extremely popular Ethereum token standard for non-fungible tokens. Since this standard is widely used, and there have been numerous smart contracts built using this standard, we will be using it as a rough basis for how our app should be structured.
+[ERC-721](http://erc721.org/)は、NFTの実装に人気のあるEthereumトークン標準です。この標準は既存のスマートコントラクトに広く採用されているため、私たちも同じようにアプリケーションの構造化方法の基礎としてERC-721を使用します。
 
-Specifically, we will look to the [OpenZeppelin implementation](https://github.com/OpenZeppelin/openzeppelin-solidity/blob/master/contracts/token/ERC721/ERC721.sol), avoiding some of the more unnecessary features like "token approvals".
-
+具体的には、[OpenZeppelinの実装](https://github.com/OpenZeppelin/openzeppelin-solidity/blob/master/contracts/token/ERC721/ERC721.sol)を使うことにより、トークン承認などの必要ない機能を除外します。
