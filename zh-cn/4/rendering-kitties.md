@@ -4,7 +4,7 @@
 
 ## 添加我们定制的 `KittyCard` 组件
 
-我们已经构建了一个自定义的 React 组件来显示小猫。它并不复杂，但就本教程而言，我们不会让你构建它。你可以在 [此处](https://github.com/shawntabrizi/substrate-collectables-workshop/raw/master/4/assets/KittyCards.zip) 下载 `.zip` 组件。
+我们已经构建了一个自定义的 React 组件来显示小猫。它并不复杂，但就本教程而言，我们不会让你构建它。你可以在 [此处](https://github.com/shawntabrizi/substrate-collectables-workshop/raw/master/4/assets/KittyCards.zip) 下载 `.zip` 格式的组件。
 
 要添加它，你必须将 `KittyCards` 文件夹放在 `src` 文件夹中：
 
@@ -47,9 +47,9 @@ addCodecTransform('Kitty<Hash,Balance>', {
 });
 ```
 
-我们可以将它添加到我们应用程序的 `constructor()` 函数中，以确保它在开始时被加载。在此之后，我们可以像任何其他 JSON 对象一样与 `Kitty` 对象的属性进行交互。
+我们可以将它添加到应用程序的 `constructor()` 函数中，以确保它在开始时被加载。在此之后，我们可以像任何其他 JSON 对象一样与 `Kitty` 对象的属性进行交互。
 
-> 注意： 编解码器转换使用键/值对来查找应该用于反序列化的对象结构。因此，让你的 “object name” 与预期完全匹配是非常重要的。在这种情况下，请注意对象名称 `Kitty<Hash,Balance>` 中没有空格。如果 Substrate UI 无法找到自定义对象的正确密钥，它将在浏览器控制台中显示一个错误，其中包含预期的确切对象名称。
+> 注意： 编解码器转换使用 key/value 键值对来查找应该用于反序列化的对象结构。因此，让你的 "object name" 与预期完全匹配是非常重要的。在这种情况下，请注意对象名称 `Kitty<Hash,Balance>` 中没有空格。如果 Substrate UI 无法找到自定义对象的正确密钥，它将在浏览器控制台中显示一个错误，其中包含预期的确切对象名称。
 
 ## 深入我们的自定义组件
 
@@ -59,7 +59,7 @@ addCodecTransform('Kitty<Hash,Balance>', {
 
 ### 动态卡片导入
 
-让我们快速浏览 `/KittyCards/index.jsx` 的各个部分，以展示当把 kitty 添加到系统时我们如何动态加载新的卡片。
+让我们快速浏览 `/KittyCards/index.jsx` 的各个部分，以展示当把 kitty 添加到系统时我们如何动态加载新卡片的过程。
 
 我们从 UI 调用 `KittyCard` 组件：
 
@@ -106,7 +106,7 @@ class KittyWrap extends ReactiveComponent {
 
 最后，`KittyWrap` 调用 `KittyCard`，用于实际生成每张卡内容。
 
-请注意，我们使用 JavaScript [Object Destructuring Assignment Syntax]((https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#Object_destructuring)) 来解构 `this.state` 中的 `hash` 属性，避免重复多次编写 `this.state.hash`。
+请注意，我们使用 JavaScript [Object Destructuring Assignment Syntax](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#Object_destructuring) 来解构 `this.state` 中的 `hash` 属性，避免重复多次编写 `this.state.hash`。
 
 ### 卡片内容
 
@@ -188,20 +188,20 @@ function dnaToAttributes(dna) {
 
 kitty DNA 是一个字节数组（0-256），我们映射前 5 个字节来控制 kitty 的特定属性选择。你不仅可以看到每个属性拥有 256 个可配置选项，而且我们最多也可以拥有 256 个属性！
 
-我们使用 David Revoy 的 [Cat Avatar Generator](https://framagit.org/Deevad/cat-avatar-generator/tree/master) 项目为我们的图像生成提供支持，但如果你能找到一位优秀的艺术家，那么呈现效果将是没有极限的。
+我们使用 David Revoy 的 [Cat Avatar Generator](https://framagit.org/Deevad/cat-avatar-generator/tree/master) 项目为我们的图像生成提供支持，但如果你能找到一位优秀的艺术家，那么呈现出的效果将是没有极限的。
 
 ## 轮到你了！
 
 现在你已经了解了 `KittyCard` 组件的工作原理，现在可以将其集成到你的 Substrate UI 中了。这应该是没什么难的，因为 React 组件完成了所有的艰苦工作。
 
-完成后，尝试创建一个 kitty 并观看你的 UI 更新情况！你还可以通过在另一个选项卡中的 Polkadot UI 启动交易来尝试其他 runtime 功能。
+完成后，尝试创建一个 kitty 并观看你的 UI 更新情况！你还可以通过在其他 tab 的 Polkadot UI 中发起交易来尝试其他 runtime 功能。
 
 你想测试你的 React + JavaScript + Bonds 技能吗？我们只集成了 runtime 的一个函数，但是还有很多可以尝试构建的函数：
 
-- 设定一只 kitty 的价格
-- 买一只 kitty
+- 设定 kitty 的价格
+- 购买 kitty
 - 显示特定所有者的 kitties
-- 饲养 kitties
+- 培育 kitties
 - 等等...
 
 如果你引入一种从 runtime 删除 kitties 的方法，还要考虑如何更改 `KittyCards` 组件。

@@ -2,22 +2,22 @@
 
 你是否注意到我们的 runtime 存在问题？如果同一个用户调用 `create_kitty()` 函数会发生什么？
 
-现在我们的存储只能追踪每个用户的一个 kitty，但我们的 kitty 总供应量将继续上升！让我们通过让用户拥有多个 kitty 来解决这个问题！
+现在我们的存储只能追踪每个用户的一个 kitty，但我们的 kitty 总数将会继续增加！让我们通过让用户拥有多个 kitty 来解决这个问题！
 
 ## 使用 Tuples 去模拟高阶数组
 
 我们需要引入一些更复杂的存储项来表示多个用户对多个项目的所有权。
 
-幸运的是，根据我们的需求，使用 `AccountId` 和 `Index` [tuple](https://doc.rust-lang.org/rust-by-example/primitives/tuples.html) 几乎就可以解决我们的问题了。
+幸运的是，根据我们的需求，使用一个由 `AccountId` 和 `Index` 组成的 [tuple](https://doc.rust-lang.org/rust-by-example/primitives/tuples.html) 几乎就可以解决我们的问题了。
 
-以下是我们如何使用这样的结构构建每个人独有的 “friends list”：
+以下是我们如何使用这样的结构构造每个人独有的 "friends list"：
 
 ```rust
 MyFriendsArray get(my_friends_array): map (T::AccountId, u32) => T::AccountId;
 MyFriendsCount get(my_friends_count): map T::AccountId => u32;
 ```
 
-这应该是模拟了一个标准的二维数组，如：
+这模拟了一个标准的二维数组，如：
 
 ```rust
 MyFriendsArray[AccountId][Index] -> AccountId
@@ -37,9 +37,9 @@ MyFriendsArray[AccountId].length()
 MyFriendsIndex: map (T::AccountId, T::AccountId) => u32;
 ```
 
-如果 `AccountId` 代表用户和他们的朋友, 那么返回值将是 `MyFriendsArray` 的索引，即该用户的朋友在朋友列表中的索引。
+如果 `AccountId` 代表用户和他们的朋友, 那么返回值将是 `MyFriendsArray` 的索引，即该朋友在该用户的朋友列表中的存储位置。
 
-但是，由于我们的 kitty 都具有作为 `Hash` 的唯一标识符，并且不能被多个用户所拥有，所以我们实际上可以简化此结构
+但是，由于我们的 kitty 都具有唯一标识符作为 `Hash`，并且不能被多个用户所拥有，所以我们实际上可以简化此结构
 
 ```rust
 MyKittiesIndex: map T::Hash => u32;
@@ -49,9 +49,9 @@ MyKittiesIndex: map T::Hash => u32;
 
 ## 轮到你了！
 
-这里应该没有什么太令人惊讶的了... 只是做了一会儿会计。
+这里应该没有什么太令人惊讶的了... 只是做了一点会计的工作。
 
-按照模板引入了我们最终的一系列存储项，并确保 `create_kitty()` 函数正确管理这些存储项。它应该与上一节非常相似。
+按照模板去引入我们最终的一系列存储项，并确保 `create_kitty()` 函数正确管理这些存储项。它应该与上一节非常相似。
 
 <!-- tabs:start -->
 
@@ -69,6 +69,8 @@ MyKittiesIndex: map T::Hash => u32;
 
 **Learn More**
 
-谈谈 Option<T::AccountID>
+聊聊 Option<T::AccountID>
 
 [TODO: make this a page]
+
+---

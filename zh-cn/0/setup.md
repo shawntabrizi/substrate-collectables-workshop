@@ -6,11 +6,11 @@ Substrate 框架提供了一组简单的命令来设置本地环境:
 curl https://getsubstrate.io -sSf | bash -s -- --fast
 ```
 
-这个脚本将会下载并安装包管理器，Rust，git等等。如果你感兴趣，可以通过 [链接](https://getsubstrate.io) 查看脚本。
+这个脚本将会下载并安装 Rust 开发环境，git 等等。如果你感兴趣，可以通过 [链接](https://getsubstrate.io) 查看脚本。
 
-> 注意我们使用 `--fast` 跳过 `substrate` 和 `subkey` 的 `cargo install` 过程，这个过程可能会需要花费一段时间。这些不是本教程所必需的，但你可以在其他 Substate 教程或者指南使用。
+> 注意我们使用 `--fast` 参数跳过 `substrate` 和 `subkey` 的安装过程，因为这个过程比较花时间，而且不是本教程所必需的，但你可能会在其他 Substate 教程使用到。
 
-如果你尝试在不支持该脚本的操作系统（比如 Windows）上进行开发，你可以看看 [Substrate 仓库中](https://github.com/paritytech/substrate#61-hacking-on-substrate) 的安装说明。
+如果你尝试在不支持该脚本的操作系统（比如 Windows）上进行开发，你可以看看 [Substrate 仓库](https://github.com/paritytech/substrate#61-hacking-on-substrate) 中的安装说明。
 
 在等待 Substrate 及其相关依赖项（如 Rust 等）下载和安装的同时，还需要在你的开发环境中安装其他可能未包含在包中的程序：
 

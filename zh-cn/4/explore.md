@@ -6,18 +6,12 @@ Substrate UI 里面有很多内容。我们将尝试简化一些概念，使你�
 
 `substrate-ui` 模板预建了一般区块链 UI 中的这些功能。
 
-- 用于管理和创建密钥+帐户的钱包
+- 用于管理和创建密钥 + 帐户的钱包
 - 用于获取帐户详细信息的地址簿
 - 在账户之间发送资金的转账功能
 - 可以轻松更新 runtime 的 UX
-- 用于 key/value 存储修改的 UX
+- 修改 key/value 存储的 UX
 - 自定义交易提交者
-
-## Runtime 升级
-
-到目前为止，我们让你 “purge” 你的链并在每次想要对 runtime 进行更改时生成新的二进制文件。但是，Substrate 的独特之处在于它允许 “无分叉升级”，你可以在其中升级 runtime 逻辑而不会对网络造成问题。
-
-如果你按照第 3 章末尾的挑战中的建议对某些功能进行逻辑更改，则可以尝试此操作。请查看[此处](https://substrate.readme.io/docs/creating-a-custom-substrate-chain#section-step-5-upgrade-our-chain)了解更多详细信息。
 
 ## React 组件
 
@@ -67,7 +61,7 @@ Hash(32) [58, 60, 214, 1, 126, 230, 54, 236, 38, 35, 250, 236, 81, 248, 64, 83,
 Hash(32) [162, 202, 153, 236, 47, 9, 134, 176, 171, 201, 222, 149, 39, 69, 7, 46, 241, 155, 195, 52, 211, 62, 170, 24, 130, 50, 252, 36, 126, 209, 153, 38]
 ```
 
-你可以看到此示例 runtime 有 8 个 kitties，你可以从 `allKittiesArray` 访问所有 kitties。 （注意，该元素是 `kitty_id` 哈希，其中包含 32 个元素，范围为 0-255（32 个元素 * 8位= 256 位哈希）。）
+你可以看到此示例 runtime 有 8 个 kitties，你可以从 `allKittiesArray` 访问所有 kitties。（注意，该元素是 `kitty_id` hash，其中包含 32 个元素，范围为 0-255（32 个元素 * 8 bits = 256 bit hash）。）
 
 ## 在 Substrate UI 中使用 Runtime 变量
 
@@ -83,25 +77,23 @@ Hash(32) [162, 202, 153, 236, 47, 9, 134, 176, 171, 201, 222, 149, 39, 69, 7, 4
 <Pretty value={runtime.substratekitties.allKittiesCount}/>
 ```
 
-Would convert to:
-
 会转换成：
 
 ```
 <span>8</span>
 ```
 
-此外，随着 `allKittiesCount` 值的更改，我们的 HTML 将自动更新以表示最新值。这要归功于 React 状态，它会自动重新呈现组件的内容。
+此外，随着 `allKittiesCount` 值的更改，我们的 HTML 将自动更新以表示最新值。这要归功于 React，它会自动重新呈现组件的内容。
 
 ## 轮到你了！
 
-在模板中，我们目前有一个 `Subheader`，它显示：
+在模板中，我们目前有一个 `Subheader`：
 
 ```javascript
 <Header.Subheader>There are 0 kitties purring.</Header.Subheader>
 ```
 
-更新 `0` 值以表示在我们在 runtime 中追踪的当前 kitties 数量。然后使用 Polkadot UI 增加一些 kitties 并确认自动更新的值。
+更新 `0` 值来呈现我们 runtime 中被追踪 kitties 的当前数量。然后使用 Polkadot UI 增加一些 kitties 并确认被自动更新的值。
 
 <!-- tabs:start -->
 
