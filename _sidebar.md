@@ -42,7 +42,7 @@
     - [Creating Kitties](4/creating-kitties.md)
     - [Rendering Kitties](4/rendering-kitties.md)
 
-- [Report an Issue](https://github.com/shawntabrizi/substrate-collectables-workshop/issues)
 - [Glossary](https://docs.substrate.dev/docs/glossary)
 - [Documentation](https://docs.substrate.dev/docs)
+- [Report an Issue](https://github.com/shawntabrizi/substrate-collectables-workshop/issues)
 - [r/substrate](https://www.reddit.com/r/substrate)
