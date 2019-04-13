@@ -1,22 +1,22 @@
-Transferring a Kitty
+キティを送る
 ===
 
-Now that we have enabled users to own multiple kitties, we may also want to add functionality which allows one user to transfer a kitty they own to another user.
+前回はキティの値段を更新できるようにする関数を実装しましたが、キティを買うには、所有権を転送する関数も必要です。
 
-Ownership is entirely managed by our storage, so a `transfer_kitty` function is really only modifying our existing storage to reflect the new state.
+ユーザーは複数のキティを所有をすることができるので、1人のユーザーが自分の所有するキティを別のユーザーに送ることができる機能を追加することもできます。
 
-Let's think about the storage items we need to update:
+所有権はストレージによって完全に管理されているので、`transfer_kitty`関数を実装するには、既存のストレージを変更して新しい状態を反映するだけです。
 
-- Change the global kitty owner
-- Change the owned kitty count of each user
-- Change the owned kitty index of the kitty
-- Change the owned kitty map for each user
+更新する必要があるストレージ項目について考えてみましょう。
 
-## Swap and Pop
+ - グローバルキティの所有者を変更する
+ - 各ユーザーのowned_kitty_countを変更する
+ - owned_kitty_indexを変更する
+ - 各ユーザーの所有キティマップを変更する
 
-We mentioned earlier in this tutorial that we will be using a "swap and pop" method to remove items from our makeshift lists. It is important to remember that this method causes us to change the order of list, but otherwise is pretty efficient.
+## スワップ＆ポップ
 
-If you are building a runtime where order of your list matters, you will need to rethink how you will manage this, but this is not an algorithms course, so we will provide you with working code for your runtime.
+このチュートリアルの前半で、「スワップとポップ」メソッドを使用して、穴を開けることなく項目を削除する方法を説明しました。このメソッドはリストの順番が重要な場合はアルゴリズムの再考が必要ですが、私たちの場合は非常に便利なメソッドでしょう：
 
 ```rust
 let kitty_index = <OwnedKittiesIndex<T>>::get(kitty_id);
@@ -28,15 +28,15 @@ if kitty_index != new_owned_kitty_count_from {
 }
 ```
 
-Note that we have included a small optimization which only does a "swap" if the index we want to remove is not already the last element in the array. In that situation, only a "pop" is needed.
+削除したいインデックスが配列の最後の要素になっていない場合にのみ「スワップ」を行う必要があります。そのような状況では、「ポップ」だけが必要です。
 
-## Your Turn!
+## あなたの番です！
 
-To do a transfer, you will need to use the tools you have learned so far, but nothing new.
+キティを送る機能を実装するには、これまでに学んだツールを使用する必要がありますが、新しいことは何もありません。
 
-We want to make the transfer function reusable, so we have already structured the template to help you here.
+転送機能は他のモジュールも再利用可能にしたいので、その設計テンプレートは既に提供されています。
 
-Follow the template to complete the `transfer_from()` private function to power your public `transfer()` function exposed by your module.
+パブリック関数である`transfer()`には、プライベート関数の`transfer_from()`が必要なので、テンプレートに従って実装してください。
 
 <!-- tabs:start -->
 

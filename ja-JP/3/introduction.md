@@ -1,12 +1,12 @@
-Introduction
+イントロダクション
 ===
 
-At this point you have learned most of the core pieces of Substrate runtime development. However, our runtime is not very interesting as is.
+ここまでで、Substrateランタイム開発の最も重要な部分を学びました。しかし、私たちのランタイムは現時点ではそれほど面白くありません。
 
-This next section will teach you how you can add additional functions to your runtime to enable some of the most popular features of the original CryptoKitties game:
+今回のセクションでは、オリジナルのCryptoKittiesゲームの最も基本的な機能の一部をランタイムに実装していきます！：
 
-- Transferring a kitty
-- Buying a kitty
-- Breeding a kitty
+ - キティの転送
+ - キティを買う
+ - キティの交配
 
-To enable these features, we will need to interact with other modules like the `Balances` module from the SRML. We will also continue to work more with Substrate specific types.
+これらの機能を有効にするためには、SRMLの`Balances`モジュールのような他のモジュールとやり取りする必要があります。Substrate固有のタイプもさらに登場します。

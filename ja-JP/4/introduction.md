@@ -1,12 +1,12 @@
-Introduction
+イントロダクション
 ===
 
-Now that we have completed runtime development, it is time to build a user interface which can easily access and interact with our custom storage items and functions.
+これでランタイム開発が完了したので、今度はカスタムストレージ項目およびカスタム機能に簡単にアクセスして対話できるユーザーインターフェイスを作成します。
 
-Since this course is primarily about runtime development, what you will learn in this section will not be as comprehensive as before, however it should empower you with the tools needed to extend your own knowledge and abilities.
+このコースは主にランタイム開発にフォーカスしているので、このセクションで学習する内容はこれまでのように包括的なものにはなりませんが、自分の知識と能力を拡張するために必要なツールを使用できるようになります。
 
-## What to Expect
+## このセクションですること
 
-We will be using a React template called the [Substrate UI](https://github.com/paritytech/substrate-ui) which is built using the [oo7-substrate library](https://github.com/paritytech/oo7/tree/master/packages/oo7-substrate). It is an alternative front-end interface to the [Polkadot-JS Apps UI](https://github.com/polkadot-js/apps) for interacting with your Substrate chain.
+[oo7-substrate library](https://github.com/paritytech/oo7/tree/master/packages/oo7-substrate)を使用して構築された[Substrate UI](https://github.com/paritytech/substrate-ui)というReactテンプレートを使用します。サブストレートチェーンとやり取りするための[Polkadot-JS Apps UI](https://github.com/polkadot-js/apps)の代替フロントエンドインターフェースです。
 
-When building your own UI, remember to refer to the [Polkadot-JS API Documentation](https://polkadot.js.org/api/) and the [oo7 API Documentation](https://paritytech.github.io/oo7/).
+独自のUIを構築するときは、[Polkadot-JS APIドキュメント](https://polkadot.js.org/api/)および[oo7 APIドキュメント](https://paritytech.github.io/oo7/)を必ず参照してください。

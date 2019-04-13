@@ -1,15 +1,15 @@
-Set the Price of a Kitty
+キティの価格を設定する
 ===
 
-The core of our collectables chain is done! Users can now create and track ownership of their Substratekitties.
+ここまでであなたのチェーンのコアは完成し、ユーザーはキティの所有権を作成および追跡できるようになりました。
 
-But if we want to make our runtime more like a game, we will need to introduce other functions like buying and selling. We will start those features by first enabling users to update the price of their kitty.
+しかし、このランタイムにゲーム性を持たせたい場合、売買などの機能を導入する必要があります。まず、手始めに、売買機能を追加するために、ユーザーが自分のキティの価格を更新できるようにします。
 
-## Updating a Stored Struct
+## 保存された構造体を更新する
 
-Every `Kitty` object has a `price` attribute that we have set to 0 as default. If we want to update the price of a kitty, we will need to pull down the `Kitty` object, update the price, and push it back into storage.
+すべての`Kitty`オブジェクトはデフォルトで0に設定された`price`属性を持っています。もしキティの価格を更新したいのであれば、既存の`Kitty`オブジェクトを取得し、価格を更新した後に、それをストレージにプッシュバックする必要があります。
 
-Remember that Rust expects you to declare a variable as mutable (`mut`) if the value is going to be updated, so we should do that here:
+Rustで値を更新するには、変数をmutable（`mut`）として宣言する必要があることに注意してください。([ミュータブルについての解説](https://doc.rust-jp.rs/the-rust-programming-language-ja/1.6/book/mutability.html)): 
 
 ```rust
 let mut object = Self::get_object(object_id);
@@ -18,15 +18,15 @@ object.value = new_value;
 <Objects<T>>::insert(object_id, object);
 ```
 
-## Permissioned Functions
+## 許可された機能
 
-Any user can call our `create_kitty()` function with a signed message, but as we create functions which modify objects, we should check that only the appropriate users are successful in making those calls.
+`create_kitty()`関数はどのユーザーでも署名メッセージと共に呼び出すことができますが、既存オブジェクトを変更する関数を作成するときには、許可されたユーザー(所有者)のみがそれらの呼び出しができることを確認する必要があります。
 
-For modifying a `Kitty` object, we will need to get the `owner` of kitty, and `ensure` that it is the same as the `sender`.
+`Kitty`オブジェクトを修正するためには、まず、kittyの`owner`を取得し、それが`sender`と同じであることを`confirm`する必要があります。
 
-`KittyOwner` stores a mapping to an `Option<T::AccountId>` since a given `Hash` may not point to a generated and owned `Kitty` yet. This means, whenever we fetch the `owner` of a kitty, we need to resolve the possibility that it returns `None`. This could be caused by bad user input or even some sort of problem with our runtime, but checking will help prevent these kinds of problems.
+与えられた`Hash`は生成後に所有されている`Kitty`をまだ指していないかもしれないため、`KittyOwner`は`Option <T::AccountId>`へのマッピングを保存しています。つまり、キティの`所有者`を取得するたびに、それが `None`を返す可能性がある問題を解決する必要があります。これは、不適切なユーザー入力や、ランタイム自体の問題によって引き起こされる可能性がありますが、最初にチェックを行うことでこれらの種類の問題を防ぐことができます。
 
-An ownership check for our module will look something like this:
+私たちのモジュールの場合の所有権チェックは次のようになります：
 
 ```rust
 let owner = Self::owner_of(object_id).ok_or("No owner for this object")?;
@@ -34,21 +34,21 @@ let owner = Self::owner_of(object_id).ok_or("No owner for this object")?;
 ensure!(owner == sender, "You are not the owner");
 ```
 
-## Sanity Checks
+## 健全性のチェック
 
-We are going to start letting users call public functions that our runtime exposes, and that means opportunity for our users to give poor input unintentionally or even maliciously.
+ランタイムのパブリック関数をユーザーが呼び出せるようにします。これは、ユーザーが意図せずに、または悪意を持って不適切な入力を行う可能性が生まれることを意味します。
 
-We need to ensure that our runtime is consistently doing sanity checks so that we do not allow users to break our chain. If we are creating a function which updates the value of an object, the first thing we better do is make sure the object exists at all.
+ユーザーがチェーンを壊さないように、ランタイムが常に健全性チェックを行っていることを確認する必要があります。オブジェクトの値を更新する関数を作成している場合、最初に行うべきことはオブジェクトが存在することを確認することです。
 
 ```rust
 ensure!(<MyObject<T>>::exists(object_id));
 ```
 
-## Your Turn!
+## あなたの番です！
 
-You now have all the tools necessary to update your `Kitty` object. Remember, **"verify first, write last"**. Make sure you are performing all the appropriate checks before you actually change storage, and do not assume that the user is giving you good data to work with!
+これであなたの`Kitty`オブジェクトを更新するのに必要な全ての情報が手に入りました。ここでも忘れてはいけないのが、**"最初に確認し、最後に書き込む"** です。実際にストレージを変更する前に、適切なチェックをすべて行っていることを確認してください。また、ユーザーが常に処理に必要なデータを提供してくると想定しないようにしましょう。
 
-Follow the template in this section to help you create the `set_price()` function.
+提供されているテンプレートに従って、`set_price()`関数を作成してください。
 
 <!-- tabs:start -->
 

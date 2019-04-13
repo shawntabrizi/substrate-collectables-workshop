@@ -1,11 +1,11 @@
-Creating Kitties
+キティを作る
 ===
 
-Now that we have gotten a taste for bonds and accessing runtime storage from our UI, let's actually build some interaction.
+UIとRuntimeの連結と実行時ストレージへの感覚が掴めたと思うので、実際に対話をしてみましょう。
 
-## Calling Our Runtime
+## Runtimeを確認する
 
-In the last section we explored the `runtime` variable created by the Substrate UI. Now let's take a look at the `calls` variable:
+最後のセクションでは、Substrate UIによって作成された`runtime`変数について調べました。それでは、`calls`変数を見てみましょう:
 
 ```
 calls.
@@ -13,7 +13,7 @@ calls.
 
 ![An image of the `calls` autocomplete](../../4/assets/calls-autocomplete.png)
 
-Again, we see that we automatically gain access to all of our modules, including the one we just created. Diving into the `substratekitties` we find:
+`substratekitties`に入ってみましょう：
 
 ```
 calls.substratekitties.
@@ -21,11 +21,11 @@ calls.substratekitties.
 
 ![An image of `calls.substratekitties` autocomplete](../../4/assets/calls-substratekitties-autocomplete.png)
 
-This is a list of all the functions we created in the `decl_module!` macro. Note that our private functions like `mint()` and `_transfer()` are not here since they are not supposed to be part of our public API.
+これは `decl_module！`マクロで作成したすべての関数のリストです。`mint（）`や `_transfer（）`のようなプライベート関数は公開APIではないのでここには表示されないことも確認してください。
 
-## Making a Call
+## Runtimeをコールする
 
-So let's try to make a call to create a new kitty. To do that, we can make a `post()` request to our runtime like so:
+それでは、新しキティを作成するためにコールをしてみましょう。そのためには、Runtimeに `post（）`リクエストを送る必要があります：
 
 ```javascript
 post({
@@ -34,21 +34,21 @@ post({
 }).tie(console.log)
 ```
 
-In this sample, the `sender` is the address of one of our accounts. We can retrieve this for any of our accounts in the **Address Book** app of the Substrate UI:
+このサンプルでは、​​`sender`は私たちのアカウントのうちの一つのアドレスです。Substrate UIの**Address Book**でアカウントのリストを取得することができます。
 
 ![An image of the Address Book section](../../4/assets/address-book.png)
 
-When we submit this in our console, we will see a few things happen in the background, and then our transaction is `finalised` and the number of kitties increases:
+コンソールでこれを送信すると、バックグラウンドで処理が行われ、その後トランザクションがファイナライズされ、キティの数が増えます。
 
 ![An image of creating a kitty from console](../../4/assets/transaction-from-console.png)
 
-## Creating a Transaction Button
+## トランザクションボタンを作成する
 
-Now that we know how to make a call to our runtime, we will want to integrate that into our UX. Again, we will take advantage of components provided to us by the Substrate UI called `TransactionButton` and `SignerBond`.
+ランタイムを呼び出す方法がわかったので、それをUXに実装します。ここでもまた、`TransactionButton`と`SignerBond`と呼ばれるSubstrate UIによって提供されたコンポーネントを利用します。
 
-If you look at the code for the other sections on the page, you will find examples of how to integrate these parts.
+ページの他のセクションのコードを見ると、これらの部分を実装する方法の例があります。
 
-The `SignerBond` creates an input field where a person can write the name of the account they want to sign some message with. This account gets placed inside of a `bond`.
+`SignerBond`はメッセージに署名したいアカウントの名前のための入力フィールドを作成します。このアカウントは`bond`の中に置かれます。
 
 ```javascript
 this.account = new Bond;
@@ -56,7 +56,7 @@ this.account = new Bond;
 <SignerBond bond={this.account}/>
 ```
 
-You can then use this bond to power a `TransactButton`, where we will use the value stored in the bond to power the `sender` field of a transaction:
+これで、このbondを`TransactButton`に使用することができます。同じく、bondに保存された値をトランザクションの`sender`フィールドに使います。
 
 ```javascript
 <TransactButton
@@ -69,23 +69,23 @@ You can then use this bond to power a `TransactButton`, where we will use the va
 />
 ```
 
-Because the `TransactionButton` has a dependency on `this.account`, it won't be active until the `SignerBond` has a valid input. Once it does, you can easily submit a transaction on behalf of that user.
+`TransactionButton`は`this.account`に依存しているので、`SignerBond`に有効な入力があるまでアクティブにはなりません。それが行われれば、あなたはそのユーザに代わって簡単にトランザクションを送信することができます。
 
-## Other Components
+## その他のコンポーネント
 
-We won't go deep into each component available through the Substrate UI. However, most of these components should be relatively easy to understand and reuse in your own sections.
+Substrate UIを介して利用できる各コンポーネントについては詳しく説明しません。しかし、これらのコンポーネントのほとんどは比較的理解しやすく、自分で再利用できるはずです。
 
-There is very little magic happening beyond what is available in [React components](https://reactjs.org/docs/react-component.html), so that would be a good place to start to expand your knowledge.
+[Reactコンポーネント](https://reactjs.org/docs/react-component.html)で利用できることを以上の`おまじない`はほとんどないので、よりインタラクティブなアプリを作る上で良い学びの場となるでしょう。
 
-## Your Turn!
+## あなたの番です！
 
-Let's add a `Create Kitty` button to your Substrate UI.
+あなたのSubstrate UIに `Create Kitty`ボタンを追加しましょう。
 
-You will need to create a new bond in your `constructor()`, and use that bond to power a `SignerBond` component.
+`constructor()`の中に新しいbondを作り、そのbondを使って`SignerBond`コンポーネントを動かす必要があります。
 
-Then you will want to connect that `SignerBond` to a `TransactionButton` which makes a `call` to `createKitty()`. You can use the `paw` icon to give your transaction button a little extra flare.
+それから、`SignerBond`を`TransactionButton`に接続し、`createKitty()`へのコールをします。あなたのトランザクションボタンの見た目を少しマシにするために`paw`アイコンを使うことができます。
 
-Once you have completed this, test your button by creating some new kitties! Watch your "kitty counter" increase as new kitties enter your system.
+これが完了したら、ボタン押して新しいキティの作成テストをします。新しいキティがあなたのシステムに反映された時、"キティカウンター"が増えていることを確認してください。
 
 <!-- tabs:start -->
 

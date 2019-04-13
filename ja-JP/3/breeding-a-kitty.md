@@ -1,22 +1,22 @@
-Breeding a Kitty
+キティの交配
 ===
 
-Probably the most unique part of the original CryptoKitties game is the ability to breed new kitties from existing ones.
+おそらくオリジナルのCryptoKittiesゲームの最もユニークな部分は、既存のキティ同士の掛け合わせで新しいキティを生み出せることです。
 
-We have prepared our `Kitty` object with this in mind, introducing `dna` and `gen` which will be used in forming brand new kitty offspring.
+これを私たちのゲームにも実装するために、既に`Kitty`オブジェクトには、新しいキティを産み出すのに使われる`dna`と `gen`を導入しています。
 
-## Passing Down Traits
+## 特徴を引き継ぐ
 
-In our UI, we will be generating our kitties image using the kitty DNA. In our runtime, the DNA is a 256 bit hash, which is represented by as a bytearray in our code, and a hexadecimal string in our upcoming UI.
+私たちのUIでは、キティのDNAを使ってキティ画像を生成します。DNAは256ビットのハッシュで設計されており、これは私たちのコードではバイト配列として、今後のUIでは16進数の文字列として表されます。
 
-This means that there are 32 elements, each of which can be a value from 0 - 255. We will use these elements to determine which traits our kitties have. For example, the first index of the byte array can determine the color of our kitty (from a range of 256 colors); the next element could represent the eye shape, etc...
+つまり、32個の要素があり、それぞれ0〜255の値になります。これらの要素を使用して、私たちのキティが持つ特性を決定します。例えば、バイト配列の最初のインデックスは、キティの256通りの色を決定する値です。他の要素は、目の形や毛の色などを表します：
 
 ```
 Attribute:  Color Eyes Hair Collar Accessory
 DNA:        [233] [15] [166] [113] [67] ...
 ```
 
-When we breed two kitties, we want the offspring to have some combination of the parent's genetics. What we will do for our game is randomly choose one of the parents to give their attribute to the child kitty.
+2匹のキティを交配するとき、その子孫のDNAは親のDNAの組み合わせから生成されるべきです。そのためには、今回のゲームでは、インデックスごとに両親のどちらかをランダムで選び、選ばれた親のそのインデックスの値を子孫のDNAを構成する要素として引き継ぎます。
 
 ```
 Kitty1 DNA:   [212] [163] [106] [250] [251] [  0] [ 75]...
@@ -26,56 +26,56 @@ Child DNA:    [212] [163] [ 69] [195] [223] [  0] [201]
 Kitty2 DNA:   [233] [ 49] [ 69] [195] [223] [133] [201]...
 ```
 
-We provide you with the gene splicing algorithm in your template, but feel free to make modifications.
+テンプレートに既に遺伝子選択アルゴリズムを提供していますが、気軽に修正を加えて実験してみてください。
 
-## Chain Upgrade (Optional)
+## チェーンアップグレード（オプション）
 
-One of the cool features of Substrate is the ability to do forkless, real-time chain upgrades which introduce new features and functionality to your blockchain without breaking existing nodes.
+Substrateの優れた機能の1つは、既存のノードを壊すことなくブロックチェーンに新しい機能を追加し、フォークレスでリアルタイムのチェーンアップグレードが可能なことです。
 
-Rather than purging your chain and rebuilding the native binaries to introduce the `breed_kitty()` function, we will show you how you can use just the Wasm runtime to upgrade your chain.
+ここでは、チェーンを削除後にネイティブのバイナリを再構築してアップグレードするのではなく、Wasmランタイムのみを使用してチェーンをアップグレードする方法を説明します。
 
-Keep your node running from the previous section, and in a new terminal run just:
+まず、いつも通りターミナルでブロック生成を行っていることを確認してください。そして別のターミナルを開き、以下を実行：
 
 ```
 ./build.sh
 ```
 
-This will generate a new compact Wasm binary in the following path:
+これにより、次のパスに新しいコンパクトWasmバイナリが生成されます：
 
 ```
 ./runtime/wasm/target/wasm32-unknown-unknown/release/node_template_runtime_wasm.compact.wasm
 ```
 
-We can now use this file in the Polkadot UI to upgrade your chain. Go to the **Extrinsics** app of the Polkadot UI, and select:
+Polkadot UIでこのファイルを使用してチェーンをアップグレードできます。 Polkadot UIの **Extrinsics** アプリに移動して、以下を選択します:
 
 ```
 submit the following extrinsic: sudo > sudo(proposal)
     proposal: Proposal (extrinsic): consensus > setCode(new)
 ```
 
-![Image of the runtime extrinsic](./assets/runtime-upgrade-extrinsic.png)
+![Image of the runtime extrinsic](../../3/assets/runtime-upgrade-extrinsic.png)
 
-Then use the `compact.wasm` file as the input into this call. Make sure to call this function as **Alice** who was set in the genesis configuration to be the 'admin' allowed to make `Sudo` calls.
+それから、この呼び出しへの入力として`compact.wasm`ファイルを使います。この`Sudo`関数は、ジェネシス設定で`admin`として設定されたアカウントでしか呼び出しができません。基本的には**Alice**を使ってコールを行ってください。
 
-After you press **Submit Transaction** and a block is created, you should see a `Sudid` event appear showing that the contract upgrade was successful!
+**Submit Transaction**を押してブロックが作成されると、ランタイムのアップグレードが成功したことを示す`Sudid`イベントが表示されるはずです。失敗する場合は、ノードに表示されるエラーメッセージを確認してください。
 
-![Image of the Sudid event](./assets/sudid-event.png)
+![Image of the Sudid event](../../3/assets/sudid-event.png)
 
-Finally, if we refresh the page and look at the extrinsics available in our Substratekitties module, we will find the `breedKitty()` function now appearing.
+最後に、ページを更新してSubstratekittiesモジュールで利用可能なExtrinsicsを見ると、`breedKitty()`関数が表示されているはずです！
 
-![Image of the breed kitty function](./assets/breed-kitty-function.png)
+![Image of the breed kitty function](../../3/assets/breed-kitty-function.png)
 
-If you had any saved state before the upgrade (for example Kitties, balances, etc...), you will see that this state is preserved after the Runtime upgrade. At this point, your blockchain is running the Wasm version of the runtime through the Wasm interpreter provided by Substrate. This runtime lives on the blockchain, which means that it gets synced to all nodes running your chain, and thus keeps your network in sync with each other. Running Wasm in an interpreter is slower than running native code, so you can always do a full node upgrade by building a new executable with `cargo build --release` and restarting your node.
+アップグレード前に保存された状態（キティ、残高など）がある場合は、ランタイムアップグレード後もこの状態が維持されていることがわかります。この時点で、あなたのブロックチェーンは、Substrateが提供するWasmインタプリタを通して、Wasmバージョンのランタイムを実行しています。このランタイムはブロックチェーン上で動作します。つまり、チェーンを実行しているすべてのノードと同期され、ネットワーク全体の同期も保たれます。インタプリタでWasmを処理するのはネイティブコードを処理するより遅いので、`cargo build --release`で新しい実行ファイルをビルドしてノードを再起動することでいつでもフルノードアップグレードを行うことができます。
 
-## Your Turn!
+## あなたの番です！
 
-You will find that refactoring our `mint()` function in chapter 2 will help us a lot for this final step. Generate a new kitty using the gene splicing algorithm on two input kitties.
+第2章で`mint()`関数をリファクタリングしたことは、今回の`breed()`関数を実装する上で非常に役立つと気づくでしょう。２匹のキティをインプットとして、遺伝子選択アルゴリズムを使って新しいキティを生成してください。
 
-Make sure to increment the `gen` value to be one more than the max of the parent kitties. This way, we can keep track of breeded kitties versus one generated from scratch.
+子供の`gen`の値は、親キティの`gen`のどちらか大きい値に１を増加させてください。こうすることで、交配で産まれたキティと無から生まれたキティとを区別することができます。
 
-Then pass that kitty object to the `mint()` function to create your new kitty!
+次に、そのキティオブジェクトを `mint()`関数に渡して新しいキティを作成しましょう。
 
-Finally, if you are feeling brave, do a live runtime upgrade to add this new feature to your blockchain. You should find that all of your existing storage items will be unaffected by the upgrade, however, you will now have access to this new function!
+最後に、今回追加した機能が問題なく実装されているか確認するために、先ほど学んだフォークレスランタイムアップグレードをしてください。すると、既存のストレージアイテムは今回のアップグレードの影響を受けないこと、この新しい機能にアクセスできることを確認できます。
 
 <!-- tabs:start -->
 

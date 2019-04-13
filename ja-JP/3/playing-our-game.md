@@ -1,47 +1,45 @@
-Playing Our Game
+ゲームをプレイする
 ===
 
-If you have made it this far, **congratulations**!
+**おめでとう！** よくここまで辿り着きましたね。
 
-You have now completed the development of your Substratekitties runtime module. If you followed our instructions carefully and made all of the right checks, your code should look something like what we have shown here.
+これでSubstratekittiesランタイムモジュールの開発が完了しました。あなたが私たちの指示に注意深く従い、正しくチェックを行ったならば、あなたのコードは我々がここに示したものと大体同じになるはずです。
 
-This would be a good time to check your work using the Polkadot-JS Apps UI, ensuring you have not run into any errors or introduced any problems.
+最後にPolkadot-JS Apps UIを使用して作業内容を確認し、エラーや問題が発生しないことを確認しましょう。
 
-## Manual Tests
+## マニュアルテスト
 
-You should run the following manual tests:
+次のテストを実行してください。
 
-- Fund multiple users with tokens so they can all participate
-- Have each user create multiple kitties
-- Try to transfer a kitty from one user to another using the right and wrong owner
-- Try to set the price of a kitty using the right and wrong owner
-- Buy a kitty using an owner and another user
-- Use too little funds to purchase a kitty
-- Overspend on the cost of the kitty and ensure that the balance is reduced appropriately
-- Breed a kitty and check that the new DNA is a mix of the old and new
-- After all of these actions, confirm that all users have the right number of kitties, the total kitty count is correct, and any other storage variables are correctly represented
+ - トークンを使って複数のユーザーに資金を提供し、全員が参加できるようにする
+ - 各ユーザーが複数のキティを作る
+ - 異なる所有者を使用して、あるユーザーから別のユーザーにキティを移動しようとする
+ - 異なる所有者を使用してキティの価格を設定しようとする
+ - ユーザー間でのキティの売買をする
+ - キティの値段以下の資金を使って購入しようとする
+ - キティの費用が、残高から適切に減額されるようにする
+ - キティを交配し、新しいDNAが両親の混合であることを確認する
+ - これらすべての操作の後、すべてのユーザーが適切な数のキティを持っていること、合計キティ数が正しいこと、およびその他のストレージ変数が正しく表されていることを確認します
 
-## Challenge
+## チャレンジ
 
-Our challenge to the reader is to extend the Substratekitties runtime and include additional functions and features you might want to see in this runtime module.
+ワークショップでのランタイム開発は以上になりますが、想像豊かな読者ならこのゲームをさらに面白くするために、拡張したい機能などがたくさんあるはずです。なくても心配しないでください。ここに私たちから追加機能のアイデアを紹介しますので、チャレンジしてみてください！
 
-Here are some ideas:
+チャレンジリスト：
 
-- Track the parents of a kitty during when `breed_kitty()` is called. Maybe as just an event...?
+- `breed_kitty()`のインプットとなった両親をトラックする。多分イベントとして…？
 
-- Limit the number of kitties that can be created by `create_kitty()`, and/or add a price curve to make each new kitty cost more to create.
+- `create_kitty()`で作成できるキティの数を制限したり、新しい子猫を作成するたびにコストを増やす価格曲線を追加する。
 
-- Add a cost to breeding kitties that the person receiving the new kitty has to pay. Make sure funds are correctly sent to each user. Make sure a person can breed using their own kitties.
+- 交配によって新しいキティを受け取る人に、交配費用を請求する。資金が各ユーザーに正しく送信されていることを確認する。
 
-- Add a kitty "fight" where two kitties can compete to win a game based on a random number and some weighted statistic. The winning kitty has their stats increase, giving them a better chance to win the next round.
+- 2つのキティが乱数といくつかの加重統計量に基づいて競う「戦闘」を追加する。勝者は、自分のステータスが上がり、次のラウンドで勝つチャンスが上がります。
 
-- Add a gene mutation algorithm to kitty breeding which will introduce traits that neither of the parent kitties had.
+- キティの交配に遺伝子の突然変異アルゴリズムを追加すると、どちらの親も持っていなかった特徴が追加される。
 
-- Introduce an auction system for owners who do not want to simply set a fix price to purchase their kitty. Auctions close after a period of time has passed where no one has placed a bid.
+- キティ販売に固定価格を設定したくない所有者のために、オークションシステムを導入する。誰も入札していない期間が過ぎるとオークションは終了する。
 
-What other ideas can you think of?
-
-In the next section we will be creating a custom UI for this game using Substrate JavaScript libraries. This custom UI is sensitive to changes in naming conventions, so you may need to copy the final Substratekitties code to ensure compatibility.
+次のセクションでは、Substrate JavaScriptライブラリを使用してこのゲーム用のカスタムUIを作成します。このカスタムUIは命名規則の変更に敏感なので、互換性を確保するためにここで示されているSubstratekittiesコードをコピーする必要があるかもしれません。
 
 <!-- tabs:start -->
 

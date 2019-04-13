@@ -1,7 +1,7 @@
 
 - [ようこそ](/)
 
-- **#0 Getting Started**
+- **#0 はじめる**
 
     - [イントロダクション](ja-jp/0/introduction.md)
     - [セットアップ](ja-jp/0/setup.md)
@@ -9,7 +9,7 @@
     - [ノードと対話する](ja-jp/0/interacting-with-your-node.md)
     - [進める上でよくあるパターン](ja-jp/0/common-patterns-moving-forward.md)
 
-- **#1 Basics**
+- **#1 基礎**
 
     - [イントロダクション](ja-jp/1/introduction.md)
     - [モジュールを作成する](ja-jp/1/creating-a-module.md)
@@ -20,7 +20,7 @@
     - [構造体を保存する](ja-jp/1/storing-a-structure.md)
     - [構造体を確認する](ja-jp/1/viewing-a-structure.md)
 
-- **#2 Kitties**
+- **#2 キティ**
 
     - [イントロダクション](ja-jp/2/introduction.md)
     - [ランダムなデータを生成する](ja-jp/2/generating-random-data.md)
@@ -33,7 +33,7 @@
 - **#3 Interactions**
 
     - [イントロダクション](ja-jp/3/introduction.md)
-    - [値段を設定する](ja-jp/3/setting-a-price.md)
+    - [価格を設定する](ja-jp/3/setting-a-price.md)
     - [キティを送る](ja-jp/3/transferring-a-kitty.md)
     - [キティを買う](ja-jp/3/buying-a-kitty.md)
     - [キティを交配する](ja-jp/3/breeding-a-kitty.md)
@@ -45,7 +45,7 @@
     - [Substrate UIをセットアップする](ja-jp/4/set-up-substrate-ui.md)
     - [UIを探求する](ja-jp/4/explore.md)
     - [キティを作る](ja-jp/4/creating-kitties.md)
-    - [キティをレンダーする](ja-jp/4/rendering-kitties.md)
+    - [キティをレンダリングする](ja-jp/4/rendering-kitties.md)
 
 - [問題を報告する](https://github.com/masakiminamide/substratekitties/issues)
 - [グローサリー](https://docs.substrate.dev/docs/glossary)

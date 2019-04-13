@@ -1,13 +1,13 @@
-Rendering Kitties
+キティをレンダリングする
 ===
 
-If you made it this far, then you have truly earned what we are about to do in this section: Add kitties to our UI.
+ようやく、このセクションでは今まで数字や文字だったキティに、色や形を与えてあげます。
 
-## Adding Our Custom `KittyCard` Component
+## 既存の`KittyCard`コンポーネントを追加する
 
-We have built a custom React component for showing kitties. It is not so complicated, but for the purposes of this workshop, we will not have you build it. You can download the component as a `.zip` [here](https://github.com/shawntabrizi/substrate-collectables-workshop/raw/master/4/assets/KittyCards.zip).
+私たちは既にキティを表示するためのカスタムReactコンポーネントを用意しています。それほど複雑ではありませんが、このワークショップの目的に集中するために、ここではこれを使ってください。コンポーネントは`.zip`として[ここから](https://github.com/shawntabrizi/substrate-collectables-workshop/raw/master/4/assets/KittyCards.zip)ダウンロードできます。
 
-To add it, you must place the `KittyCards` folder in your `src` folder:
+ダウンロードできたら、`KittyCards`フォルダをあなたの`src`フォルダに置いてください：
 
 ```
 substratekitties-ui/
@@ -21,23 +21,23 @@ substratekitties-ui/
     +-- ...
 ```
 
-Then, inside the main `app.jsx` file you need to import this component:
+次に、メインの`app.jsx`内でこのコンポーネントをインポートしてください：
 
 ```javascript
 import { KittyCards } from './KittyCards';
 ```
 
-This will give you access to the `<KittyCards>` component:
+すると`<KittyCards>`コンポーネントにアクセスできるようになっています：
 
 ```
 <KittyCards count={runtime.substratekitties.allKittiesCount} />
 ```
 
-### Add the `Kitty` Type
+### `Kitty`タイプを追加する
 
-Before this component will work, we need to tell the Substrate UI about our custom `Kitty` type. We can do that with the `addCodecTransform()` function made available to us by the oo7 JavaScript library.
+このコンポーネントが動作する前に、カスタムの`Kitty`タイプについてSubstrate UIに伝える必要があります。 oo7 JavaScriptライブラリが提供する`addCodecTransform()`関数でそれを行うことができます。
 
-In the case of our kitty object, it would look like this:
+私たちのkittyオブジェクトの場合は、このようになります：
 
 ```
 addCodecTransform('Kitty<Hash,Balance>', { 
@@ -48,29 +48,29 @@ addCodecTransform('Kitty<Hash,Balance>', {
 });
 ```
 
-We can add this to our application's `constructor()` function to ensure it gets loaded at the start. After this, we can interact with the attributes of the `Kitty` object like we could any other JSON object.
+これをアプリケーションの `constructor()`関数に追加して、起動時に確実に読み込まれるようにすることができます。この後は、他のJSONオブジェクトと同じように `Kitty`オブジェクトの属性とやり取りすることができます。
 
-> Note: The codec transform uses a key/value pair to look up the object structure that should be used for deserialization. As a result, it is important that your "object name" matches exactly what is expected. In this situation, note there are no spaces in the object name `Kitty<Hash,Balance>`. If the Substrate UI cannot find the right key for a custom object, it will give you an error in your browser console with the exact object name it is expecting.
+>注意：Codec変換は、逆シリアル化に使用されるべきオブジェクト構造を検索するためにキー/値ペアを使用します。結果として、あなたの "オブジェクト名"が正確に予想されるものと一致することが重要です。この場合、オブジェクト名 `Kitty <Hash、Balance>`にスペースがないことに注意してください。サブストレートUIがカスタムオブジェクトの正しいキーを見つけられない場合は、ブラウザコンソールに予期しているとおりの正確なオブジェクト名が表示され、エラーが発生します。
 
-## Peek Inside Our Custom Component
+## カスタムコンポーネント内を覗く
 
-Since we won't have you build this component, we will show you some of the working pieces instead.
+このコンポーネントを作成することはありませんので、代わりにいくつかの動作部分を紹介します:
 
-![An image of the kitty cards in the UI](./assets/kitty-cards.png)
+![An image of the kitty cards in the UI](../../4/assets/kitty-cards.png)
 
-### Dynamic Card Loading
+### 動的カードローディング
 
-Let's quickly walk through the parts of `/KittyCards/index.jsx` to show how we are able to dynamically load new cards when kitties are added to the system.
+システムにキティが追加されたときにどのようにして動的に新しいカードをロードすることができるかを示すために`/KittyCards/index.jsx`の部分を簡単に見ていきましょう。
 
-We call the `KittyCard` component from our UI with:
+UIから `KittyCard`コンポーネントを以下のように呼び出します：
 
 ```
 <KittyCards count={runtime.substratekitties.allKittiesCount} />
 ```
 
-This component is tied to the `allKittiesCount` bond, that will automatically update as the state of our blockchain changes.
+このコンポーネントは `allKittiesCount`bondに結び付けられています。これはブロックチェーンの状態が変わると自動的に更新されます。
 
-When `allKittiesCount` changes, the `readyRender()` part of our `KittyCards` component triggers, which grabs the latest count, and loops over each item in the `allKittiesArray()` which will return the unique kitty id `Hash`.
+`allKittiesCount`が変更されると、`KittyCards`コンポーネントの `readyRender（）`部分が発動して最新のカウントを取得し、`allKittiesArray()`の各項目をループ処理してユニークなキティID`Hash`を返します。
 
 ```javascript
     readyRender() {
@@ -85,7 +85,7 @@ When `allKittiesCount` changes, the `readyRender()` part of our `KittyCards` com
         }
 ```
 
-This then sends the kitty id `Hash` to the `KittyWrap` component which does a simple lookup for the `owner` and the `Kitty` object. If the `hash` sent to `KittyWrap` doesn't change between loops, then React will simply skip the re-rendering process.
+これはその後、キティID`Hash`を`KittyWrap`コンポーネントに送ります。`KittyWrap`コンポーネントは`owner`と `Kitty`オブジェクトの単純な検索を行います。`KittyWrap`に送られた`hash`がループ間で変わらなければ、Reactは単にレンダリング処理をスキップします。
 
 ```javascript
 class KittyWrap extends ReactiveComponent {
@@ -106,20 +106,20 @@ class KittyWrap extends ReactiveComponent {
 }
 ```
 
-Finally, `KittyWrap` calls `KittyCard` which actually produces the contents of each card.
+最後に、`KittyWrap`は実際に各カードの内容を生成する`KittyCard`を呼び出します。
 
-Note that we have used JavaScript [Object Destructuring Assignment Syntax](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#Object_destructuring) to unpack the `hash` property from
-`this.state` since we are reusing the value multiple times (rather than repeatedly having to write `this.state.hash`).
+JavaScript [Object Destructuring Assignment Syntax](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#Object_destructuring)を使用して`this.state`から`hash`プロパティを展開していることに注意してください。
+（この値を複数回再利用しているので、this.state.hashを繰り返し書く必要はない）
 
-### Card Contents
+### カードの内容
 
-Our `KittyCard` component takes the `Kitty` object passed from `KittyWrap`, as well as the owner, and formats all data. From top to bottom:
+私たちの`KittyCard`コンポーネントは`KittyWrap`から渡された `Kitty`オブジェクトとその所有者を受け取り、すべてのデータをフォーマットします。上から下の順：
 
-- The Kitty ID
-- The Kitty DNA (which is the same for kitties that are gen 0)
-- The Kitty Owner
-- The Kitty Generation
-- The Kitty Price
+ - キティID
+ - キティDNA（これはgen 0であるキティにも同じ）
+ - キティ所有者
+ - キティジェネレーション
+ - キティ価格
 
 ```javascript
 <Card>
@@ -165,15 +165,15 @@ Our `KittyCard` component takes the `Kitty` object passed from `KittyWrap`, as w
 </Card>;
 ```
 
-You can see we are using bonds and other Substrate UI components throughout to make the final render.
+最後のレンダリングを行うために、bondsや他のサブストレートUIコンポーネントを使用しているのがわかります。
 
-### Generating Kitties from DNA
+### DNAからキティを生成する
 
-You can see that our `KittyCard` has one more layer of abstraction in the `<KittyAvatar>` component.
+私たちの `KittyCard`は`<KittyAvatar>`コンポーネントの中にもう一つの抽象化層を持っていることがみて取れます。
 
-If you look in the `/KittyCards/avatars/index.jsx you will see a final React component which manages the generation of the kitty images.
+`/KittyCards/avatars/index.jsx`を見ると、キティ画像の生成を管理する最後のReactコンポーネントが確認できます。
 
-The core function in the component is `dnaToAttributes()`:
+コンポーネントの中心的な機能は`dnaToAttributes()`です:
 
 ```
 function dnaToAttributes(dna) {
@@ -189,25 +189,31 @@ function dnaToAttributes(dna) {
 } 
 ```
 
-The kitty DNA is an array of bytes (0-256), and we map the first 5 bytes to control the specific attribute chosen for a kitty. Not only can you see that we can have 256 configurable options per attribute, but we can have up to 256 attributes too!
+キティDNAはバイト（0〜256）の配列であり、最初の5バイトをキティ用に選択された特定の属性を制御するためにマップします。属性ごとに256個の設定可能な値を設定できることだけでなく、最大256個の属性を設定することもできます。
 
-We used the [Cat Avatar Generator](https://framagit.org/Deevad/cat-avatar-generator/tree/master) project by David Revoy to power our images, but the sky is the limit if you can find a good artist.
+David Revoyによる[Cat Avatar Generator](https://framagit.org/Deevad/cat-avatar-generator/tree/master)プロジェクトを使用して画像に命を与えました。
 
-## Your Turn!
+## あなたの番です！
 
-Now that you understand how the `KittyCard` component works, it's time to integrate it into your Substrate UI. This should be trivial since the React component does all of the hard work.
+`KittyCard`コンポーネントがどのように機能するのか理解できたので、それをあなたのSubstrate UIに実装しましょう。
 
-After you are done, try creating a kitty and watch your UI update! You can also try out your other Runtime functions by initiating the transaction in the Polkadot UI in a different tab.
+完了したら、キティを作成してUIの更新を確認してください。Polkadot UIの別のタブでトランザクションを開始して、他のランタイム機能を試すこともできます。
 
-Do you want to test your React + JavaScript + Bonds skills? We have only integrated one function of our runtime, but there are plenty more that you can try to build:
+React + JavaScript + Bondsの機能をテストしたいですか？私達はランタイムに1つしか機能を実装していませんが、想像力を働かせて自分だけのアプリを作ってみてください！これは簡単な例です：
 
-- Setting the price of a kitty
-- Buying a kitty
-- Showing the kitties for a specific owner
-- Breeding kitties
-- etc...
+ - キティの価格設定
+ - キティを買う
+ - 特定の所有者だけにキティを見せる
+ - キティの交配
+ - などなど
 
-Also think about how you might need to change the `KittyCards` component if you introduce a way to remove kitties from your runtime (setting them free!).
+ランタイムからキティを削除する方法を紹介するなら`KittyCards`コンポーネントをどのように変更するかも考える必要があります。
+
+
+>### SubstrateKittiesワークショップの終了おめでとうございます。ここまでワークショップを進めてくださったなら、Substrateを使ったRuntime開発の基礎を学んでいただけたことと思います。しかしこれはSubstrateのごく一部でしかなく、まだ使っていないSRMLやSubstrate Coreの機能を使うことで様々なブロックチェーンの可能性を考えることができます。
+>### また、Substrateで作ったチェーンはParachainとしてPolkadot上で他のチェーンと相互互換性を持って、メッセージ/価値/アイデンティティを交換することが可能になります。Polkadotについてもっと深く学びたい方や、将来、Parachainとしてデプロイをしてみたい方は日本語で書かれた「[初心者のためのPolkadot](https://link.medium.com/EXHDwcrXQV)」で全体像を掴み、提供されているリソースを活用することができます。
+>### 翻訳者：[Masaki Minamide](https://twitter.com/raika_5179)より
+
 
 <!-- tabs:start -->
 
