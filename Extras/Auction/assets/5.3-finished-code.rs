@@ -280,7 +280,7 @@ decl_module! {
 
                     let _ = <balances::Module<T>>::unreserve(&auction.high_bidder, auction.high_bid);
 
-                    let _currency_transfer = <balances::Module<T>>::make_transfer(&auction.high_bidder, &auction.kitty_owner, auction.high_bid);
+                    let _currency_transfer = <balances::Module<T> as Currency<_>>::transfer(&auction.high_bidder, &auction.kitty_owner, auction.high_bid);
                     match _currency_transfer {
                         Err(_e) => continue,
                         Ok(_v) => {
