@@ -1,7 +1,7 @@
 Finalizing an auction
 ===
 
-The `decl_module!` can take a special function called `on_finalise()`, which is used for anything that needs to be done at the end of the block ([learn more](https://substrate.readme.io/docs/decl_module#section-on_initialise-and-on_finalise-)). We can use this for finalizing an auction whose expiration time is equal to the current block number.
+The `decl_module!` can take a special function called `on_finalize()`, which is used for anything that needs to be done at the end of the block ([learn more](https://substrate.readme.io/docs/decl_module#section-on_initialize-and-on_finalize-)). We can use this for finalizing an auction whose expiration time is equal to the current block number.
 
 Remember, we may have multiple auctions that will expire at a given block number, so from our storage we will retrieve all auctions that will expire at this current block we are in.
 
@@ -9,7 +9,7 @@ Remember, we may have multiple auctions that will expire at a given block number
 let auctions = Self::auctions_expire_at(<system::Module<T>>::block_number());
 ```
 
-In the `on_finalise` function, we will go through each auction and resolve it:
+In the `on_finalize` function, we will go through each auction and resolve it:
 
 1. Before writing to storage we check kitty owner, high bidder, and make sure the bidder is not the kitty owner (if they are equal, it means no bidders).
 
@@ -27,7 +27,7 @@ We also add a check to `transfer_from` function for disabling any sales of the k
 
 ## Bounding loops while finalizing a block
 
-If you let the users of your chain to create arbitrary amount of auctions that will end in a certain block, than all those auctions will be looped in the `on_finalise()` function. This is an attack vector, it can halt your chain. So, you should prevent this possibility by introducing a limit to the number of auctions that will end in a block. So you should do the following:
+If you let the users of your chain to create arbitrary amount of auctions that will end in a certain block, than all those auctions will be looped in the `on_finalize()` function. This is an attack vector, it can halt your chain. So, you should prevent this possibility by introducing a limit to the number of auctions that will end in a block. So you should do the following:
 
 1. Add a constant `MAX_AUCTIONS_PER_BLOCK` to limit number of auctions per block.
 
@@ -35,7 +35,7 @@ If you let the users of your chain to create arbitrary amount of auctions that w
 
 ## Your Turn!
 
-The `on_finalise()` skeleton functions are ready for you to add logic. Follow the template provided to program in the necessary code to complete the kitty auction functionality.
+The `on_finalize()` skeleton functions are ready for you to add logic. Follow the template provided to program in the necessary code to complete the kitty auction functionality.
 
 As a further execrice, you can implement a minimum bid increment for the auctions. Without a minimum bid increment, the auction might last forever as somebody can drive up the price by ultra small units in each block.
 

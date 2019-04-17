@@ -266,7 +266,7 @@ decl_module! {
             Ok (())
         }
 
-        fn on_finalise() {
+        fn on_finalize() {
             // ACTION: get auctions that expire at the current block number
 
             for auction in &auctions {

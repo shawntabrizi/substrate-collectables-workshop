@@ -266,7 +266,7 @@ decl_module! {
             Ok (())
         }
 
-        fn on_finalise() {
+        fn on_finalize() {
             let auctions = Self::auctions_expire_at(<system::Module<T>>::block_number());
 
             for auction in &auctions {

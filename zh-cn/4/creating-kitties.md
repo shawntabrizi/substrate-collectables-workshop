@@ -37,7 +37,7 @@ post({
 
 ![An image of the Address Book section](../../4/assets/address-book.png)
 
-当我们在控制台中提交此内容时，我们会在后台看到一些事情发生，交易最终 `finalised` 并且 kitties 数量增加：
+当我们在控制台中提交此内容时，我们会在后台看到一些事情发生，交易最终 `finalized` 并且 kitties 数量增加：
 
 ![An image of creating a kitty from console](../../4/assets/transaction-from-console.png)
 
