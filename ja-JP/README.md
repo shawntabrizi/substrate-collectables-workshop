@@ -23,7 +23,7 @@
 ---
 **注意**
 
-サブストレートは急速に発展しているプロジェクトです。つまり、新しい変更によりこのワークショップの指示通りに従おうとすると問題が発生する可能性があります。どんな問題でもお気軽に[お問い合わせ](https://substrate.readme.io/v1.0.0/docs/feedback)ください。
+Substrateは急速に発展しているプロジェクトです。つまり、新しい変更によりこのワークショップの指示通りに従おうとすると問題が発生する可能性があります。どんな問題でもお気軽に[お問い合わせ](https://substrate.readme.io/v1.0.0/docs/feedback)ください。
 
 ---
 
@@ -40,7 +40,7 @@
 
 ## 謝辞
 
-サブストレートやこのワークショップのようなオープンソースプロジェクトは、開発者コミュニティの総意と共同作業なしには成功しません。
+Substrateやこのワークショップのようなオープンソースプロジェクトは、開発者コミュニティの総意と共同作業なしには成功しません。
 
 Substratekittiesワークショップが提供できるのは[Cryptokitties](https://www.cryptokitties.co/), [Cryptozombies](https://cryptozombies.io/), [Docsify](https://docsify.js.org/), [Monaco Editor](https://microsoft.github.io/monaco-editor/), [David Revoy's Cat Avatar Generator](https://framagit.org/Deevad/cat-avatar-generator) のような偉人達と、途中でエラーやバグを報告してくれた多数のボランティアのお陰です。
 
