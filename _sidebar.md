@@ -42,6 +42,13 @@
     - [Creating Kitties](4/creating-kitties.md)
     - [Rendering Kitties](4/rendering-kitties.md)
 
+- [**Extras**](Extras/)
+    - **Kitty Auction**
+        - [Introduction](Extras/Auction/introduction.md)
+        - [Creating an auction](Extras/Auction/creating-an-auction.md)
+        - [Bidding an auction](Extras/Auction/bidding-an-auction.md)
+        - [Finalizing an auction](Extras/Auction/finalizing-an-auction.md)
+
 - [Glossary](https://docs.substrate.dev/docs/glossary)
 - [Documentation](https://docs.substrate.dev/docs)
 - [Report an Issue](https://github.com/shawntabrizi/substrate-collectables-workshop/issues)

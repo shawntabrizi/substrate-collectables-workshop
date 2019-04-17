@@ -38,7 +38,7 @@ In this sample, the `sender` is the address of one of our accounts. We can retri
 
 ![An image of the Address Book section](./assets/address-book.png)
 
-When we submit this in our console, we will see a few things happen in the background, and then our transaction is `finalised` and the number of kitties increases:
+When we submit this in our console, we will see a few things happen in the background, and then our transaction is `finalized` and the number of kitties increases:
 
 ![An image of creating a kitty from console](./assets/transaction-from-console.png)
 
