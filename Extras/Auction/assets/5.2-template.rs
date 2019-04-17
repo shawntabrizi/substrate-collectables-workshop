@@ -1,12 +1,11 @@
 use support::{decl_storage, decl_module, StorageValue, StorageMap,
-    dispatch::Result, ensure, decl_event};
+    dispatch::Result, ensure, decl_event, traits::Currency};
+// Import the ReservableCurrency trait from support::traits
 use system::ensure_signed;
 use runtime_primitives::traits::{As, Hash, Zero};
 use parity_codec::{Encode, Decode};
 use rstd::cmp;
 use rstd::prelude::*;
-// Import the Currency trait from support::traits
-// Import the ReservableCurrency trait from support::traits
 
 #[derive(Encode, Decode, Default, Clone, PartialEq)]
 #[cfg_attr(feature = "std", derive(Debug))]
@@ -142,9 +141,9 @@ decl_module! {
             ensure!(!kitty_price.is_zero(), "The cat you want to buy is not for sale");
             ensure!(kitty_price <= max_price, "The cat you want to buy costs more than your max price");
 
-            <balances::Module<T>>::make_transfer(&sender, &owner, kitty_price)?;
+            <balances::Module<T> as Currency<_>>::transfer(&sender, &owner, kitty_price)?;
 
-               Self::transfer_from(owner.clone(), sender.clone(), kitty_id)
+            Self::transfer_from(owner.clone(), sender.clone(), kitty_id)
                 .expect("`owner` is shown to own the kitty; \
                 `owner` must have greater than 0 kitties, so transfer cannot cause underflow; \
                 `all_kitty_count` shares the same type as `owned_kitty_count` \
