@@ -44,8 +44,14 @@ Remember this pattern; you will be using it a lot.
 ---
 **Learn More**
 
-Substrate is unique in that it is built to support Wasm and all languages that compile to Wasm. This allows for next generation features like live runtime upgrades and ...
+You should always be using the latest version of Rust stable and nightly when hacking on Substrate.
 
-[TODO: Talk about Wasm and runtime upgrades]
+We provide another script in the same directory as `build.sh` that you should run whenever you are starting a new project:
+
+```bash
+./init.sh
+```
+
+This script simply updates Rust, and ensures that you don't have strange compilation errors. If you remember, we already did this as a part of the workshop instructions.
 
 ---

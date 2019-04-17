@@ -1,8 +1,6 @@
 Creating a Module
 ===
 
-## Creating a New Module
-
 To start, we need to create a new module for our runtime. For that we will work with an empty module template which we will place in a new `substratekitties.rs` file:
 
 ```
@@ -138,6 +136,6 @@ Now it's time to start adding some of our own logic!
 ---
 **Learn More**
 
-Check out the documentation for the `construct_runtime!` macro [here](https://substrate.readme.io/docs/construct_runtime).
+Check out the documentation for the `construct_runtime!` macro [here](https://docs.substrate.dev/docs/construct_runtime).
 
 ---

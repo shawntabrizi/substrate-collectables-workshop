@@ -45,8 +45,8 @@ We hope this educational material teaches you something new, and in turn, you te
 ---
 
 [main link]: https://shawntabrizi.github.io/substrate-collectables-workshop/
-[feedback]: https://substrate.readme.io/v1.0.0/docs/feedback
+[feedback]: https://docs.substrate.dev/docs/feedback
 [Substrate]: https://www.parity.io/substrate/
-[Substrate docs]: https://substrate.readme.io/
+[Substrate docs]: https://docs.substrate.dev/
 [Parity]: https://www.parity.io/
 [Rust]: https://www.rust-lang.org/

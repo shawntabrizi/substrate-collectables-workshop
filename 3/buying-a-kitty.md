@@ -21,27 +21,39 @@ If you wanted to improve this, we may have the price be an `Option<T::Balance>`,
 
 So far our chain has been completely independent of our internal currency provided by the `Balances` module. The `Balances` module gives us access to completely manage the internal currency of every user, which means we need to be careful how we use it.
 
-Fortunately, the `Balances` module exposes a public function called [`make_transfer()`](https://crates.parity.io/srml_balances/struct.Module.html#method.make_transfer) which allows you to safely transfer units from one account to another, checking for enough balance, overflow, underflow, and even account creation as a result of getting tokens.
+Fortunately, the `Balances` module exposes a trait called `Currency` which implements a function called [`transfer()`](https://crates.parity.io/srml_support/traits/trait.Currency.html#tymethod.transfer) which allows you to safely transfer units from one account to another, checking for enough balance, overflow, underflow, and even account creation as a result of getting tokens.
+
+To access the `Currency` trait and all its implemented functions, you need to import the trait into your module with:
+
+```rust
+use support::traits::Currency;
+```
+
+You can then access this specific function using the following syntax:
+
+```
+<balances::Module<T> as Currency<_>>::transfer(&from, &to, value)?;
+```
 
 ## Remember: "Verify First, Write Last"
 
-If you look at the [`make_transfer()`](https://crates.parity.io/srml_balances/struct.Module.html#method.make_transfer) function, it both "verifies" and "writes", which means you will need to be careful exactly where you include it as a part of your module's logic.
+If you look at the implementation of the `transfer()` function, it both "verifies" and "writes", which means you will need to be careful exactly where you include it as a part of your module's logic.
 
 ```rust
 // end of verifications
 
-<balances::Module<T>>::make_transfer(&from, &to, value)?;
+<balances::Module<T> as Currency<_>>::transfer(&from, &to, value)?;
 
 // beginning of writing to storage
 ```
 
-If you take a look at our template, you will see that we suggest you execute the `transfer_from()` function directly after you call `make_transfer()`.
+If you take a look at our template, you will see that we suggest you execute the `transfer_from()` function directly after you call `transfer()`.
 
 Notice a problem?
 
 ```rust
 // nothing after this line should fail
-<balances::Module<T>>::make_transfer(&from, &to, value)?;
+<balances::Module<T> as Currency<_>>::transfer(&from, &to, value)?;
 // but this function technically "could" fail
 Self::transfer_from(owner.clone(), sender.clone(), kitty_id)?;
 ```
