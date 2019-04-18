@@ -63,11 +63,11 @@ fn foo(origin, bar: Bar, baz: Baz, ...) -> Result;
 
 <!-- tabs:start -->
 
-#### ** Template **
+#### ** テンプレート **
 
 [embedded-code](../../1/assets/1.3-template.rs ':include :type=code embed-template')
 
-#### ** Solution **
+#### ** 解答 **
 
 [embedded-code-final](../../1/assets/1.3-finished-code.rs ':include :type=code embed-final')
 

@@ -7,7 +7,7 @@
 
 https://substrate-ui.parity.io/
 
-あなたのローカルノードにUIを向けるために、**Settings** のエンドポイントのドロップダウンから'Local Node(127.0.0.1:9944)'を選択します:
+あなたのローカルノードとUIを接続するために、**Settings** のエンドポイントのドロップダウンから'Local Node(127.0.0.1:9944)'を選択します:
 
 ```
 Settings > remote node/endpoint to connect to > Local Node (127.0.0.1:9944)
