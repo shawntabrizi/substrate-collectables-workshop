@@ -41,12 +41,11 @@ decl_storage! {
 }
 ```
 
-For the purposes of clarity, we will name a generic type for `T::AccountId` as `AccountId` or `T::Balance` as `Balance`. You can use comma separate and add more generics as needed following this pattern.
 わかりやすくするために、`T::AccountId`タイプを`AccountId`、そして`T::Balance`タイプを`Balance`と名付けます。このパターンに従い、必要に応じてカンマ区切りを使用してジェネリックを追加できます。
 
 ### 派生マクロ
 
-あなたが気づくもう一つのことは一番上の `＃[derive（...）]`です。これはRustコンパイラによって提供される属性で、いくつかの特性の基本的な実装を可能にします。 2行目、`＃[cfg_attr(feature ="std", derive(Debug))]`は `Debug`トレイトについても同じことを行いますが、"標準 "ライブラリを使うとき、すなわちネイティブバイナリをコンパイルするときだけです。Wasmでは行いません。詳しく学びたい方は[ここ](https://doc.rust-lang.org/rust-by-example/trait/derive.html)を参照してください。このチュートリアルでは、おまじないだと思ってください。
+一番上に `＃[derive（...）]`とあることにお気づきでしょうか。これはRustコンパイラによって提供される属性で、いくつかの特性の基本的な実装を可能にします。 2行目、`＃[cfg_attr(feature ="std", derive(Debug))]`は `Debug`トレイトについても同じことを行いますが、"標準 "ライブラリを使うとき、すなわちネイティブバイナリをコンパイルするときだけです。Wasmでは行いません。詳しく学びたい方は[ここ](https://doc.rust-lang.org/rust-by-example/trait/derive.html)を参照してください。このチュートリアルでは、おまじないか何かだと思ってください。
 
 ## モジュール関数内のカスタム構造体
 
@@ -72,7 +71,7 @@ decl_module! {
 }
 ```
 
-## Your Turn!
+## 演習してみよう!
 
 u64の代わりに`Kitty`構造体を格納するようにストレージマッピングランタイムを更新してください。
 
@@ -97,11 +96,11 @@ let my_zero_balance = <T::Balance as As<u64>>::sa(0);
 
 <!-- tabs:start -->
 
-#### ** Template **
+#### ** テンプレート **
 
 [embedded-code](../../1/assets/1.6-template.rs ':include :type=code embed-template')
 
-#### ** Solution **
+#### ** 解答 **
 
 [embedded-code-final](../../1/assets/1.6-finished-code.rs ':include :type=code embed-final')
 

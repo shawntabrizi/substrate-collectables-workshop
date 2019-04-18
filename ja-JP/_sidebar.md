@@ -6,7 +6,7 @@
     - [イントロダクション](ja-jp/0/introduction.md)
     - [セットアップ](ja-jp/0/setup.md)
     - [カスタムノードを立ち上げる](ja-jp/0/running-a-custom-node.md)
-    - [ノードと対話する](ja-jp/0/interacting-with-your-node.md)
+    - [ノードを触ってみる](ja-jp/0/interacting-with-your-node.md)
     - [進める上でよくあるパターン](ja-jp/0/common-patterns-moving-forward.md)
 
 - **#1 基礎**

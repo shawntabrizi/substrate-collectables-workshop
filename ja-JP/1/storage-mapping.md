@@ -9,7 +9,7 @@
 
 ストレージマッピングに入る前に、使用するSubstrate特有のタイプについて説明します。
 
-デフォルトのランタイムテンプレートには、ブロックチェーンから取得可能なタイプを公開する多数のモジュールが含まれています。より多くのモジュールを開発するにつれて、ランタイムの他の部分に新しいタイプを公開することさえあるかもしれません。
+デフォルトのランタイムテンプレートには、ブロックチェーンから取得可能なタイプを公開する多数のモジュールが含まれています。モジュールの開発を進めるにつれて、ランタイムの他の部分に新しいタイプを公開することさえあるかもしれません。
 
 このチュートリアルでは、以下の3種類のSubstrate特有のタイプのみを使用します：
 
@@ -28,7 +28,7 @@ pub trait Trait: balances::Trait {}
 
 ## ストレージマップの宣言
 
-ストレージマップを使用すると、基本（key, value）のペアをランタイムストレージに格納putできます。これは次のように宣言できます。
+ストレージマップを使用すると、基本的な（key, value）のペアをランタイムストレージに格納putできます。これは次のように宣言できます。
 
 ```rust
 decl_storage! {
@@ -92,17 +92,17 @@ let my_value = <SomeValue<T>>::get(key);
 let also_my_value = Self::some_value_getter(key);
 ```
 
-## Your Turn!
+## 演習してみよう!
 
 簡単なストレージ例題を更新して、今度は `AccountId`から`u64`へのマップを保存します。
 
 <!-- tabs:start -->
 
-#### ** Template **
+#### ** テンプレート **
 
 [embedded-code](../../1/assets/1.4-template.rs ':include :type=code embed-template')
 
-#### ** Solution **
+#### ** 解答 **
 
 [embedded-code-final](../../1/assets/1.4-finished-code.rs ':include :type=code embed-final')
 

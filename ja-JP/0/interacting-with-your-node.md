@@ -1,13 +1,13 @@
 ノードを触ってみる
 ===
 
-本ワークショップの終盤では、コレクタブルブロックチェーンとやり取りするためのカスタムUIを作成します。それまでの間は、[Polkadot-JS](https://polkadot.js.org)のアプリUIを使用します。これは公開されているテストネットやローカル環境のカスタムノードに適応している一般的なインターフェースです。
+本ワークショップの終盤では、コレクタブルブロックチェーンとやり取りするためのカスタムUIを作成します。それまでの間は、[Polkadot-JS](https://polkadot.js.org)のアプリUIを使用します。これは公開されているテストネットやローカル環境のカスタムノードに適応するように一般化されたインターフェースです。
 
-**Chrome**を開き、以下の場所に移動します。
+**Chrome** を開き、以下の場所に移動します。
 
 https://substrate-ui.parity.io/
 
-あなたのローカルノードにUIを向けるために、**Settings**に変更を加える必要があります。方法はエンドポイントのドロップダウンから'Local Node(127.0.0.1:9944)'を選択するだけです:
+あなたのローカルノードにUIを向けるために、**Settings** のエンドポイントのドロップダウンから'Local Node(127.0.0.1:9944)'を選択します:
 
 ```
 Settings > remote node/endpoint to connect to > Local Node (127.0.0.1:9944)
@@ -15,19 +15,19 @@ Settings > remote node/endpoint to connect to > Local Node (127.0.0.1:9944)
 
 ![An image of the settings in Polkadot-JS Apps UI](../../0/assets/polkadot-js-settings.png)
 
-**Save and Reload**をクリックすると,Polkadot-JS Apps UIが動き始めます。
+**Save and Reload** をクリックすると,Polkadot-JS Apps UIが動き始めます。
 動かない場合は、先ほどの`./target/substratekitties --dev`でチェーンが動いていることを確認してください。
 
-追加の型定義を含むJSONファイルは、セクション1：構造の表示の「カスタム構造体の登録」でインポートします。
+追加の定義を含むJSONファイルは、セクション1："構造体を確認する"の「カスタム構造体の登録」でインポートします。
 
-アプリで**Transfer**に移動し、取引をしてみます。 "Alice"という名前のデフォルトのアカウントには、膨大な数の*Units*が事前に用意されています。
+アプリで **Transfer** に移動し、取引をしてみます。 "Alice"という名前のデフォルトのアカウントには、膨大な数の *Units* が事前に用意されています。
 
 トランザクションを作成して、 "Bob"にも少し恵んであげましょう。取引が完了するとイベントが表示され、ボブの残高は更新されます。
 
 ![First Transfer in Polkadot-JS Apps UI](../../0/assets/first-transfer.png)
 
 まとめ：
-今回のチュートリアルではローカルSubstrateチェインのセットアップをあっという間にセットアップ、立ち上げ、触ってみました。
+今回のチュートリアルではローカルSubstrateチェーンのセットアップをあっという間にセットアップし、立ち上げ、触ってみました。
 
 ---
 **詳細解説**

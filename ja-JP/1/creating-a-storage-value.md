@@ -4,7 +4,7 @@
 
 これを行うには、最初に[**Storage Item**](https://vdocs.substrate.dev/docs/glossary#section-storage-items)のストレージ変数を[**`decl_storage！`**](https://crates.parity.io/srml_support_procedural/macro.decl_storage.html)マクロで定義する必要があります。これにより、Substrateストレージデータベースのタイプセーフな使用が可能になるため、ブロック間の状況を把握することができます。
 
-## Declaring a Storage Value
+## ストレージ変数と宣言する
 
 SubstrateはRustで利用可能なすべてのプリミティブ型(`bool`、`u8`、`u32`など）と、Substrate固有のカスタム型（`AccountId`、`Balance`、`Hash`、[その他](https://polkadot.js.org/api/types/)...)をネイティブでサポートしています。
 
@@ -23,7 +23,7 @@ decl_storage! {
 
 これらの基本的なストレージ値を保存するためには、`support::StorageValue`というモジュールをインポートする必要があります。
 
-### Working with a Storage Value
+### ストレージ値の作業を行う
 
 `StorageValue`にアクセスするために使われる関数は[`srml/support`フォルダ](https://github.com/paritytech/substrate/blob/master/srml/support/src/storage/generator.rs#L98)に定義されています。：
 
@@ -71,7 +71,7 @@ let also_my_bool = Self::my_bool_getter();
 
 次のセクションでは、これらの呼び出しを自分のモジュールに統合する方法を説明します。
 
-## Your Turn!
+## 演習してみよう!
 
 `u64`を格納する`Value`という格納値を作成してください。
 
@@ -79,11 +79,11 @@ let also_my_bool = Self::my_bool_getter();
 
 <!-- tabs:start -->
 
-#### ** Template **
+#### ** テンプレート **
 
 [embedded-code](../../1/assets/1.2-template.rs ':include :type=code embed-template')
 
-#### ** Solution **
+#### ** 解答 **
 
 [embedded-code-final](../../1/assets/1.2-finished-code.rs ':include :type=code embed-final')
 

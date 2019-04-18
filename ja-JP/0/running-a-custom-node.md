@@ -1,4 +1,4 @@
-カスタムノードを走らせる
+カスタムノードを立ち上げる
 ===
 
 マシンに環境構築ができたので、事前に用意されたテンプレートを使用してカスタムSubstrateノードをすぐに始められます。
@@ -16,7 +16,7 @@ git clone https://github.com/shawntabrizi/substrate-package
 1. `substrate-node-template`
 2. `substrate-ui`
 
-`substrate-ui`フォルダはこのワークショップの第4章までは触れませんが、その名前が示すように、[React](https://reactjs.org/)で書かれた既成のUIが含まれています。後でカスタムエクスペリエンス用に拡張できます。
+`substrate-ui`フォルダはこのワークショップの第4章までは触れませんが、その名前が示すように、[React](https://reactjs.org/)で書かれた既成のUIが含まれており、後ほど拡張してカスタムできます。
 
 代わりに、`substrate-node-template`フォルダでミニマムな作業用ノードテンプレートを使い、ハックを始めます。
 
@@ -26,7 +26,7 @@ git clone https://github.com/shawntabrizi/substrate-package
 ./substrate-package-rename.sh substratekitties <あなたの名前>
 ```
 
-次に、名前変更された`substratekitties`フォルダに移動し、事前準備されたノードをビルドします：
+次に、名前が変更された`substratekitties`フォルダに移動し、事前に準備されたノードをビルドします：
 
 ```bash
 cd substratekitties
@@ -59,6 +59,6 @@ substrate-node-new <project_name> <your_name>
 substrate-ui-new <project_name>
 ```
 
-前述したように、この方法の欠点は、このスクリプトは別のGitHubリポジトリから直接取得することです。つまり、バージョンによっては互換性が失われることがあるということです。
+前述したように、この方法の欠点は、このスクリプトは別のGitHubリポジトリから直接取得することです。つまり、バージョンによっては互換性が失われることがあります。
 
 ---

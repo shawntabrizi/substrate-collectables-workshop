@@ -12,7 +12,7 @@ curl https://getsubstrate.io -sSf | bash -s -- --fast
 
 このスクリプトでサポートされていないオペレーティングシステム（Windowsなど）で開発しようとしている場合は、[Substrateレポジトリ](https://github.com/paritytech/substrate#61-hacking-on-substrate)のセットアップ方法をご確認ください。
 
-Substrateとそれに関連するディペンデンシ（Rustなど）のダウンロードとインストールを待っている間、他にもバンドルに含まれていないプログラムがあり、開発環境にインストールする必要があります:
+Substrateとそれに関連するディペンデンシー（Rustなど）のダウンロードとインストールを待っている間、他にもバンドルに含まれていないプログラムがあり、開発環境にインストールする必要があります:
 
  - [Node + NPM](https://nodejs.org/en/download/)
  - [Yarn](https://yarnpkg.com)
