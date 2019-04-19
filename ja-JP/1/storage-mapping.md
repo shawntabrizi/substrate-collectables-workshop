@@ -109,7 +109,7 @@ let also_my_value = Self::some_value_getter(key);
 <!-- tabs:end -->
 
 ---
-**詳細解説**
+**発展**
 
 トランザクションを行うためにアカウントに預金する
 

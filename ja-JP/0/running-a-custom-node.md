@@ -48,7 +48,7 @@ cargo build --release
 やったね！これであなたの初めてのカスタムノードを走らせることができました！
 
 ---
-**詳細解説**
+**発展**
 
 `substrate-package`リポジトリは、先ほど実行した` getsubstrate.io`が提供する[いくつかのカスタムコマンド](https://github.com/paritytech/substrate-up)使用して作成されています。
 

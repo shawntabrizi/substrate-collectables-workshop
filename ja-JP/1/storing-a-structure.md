@@ -107,7 +107,7 @@ let my_zero_balance = <T::Balance as As<u64>>::sa(0);
 <!-- tabs:end -->
 
 ---
-**詳細解説**
+**発展**
 
 ### SubstrateでのString
 

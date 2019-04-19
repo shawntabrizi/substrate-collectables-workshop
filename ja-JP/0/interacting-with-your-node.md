@@ -30,7 +30,7 @@ Settings > remote node/endpoint to connect to > Local Node (127.0.0.1:9944)
 今回のチュートリアルではローカルSubstrateチェーンのセットアップをあっという間にセットアップし、立ち上げ、触ってみました。
 
 ---
-**詳細解説**
+**発展**
 
 [Substrate UI](https://github.com/paritytech/substrate-ui) は[oo7-substrate library](https://github.com/paritytech/oo7/tree/master/packages/oo7-substrate)を使って作られており、[Polkadot-JS Apps UI](https://github.com/polkadot-js/apps)の代替となるフロントエンドインターフェイスです。
 

@@ -133,7 +133,7 @@ cargo build --release
 <!-- tabs:end -->
 
 ---
-**詳細解説**
+**発展**
 
 `construct_runtime!`マクロのドキュメンテーションは[ここ](https://docs.substrate.dev/docs/construct_runtime)で確認してください。
 

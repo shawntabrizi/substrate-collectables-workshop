@@ -56,7 +56,7 @@ kittyStorage > ownedKitty(AccountId): Kitty
 ![Image of viewing a kitty object in the Polkadot UI](../../1/assets/view-kitty.png)
 
 ---
-**詳細解説**
+**発展**
 
 シリアライゼーションとデシリアライゼーションについて
 
