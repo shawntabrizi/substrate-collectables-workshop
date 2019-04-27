@@ -108,7 +108,10 @@ function loadEditor(editor_text, read_only, template_update) {
             language: "rust",
             theme: "vs-dark",
             readOnly: read_only,
-            automaticLayout: true
+            automaticLayout: true,
+            minimap: {
+                enabled: false
+            }
         });
 
         window.monaco_editor.setValue(editor_text)
