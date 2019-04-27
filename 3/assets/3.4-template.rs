@@ -3,7 +3,7 @@ use support::{decl_storage, decl_module, StorageValue, StorageMap,
 use system::ensure_signed;
 use runtime_primitives::traits::{As, Hash, Zero};
 use parity_codec::{Encode, Decode};
-use rstd::cmp;
+// ACTION: Import `rstd::cmp` so you can do comparisons
 
 #[derive(Encode, Decode, Default, Clone, PartialEq)]
 #[cfg_attr(feature = "std", derive(Debug))]
@@ -135,6 +135,7 @@ decl_module! {
             Ok(())
         }
 
+        // ACTION: We created this `breed_kitty` template for you
         fn breed_kitty(origin, kitty_id_1: T::Hash, kitty_id_2: T::Hash) -> Result{
             let sender = ensure_signed(origin)?;
 
@@ -145,9 +146,8 @@ decl_module! {
             let kitty_1 = Self::kitty(kitty_id_1);
             let kitty_2 = Self::kitty(kitty_id_2);
 
-            // Our gene splicing algorithm, feel free to make it your own
+            // NOTE: Our gene splicing algorithm, feel free to make it your own
             let mut final_dna = kitty_1.dna;
-
             for (i, (dna_2_element, r)) in kitty_2.dna.as_ref().iter().zip(random_hash.as_ref().iter()).enumerate() {
                 if r % 2 == 0 {
                     final_dna.as_mut()[i] = *dna_2_element;
@@ -214,7 +214,6 @@ impl<T: Trait> Module<T> {
         let new_owned_kitty_count_from = owned_kitty_count_from.checked_sub(1)
             .ok_or("Transfer causes underflow of 'from' kitty balance")?;
 
-        // "Swap and pop"
         let kitty_index = <OwnedKittiesIndex<T>>::get(kitty_id);
         if kitty_index != new_owned_kitty_count_from {
             let last_kitty_id = <OwnedKittiesArray<T>>::get((from.clone(), new_owned_kitty_count_from));

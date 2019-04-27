@@ -22,10 +22,10 @@ decl_event!(
     where
         <T as system::Trait>::AccountId,
         <T as system::Trait>::Hash
+        // ACTION: Add the `Balance` trait here
     {
         Created(AccountId, Hash),
         // ACTION: Create a `PriceSet` event here
-        //   HINT: Do you need a new type for this event? (yes)
     }
 );
 

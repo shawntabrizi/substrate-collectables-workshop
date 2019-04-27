@@ -1,8 +1,8 @@
+// ACTION: Import the `support::traits::Currency` trait
 use support::{decl_storage, decl_module, StorageValue, StorageMap,
     dispatch::Result, ensure, decl_event};
-// ACTION: Import the Currency trait
 use system::ensure_signed;
-// ACTION: Import the Zero trait
+// ACTION: Import the `runtime_primitives::traits::Zero` trait
 use runtime_primitives::traits::{As, Hash};
 use parity_codec::{Encode, Decode};
 
@@ -104,6 +104,7 @@ decl_module! {
             Ok(())
         }
 
+        // NOTE: We added this `buy_kitty` template for you
         fn buy_kitty(origin, kitty_id: T::Hash, max_price: T::Balance) -> Result {
             let sender = ensure_signed(origin)?;
 
@@ -180,7 +181,6 @@ impl<T: Trait> Module<T> {
         let new_owned_kitty_count_from = owned_kitty_count_from.checked_sub(1)
             .ok_or("Transfer causes underflow of 'from' kitty balance")?;
 
-        // "Swap and pop"
         let kitty_index = <OwnedKittiesIndex<T>>::get(kitty_id);
         if kitty_index != new_owned_kitty_count_from {
             let last_kitty_id = <OwnedKittiesArray<T>>::get((from.clone(), new_owned_kitty_count_from));

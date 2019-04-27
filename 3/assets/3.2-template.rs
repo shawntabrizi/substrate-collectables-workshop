@@ -90,6 +90,7 @@ decl_module! {
             Ok(())
         }
 
+        // NOTE: We added this `transfer` function for you
         fn transfer(origin, to: T::AccountId, kitty_id: T::Hash) -> Result {
             let sender = ensure_signed(origin)?;
 
@@ -145,9 +146,9 @@ impl<T: Trait> Module<T> {
         // ACTION: Used `checked_sub()` to increment the `owned_kitty_count_from` by one into `new_owned_kitty_count_from`
         //         - Return an `Err()` if overflow or underflow
 
-        // "Swap and pop"
-        // We our convenience storage items to help simplify removing an element from the OwnedKittiesArray
-        // We switch the last element of OwnedKittiesArray with the element we want to remove
+        // NOTE: This is the "swap and pop" algorithm we have added for you
+        //       We use our storage items to help simplify the removal of elements from the OwnedKittiesArray
+        //       We switch the last element of OwnedKittiesArray with the element we want to remove
         let kitty_index = <OwnedKittiesIndex<T>>::get(kitty_id);
         if kitty_index != new_owned_kitty_count_from {
             let last_kitty_id = <OwnedKittiesArray<T>>::get((from.clone(), new_owned_kitty_count_from));
