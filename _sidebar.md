@@ -1,6 +1,8 @@
 
 - [Welcome](/)
 
+- [:us: English](/README.md) [:cn: 中文](/zh-cn/)
+
 - [**#0 Getting Started**](0/introduction.md)
 
     - [Setup](0/setup.md)

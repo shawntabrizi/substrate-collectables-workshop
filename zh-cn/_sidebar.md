@@ -1,5 +1,7 @@
 - [欢迎](/)
 
+- [:us: English](/README.md) [:cn: 中文](/zh-cn/)
+
 - [**#0 开始**](zh-cn/0/introduction.md)
 
   - [安装](zh-cn/0/setup.md)
