@@ -68,4 +68,8 @@ Our template provides the function declaration for `mint()`, and will guide you 
 
 [embedded-code-final](./assets/2.6-finished-code.rs ':include :type=code embed-final')
 
+#### ** Previous Chapter Solution **
+
+[embedded-code-previous](./assets/2.5-finished-code.rs ':include :type=code embed-previous')
+
 <!-- tabs:end -->

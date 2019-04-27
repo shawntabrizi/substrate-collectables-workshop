@@ -33,9 +33,9 @@ decl_storage! {
         KittyOwner get(owner_of): map T::Hash => Option<T::AccountId>;
 
         // ACTION: Create new storage items to globally track all kitties: 
-        //      - `AllKittiesArray` which is a `map` from `u64` to `T::Hash`, add a getter function for this
-        //      - `AllKittiesCount` which is a `u64`, add a getter function for this
-        //      - `AllKittiesIndex` which is a `map` from `T::Hash` to `u64`
+        //         - `AllKittiesArray` which is a `map` from `u64` to `T::Hash`, add a getter function for this
+        //         - `AllKittiesCount` which is a `u64`, add a getter function for this
+        //         - `AllKittiesIndex` which is a `map` from `T::Hash` to `u64`
 
         OwnedKitty get(kitty_of_owner): map T::AccountId => T::Hash;
 
@@ -72,9 +72,9 @@ decl_module! {
             <KittyOwner<T>>::insert(random_hash, &sender);
 
             // ACTION: Update the storage for the global kitty tracking
-            //      - `AllKittiesArray` should use the `all_kitties_count` (remember `index` is `count - 1`)
-            //      - `AllKittiesCount` should use `new_all_kitties_count`
-            //      - `AllKittiesIndex` should use `all_kitties_count`
+            //         - `AllKittiesArray` should use the `all_kitties_count` (remember `index` is `count - 1`)
+            //         - `AllKittiesCount` should use `new_all_kitties_count`
+            //         - `AllKittiesIndex` should use `all_kitties_count`
 
             <OwnedKitty<T>>::insert(&sender, random_hash);
 

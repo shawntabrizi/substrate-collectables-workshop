@@ -60,4 +60,8 @@ Follow the template in this section to help you create the `set_price()` functio
 
 [embedded-code-final](./assets/3.1-finished-code.rs ':include :type=code embed-final')
 
+#### ** Previous Chapter Solution **
+
+[embedded-code-previous](./assets/2.6-finished-code.rs ':include :type=code embed-previous')
+
 <!-- tabs:end -->

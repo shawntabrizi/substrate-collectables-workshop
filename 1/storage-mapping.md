@@ -105,6 +105,10 @@ Update your simple storage example to now store a map from an `AccountId` to a `
 
 [embedded-code-final](./assets/1.4-finished-code.rs ':include :type=code embed-final')
 
+#### ** Previous Chapter Solution **
+
+[embedded-code-previous](./assets/1.3-finished-code.rs ':include :type=code embed-previous')
+
 <!-- tabs:end -->
 
 ---

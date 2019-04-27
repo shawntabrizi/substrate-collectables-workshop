@@ -16,7 +16,7 @@ pub trait Trait: balances::Trait {}
 
 decl_storage! {
     trait Store for Module<T: Trait> as KittyStorage {
-        OwnedKitty: map T::AccountId => Kitty<T::Hash, T::Balance>;
+        OwnedKitty get(kitty_of_owner): map T::AccountId => Kitty<T::Hash, T::Balance>;
     }
 }
 

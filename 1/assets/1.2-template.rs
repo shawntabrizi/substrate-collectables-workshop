@@ -1,5 +1,7 @@
-// ACTION: import any required libraries here
-//      HINT: Use errors from the Rust compiler to help you
+// ACTION: To store a value, you need to import `support::StorageValue`
+//   HINT: You can simply add `StorageValue` to the list below since
+//         all these dependencies import from `support`.
+use support::{decl_storage, decl_module};
 
 pub trait Trait: system::Trait {}
 

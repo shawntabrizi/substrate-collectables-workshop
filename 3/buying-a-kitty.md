@@ -108,4 +108,8 @@ Follow the template provided to program in the necessary code to complete the `b
 
 [embedded-code-final](./assets/3.3-finished-code.rs ':include :type=code embed-final')
 
+#### ** Previous Chapter Solution **
+
+[embedded-code-previous](./assets/3.2-finished-code.rs ':include :type=code embed-previous')
+
 <!-- tabs:end -->

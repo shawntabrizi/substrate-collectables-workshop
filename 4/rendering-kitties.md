@@ -219,4 +219,8 @@ Also think about how you might need to change the `KittyCards` component if you 
 
 [embedded-code-final](./assets/4.4-finished-code.js ':include :type=code embed-final')
 
+#### ** Previous Chapter Solution **
+
+[embedded-code-previous](./assets/4.3-finished-code.rs ':include :type=code embed-previous')
+
 <!-- tabs:end -->

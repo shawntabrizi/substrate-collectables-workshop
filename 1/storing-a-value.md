@@ -73,6 +73,10 @@ Use the template to create a `set_value()` function which will allow a user to s
 
 [embedded-code-final](./assets/1.3-finished-code.rs ':include :type=code embed-final')
 
+#### ** Previous Chapter Solution **
+
+[embedded-code](./assets/1.2-finished-code.rs ':include :type=code embed-previous')
+
 <!-- tabs:end -->
 
 ---

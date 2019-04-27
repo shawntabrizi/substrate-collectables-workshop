@@ -25,7 +25,7 @@ decl_event!(
     {
         Created(AccountId, Hash),
         // ACTION: Create a `PriceSet` event here
-        //      HINT: Do you need a new type for this event? (yes)
+        //   HINT: Do you need a new type for this event? (yes)
     }
 );
 
@@ -77,8 +77,8 @@ decl_module! {
             // ACTION: Check that the kitty with `kitty_id` exists
 
             // ACTION: Check if owner exists for `kitty_id`
-            //      - If it does, check that `sender` is the `owner`
-            //      - If it doesn't, return an `Err()` that no `owner` exists
+            //         - If it does, check that `sender` is the `owner`
+            //         - If it doesn't, return an `Err()` that no `owner` exists
 
             let mut kitty = Self::kitty(kitty_id);
             
@@ -87,9 +87,9 @@ decl_module! {
             // ACTION: Update the kitty in storage
 
             // ACTION: Deposit a `PriceSet` event with relevant data
-            //      - owner
-            //      - kitty id
-            //      - the new price
+            //         - owner
+            //         - kitty id
+            //         - the new price
 
             Ok(())
         }

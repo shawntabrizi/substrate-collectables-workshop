@@ -106,11 +106,10 @@ decl_module! {
 impl<T: Trait> Module<T> {
     fn mint(to: T::AccountId, kitty_id: T::Hash, new_kitty: Kitty<T::Hash, T::Balance>) -> Result {
         // ACTION: Refactored code goes here
-        //      NOTE: Some variables have been renamed to generalize the function
-        //
-        // In the end, you should remember add the following call to `create_kitty()`:
-        // `Self::mint(sender, random_hash, new_kitty)?;`
-        //      HINT: This `mint()` function has checks which could fail AND will write to storage, so place it carefully
+        //   NOTE: Some variables have been renamed to generalize the function
+        //         In the end, you should remember add the following call to `create_kitty()`:
+        //         `Self::mint(sender, random_hash, new_kitty)?;`
+        //   HINT: This `mint()` function has checks which could fail AND will write to storage, so place it carefully
 
         Ok(())
     }

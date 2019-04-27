@@ -64,6 +64,10 @@ Follow the template to introduce our final set of storage items, and make sure t
 
 [embedded-code-final](./assets/2.4-finished-code.rs ':include :type=code embed-final')
 
+#### ** Previous Chapter Solution **
+
+[embedded-code-previous](./assets/2.3-finished-code.rs ':include :type=code embed-previous')
+
 <!-- tabs:end -->
 
 ---

@@ -13,7 +13,7 @@ decl_module! {
     pub struct Module<T: Trait> for enum Call where origin: T::Origin {
 
         fn set_value(origin, value: u64) -> Result {
-            let _sender = ensure_signed(origin)?;
+            let sender = ensure_signed(origin)?;
 
             <Value<T>>::put(value);
 

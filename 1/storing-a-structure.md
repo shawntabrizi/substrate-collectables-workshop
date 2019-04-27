@@ -105,6 +105,10 @@ We will also have `gen` start as `0`.
 
 [embedded-code-final](./assets/1.6-finished-code.rs ':include :type=code embed-final')
 
+#### ** Previous Chapter Solution **
+
+[embedded-code-previous](./assets/1.5-finished-code.rs ':include :type=code embed-previous')
+
 <!-- tabs:end -->
 
 ---

@@ -115,7 +115,7 @@ decl_module! {
             let mut kitty = Self::kitty(kitty_id);
 
             // ACTION: Get the `kitty_price` and check that it is not zero
-            //      HINT:  `runtime_primitives::traits::Zero` allows you to call `kitty_price.is_zero()` which returns a bool
+            //   HINT:  `runtime_primitives::traits::Zero` allows you to call `kitty_price.is_zero()` which returns a bool
 
             // ACTION: Check `kitty_price` is less than or equal to max_price
 
@@ -126,10 +126,10 @@ decl_module! {
             // ACTION: Reset kitty price back to zero, and update the storage
 
             // ACTION: Create an event for the cat being bought with relevant details
-            //      - new owner
-            //      - old owner
-            //      - the kitty id
-            //      - the price sold for
+            //         - new owner
+            //         - old owner
+            //         - the kitty id
+            //         - the price sold for
 
             Ok(())
         }

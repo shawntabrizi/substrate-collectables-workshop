@@ -116,6 +116,10 @@ Follow the template to add new storage items, and update your `create_kitty` fun
 
 [embedded-code-final](./assets/2.3-finished-code.rs ':include :type=code embed-final')
 
+#### ** Previous Chapter Solution **
+
+[embedded-code-previous](./assets/2.2-finished-code.rs ':include :type=code embed-previous')
+
 <!-- tabs:end -->
 
 ---

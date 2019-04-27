@@ -135,15 +135,15 @@ impl<T: Trait> Module<T> {
 
     fn transfer_from(from: T::AccountId, to: T::AccountId, kitty_id: T::Hash) -> Result {
         // ACTION: Check if owner exists for `kitty_id`
-        //      - If it does, sanity check that `from` is the `owner`
-        //      - If it doesn't, return an `Err()` that no `owner` exists
+        //         - If it does, sanity check that `from` is the `owner`
+        //         - If it doesn't, return an `Err()` that no `owner` exists
 
         let owned_kitty_count_from = Self::owned_kitty_count(&from);
         let owned_kitty_count_to = Self::owned_kitty_count(&to);
 
         // ACTION: Used `checked_add()` to increment the `owned_kitty_count_to` by one into `new_owned_kitty_count_to`
         // ACTION: Used `checked_sub()` to increment the `owned_kitty_count_from` by one into `new_owned_kitty_count_from`
-        //      - Return an `Err()` if overflow or underflow
+        //         - Return an `Err()` if overflow or underflow
 
         // "Swap and pop"
         // We our convenience storage items to help simplify removing an element from the OwnedKittiesArray
@@ -160,15 +160,15 @@ impl<T: Trait> Module<T> {
         // ACTION: Update OwnedKittiesIndex for `kitty_id`
 
         // ACTION: Update OwnedKittiesArray to remove the element from `from`, and add an element to `to`
-        //      - HINT: The last element in OwnedKittiesArray(from) is `new_owned_kitty_count_from`
+        //   HINT: The last element in OwnedKittiesArray(from) is `new_owned_kitty_count_from`
         //              The last element in OwnedKittiesArray(to) is `owned_kitty_count_to`
 
         // ACTION: Update the OwnedKittiesCount for `from` and `to`
         
         // ACTION: Deposit a `Transferred` event with the relevant data: 
-        //      - from
-        //      - to
-        //      - kitty_id
+        //         - from
+        //         - to
+        //         - kitty_id
         
         Ok(())
     }

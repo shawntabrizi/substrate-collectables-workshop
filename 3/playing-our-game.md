@@ -49,4 +49,8 @@ In the next section we will be creating a custom UI for this game using Substrat
 
 [embedded-code-final](./assets/3.5-finished-code.rs ':include :type=code embed-final')
 
+#### ** Previous Chapter Solution **
+
+[embedded-code-previous](./assets/3.4-finished-code.rs ':include :type=code embed-previous')
+
 <!-- tabs:end -->

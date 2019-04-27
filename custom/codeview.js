@@ -23,9 +23,11 @@ window.$docsify.plugins.push(
             var htmlDoc = parser.parseFromString(html, 'text/html');
             var template_element = htmlDoc.getElementsByClassName("lang-embed-template")[0];
             var final_element = htmlDoc.getElementsByClassName("lang-embed-final")[0];
+            var previous_element = htmlDoc.getElementsByClassName("lang-embed-previous")[0];
 
             window.code_template = template_element ? template_element.innerText : null;
             window.code_final = final_element ? final_element.innerText : null;
+            window.code_previous = previous_element ? previous_element.innerText: null;
 
             if (template_element || final_element) {
                 var two_col = [
@@ -54,6 +56,14 @@ window.$docsify.plugins.push(
             hintRevealed = false;
             if (document.getElementById("editor")) {
                 var editor_bar = document.getElementById("editor_bar");
+
+                if (window.code_previous && window.code_template) {
+                    var previous_button = document.createElement("button");
+                    previous_button.innerHTML = "&#8656; &#x1D321;";
+                    previous_button.classList += "editor-button";
+                    previous_button.onclick = function () { loadDiffEditor(window.code_previous, window.code_template); };
+                    editor_bar.appendChild(previous_button);
+                }
 
                 if (window.code_template) {
                     var template_button = document.createElement("button");

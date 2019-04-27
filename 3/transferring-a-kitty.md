@@ -48,4 +48,8 @@ Follow the template to complete the `transfer_from()` private function to power 
 
 [embedded-code-final](./assets/3.2-finished-code.rs ':include :type=code embed-final')
 
+#### ** Previous Chapter Solution **
+
+[embedded-code-previous](./assets/3.1-finished-code.rs ':include :type=code embed-previous')
+
 <!-- tabs:end -->

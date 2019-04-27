@@ -1,5 +1,7 @@
-use support::{decl_storage, decl_module, StorageValue, dispatch::Result};
-// ACTION: Import any required libraries here
+// ACTION: Import `support::dispatch::Result` in order to use the correct
+//         `Result` return type for `set_value`.
+//   HINT: Again, you only need to add `dispatch::Result` to the list below.
+use support::{decl_storage, decl_module, StorageValue};
 
 pub trait Trait: system::Trait {}
 

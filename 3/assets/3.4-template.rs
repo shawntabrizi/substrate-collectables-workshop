@@ -155,11 +155,11 @@ decl_module! {
             }
 
             // ACTION: Create a `new_kitty` using: 
-            //      - `random_hash` as `id`
-            //      - `final_dna` as `dna`
-            //      - 0 as `price`
-            //      - the max of the parent's `gen` + 1
-            //          - Hint: `rstd::cmp::max(1, 5) + 1` is `6`
+            //         - `random_hash` as `id`
+            //         - `final_dna` as `dna`
+            //         - 0 as `price`
+            //         - the max of the parent's `gen` + 1
+            //   HINT: `rstd::cmp::max(1, 5) + 1` is `6`
 
             // ACTION: `mint()` your new kitty
 

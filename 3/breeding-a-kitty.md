@@ -87,4 +87,8 @@ Finally, if you are feeling brave, do a live runtime upgrade to add this new fea
 
 [embedded-code-final](./assets/3.4-finished-code.rs ':include :type=code embed-final')
 
+#### ** Previous Chapter Solution **
+
+[embedded-code-previous](./assets/3.3-finished-code.rs ':include :type=code embed-previous')
+
 <!-- tabs:end -->

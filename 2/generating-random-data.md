@@ -76,4 +76,8 @@ Follow the instructions on the template for this section to get things running!
 
 [embedded-code-final](./assets/2.1-finished-code.rs ':include :type=code embed-final')
 
+#### ** Previous Chapter Solution **
+
+[embedded-code-previous](../1/assets/1.6-finished-code.rs ':include :type=code embed-previous')
+
 <!-- tabs:end -->
