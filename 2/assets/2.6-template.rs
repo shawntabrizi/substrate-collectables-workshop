@@ -103,6 +103,7 @@ decl_module! {
     }
 }
 
+// NOTE: We added this `impl` template for you
 impl<T: Trait> Module<T> {
     fn mint(to: T::AccountId, kitty_id: T::Hash, new_kitty: Kitty<T::Hash, T::Balance>) -> Result {
         // ACTION: Refactored code goes here

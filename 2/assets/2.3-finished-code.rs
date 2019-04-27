@@ -52,7 +52,8 @@ decl_module! {
 
             let all_kitties_count = Self::all_kitties_count();
 
-            let new_all_kitties_count = all_kitties_count.checked_add(1).ok_or("Overflow adding a new kitty to total supply")?;
+            let new_all_kitties_count = all_kitties_count.checked_add(1)
+            .ok_or("Overflow adding a new kitty to total supply")?;
 
             let nonce = <Nonce<T>>::get();
             let random_hash = (<system::Module<T>>::random_seed(), &sender, nonce)

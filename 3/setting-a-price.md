@@ -62,6 +62,6 @@ Follow the template in this section to help you create the `set_price()` functio
 
 #### ** Previous Chapter Solution **
 
-[embedded-code-previous](./assets/2.6-finished-code.rs ':include :type=code embed-previous')
+[embedded-code-previous](../2/assets/2.6-finished-code.rs ':include :type=code embed-previous')
 
 <!-- tabs:end -->

@@ -1,5 +1,6 @@
+// ACTION: Add `support::decl_event` to use the `decl_event!` macro
 use support::{decl_storage, decl_module, StorageValue, StorageMap,
-    dispatch::Result, ensure, decl_event};
+    dispatch::Result, ensure};
 use system::ensure_signed;
 use runtime_primitives::traits::{As, Hash};
 use parity_codec::{Encode, Decode};
@@ -15,9 +16,10 @@ pub struct Kitty<Hash, Balance> {
 
 pub trait Trait: balances::Trait {
     // ACTION: Define your `Event` type here
-    //      REMINDER: It needs these traits: `From<Event<Self>> + Into<<Self as system::Trait>::Event>`
+    //   HINT: It needs these traits: `From<Event<Self>> + Into<<Self as system::Trait>::Event>`
 }
 
+// NOTE: We have added this `decl_event!` template for you
 decl_event!(
     pub enum Event<T>
     where

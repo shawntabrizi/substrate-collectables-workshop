@@ -71,6 +71,7 @@ decl_module! {
             Ok(())
         }
 
+        // NOTE: We added this `set_price` template for you
         fn set_price(origin, kitty_id: T::Hash, new_price: T::Balance) -> Result {
             let sender = ensure_signed(origin)?;
 
