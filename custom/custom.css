@@ -239,3 +239,14 @@ section.cover .cover-main > p:last-child a:last-child {
 }
 
 /* End Custom Styling for Code Blocks */
+
+/* Start Custom Styling for Pagination */
+
+.pagination-item-label {
+    color: #FF1864;
+    font-size: 2.2em !important;
+    font-weight: 700;
+    padding-bottom: 0.5em;
+}
+
+/* End Custm Styling for Pagination */
