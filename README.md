@@ -1,6 +1,8 @@
 # [Substrate Collectables][main link]
 > The interactive hands-on build-your-first-blockchain with [Substrate][] workshop
 
+[Getting Started Slides](https://docs.google.com/presentation/d/1dhaoLb5V2K_vDe4EJlUcKwePD1nMktr57fOdSo8bHns/edit#slide=id.g45ee0ba2ab_3_12)
+
 ![A screenshot of Substrate kitties](./media/substrate-collectables.png)
 
 ## What is this?
