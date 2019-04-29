@@ -20,9 +20,10 @@ We won't touch the `substrate-ui` folder until Chapter 4 of this workshop, but a
 
 Instead, we will primarily be working in the `substrate-node-template` folder which contains a minimal, working Substrate node which we will start to hack on top of.
 
-Let's rename our project and project folders using the `substrate-package-rename.sh` script:
+Let's go into the package folder and rename our project and project folders using the `substrate-package-rename.sh` script:
 
 ```bash
+cd substrate-package
 ./substrate-package-rename.sh substratekitties <your_name>
 ```
 
