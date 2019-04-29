@@ -4,7 +4,7 @@ Common Patterns Moving Forward
 ## The Rust Compiler is Your Friend
 
 One of the many advantages of using a strongly typed programming language like Rust is that the compiler is very helpful,
-adding suggestions on how to fix errors. See e.g. https://hackernoon.com/programming-in-rust-the-good-the-bad-the-ugly-d06f8d8b7738 FMI.
+adding suggestions on how to fix errors. See e.g. https://jvns.ca/blog/2018/01/13/rust-in-2018--way-easier-to-use/ FMI.
 
 ## Making Updates to Your Runtime
 
