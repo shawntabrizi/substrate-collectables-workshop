@@ -43,7 +43,7 @@
 
 <!-- tabs:start -->
 
-#### ** Solution **
+#### ** 解答 **
 
 [embedded-code-final](../../3/assets/3.5-finished-code.rs ':include :type=code embed-final')
 

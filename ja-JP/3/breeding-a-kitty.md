@@ -1,4 +1,4 @@
-キティの交配
+キティを交配する
 ===
 
 おそらくオリジナルのCryptoKittiesゲームの最もユニークな部分は、既存のキティ同士の掛け合わせで新しいキティを生み出せることです。
@@ -57,7 +57,7 @@ submit the following extrinsic: sudo > sudo(proposal)
 
 それから、この呼び出しへの入力として`compact.wasm`ファイルを使います。この`Sudo`関数は、ジェネシス設定で`admin`として設定されたアカウントでしか呼び出しができません。基本的には**Alice**を使ってコールを行ってください。
 
-**Submit Transaction**を押してブロックが作成されると、ランタイムのアップグレードが成功したことを示す`Sudid`イベントが表示されるはずです。失敗する場合は、ノードに表示されるエラーメッセージを確認してください。
+**Submit Transaction** を押してブロックが作成されると、ランタイムのアップグレードが成功したことを示す`Sudid`イベントが表示されるはずです。失敗する場合は、ノードに表示されるエラーメッセージを確認してください。
 
 ![Image of the Sudid event](../../3/assets/sudid-event.png)
 
@@ -67,7 +67,7 @@ submit the following extrinsic: sudo > sudo(proposal)
 
 アップグレード前に保存された状態（キティ、残高など）がある場合は、ランタイムアップグレード後もこの状態が維持されていることがわかります。この時点で、あなたのブロックチェーンは、Substrateが提供するWasmインタプリタを通して、Wasmバージョンのランタイムを実行しています。このランタイムはブロックチェーン上で動作します。つまり、チェーンを実行しているすべてのノードと同期され、ネットワーク全体の同期も保たれます。インタプリタでWasmを処理するのはネイティブコードを処理するより遅いので、`cargo build --release`で新しい実行ファイルをビルドしてノードを再起動することでいつでもフルノードアップグレードを行うことができます。
 
-## あなたの番です！
+## 演習してみよう！
 
 第2章で`mint()`関数をリファクタリングしたことは、今回の`breed()`関数を実装する上で非常に役立つと気づくでしょう。２匹のキティをインプットとして、遺伝子選択アルゴリズムを使って新しいキティを生成してください。
 
@@ -79,11 +79,11 @@ submit the following extrinsic: sudo > sudo(proposal)
 
 <!-- tabs:start -->
 
-#### ** Template **
+#### ** テンプレート **
 
 [embedded-code](../../3/assets/3.4-template.rs ':include :type=code embed-template')
 
-#### ** Solution **
+#### ** 解答 **
 
 [embedded-code-final](../../3/assets/3.4-finished-code.rs ':include :type=code embed-final')
 

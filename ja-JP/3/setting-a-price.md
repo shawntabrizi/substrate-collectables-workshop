@@ -9,7 +9,7 @@
 
 すべての`Kitty`オブジェクトはデフォルトで0に設定された`price`属性を持っています。もしキティの価格を更新したいのであれば、既存の`Kitty`オブジェクトを取得し、価格を更新した後に、それをストレージにプッシュバックする必要があります。
 
-Rustで値を更新するには、変数をmutable（`mut`）として宣言する必要があることに注意してください。([ミュータブルについての解説](https://doc.rust-jp.rs/the-rust-programming-language-ja/1.6/book/mutability.html)): 
+Rustで値を更新するには、変数をmutable（`mut`）として宣言する必要があることに注意してください。([ミュータブルについての解説](https://doc.rust-jp.rs/the-rust-programming-language-ja/1.6/book/mutability.html)):
 
 ```rust
 let mut object = Self::get_object(object_id);
@@ -22,7 +22,7 @@ object.value = new_value;
 
 `create_kitty()`関数はどのユーザーでも署名メッセージと共に呼び出すことができますが、既存オブジェクトを変更する関数を作成するときには、許可されたユーザー(所有者)のみがそれらの呼び出しができることを確認する必要があります。
 
-`Kitty`オブジェクトを修正するためには、まず、kittyの`owner`を取得し、それが`sender`と同じであることを`confirm`する必要があります。
+`Kitty`オブジェクトを修正するためには、まず、kittyの`owner`を取得し、それが`sender`と同じであることを`ensure`する必要があります。
 
 与えられた`Hash`は生成後に所有されている`Kitty`をまだ指していないかもしれないため、`KittyOwner`は`Option <T::AccountId>`へのマッピングを保存しています。つまり、キティの`所有者`を取得するたびに、それが `None`を返す可能性がある問題を解決する必要があります。これは、不適切なユーザー入力や、ランタイム自体の問題によって引き起こされる可能性がありますが、最初にチェックを行うことでこれらの種類の問題を防ぐことができます。
 
@@ -44,19 +44,19 @@ ensure!(owner == sender, "You are not the owner");
 ensure!(<MyObject<T>>::exists(object_id));
 ```
 
-## あなたの番です！
+## 演習してみよう!
 
-これであなたの`Kitty`オブジェクトを更新するのに必要な全ての情報が手に入りました。ここでも忘れてはいけないのが、**"最初に確認し、最後に書き込む"** です。実際にストレージを変更する前に、適切なチェックをすべて行っていることを確認してください。また、ユーザーが常に処理に必要なデータを提供してくると想定しないようにしましょう。
+これであなたの`Kitty`オブジェクトを更新するのに必要な全ての情報が手に入りました。ここでも忘れてはいけないのが、**"まず検証せよ、書き込むのは最後だ"** の法則です。実際にストレージを変更する前に、適切なチェックをすべて行っていることを確認してください。また、ユーザーが常に処理に必要なデータを提供してくると想定しないようにしましょう。
 
 提供されているテンプレートに従って、`set_price()`関数を作成してください。
 
 <!-- tabs:start -->
 
-#### ** Template **
+#### ** テンプレート **
 
 [embedded-code](../../3/assets/3.1-template.rs ':include :type=code embed-template')
 
-#### ** Solution **
+#### ** 解答 **
 
 [embedded-code-final](../../3/assets/3.1-finished-code.rs ':include :type=code embed-final')
 
