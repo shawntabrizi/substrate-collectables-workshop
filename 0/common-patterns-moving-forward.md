@@ -3,9 +3,7 @@ Common Patterns Moving Forward
 
 ## The Rust Compiler is Your Friend
 
-One of the many advantages of using a strongly typed programming language like Rust
-
-[TODO: Make it seem like RUST is your friend and will help you add code when needed]
+One of the many advantages of using a strongly typed programming language like Rust is that the compiler can be very helpful and even suggest how to fix errors in your code. You can learn more about how the Rust compiler help you by reading [this post](https://jvns.ca/blog/2018/01/13/rust-in-2018--way-easier-to-use/). This will be obvious to you the most you write with Rust. To get started, you should check out the [Rust Book](https://doc.rust-lang.org/book/).
 
 ## Making Updates to Your Runtime
 
@@ -42,6 +40,7 @@ After all this, then you will be able to start up your node again, fresh, with a
 Remember this pattern; you will be using it a lot.
 
 ---
+
 **Learn More**
 
 You should always be using the latest version of Rust stable and nightly when hacking on Substrate.
