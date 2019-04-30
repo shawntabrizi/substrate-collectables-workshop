@@ -15,6 +15,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="./media/favicons/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="./media/favicons/favicon-16x16.png">
   <link rel="manifest" href="./media/favicons/site.webmanifest">
+  <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
 </head>
 
 <body>
@@ -57,6 +58,17 @@
   <!-- Custom JS for CodeView-->
   <script type="text/javascript" src="//unpkg.com/monaco-editor@0.15.6/min/vs/loader.js"></script>
   <script src="./custom/codeview.js"></script>
+  <script>
+    // Add TogetherJS configuration here...
+  </script>
+  <script src="https://togetherjs.com/togetherjs-min.js"></script>
+  <script>
+    $(function () {
+      $('<button class="start-togetherjs">Start TogetherJS</button>')
+        .prependTo( ".markdown-section" )
+        .click(TogetherJS);
+    });
+  </script>
 </body>
 
 </html>

@@ -239,3 +239,11 @@ section.cover .cover-main > p:last-child a:last-child {
 }
 
 /* End Custom Styling for Code Blocks */
+
+.start-togetherjs {
+    float: right;
+    margin-right: 2em;
+    position: sticky;
+    top: 2em;
+    width: 15em;
+}
