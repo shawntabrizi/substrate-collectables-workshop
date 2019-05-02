@@ -26,7 +26,7 @@ To store these basic storage values, you need to import the `support::StorageVal
 
 ### Working with a Storage Value
 
-The functions used to access a `StorageValue` are defined in the [`srml/support` folder](https://github.com/paritytech/substrate/blob/master/srml/support/src/storage/generator.rs#L98):
+The functions used to access a `StorageValue` are defined in [`srml_support::storage`](https://crates.parity.io/srml_support/storage/trait.StorageValue.html):
 
 ```rust
 /// Get the storage key.
