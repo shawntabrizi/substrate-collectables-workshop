@@ -11,7 +11,7 @@ As long as you start with this Substrate package, you should be able to complete
 git clone https://github.com/shawntabrizi/substrate-package
 ```
 
-The `substrate-package` repository consists of two folder:
+The `substrate-package` repository consists of two folders:
 
 1. `substrate-node-template`
 2. `substrate-ui`
