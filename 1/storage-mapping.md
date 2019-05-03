@@ -44,7 +44,7 @@ To use a storage map, you will need to import the `support::StorageMap` type.
 
 ### Working with a StorageMap
 
-The functions used to access a `StorageMap` are in [the same place as `StorageValue`](https://github.com/paritytech/substrate/blob/master/srml/support/src/storage/generator.rs#L162):
+The functions used to access a `StorageMap` are in [the same place as `StorageValue`](https://crates.parity.io/srml_support/storage/trait.StorageMap.html):
 
 ```rust
 /// Get the prefix key in storage.
