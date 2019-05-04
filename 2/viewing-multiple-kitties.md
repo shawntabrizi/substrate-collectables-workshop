@@ -6,7 +6,7 @@ We added a lot of items to our runtime storage since we last played around with 
 Remember to start a clean version of your chain before jumping into the UI:
 
 ```
-./build.sh
+./scripts/build.sh
 cargo build --release
 ./target/release/substratekitties purge-chain --dev
 ./target/release/substratekitties --dev

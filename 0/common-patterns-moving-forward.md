@@ -19,7 +19,7 @@ The Wasm file is used as a part of the compilation of the standard binary, so it
 The pattern should be:
 
 ```bash
-./build.sh               // Build Wasm
+./scripts/build.sh               // Build Wasm
 cargo build --release    // Build binary
 ```
 

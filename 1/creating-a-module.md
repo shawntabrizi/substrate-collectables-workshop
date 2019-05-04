@@ -108,7 +108,7 @@ Note that we have added three `types` to this definition (`Module`, `Call`, `Sto
 As is, this code is valid and should compile. Give it a shot with:
 
 ```bash
-./build.sh
+./scripts/build.sh
 cargo build --release
 ```
 
@@ -117,7 +117,7 @@ cargo build --release
 If you have not already, follow the instructions on this page to set up your `substrate-node-template`. If you completed everything successfully, you should be able to compile your code successfully without errors:
 
 ```bash
-./build.sh
+./scripts/build.sh
 cargo build --release
 ```
 

@@ -107,7 +107,7 @@ construct_runtime!(
 这样，这段代码是有效的，并且应该能编译通过。试一试：
 
 ```bash
-./build.sh
+./scripts/build.sh
 cargo build --release
 ```
 
@@ -116,7 +116,7 @@ cargo build --release
 如果你还没有准备好，请按照此页面上的说明设置你的 `substrate-node-template`。如果你已成功完成所有操作，则应该能够成功编译代码而不会出现错误：
 
 ```bash
-./build.sh
+./scripts/build.sh
 cargo build --release
 ```
 

@@ -5,7 +5,7 @@
 运行以下命令后：
 
 ```bash
-./build.sh
+./scripts/build.sh
 cargo build --release
 ./target/release/substratekitties purge-chain --dev
 ```

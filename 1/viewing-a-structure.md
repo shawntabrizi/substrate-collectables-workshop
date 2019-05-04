@@ -8,7 +8,7 @@ We have introduced a custom structure to our chain, and while the Polkadot-JS Ap
 > REMINDER: Remember to reset your chain so that you start of fresh when interacting with the UI:
 >
 > ```
-> ./build.sh
+> ./scripts/build.sh
 > cargo build --release
 > ./target/release/substratekitties purge-chain --dev
 > ./target/release/substratekitties --dev

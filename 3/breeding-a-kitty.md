@@ -37,7 +37,7 @@ Rather than purging your chain and rebuilding the native binaries to introduce t
 Keep your node running from the previous section, and in a new terminal run just:
 
 ```
-./build.sh
+./scripts/build.sh
 ```
 
 This will generate a new compact Wasm binary in the following path:

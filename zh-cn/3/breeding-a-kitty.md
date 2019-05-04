@@ -36,7 +36,7 @@ Substrate 的一个很酷的功能是能够进行无分叉的实时链升级，�
 保持上一节的节点一直运行，并在新的终端中运行：
 
 ```bash
-./build.sh
+./scripts/build.sh
 ```
 
 这将在以下路径中生成一个新的 compact Wasm binary：

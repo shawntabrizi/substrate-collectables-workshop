@@ -5,7 +5,7 @@ Even though this code should compile without errors, now would be a good time to
 After running:
 
 ```bash
-./build.sh
+./scripts/build.sh
 cargo build --release
 ./target/release/substratekitties purge-chain --dev
 ```

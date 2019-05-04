@@ -20,7 +20,7 @@ Wasm 文件用作标准二进制文件编译的一部分，因此在构建可执
 模式应该是：
 
 ```bash
-./build.sh               // Build Wasm
+./scripts/build.sh               // Build Wasm
 cargo build --release    // Build binary
 ```
 

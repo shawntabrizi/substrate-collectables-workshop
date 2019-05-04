@@ -7,7 +7,7 @@
 > 提示：请记住重置你的链，以便在与 UI 交互时重新开始：
 >
 > ```bash
-> ./build.sh
+> ./scripts/build.sh
 > cargo build --release
 > ./target/release/substratekitties purge-chain --dev
 > ./target/release/substratekitties --dev

@@ -5,7 +5,7 @@
 在进入 UI 之前，请记住启动一条全新的链：
 
 ```bash
-./build.sh
+./scripts/build.sh
 cargo build --release
 ./target/release/substratekitties purge-chain --dev
 ./target/release/substratekitties --dev
