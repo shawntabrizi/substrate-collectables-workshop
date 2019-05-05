@@ -49,7 +49,7 @@ cargo build --release    // Build binary
 我们在 `build.sh` 所在的目录中提供了另一个脚本，你应该在每次启动一个新项目时运行它：
 
 ```bash
-./init.sh
+./scripts/init.sh
 ```
 
 此脚本只是简单更新 Rust 版本和相关工具。确保你没有奇怪的编译错误。如果你有相关问题，请记得联系我们，具体方式我们已经在本教程的 instructions 部分提到过了。
