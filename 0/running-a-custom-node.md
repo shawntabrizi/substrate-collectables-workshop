@@ -31,7 +31,7 @@ Then let's go into the now renamed `substratekitties` folder and build our pre-c
 
 ```bash
 cd substratekitties
-./init.sh
+./scripts/init.sh
 ./scripts/build.sh
 cargo build --release
 ```
