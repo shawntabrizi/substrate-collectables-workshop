@@ -4,7 +4,7 @@
 
 打开 **Chrome** 并导航至:
 
-https://substrate-ui.parity.io/
+https://polkadot.js.org/apps/
 
 要将 UI 指向 local node，你需要调整 **设置**，只需从下拉列表中选择 'Local Node (127.0.0.1:9944)'：
 
