@@ -13,6 +13,8 @@ substratekitties
         +-- lib.rs
         |
         +-- * substratekitties.rs
+	|
+	+-- template.rs 
 ```
 
 **substratekitties<span>.</span>rs**
