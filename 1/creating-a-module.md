@@ -17,6 +17,8 @@ substratekitties
 	+-- template.rs 
 ```
 
+> **Note:** There is also a `template.rs` file provided by the `substrate-node-template`. In general, you can start building your new modules with that template. However, for the purposes of working from scratch, we will start in a new file.
+
 **substratekitties<span>.</span>rs**
 
 ```rust
