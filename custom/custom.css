@@ -250,3 +250,14 @@ section.cover .cover-main > p:last-child a:last-child {
 }
 
 /* End Custm Styling for Pagination */
+
+/* Gitter */
+
+@media (max-width: 600px) {
+    .gitter-open-chat-button,
+    .gitter-chat-embed {
+        display: none;
+    }
+}
+
+/* End Gitter */
