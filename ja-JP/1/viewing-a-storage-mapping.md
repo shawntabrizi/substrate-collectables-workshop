@@ -1,7 +1,7 @@
 Polkadot UIで今までの作業を確認する
 ===
 
-そろそろ今までのコードをチェックするのに良い時期です。間違えがなげれば、エラーなしにコンパイルするはずです。
+そろそろ今までのコードをチェックしてみましょう。間違えがなげれば、エラーなしにコンパイルするはずです。
 
 以下を実行してビルドを行う:
 
@@ -21,13 +21,13 @@ cargo build --release
 
 ##トランザクションを送信する
 
-アプリの**Extrinsics**へ行き、 "from extrinsic section"ドロップダウンを使って選択します：
+アプリの **Extrinsics** へ行き、 "from extrinsic section" ドロップダウンを使って選択します：
 
 ```
 substratekitties > setValue(value)
 ```
 
-値を入力ご、`Submit Transaction`を押しましょう：
+値を入力後、`Submit Transaction`を押しましょう：
 
 ![Submit a storage mapping in the Polkadot-JS Apps UI](../../1/assets/submit-storage-mapping.png)
 
@@ -35,7 +35,7 @@ substratekitties > setValue(value)
 
 値をストレージに入力するトランザクションを送信したので、実際に値がそこに保存されているかを確認する必要があります。
 
-アプリの**Chain state**に移動して選択します:
+アプリの **Chain state** に移動して選択します:
 
 ```
 kittyStorage > value(AccountId): u64

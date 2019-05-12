@@ -12,7 +12,7 @@
 <system::Module<T>>::random_seed()
 ```
 
-Substrateは、前のブロックのエントロピーを使用して、後続の各ブロックの新しいランダムデータを生成する安全な混合アルゴリズムを使用します。
+Substrateは、前のブロックのエントロピーを使用して、後続の各ブロックの新しいランダムデータを生成する安全なミキシングアルゴリズムを使用します。
 
 ただし、前のブロックに依存しているため、完全な効果を発揮するのに80ブロック以上必要であり、それまではシードが変化しないかもしれません。
 
@@ -42,7 +42,7 @@ let random_hash = (random_seed, sender, nonce).using_encoded(<T as system::Trait
 
 ## 衝突検証
 
-複数のキティを追跡するには、ユニークなIDをグローバルキーとして使用するようにロジックを標準化すると便利です。`Kitty`オブジェクトの`id`はその目的を果たしますが、新しくストレージに追加されるキティの`id`が既存のキティの`id`と被ることが無いことを保証しなくてはなりません。
+複数のキティを追跡するには、ユニークなIDをグローバルキーとして使用するようにロジックを標準化すると便利です。`Kitty`オブジェクトの`id`はその目的を果たしますが、新しくストレージに追加されるキティの`id`が既存のキティの`id`と被りが無いことを保証しなくてはなりません。
 
 衝突検証には`id`（`Hash`）から`Kitty`オブジェクトへのマッピングとなる、新しいストレージ項目の`Kitties`を使います。
 
@@ -54,7 +54,7 @@ ensure!(!<Kitties<T>>::exists(new_id), "This new id already exists");
 
 ランダムに生成された2つのハッシュが衝突する可能性は低いですが、キティを生成するための他の方法を導入する可能性があるため、このチェックを行うことが重要です。
 
-## あなたの番です!
+## 演習してみよう!
 
 ユニークな特性をキティに持たせるために、ランダムデータを生成してユニークな`id`を作りましょう。
 
@@ -68,11 +68,11 @@ ensure!(!<Kitties<T>>::exists(new_id), "This new id already exists");
 
 <!-- tabs:start -->
 
-#### ** Template **
+#### ** テンプレート **
 
 [embedded-code](../../2/assets/2.1-template.rs ':include :type=code embed-template')
 
-#### ** Solution **
+#### ** 解答 **
 
 [embedded-code-final](../../2/assets/2.1-finished-code.rs ':include :type=code embed-final')
 

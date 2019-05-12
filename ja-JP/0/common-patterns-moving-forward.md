@@ -42,7 +42,7 @@ cargo build --release    // binaryのビルド
 今回紹介したパターンは開発で重要になるので、覚えてください。
 
 ---
-**詳細解説**
+**発展**
 
 Substrateをハックするときは、常に最新バージョンのRust stableとnightlyを使用してください。
 

@@ -84,7 +84,7 @@ Hash(32) [162, 202, 153, 236, 47, 9, 134, 176, 171, 201, 222, 149, 39, 69, 7, 4
 
 さらに、`allKittiesCount`の値が変わると、HTMLは自動的に更新されて最新の値を表します。これは、コンポーネントの内容を自動的に再レン​​ダリングするReactステートのおかげです。
 
-## あなたの番です！
+## 演習してみよう！
 
 テンプレートには、現在、`Subheader`があります：
 
@@ -96,11 +96,11 @@ Hash(32) [162, 202, 153, 236, 47, 9, 134, 176, 171, 201, 222, 149, 39, 69, 7, 4
 
 <!-- tabs:start -->
 
-#### ** Template **
+#### ** テンプレート **
 
 [embedded-code](../../4/assets/4.2-template.js ':include :type=code embed-template')
 
-#### ** Solution **
+#### ** 解答 **
 
 [embedded-code-final](../../4/assets/4.2-finished-code.js ':include :type=code embed-final')
 

@@ -100,7 +100,7 @@ construct_runtime!(
 ...
 ```
 
-## あなたの番です!
+## 演習してみよう!
 
 まずは、イベントをサポートするためにあなたのモジュールを更新する必要があります。ここまでで必要なことは全て教えましたので、あとはあなたがそれを全部つなぎ合わせなければなりません。
 
@@ -108,11 +108,11 @@ construct_runtime!(
 
 <!-- tabs:start -->
 
-#### ** Template **
+#### ** テンプレート **
 
 [embedded-code-template](../../2/assets/2.2-template.rs ':include :type=code embed-template')
 
-#### ** Solution **
+#### ** 解答 **
 
 [embedded-code-final](../../2/assets/2.2-finished-code.rs ':include :type=code embed-final')
 

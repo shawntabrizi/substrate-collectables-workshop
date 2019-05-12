@@ -6,7 +6,7 @@
     - [イントロダクション](ja-jp/0/introduction.md)
     - [セットアップ](ja-jp/0/setup.md)
     - [カスタムノードを立ち上げる](ja-jp/0/running-a-custom-node.md)
-    - [ノードと対話する](ja-jp/0/interacting-with-your-node.md)
+    - [ノードを触ってみる](ja-jp/0/interacting-with-your-node.md)
     - [進める上でよくあるパターン](ja-jp/0/common-patterns-moving-forward.md)
 
 - **#1 基礎**
@@ -33,7 +33,7 @@
 - **#3 Interactions**
 
     - [イントロダクション](ja-jp/3/introduction.md)
-    - [価格を設定する](ja-jp/3/setting-a-price.md)
+    - [キティの価格を設定する](ja-jp/3/setting-a-price.md)
     - [キティを送る](ja-jp/3/transferring-a-kitty.md)
     - [キティを買う](ja-jp/3/buying-a-kitty.md)
     - [キティを交配する](ja-jp/3/breeding-a-kitty.md)

@@ -40,7 +40,7 @@ import { KittyCards } from './KittyCards';
 私たちのkittyオブジェクトの場合は、このようになります：
 
 ```
-addCodecTransform('Kitty<Hash,Balance>', { 
+addCodecTransform('Kitty<Hash,Balance>', {
     id: 'Hash',
     dna: 'Hash',
     price: 'Balance',
@@ -186,14 +186,14 @@ function dnaToAttributes(dna) {
         fur: IMAGES.fur[attribute(3, 10)],
         mouth: IMAGES.mouth[attribute(4, 10)]
     };
-} 
+}
 ```
 
 キティDNAはバイト（0〜256）の配列であり、最初の5バイトをキティ用に選択された特定の属性を制御するためにマップします。属性ごとに256個の設定可能な値を設定できることだけでなく、最大256個の属性を設定することもできます。
 
 David Revoyによる[Cat Avatar Generator](https://framagit.org/Deevad/cat-avatar-generator/tree/master)プロジェクトを使用して画像に命を与えました。
 
-## あなたの番です！
+## 演習してみよう！
 
 `KittyCard`コンポーネントがどのように機能するのか理解できたので、それをあなたのSubstrate UIに実装しましょう。
 
@@ -217,11 +217,11 @@ React + JavaScript + Bondsの機能をテストしたいですか？私達はラ
 
 <!-- tabs:start -->
 
-#### ** Template **
+#### ** テンプレート **
 
 [embedded-code](../../4/assets/4.4-template.js ':include :type=code embed-template')
 
-#### ** Solution **
+#### ** 解答 **
 
 [embedded-code-final](../../4/assets/4.4-finished-code.js ':include :type=code embed-final')
 

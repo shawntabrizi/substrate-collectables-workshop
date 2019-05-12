@@ -77,7 +77,7 @@ Substrate UIを介して利用できる各コンポーネントについては�
 
 [Reactコンポーネント](https://reactjs.org/docs/react-component.html)で利用できることを以上の`おまじない`はほとんどないので、よりインタラクティブなアプリを作る上で良い学びの場となるでしょう。
 
-## あなたの番です！
+## 演習してみよう！
 
 あなたのSubstrate UIに `Create Kitty`ボタンを追加しましょう。
 
@@ -89,11 +89,11 @@ Substrate UIを介して利用できる各コンポーネントについては�
 
 <!-- tabs:start -->
 
-#### ** Template **
+#### ** テンプレート **
 
 [embedded-code](../../4/assets/4.3-template.js ':include :type=code embed-template')
 
-#### ** Solution **
+#### ** 解答 **
 
 [embedded-code-final](../../4/assets/4.3-finished-code.js ':include :type=code embed-final')
 
