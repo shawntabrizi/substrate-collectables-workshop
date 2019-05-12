@@ -6,7 +6,7 @@
 UIに飛び込む前に、あなたのチェーンを初期化することを忘れないでください：
 
 ```
-./build.sh
+./scripts/build.sh
 cargo build --release
 ./target/release/substratekitties purge-chain --dev
 ./target/release/substratekitties --dev

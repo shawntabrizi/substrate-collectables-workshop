@@ -1,8 +1,6 @@
 
 - [Welcome](/)
 
-- [:us: English](/README.md) [:cn: 中文](/zh-cn/)
-
 - [**#0 Getting Started**](0/introduction.md)
 
     - [Setup](0/setup.md)
@@ -55,3 +53,9 @@
 - [Documentation](https://docs.substrate.dev/docs)
 - [Report an Issue](https://github.com/shawntabrizi/substrate-collectables-workshop/issues)
 - [r/substrate](https://www.reddit.com/r/substrate)
+
+---
+
+- [:us: English](/README.md)
+- [:cn: 中文](/zh-cn/)
+- [:jp: 日本語](/ja-jp/)

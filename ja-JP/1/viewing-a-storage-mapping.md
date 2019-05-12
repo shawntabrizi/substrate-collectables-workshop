@@ -6,7 +6,7 @@ Polkadot UIで今までの作業を確認する
 以下を実行してビルドを行う:
 
 ```bash
-./build.sh
+./scripts/build.sh
 cargo build --release
 ./target/release/substratekitties purge-chain --dev
 ```

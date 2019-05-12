@@ -21,7 +21,7 @@ Wasmファイルは標準バイナリのコンパイルの一部として使用�
 パターンは次のようになります：
 
 ```bash
-./build.sh               // Wasmのビルド
+./scripts/build.sh               // Wasmのビルド
 cargo build --release    // binaryのビルド
 ```
 
@@ -49,7 +49,7 @@ Substrateをハックするときは、常に最新バージョンのRust stable
 新しいプロジェクトを始めるときには、毎回走らせるべきもう一つのスクリプトを `build.sh`と同じディレクトリに提供します：
 
 ```bash
-./init.sh
+./scripts/init.sh
 ```
 
 このスクリプトはRustを更新し、予期せぬコンパイルエラーを起こさないようにします。

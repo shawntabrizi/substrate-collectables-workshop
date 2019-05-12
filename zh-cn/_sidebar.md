@@ -1,7 +1,5 @@
 - [欢迎](/)
 
-- [:us: English](/README.md) [:cn: 中文](/zh-cn/)
-
 - [**#0 开始**](zh-cn/0/introduction.md)
 
   - [安装](zh-cn/0/setup.md)
@@ -47,3 +45,9 @@
 - [文档](https://docs.substrate.dev/docs)
 - [报告 Issue](https://github.com/shawntabrizi/substrate-collectables-workshop/issues)
 - [substrate 的 reddit 频道](https://www.reddit.com/r/substrate)
+
+---
+
+- [:us: English](/README.md)
+- [:cn: 中文](/zh-cn/)
+- [:jp: 日本語](/ja-jp/)

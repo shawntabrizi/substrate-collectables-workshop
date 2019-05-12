@@ -30,8 +30,8 @@ git clone https://github.com/shawntabrizi/substrate-package
 
 ```bash
 cd substratekitties
-./init.sh
-./build.sh
+./scripts/init.sh
+./scripts/build.sh
 cargo build --release
 ```
 

@@ -8,7 +8,7 @@
 >注意：ランタイムを更新してノードを立ち上げる時には、チェーンをリセットすることを忘れないでください：
 >
 > ```
-> ./build.sh
+> ./scripts/build.sh
 > cargo build --release
 > ./target/release/substratekitties purge-chain --dev
 > ./target/release/substratekitties --dev

@@ -107,7 +107,7 @@ construct_runtime!(
 正しく追加できていれば、このコードは問題なくコンパイルするでしょう。試して見ましょう！
 
 ```bash
-./build.sh
+./scripts/build.sh
 cargo build --release
 ```
 
@@ -116,7 +116,7 @@ cargo build --release
 まだ実際に手を動かしていない場合は、このページの指示に従ってあなたの`substrate-node-template`を作成してください。全部間違いなく書けたなら、エラーなしでコードを正常にコンパイルできるはずです：
 
 ```bash
-./build.sh
+./scripts/build.sh
 cargo build --release
 ```
 
