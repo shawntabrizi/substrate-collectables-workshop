@@ -212,7 +212,7 @@ React + JavaScript + Bondsの機能をテストしたいですか？私達はラ
 
 >### SubstrateKittiesワークショップの終了おめでとうございます。ここまでワークショップを進めてくださったなら、Substrateを使ったRuntime開発の基礎を学んでいただけたことと思います。しかしこれはSubstrateのごく一部でしかなく、まだ使っていないSRMLやSubstrate Coreの機能を使うことで様々なブロックチェーンの可能性を考えることができます。
 >### また、Substrateで作ったチェーンはParachainとしてPolkadot上で他のチェーンと相互互換性を持って、メッセージ/価値/アイデンティティを交換することが可能になります。Polkadotについてもっと深く学びたい方や、将来、Parachainとしてデプロイをしてみたい方は日本語で書かれた「[初心者のためのPolkadot](https://link.medium.com/EXHDwcrXQV)」で全体像を掴み、提供されているリソースを活用することができます。
->### 翻訳者：[Masaki Minamide](https://twitter.com/raika_5179)より
+>### 翻訳者：[Masaki Minamide](https://twitter.com/masakiminamide)より
 
 
 <!-- tabs:start -->
