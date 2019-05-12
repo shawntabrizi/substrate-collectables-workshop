@@ -1,6 +1,7 @@
 # [Substrate Collectables][main link]
 > [Substrate][]ではじめてのブロックチェーンを作るハンズオンワークショップ
-> Translated by [Masaki Minamide][]
+> Translated by [Masaki Minamide][] /
+> Peer-reviewed by [Tsuyoshi Kaji][]
 
 ![A screenshot of Substrate kitties](../media/substrate-collectables.png)
 
@@ -12,7 +13,7 @@
 
 そのため、この資料では上記チェーンを構築する論理に焦点を当てます。ブロックチェーンのネットワーキング、コンセンサス、または経済的インセンティブの側面については説明しません。幸いなことに、Substrateには素晴らしいネットワーキングとコンセンサスエンジンが組み込まれているので、チェーンロジックだけに集中できます。
 
-基盤は現代の静的型システムプログラミング言語[Rust][]を使って作られています。このワークショップでは、言語の詳細には触れませんが、非常に読みやすく、理解しやすい言語です。プログラム経験があれば、たとえ[Rust][]初心者でも特に問題なくワークショップを終えることができるはずです。
+Substrateは現代の静的型システムプログラミング言語[Rust][]を使って作られています。このワークショップでは、言語の詳細には触れませんが、非常に読みやすく、理解しやすい言語です。プログラム経験があれば、たとえ[Rust][]初心者でも特に問題なくワークショップを終えることができるはずです。
 
 ## ワークショップの進め方
 
@@ -56,4 +57,5 @@ Substratekittiesワークショップが提供できるのは[Cryptokitties](htt
 [Substrate docs]: https://docs.substrate.dev/
 [Parity]: https://www.parity.io/
 [Rust]: https://www.rust-lang.org/
-[Masaki Minamide]: https://twitter.com/raika_5179
+[Masaki Minamide]: https://twitter.com/masakiminamide
+[Tsuyoshi Kaji]: https://twitter.com/Jokyash
