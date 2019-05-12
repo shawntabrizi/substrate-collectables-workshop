@@ -1,5 +1,5 @@
 # [Substrate Collectables][main link]
-> [Substrate][]ではじめてのブロックチェーンを作るハンズオンワークショップ
+> [Substrate][]ではじめてのブロックチェーンを作るハンズオンワークショップ<br />
 > Translated by [Masaki Minamide][] /
 > Peer-reviewed by [Tsuyoshi Kaji][]
 
