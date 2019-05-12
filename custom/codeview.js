@@ -27,7 +27,7 @@ window.$docsify.plugins.push(
 
             window.code_template = template_element ? template_element.innerText : null;
             window.code_final = final_element ? final_element.innerText : null;
-            window.code_previous = previous_element ? previous_element.innerText: null;
+            window.code_previous = previous_element ? previous_element.innerText : null;
 
             if (template_element || final_element) {
                 var two_col = [
@@ -61,7 +61,15 @@ window.$docsify.plugins.push(
                     var previous_button = document.createElement("button");
                     previous_button.innerHTML = "&#8656; &#x1D321;";
                     previous_button.classList += "editor-button";
-                    previous_button.onclick = function () { loadDiffEditor(window.code_previous, window.code_template); };
+                    previous_button.id = "editor-previous-button"
+                    previous_button.onclick = function () {
+                        loadDiffEditor(window.code_previous, window.code_template);
+                        let selected_elements = document.getElementsByClassName("editor-button-selected");
+                        for (selected_element of selected_elements) {
+                            selected_element.classList.remove("editor-button-selected");
+                        }
+                        document.getElementById("editor-previous-button").classList.add("editor-button-selected");
+                    };
                     editor_bar.appendChild(previous_button);
                 }
 
@@ -69,20 +77,38 @@ window.$docsify.plugins.push(
                     var template_button = document.createElement("button");
                     template_button.innerHTML = "&#x1F6E0; Starting Point";
                     template_button.classList += "editor-button";
-                    template_button.onclick = function () { loadEditor(window.code_template, false, true) };
+                    template_button.id = "editor-template-button";
+                    template_button.onclick = function () {
+                        loadEditor(window.code_template, false, true);
+                        let selected_elements = document.getElementsByClassName("editor-button-selected");
+                        for (selected_element of selected_elements) {
+                            selected_element.classList.remove("editor-button-selected");
+                        }
+                        document.getElementById("editor-template-button").classList.add("editor-button-selected");
+                    };
                     editor_bar.appendChild(template_button);
                     loadEditor(window.code_template, false, true);
+                    document.getElementById("editor-template-button").classList.add("editor-button-selected");
                 }
 
                 if (window.code_final) {
                     var final_button = document.createElement("button");
                     final_button.innerHTML = "&#x2705; Potential Solution";
                     final_button.classList += "editor-button";
-                    final_button.onclick = function () { loadEditor(window.code_final, true, false); };
+                    final_button.id = "editor-final-button";
+                    final_button.onclick = function () {
+                        loadEditor(window.code_final, true, false);
+                        let selected_elements = document.getElementsByClassName("editor-button-selected");
+                        for (selected_element of selected_elements) {
+                            selected_element.classList.remove("editor-button-selected");
+                        }
+                        document.getElementById("editor-final-button").classList.add("editor-button-selected");
+                    };
                     editor_bar.appendChild(final_button);
 
                     if (!window.code_template) {
                         loadEditor(window.code_final, true, false);
+                        document.getElementById("editor-final-button").classList.add("editor-button-selected");
                     }
                 }
 
@@ -90,7 +116,15 @@ window.$docsify.plugins.push(
                     var diff_button = document.createElement("button");
                     diff_button.innerHTML = "&#x1D321; Diff View";
                     diff_button.classList += "editor-button";
-                    diff_button.onclick = function () { loadDiffEditor(window.code_template, window.code_final); };
+                    diff_button.id = "editor-diff-button";
+                    diff_button.onclick = function () {
+                        loadDiffEditor(window.code_template, window.code_final);
+                        let selected_elements = document.getElementsByClassName("editor-button-selected");
+                        for (selected_element of selected_elements) {
+                            selected_element.classList.remove("editor-button-selected");
+                        }
+                        document.getElementById("editor-diff-button").classList.add("editor-button-selected");
+                    };
                     editor_bar.appendChild(diff_button);
                 }
             }

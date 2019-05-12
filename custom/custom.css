@@ -123,6 +123,10 @@ h6,
     margin-top: -50px;
 }
 
+.editor-button-selected {
+    background-color: #3e3e3e;
+}
+
 /* Add separation between the Editor and the tutorial */
 .lesson {
     border-right: 1px solid rgba(0,0,0,0.07);
