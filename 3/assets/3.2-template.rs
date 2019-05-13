@@ -143,7 +143,7 @@ impl<T: Trait> Module<T> {
         let owned_kitty_count_to = Self::owned_kitty_count(&to);
 
         // ACTION: Used `checked_add()` to increment the `owned_kitty_count_to` by one into `new_owned_kitty_count_to`
-        // ACTION: Used `checked_sub()` to increment the `owned_kitty_count_from` by one into `new_owned_kitty_count_from`
+        // ACTION: Used `checked_sub()` to decrement the `owned_kitty_count_from` by one into `new_owned_kitty_count_from`
         //         - Return an `Err()` if overflow or underflow
 
         // NOTE: This is the "swap and pop" algorithm we have added for you
