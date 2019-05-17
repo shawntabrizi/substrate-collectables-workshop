@@ -26,6 +26,7 @@
     - [Owning Multiple Kitties](2/owning-multiple-kitties.md)
     - [Viewing Multiple Kitties](2/viewing-multiple-kitties.md)
     - [Refactoring Our Code](2/refactoring-our-code.md)
+    - [Testing Our Code](2/testing-our-code.md)
 
 - [**#3 Interactions**](3/introduction.md)
 
