@@ -91,8 +91,8 @@ You may want to frequently make use of:
 ## Your Turn!
 
 Now it is your turn. To complete this section, try writing tests for the following expectations:
-  - Owner can successfull transfer a kitty.
-  - A non-owner will failt to transfer a kitty. Specifically, make sure your test will expectedly fail on the check: `ensure!(owner == from, "'from' account does not own this kitty");`
+  - Owner can successfully transfer a kitty.
+  - A non-owner will fail to transfer a kitty. Specifically, make sure your test expectedly fails with an error message of: `"'from' account does not own this kitty"`
 
 You are encouraged to write as many tests as you can at this point. 
 
@@ -101,9 +101,9 @@ After a few tests, you might notice that your tests require some common, manual 
 
 Thankfully, __not repeating yourself__ is one of the main design intentions behind Substrate and there is a way to get around it.
 
-Our challenge to the reader is to extend the test functionality by giving Kitties runtime a `genesis config`. 
+Our challenge to the reader is to extend the test functionality by giving Kitties runtime a `genesis config`, which allows you to preconfigure the state of the chain before the first block. A genesis config is useful in scenarios when we want to initialize the chain to have certain parameters for subsequent transactions. In this case, it could be helpful to have some initial kitties to start the game and to make subsequent testing easier.
 
-Setting a genesis config allows you to preconfigure the state of the chain before the first block. This is useful in scenarios when we want to initialize the chain to have certain parameters for subsequent transactions.
+You can see another sample tutorial which implements the genesis config [here](https://docs.substrate.dev/docs/building-the-substrate-tcr-runtime#section-using-the-genesis-config).
 
 <!-- tabs:start -->
 
