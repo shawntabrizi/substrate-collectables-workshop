@@ -251,7 +251,17 @@ mod tests {
 	pub struct KittiesTest;
 
 	impl system::Trait for KittiesTest {
-		// ACTION: Implement traits for system module
+		type Origin = Origin;
+		type Index = u64;
+		type BlockNumber = u64;
+		type Hash = H256;
+		type Hashing = BlakeTwo256;
+		type Digest = Digest;
+		type AccountId = u64;
+		type Lookup = IdentityLookup<Self::AccountId>;
+		type Header = Header;
+		type Event = ();
+		type Log = DigestItem;
 	}
 	
 	impl balances::Trait for KittiesTest {
