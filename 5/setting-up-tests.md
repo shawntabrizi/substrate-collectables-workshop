@@ -1,4 +1,4 @@
-Setting up a Test
+Setting Up Tests
 ===
 
 We start by creating a `test` module inside `substratekitties.rs` as follows. 

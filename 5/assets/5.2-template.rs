@@ -304,4 +304,19 @@ mod tests {
 		// t.extend(GenesisConfig::<KittiesTest>::default().build_ext().unwrap().0);
 		t.into()
 	}
+
+	#[test]
+	fn create_kitty_should_work() {
+		// ACTION: test that create kitty works
+	}
+
+	#[test]
+	fn transfer_kitty_should_work() {
+		// ACTION: test that transfer kitty works
+	}
+
+	#[test]
+	fn transfer_not_owned_kitty_should_fail() {
+		// ACTION: test that transfering owned kitty correctly fails
+	}
 }

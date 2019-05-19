@@ -44,10 +44,9 @@
 
 - [**#5 Tests**](5/introduction.md)
 
-    - [Setting up a Test](5/setting-up-a-test.md)
-    - [Writing a Test](5/writing-a-test.md)
-    <!-- TODO: using another module in the test -->
-    <!-- TODO: setting up genesis block in test -->
+    - [Setting up a Test](5/setting-up-tests.md)
+    - [Writing a Test](5/writing-tests.md)
+    <!-- - [Configuring Genesis](5/configuring-genesis.md) -->
 
 - [**Extras**](Extras/)
     - **Kitty Auction**

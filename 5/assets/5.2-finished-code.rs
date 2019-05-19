@@ -304,4 +304,62 @@ mod tests {
 		// t.extend(GenesisConfig::<KittiesTest>::default().build_ext().unwrap().0);
 		t.into()
 	}
+
+	#[test]
+	fn create_kitty_should_work() {
+		with_externalities(&mut build_ext(), || {
+			// create a kitty with account #10.
+            assert_ok!(Kitties::create_kitty(Origin::signed(10)));
+
+            // check that there is now 1 kitty in storage
+            assert_eq!(Kitties::all_kitties_count(), 1);
+
+            // check that account #10 owns 1 kitty
+            assert_eq!(Kitties::owned_kitty_count(10), 1);
+            
+            // check that some random account #5 does not own a kitty
+            assert_eq!(Kitties::owned_kitty_count(5), 0);
+
+            // check that this kitty is specifically owned by account #10
+            let hash = Kitties::kitty_by_index(0);
+            assert_eq!(Kitties::owner_of(hash), Some(10));
+
+            let other_hash = Kitties::kitty_of_owner_by_index((10, 0));
+            assert_eq!(hash, other_hash);
+		})
+	}
+
+	#[test]
+	fn transfer_kitty_should_work() {
+		with_externalities(&mut build_ext(), || {
+			// check that 10 own a kitty
+			assert_ok!(Kitties::create_kitty(Origin::signed(10)));
+
+			assert_eq!(Kitties::owned_kitty_count(10), 1);
+			let hash = Kitties::kitty_of_owner_by_index((10, 0));
+
+			// send kitty to 1.
+			assert_ok!(Kitties::transfer(Origin::signed(10), 1, hash));
+
+			// 10 now has nothing
+			assert_eq!(Kitties::owned_kitty_count(10), 0);
+			// but 1 does
+			assert_eq!(Kitties::owned_kitty_count(1), 1);
+			let new_hash = Kitties::kitty_of_owner_by_index((1, 0));
+			// and it has the same hash
+			assert_eq!(hash, new_hash);
+		})
+	}
+
+	#[test]
+	fn transfer_not_owned_kitty_should_fail() {
+		with_externalities(&mut build_ext(), || {
+			// check that 10 own a kitty
+			assert_ok!(Kitties::create_kitty(Origin::signed(10)));
+			let hash = Kitties::kitty_of_owner_by_index((10, 0));
+
+			// account 0 cannot transfer a kitty with this hash.
+			assert_noop!(Kitties::transfer(Origin::signed(9), 1, hash), "You do not own this kitty");
+		})
+	}
 }
