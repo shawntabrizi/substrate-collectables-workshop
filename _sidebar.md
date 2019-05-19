@@ -26,7 +26,6 @@
     - [Owning Multiple Kitties](2/owning-multiple-kitties.md)
     - [Viewing Multiple Kitties](2/viewing-multiple-kitties.md)
     - [Refactoring Our Code](2/refactoring-our-code.md)
-    - [Testing Our Code](2/testing-our-code.md)
 
 - [**#3 Interactions**](3/introduction.md)
 
@@ -35,13 +34,18 @@
     - [Buying a Kitty](3/buying-a-kitty.md)
     - [Breeding a Kitty](3/breeding-a-kitty.md)
     - [Playing our Game](3/playing-our-game.md)
-
+    
 - [**#4 Web-UI**](4/introduction.md)
 
     - [Set Up Substrate UI](4/set-up-substrate-ui.md)
     - [Explore](4/explore.md)
     - [Creating Kitties](4/creating-kitties.md)
     - [Rendering Kitties](4/rendering-kitties.md)
+
+- [**#5 Tests**](5/introduction.md)
+
+    - [Set up Substrate tests](5/testing-our-code.md)
+    <!-- 4 sections here -->
 
 - [**Extras**](Extras/)
     - **Kitty Auction**
