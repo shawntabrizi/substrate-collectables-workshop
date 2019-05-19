@@ -44,8 +44,10 @@
 
 - [**#5 Tests**](5/introduction.md)
 
-    - [Set up Substrate tests](5/testing-our-code.md)
-    <!-- 4 sections here -->
+    - [Setting up a Test](5/setting-up-a-test.md)
+    - [Writing a Test](5/writing-a-test.md)
+    <!-- TODO: using another module in the test -->
+    <!-- TODO: setting up genesis block in test -->
 
 - [**Extras**](Extras/)
     - **Kitty Auction**
