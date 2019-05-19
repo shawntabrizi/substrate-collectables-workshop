@@ -44,9 +44,8 @@
 
 - [**#5 Tests**](5/introduction.md)
 
-    - [Setting up a Test](5/setting-up-tests.md)
-    - [Writing a Test](5/writing-tests.md)
-    <!-- - [Configuring Genesis](5/configuring-genesis.md) -->
+    - [Set Up Tests](5/setting-up-tests.md)
+    - [Writing Tests](5/writing-tests.md)
 
 - [**Extras**](Extras/)
     - **Kitty Auction**
