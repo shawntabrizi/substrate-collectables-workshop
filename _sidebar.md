@@ -34,13 +34,19 @@
     - [Buying a Kitty](3/buying-a-kitty.md)
     - [Breeding a Kitty](3/breeding-a-kitty.md)
     - [Playing our Game](3/playing-our-game.md)
-
+    
 - [**#4 Web-UI**](4/introduction.md)
 
     - [Set Up Substrate UI](4/set-up-substrate-ui.md)
     - [Explore](4/explore.md)
     - [Creating Kitties](4/creating-kitties.md)
     - [Rendering Kitties](4/rendering-kitties.md)
+
+- [**#5 Tests**](5/introduction.md)
+
+    - [Setting up a Test](5/setting-up-tests.md)
+    - [Writing a Test](5/writing-tests.md)
+    <!-- - [Configuring Genesis](5/configuring-genesis.md) -->
 
 - [**Extras**](Extras/)
     - **Kitty Auction**
