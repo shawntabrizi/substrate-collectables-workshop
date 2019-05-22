@@ -218,7 +218,7 @@ impl<T: Trait> Module<T> {
         <OwnedKittiesCount<T>>::insert(&to, new_owned_kitty_count);
         <OwnedKittiesIndex<T>>::insert(kitty_id, owned_kitty_count);
 
-        Self::deposit_event(RawEvent::Created(to, kitty_id));
+        // Self::deposit_event(RawEvent::Created(to, kitty_id));
 
         Ok(())
     }
