@@ -20,6 +20,7 @@ Next, we import some test dependencies from external modules. Most of these modu
 A typical Substrate `test` uses the following external modules:
 
 ```rust
+use super::*;
 use support::{impl_outer_origin, assert_ok};
 use runtime_io::{with_externalities, TestExternalities};
 use primitives::{H256, Blake2Hasher};
