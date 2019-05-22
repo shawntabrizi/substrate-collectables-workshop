@@ -46,6 +46,7 @@
 
     - [Set Up Tests](5/setting-up-tests.md)
     - [Writing Tests](5/writing-tests.md)
+    - [Testing Genesis](5/testing-genesis.md)
 
 - [**Extras**](Extras/)
     - **Kitty Auction**
