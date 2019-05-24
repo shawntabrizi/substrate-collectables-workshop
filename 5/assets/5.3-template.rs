@@ -244,8 +244,6 @@ impl<T: Trait> Module<T> {
 #[cfg(test)]
 mod tests {
     use super::*;
-
-	// Import a bunch of dependencies from substrate core. All needed for some parts of the code.
 	use support::{impl_outer_origin, assert_ok, assert_noop};
 	use runtime_io::{with_externalities, TestExternalities};
 	use primitives::{H256, Blake2Hasher};
@@ -259,13 +257,9 @@ mod tests {
 		pub enum Origin for KittiesTest {}
 	}
 
-	// Create one configuration type (`Test`) which `impl`s each of the
-	// configuration traits of modules we want to use.
 	#[derive(Clone, Eq, PartialEq)]
 	pub struct KittiesTest;
 
-	// Start implementing the Trait's of all the other modules that you need.
-	// If you want anything that is reasonably functional you also need to implement the System trait.
 	impl system::Trait for KittiesTest {
 		type Origin = Origin;
 		type Index = u64;
@@ -280,8 +274,6 @@ mod tests {
 		type Log = DigestItem;
 	}
 	
-    // And any other trait that your Trait is explicitly bounded by.
-	// Remember you had: `pub trait Trait: balances::Trait`
 	impl balances::Trait for KittiesTest {
 		type Balance = u64;
 		type OnFreeBalanceZero = ();
@@ -292,12 +284,10 @@ mod tests {
 		type DustRemoval = ();
 	}
 
-	// And finally, your own trait.
 	impl super::Trait for KittiesTest {
 		type Event = ();
 	}
 
-	// Creates aliases for modules for easier access
 	type Kitties = super::Module<KittiesTest>;
 	type Balances = balances::Module<KittiesTest>;
 	type System = system::Module<KittiesTest>;
@@ -307,6 +297,7 @@ mod tests {
 		t.extend(balances::GenesisConfig::<KittiesTest>::default().build_storage().unwrap().0);
 
 		// ACTION: pass in your genesis data here
+        
 		t.into()
 	}
 
