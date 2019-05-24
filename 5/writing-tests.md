@@ -76,7 +76,7 @@ Notable things from the above snippet:
 
 ```rust
 use super::KittyOwner;
-use support::StorageMap;
+use support::StorageMap; //Or: StorageValue, DoubleMap, etc. depending on the value type
 assert_eq!(<KittyOwner<KittiesTest>>::get(hash), Some(10));
 ```
 

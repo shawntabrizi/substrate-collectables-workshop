@@ -58,7 +58,7 @@ impl_outer_origin! {
 
 Now we are ready to construct a mock runtime for our tests. 
 
-First, we declare a main configuration type `KittiesTest`. `KittiesTest` will implement each of the configuration traits of modules used by the Kitties runtime, such as `system` and 	`balances`.
+First, we declare a main configuration type `KittiesTest`. `KittiesTest` will implement each of the configuration traits of modules used by the Kitties runtime, such as `system` and `balances`.
 
 This mock runtime can be structured as follows:
 
