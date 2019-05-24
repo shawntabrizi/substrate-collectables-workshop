@@ -7,5 +7,4 @@ This next section will cover writing tests for your Substrate runtime. Tests are
 
 While you can test some of your code logic through the UI, it is best practice to write unit tests for each runtime module. Unit tests should cover the core functions of your runtime.
 
-Conveniently, Substrate has some low-level primitives that help you execute your runtime tests with minimum hassle, meanwhile giving it capabilities such as calling other modules and processing blocks to be as realistic as possible.
-
+Conveniently, Substrate has some configurations that help you execute your runtime tests with minimum hassle.
