@@ -1,9 +1,8 @@
 Setting Up Tests
 ===
 
-We start by creating a `test` module inside `substratekitties.rs` as follows. 
-
-> **Note:** Alternatively, you can also refactor this out into its own `test.rs` file.
+Our tests will require support code, so let's start by creating its own `test` module.
+You can place this module inside `substratekitties.rs` as follows (alternatively, you can also refactor this out into its own `test.rs` file).
 
 **substratekitties<span>.</span>rs**
 ```rust
@@ -14,6 +13,7 @@ mod tests {
 	// Your tests
 }
 ```
+The `#[cfg(test)]` attribute declares the entire `tests` module to be testing-only code.
 
 Next, we import some test dependencies from external modules. Most of these modules are used to replace the config types of the traits that we want to implement in the test. 
 
