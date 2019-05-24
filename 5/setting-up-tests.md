@@ -102,12 +102,10 @@ impl system::Trait for KittiesTest {
 
 At this point, we are ready to access and build the modules we just implemented traits for.
 
-Let's assign some type aliases to more easily access these modules going forward.
+Let's assign a type alias to the Kitties module in order to easily access its methods going forward.
 
 ```rust
 type Kitties = super::Module<KittiesTest>;
-type Balances = balances::Module<KittiesTest>;
-type System = system::Module<KittiesTest>;
 ```
 
 > **Note:** All modules are built in a way that the `Module` struct wraps all functions attached to it, hence the syntax `system::Module<KittiesTest>`.

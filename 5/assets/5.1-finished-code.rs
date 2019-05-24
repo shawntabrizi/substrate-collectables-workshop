@@ -287,8 +287,6 @@ mod tests {
 	}
 
 	type Kitties = super::Module<KittiesTest>;
-	type Balances = balances::Module<KittiesTest>;
-	type System = system::Module<KittiesTest>;
 
 	fn build_ext() -> TestExternalities<Blake2Hasher> {
 		let mut t = system::GenesisConfig::<KittiesTest>::default().build_storage().unwrap().0;
