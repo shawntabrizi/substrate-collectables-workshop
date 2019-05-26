@@ -75,7 +75,7 @@ fn add_person(origin, new_person: T::AccountId) -> Result {
     
     let new_all_people_count = all_people_count.checked_add(1).ok_or("Overflow adding a new person")?;
 
-    <AllPeopleArray<T>>::insert(all_people_count, new_people);
+    <AllPeopleArray<T>>::insert(all_people_count, new_person);
     <AllPeopleCount<T>>::put(new_all_people_count);
 
     Ok(())
