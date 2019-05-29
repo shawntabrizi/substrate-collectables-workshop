@@ -50,7 +50,7 @@ decl_storage! {
         Nonce: u64;
     }
 
-	add_extra_genesis {
+    add_extra_genesis {
         config(kitties): Vec<(T::AccountId, T::Hash, T::Balance)>;
         
         build(|storage: &mut StorageOverlay, _: &mut ChildrenStorageOverlay, config: &GenesisConfig<T>| {
