@@ -97,7 +97,7 @@ Recall that you created an initial mock for tests using `TextExternalities`, whe
 used default values for the initial chain state.
 
 In the same function, you can now specify the initial `kitties` configuration. 
-For simplicity, let's seed the chain with the following kitties: 
+For simplicity, let's seed the chain with the following 2 kitties: 
 - 1 kitty with random DNA, belonging to account #0, worth 50 balance.
 - 1 kitty with blank DNA, belonging to account #1, worth 100 balance.
 
@@ -106,8 +106,8 @@ fn build_ext() -> TestExternalities<Blake2Hasher> {
 	let mut t = system::GenesisConfig::<KittiesTest>::default().build_storage().unwrap().0;
 	t.extend(balances::GenesisConfig::<KittiesTest>::default().build_storage().unwrap().0);
 	t.extend(GenesisConfig::<KittiesTest> {
-		kitties: vec![  (0, H256::random(), 50), 
-						(1, H256::zero(), 100)], 
+		kitties: vec![	(0, H256::random(), 50),
+				(1, H256::zero(), 100)], 
 	}.build_storage().unwrap().0);
 	t.into()
 }
@@ -115,8 +115,9 @@ fn build_ext() -> TestExternalities<Blake2Hasher> {
 
 ## Test Genesis
 
-If you set up your genesis configurations correctly, you should be able to successfully run
+By now, if you set up your genesis correctly, you should be able to successfully run
 the following test: 
+
 ```rust
 #[test]
 fn should_build_genesis_kitties() {
@@ -138,13 +139,13 @@ fn should_build_genesis_kitties() {
 	})
 }
 ```
+> Note: At this point, your previous tests will fail. You may wish to update your previous tests so they pass given the new genesis configs.
 
 # Your Turn!
 
 - Set up your genesis specs as specified above.
 - Write some new tests to ensure that kitties are correctly configured at genesis.
 - Refactor your previous tests to take advantage of this setup.
-- Update your previous tests so they pass given the new genesis configs.
 
 ### Genesis Deployment
 In the scope of this tutorial, we'll only review how to set up your genesis state
