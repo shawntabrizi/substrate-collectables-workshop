@@ -125,6 +125,7 @@ fn should_build_genesis_kitties() {
 - Set up your genesis specs as specified above.
 - Write some new tests to ensure that kitties are correctly configured at genesis.
 - Refactor your previous tests to take advantage of this setup.
+- Update your previous tests so they pass given the new genesis configs.
 
 ### Genesis Deployment
 In the scope of this tutorial, we'll only review how to set up your genesis state
