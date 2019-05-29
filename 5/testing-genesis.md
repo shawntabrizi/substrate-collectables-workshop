@@ -67,7 +67,8 @@ build(|storage: &mut StorageOverlay, _: &mut ChildrenStorageOverlay, config: &Ge
 	with_storage(storage, || {
 		for &(ref acct, hash, balance) in &config.kitties {
 
-			let k = Kitty {	id: hash,
+			let k = Kitty {	
+					id: hash,
 					dna: hash,
 					price: balance,
 					gen: 0
@@ -106,8 +107,10 @@ fn build_ext() -> TestExternalities<Blake2Hasher> {
 	let mut t = system::GenesisConfig::<KittiesTest>::default().build_storage().unwrap().0;
 	t.extend(balances::GenesisConfig::<KittiesTest>::default().build_storage().unwrap().0);
 	t.extend(GenesisConfig::<KittiesTest> {
-		kitties: vec![	(0, H256::random(), 50),
-				(1, H256::zero(), 100)], 
+		
+		// Your genesis kitties 
+		kitties: vec![	(0, H256::random(), 50), (1, H256::zero(), 100)], 
+
 	}.build_storage().unwrap().0);
 	t.into()
 }
@@ -151,7 +154,7 @@ fn should_build_genesis_kitties() {
 In the scope of this tutorial, we'll only review how to set up your genesis state
 for testing. 
 
-At this point, if you want to see how to configure the genesis block for an actual deployment, check out these
+At this point, you might want to see how to configure the genesis block for an actual deployment. You can check out these
 [chain specifications](https://github.com/paritytech/polkadot/blob/d102d8fbac950abf2a696097d65ec2edc64dc216/service/src/chain_spec.rs)
 for our Alexander testnet.
 
