@@ -6,29 +6,40 @@ i.e. having to create new kitties for each unit test.
 
 Wouldn't it be great to deploy our blockchain with some kitties already minted in the genesis block?
 
-Substrate lets you deploy your chain with preconfigured storage through a genesis configuration.
+Substrate lets you deploy your chain with preconfigured storage through a genesis block configuration.
 
 In this section, we'll walk you through: 
 - Extending `decl_storage` to add extra genesis data
 - Mocking the genesis configuration in during testing
 - Testing that we have the correct genesis set up
 
+## Various Approaches
+
+There are 3 main approaches to configuring storage data in genesis.
+
+- **Method 1**: You can hardcode storage items one by one, as you declare them in `decl_storage`. This is recommended when you need to configure simple values for storage items that are not so interdependent. You can see an example of how this is done [here](https://crates.parity.io/srml_support_procedural/macro.decl_storage.html#example). 
+
+- **Method 2**: You can build storage items one by one, as you declare them in `decl_storage`. This is recommended when you need to build more complex storage items that are not so interdependent. You can see an example of how this is done [here](https://crates.parity.io/srml_support_procedural/macro.decl_storage.html#example).
+
+- **Method 3**:  You can build the storage values in one go, after you declare them in `decl_storage`. This is recommended when you need to build complex storage items that may be interdependent. You can see an example of how this is done [here](https://crates.parity.io/srml_support_procedural/macro.decl_storage.html#genesisconfig).
+
+In the kitties runtime, the storage values are highly interdependent, e.g. `KittyOwner` and `OwnedKittiesArray` store the same data. It would be rote to build each storage value one by one using methods 1, 2. 
+
+Luckily, you have a `mint` function which modifies all the necessary storage items for you. Let's proceed with the 3rd method and use the `mint` function to build all the storage values just one time.
+
 ## Add Extra Genesis
 
-Let's start by importing some functions and types we'll be using to configure genesis.
+For this exercise, let's configure our genesis block to contain 2 initial kitties, with predefined DNA & value. Let's also assign those kitties to designated owners.
+
+Let's start by importing some functions and types you'll be using to configure genesis.
 
 **substratekitties<span>.</span>rs**
 ```rust
 use runtime_io::{with_storage, StorageOverlay, ChildrenStorageOverlay};
 ```
-Notably:
-- `with_storage`: is a function that takes a closure with global functions. This function lets you populate the runtime storage.
-- `StorageOverlay`: is a set of key value pairs for storage. This represents where your storage resides.
+You'll shortly discover what these dependencies enable.
 
-Meow, let's configure our chain's genesis to accept some initial kitties, with predefined DNA & value.
-And let's assign those kitties to designed owners.
-
-Inside the `decl_storage` scope, create a struct called `add_extra_genesis` with the following implementation. 
+Next, inside the `decl_storage` scope, create a struct called `add_extra_genesis` with the following `config` value. 
 
 ```rust
 decl_storage! {
@@ -36,33 +47,41 @@ decl_storage! {
 
     add_extra_genesis {
         config(kitties): Vec<(T::AccountId, T::Hash, T::Balance)>;
-        
-        build(|storage: &mut StorageOverlay, _: &mut ChildrenStorageOverlay, config: &GenesisConfig<T>| {
-            with_storage(storage, || {
-                for &(ref acct, hash, balance) in &config.kitties {
-
-                    let k = Kitty {
-                                id: hash,
-                                dna: hash,
-                                price: balance,
-                                gen: 0
-                            };
-                
-                    let _ = <Module<T>>::mint(acct.clone(), hash, k);
-                }
-            });
-        });
     }
 }
 ```
-The `config` attribute will expect a `kitties` config value, which will be a vector of tuples with types: 
+
+Put simply, `add_extra_genesis` allows you to add new fields into the genesis configuration. These new fields can be subsequently used to build additional storage or modify existing storage.
+
+The new fields are named inside the `config()` attribute. In this case, we created an additional `kitties` genesis field. This `kitties` field expects a vector of tuples containing the following values: 
 - AccountId: the kitty owner
 - Hash: the kitty id/dna
 - Balance: the kitty's initial value
 
-`build` subsequently uses the `kitties` configuration to build the storage itself.
-In this implementation, it iterates over `kitties` and use the `mint` function to conveniently update
-the rest of the storage items.
+Next, we need to initialize the storage items from this `kitties` config value using the existing `mint` function to build the storage values.
+
+Inside `add_extra_genesis`, you can use a special `build` closure to execute the following logic:
+
+```rust
+build(|storage: &mut StorageOverlay, _: &mut ChildrenStorageOverlay, config: &GenesisConfig<T>| {
+	with_storage(storage, || {
+		for &(ref acct, hash, balance) in &config.kitties {
+
+			let k = Kitty {	id: hash,
+					dna: hash,
+					price: balance,
+					gen: 0
+				};
+		
+			let _ = <Module<T>>::mint(acct.clone(), hash, k);
+		}
+	});
+});
+```
+
+Inside `add_extra_genesis`, the `build` closure has access to all of the declared storage items, as well as the additional config values. This is why we are able to iterates over `kitties` and use the `mint` function to access and update all of the storage items at once.
+
+Additionally, `StorageOverlay` and `childrenStorageOverlay` allows you to write into the runtime's storage tries. `with_storage` in this case is closure shorthand, which takes in the logic that will modify a particular storage space.
 
 > **Note**: For this part to work, delete (or comment out) the deposit_event line in `mint()`, as `add_extra_genesis`
 does not have context on how to handle events:
@@ -70,9 +89,9 @@ does not have context on how to handle events:
 // Self::deposit_event(RawEvent::Created(to, kitty_id));
 ```
 
-### Mock Genesis for Tests
+## Mock Genesis for Tests
 
-Next, let's walk through setting the initial state for genesis in the testing environment.
+Next, let's walk through actually passing in the initial genesis values in the testing environment.
 
 Recall that you created an initial mock for tests using `TextExternalities`, where you simply
 used default values for the initial chain state.
@@ -94,7 +113,7 @@ fn build_ext() -> TestExternalities<Blake2Hasher> {
 }
 ```
 
-### Test Genesis
+## Test Genesis
 
 If you set up your genesis configurations correctly, you should be able to successfully run
 the following test: 
