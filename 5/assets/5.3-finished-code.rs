@@ -323,8 +323,8 @@ mod tests {
 			// create a kitty with account #10.
             assert_ok!(Kitties::create_kitty(Origin::signed(10)));
 
-            // check that there is now 1 kitty in storage
-            assert_eq!(Kitties::all_kitties_count(), 1);
+            // check that there are now 3 kitties in storage
+            assert_eq!(Kitties::all_kitties_count(), 3);
 
             // check that account #10 owns 1 kitty
             assert_eq!(Kitties::owned_kitty_count(10), 1);
@@ -333,7 +333,7 @@ mod tests {
             assert_eq!(Kitties::owned_kitty_count(5), 0);
 
             // check that this kitty is specifically owned by account #10
-            let hash = Kitties::kitty_by_index(0);
+            let hash = Kitties::kitty_by_index(2);
             assert_eq!(Kitties::owner_of(hash), Some(10));
 
             let other_hash = Kitties::kitty_of_owner_by_index((10, 0));
@@ -355,9 +355,9 @@ mod tests {
 
 			// 10 now has nothing
 			assert_eq!(Kitties::owned_kitty_count(10), 0);
-			// but 1 does
-			assert_eq!(Kitties::owned_kitty_count(1), 1);
-			let new_hash = Kitties::kitty_of_owner_by_index((1, 0));
+			// but 1 now has 2 kitties
+			assert_eq!(Kitties::owned_kitty_count(1), 2;
+			let new_hash = Kitties::kitty_of_owner_by_index((1, 1));
 			// and it has the same hash
 			assert_eq!(hash, new_hash);
 		})
