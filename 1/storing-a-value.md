@@ -10,6 +10,10 @@ We need to define runtime functions that will set and modify our storage values.
 Here is an example of an exposed function declaration:
 
 ```rust
+// Add these imports: 
+//
+// use support::{dispatch::Result, StorageValue};
+// use system::ensure_signed;
 decl_module! {
     pub struct Module<T: Trait> for enum Call where origin: T::Origin {
 
