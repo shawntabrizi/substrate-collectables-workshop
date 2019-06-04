@@ -24,9 +24,9 @@ Substrate 是使用 Rust 构建的，Rust 是一种现代静态类型的系统�
 
 ## 如何贡献
 
-* 打开 [issues](https://github.com/shawntabrizi/substrate-collectables-workshop/issues)
+* 打开 [issues](https://github.com/substrate-developer-hub/substrate-collectables-workshop/issues)
 
-* Fork 并且 clone [仓库](https://github.com/shawntabrizi/substrate-collectables-workshop)
+* Fork 并且 clone [仓库](https://github.com/substrate-developer-hub/substrate-collectables-workshop)
 
 * 在本地服务器上启动 [Visual Studio Code](https://code.visualstudio.com/), 并且安装有类似 [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) 的扩展工具。
 
@@ -42,7 +42,7 @@ Substratekitties workshop 是在 [Cryptokitties](https://www.cryptokitties.co/),
 
 ---
 
-[main link]: https://shawntabrizi.github.io/substrate-collectables-workshop/
+[main link]: https://substrate-developer-hub.github.io/substrate-collectables-workshop/
 [feedback]: https://docs.substrate.dev/docs/feedback
 [Substrate]: https://www.parity.io/substrate/
 [Substrate docs]: https://docs.substrate.dev/

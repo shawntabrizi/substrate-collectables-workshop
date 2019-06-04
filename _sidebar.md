@@ -57,7 +57,7 @@
 
 - [Glossary](https://docs.substrate.dev/docs/glossary)
 - [Documentation](https://docs.substrate.dev/docs)
-- [Report an Issue](https://github.com/shawntabrizi/substrate-collectables-workshop/issues)
+- [Report an Issue](https://github.com/substrate-developer-hub/substrate-collectables-workshop/issues)
 - [r/substrate](https://www.reddit.com/r/substrate)
 
 ---

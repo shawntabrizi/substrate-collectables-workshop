@@ -43,7 +43,7 @@
 
 - [词汇表](https://docs.substrate.dev/docs/glossary)
 - [文档](https://docs.substrate.dev/docs)
-- [报告 Issue](https://github.com/shawntabrizi/substrate-collectables-workshop/issues)
+- [报告 Issue](https://github.com/substrate-developer-hub/substrate-collectables-workshop/issues)
 - [substrate 的 reddit 频道](https://www.reddit.com/r/substrate)
 
 ---

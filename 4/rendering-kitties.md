@@ -5,7 +5,7 @@ If you made it this far, then you have truly earned what we are about to do in t
 
 ## Adding Our Custom `KittyCard` Component
 
-We have built a custom React component for showing kitties. It is not so complicated, but for the purposes of this workshop, we will not have you build it. You can download the component as a `.zip` [here](https://github.com/shawntabrizi/substrate-collectables-workshop/raw/master/4/assets/KittyCards.zip).
+We have built a custom React component for showing kitties. It is not so complicated, but for the purposes of this workshop, we will not have you build it. You can download the component as a `.zip` [here](https://github.com/substrate-developer-hub/substrate-collectables-workshop/raw/master/4/assets/KittyCards.zip).
 
 To add it, you must place the `KittyCards` folder in your `src` folder:
 

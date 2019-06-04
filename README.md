@@ -28,9 +28,9 @@ Substrate is a rapidly evolving project, which means that breaking changes may c
 
 ## How to contribute
 
-* Open [issues on our GitHub](https://github.com/shawntabrizi/substrate-collectables-workshop/issues)
+* Open [issues on our GitHub](https://github.com/substrate-developer-hub/substrate-collectables-workshop/issues)
 
-* Fork and clone the [repository](https://github.com/shawntabrizi/substrate-collectables-workshop)
+* Fork and clone the [repository](https://github.com/substrate-developer-hub/substrate-collectables-workshop)
 
 * Launch a local development server with a tool like [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) for [Visual Studio Code](https://code.visualstudio.com/)
 
@@ -46,7 +46,7 @@ We hope this educational material teaches you something new, and in turn, you te
 
 ---
 
-[main link]: https://shawntabrizi.github.io/substrate-collectables-workshop/
+[main link]: https://substrate-developer-hub.github.io/substrate-collectables-workshop/
 [feedback]: https://docs.substrate.dev/docs/feedback
 [Substrate]: https://www.parity.io/substrate/
 [Substrate docs]: https://docs.substrate.dev/
