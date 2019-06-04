@@ -44,7 +44,7 @@
 
 - [グローサリー](https://docs.substrate.dev/docs/glossary)
 - [ドキュメンテーション](https://docs.substrate.dev/docs)
-- [問題を報告する](https://github.com/shawntabrizi/substrate-collectables-workshop/issues)
+- [問題を報告する](https://github.com/substrate-developer-hub/substrate-collectables-workshop/issues)
 - [Reddit/Substrate](https://www.reddit.com/r/substrate)
 
 ---

@@ -5,7 +5,7 @@
 
 ## 既存の`KittyCard`コンポーネントを追加する
 
-私たちは既にキティを表示するためのカスタムReactコンポーネントを用意しています。それほど複雑ではありませんが、このワークショップの目的に集中するために、ここではこれを使ってください。コンポーネントは`.zip`として[ここから](https://github.com/shawntabrizi/substrate-collectables-workshop/raw/master/4/assets/KittyCards.zip)ダウンロードできます。
+私たちは既にキティを表示するためのカスタムReactコンポーネントを用意しています。それほど複雑ではありませんが、このワークショップの目的に集中するために、ここではこれを使ってください。コンポーネントは`.zip`として[ここから](https://github.com/substrate-developer-hub/substrate-collectables-workshop/raw/master/4/assets/KittyCards.zip)ダウンロードできます。
 
 ダウンロードできたら、`KittyCards`フォルダをあなたの`src`フォルダに置いてください：
 

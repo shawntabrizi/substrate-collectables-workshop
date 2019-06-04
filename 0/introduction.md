@@ -15,7 +15,7 @@ Substrate and the Substrate Collectables Workshop are open source projects built
 If at any point you want to ask or tell us something, please use the most appropriate platform and we will be happy to chat!
 
 - [Substrate GitHub](https://github.com/paritytech/substrate)
-- [Substrate Collectables Workshop GitHub](https://github.com/shawntabrizi/substrate-collectables-workshop)
+- [Substrate Collectables Workshop GitHub](https://github.com/substrate-developer-hub/substrate-collectables-workshop)
 - [Substrate Community Chat](https://docs.substrate.dev/docs/feedback)
 
 Have fun and good luck!

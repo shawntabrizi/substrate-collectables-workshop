@@ -31,9 +31,9 @@ Substrateは急速に発展しているプロジェクトです。つまり、�
 ## このプロジェクトの貢献したいですか？？
 >このプロジェクトは完全オープンソースです。以下のいずれかの方法で貢献できます。
 
-* 他言語に翻訳する。まだ誰もやっていないのを確認してから[Githubでissues](https://github.com/shawntabrizi/substrate-collectables-workshop/issues)を開いて始めてください。
+* 他言語に翻訳する。まだ誰もやっていないのを確認してから[Githubでissues](https://github.com/substrate-developer-hub/substrate-collectables-workshop/issues)を開いて始めてください。
 
-* [Repository](https://github.com/shawntabrizi/substrate-collectables-workshop)のフォークとクローン
+* [Repository](https://github.com/substrate-developer-hub/substrate-collectables-workshop)のフォークとクローン
 
 * [Visual Studio Code](https://code.visualstudio.com/)と[Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer)のようなツールを使い、ローカルサーバー環境を立ち上げる。
 
@@ -51,7 +51,7 @@ Substratekittiesワークショップが提供できるのは[Cryptokitties](htt
 
 ---
 
-[main link]: https://shawntabrizi.github.io/substrate-collectables-workshop/
+[main link]: https://substrate-developer-hub.github.io/substrate-collectables-workshop/
 [feedback]: https://docs.substrate.dev/docs/feedback
 [Substrate]: https://www.parity.io/substrate/
 [Substrate docs]: https://docs.substrate.dev/

@@ -4,7 +4,7 @@
 
 ## 添加我们定制的 `KittyCard` 组件
 
-我们已经构建了一个自定义的 React 组件来显示小猫。它并不复杂，但就本教程而言，我们不会让你构建它。你可以在 [此处](https://github.com/shawntabrizi/substrate-collectables-workshop/raw/master/4/assets/KittyCards.zip) 下载 `.zip` 格式的组件。
+我们已经构建了一个自定义的 React 组件来显示小猫。它并不复杂，但就本教程而言，我们不会让你构建它。你可以在 [此处](https://github.com/substrate-developer-hub/substrate-collectables-workshop/raw/master/4/assets/KittyCards.zip) 下载 `.zip` 格式的组件。
 
 要添加它，你必须将 `KittyCards` 文件夹放在 `src` 文件夹中：
 
