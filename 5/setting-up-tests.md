@@ -27,7 +27,7 @@ use primitives::{H256, Blake2Hasher};
 use runtime_primitives::{
 	BuildStorage, traits::{BlakeTwo256, IdentityLookup},
 	testing::{Digest, DigestItem, Header}
-}
+};
 ```
 
 Notably, `runtime_io` imports the following:
