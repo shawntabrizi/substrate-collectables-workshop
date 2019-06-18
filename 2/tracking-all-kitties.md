@@ -19,7 +19,15 @@ Now that you are a Substrate runtime developer, you will have to be conscious of
 
 ## Creating a List
 
-Substrate does not natively support a list type since it may encourage dangerous habits. In runtime development, list iteration is, generally speaking, evil. Unless explicitly guarded against, it will add unbounded O(N) complexity to an operation that will only charge O(1) fees. As a result, your chain becomes attackable. Instead, a list can be emulated with a mapping and a counter like so:
+Substrate does support lists in the form of an [`EnumerableStorageMap`](https://substrate.dev/rustdocs/v1.0/srml_support/storage/trait.EnumerableStorageMap.html), which is just a storage map like we have been using, but can be enumerated. From the docs:
+
+> Note that type is primarily useful for off-chain computations. Runtime implementors should avoid enumerating storage entries.
+
+In runtime development, list iteration is, generally speaking, dangerous. Unless explicitly guarded against, runtime functions which enumerate a list will add O(N) complexity, but only charge O(1) fees. As a result, your chain can be vulnerable to attacks. Furthermore, if the lists you iterate over are large or even unbounded, your runtime may need more time to process the list than what is allocated between blocks. This means that a block producer may not even be able to create new blocks!
+
+For these reasons, this tutorial will not use any list iteration in our runtime logic. If you choose to include such logic, please keep the following in mind.
+
+We will instead emulate an enumerable map with a mapping and a counter like so:
 
 ```rust
 decl_storage! {
