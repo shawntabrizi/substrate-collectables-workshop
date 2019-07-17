@@ -44,11 +44,11 @@ The first argument of these functions is always `origin`. `origin` contains info
 - Root calls that are allowed to be made only by the governance system.
 - Inherent calls that are allowed to be made only by the block authors and validators.
 
-Refer to definition of [Origin](https://docs.substrate.dev/docs/glossary#section-origin) in the Substrate Glossary.
+Refer to definition of [Origin](https://substrate.dev/docs/en/overview/glossary#origin) in the Substrate Glossary.
 
 ### Result
 
-Additionally, these functions must return the [`Result` type](https://crates.parity.io/srml_support/dispatch/result/index.html) from the `support::dispatch` module. This means that a successful function call will always return `Ok(())`, otherwise, the logic should catch any errors which may cause a problem and return an `Err()`.
+Additionally, these functions must return the [`Result` type](https://substrate.dev/rustdocs/v1.0/srml_support/dispatch/result/index.html) from the `support::dispatch` module. This means that a successful function call will always return `Ok(())`, otherwise, the logic should catch any errors which may cause a problem and return an `Err()`.
 
 Since these are dispatched functions, there are two extremely important things to remember:
 

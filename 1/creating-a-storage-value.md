@@ -3,11 +3,11 @@ Creating a Storage Value
 
 Let's add the most simple logic we can to our runtime: a function which stores a variable.
 
-To do this, we will first need to define a storage variable for a [**Storage Item**](https://docs.substrate.dev/docs/glossary#section-storage-items) in the [**`decl_storage!`**](https://crates.parity.io/srml_support_procedural/macro.decl_storage.html) macro. This allows for type-safe usage of the Substrate storage database, so you can keep things around between blocks.
+To do this, we will first need to define a storage variable for a [**Storage Item**](https://substrate.dev/docs/en/overview/glossary#storage-items) in the [**`decl_storage!`**](https://substrate.dev/rustdocs/v1.0/srml_support_procedural/macro.decl_storage.html) macro. This allows for type-safe usage of the Substrate storage database, so you can keep things around between blocks.
 
 ## Declaring a Storage Value
 
-Substrate natively supports all the primitive types available in Rust (`bool`, `u8`, `u32`, etc..) and as well some custom types specific to Substrate (`AccountId`, `Balance`, `Hash`, [and more](https://polkadot.js.org/api/types/)...)
+Substrate natively supports all the primitive types available in Rust (`bool`, `u8`, `u32`, etc..) and as well some custom types specific to Substrate (`AccountId`, `BlockNumber`, `Hash`, [and more](https://polkadot.js.org/api/types/)...)
 
 You can declare a simple storage item like this:
 
@@ -26,7 +26,7 @@ To store these basic storage values, you need to import the `support::StorageVal
 
 ### Working with a Storage Value
 
-The functions used to access a `StorageValue` are defined in [`srml_support::storage`](https://crates.parity.io/srml_support/storage/trait.StorageValue.html):
+The functions used to access a `StorageValue` are defined in [`srml_support::storage`](https://substrate.dev/rustdocs/v1.0/srml_support/storage/trait.StorageValue.html):
 
 ```rust
 /// Get the storage key.

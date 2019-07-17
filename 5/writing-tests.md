@@ -89,8 +89,8 @@ Recall that Substrate provides an `ensure!` macro used to check inputs and logic
 To aid you in writing comprehensive tests, the Substrate framework provides custom assert macros, in addition to the standard [assertion macros](https://doc.rust-lang.org/std/macro.assert.html) provided by Rust. 
 
 You may want to frequently make use of: 
-- [`assert_ok!()`](https://crates.parity.io/srml_support/macro.assert_ok.html): a special macro that checks a dispatch call returns an `Ok(())` Result. (Remember that dispatch calls return a special type of `Result<(), &'static str>`)
-- [`assert_noop!()`](https://crates.parity.io/srml_support/macro.assert_noop.html): a special macro that checks that a call fails, whilst returning that particular error message string.
+- [`assert_ok!()`](https://substrate.dev/rustdocs/v1.0/srml_support/macro.assert_ok.html): a special macro that checks a dispatch call returns an `Ok(())` Result. (Remember that dispatch calls return a special type of `Result<(), &'static str>`)
+- [`assert_noop!()`](https://substrate.dev/rustdocs/v1.0/srml_support/macro.assert_noop.html): a special macro that checks that a call fails, whilst returning that particular error message string.
 
 ## Your Turn!
 
@@ -107,7 +107,7 @@ Thankfully, __not repeating yourself__ is one of the main design intentions behi
 
 Our challenge to the reader is to extend the test functionality by giving Kitties runtime a `genesis config`, which allows you to preconfigure the state of the chain before the first block. A genesis config is useful in scenarios when we want to initialize the chain to have certain parameters for subsequent transactions. In this case, it could be helpful to have some initial kitties to start the game and to make subsequent testing easier.
 
-You can see another sample tutorial which implements the genesis config [here](https://docs.substrate.dev/docs/building-the-substrate-tcr-runtime#section-using-the-genesis-config).
+You can see another sample tutorial which implements the genesis config [here](https://substrate.dev/docs/en/tutorials/tcr/building-the-substrate-tcr-runtime#using-the-genesis-config).
 
 <!-- tabs:start -->
 

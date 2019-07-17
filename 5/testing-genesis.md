@@ -17,11 +17,11 @@ In this section, we'll walk you through:
 
 There are 3 main approaches to configuring storage data in genesis.
 
-- **Method 1**: You can hardcode storage items one by one, as you declare them in `decl_storage`. This is recommended when you need to configure simple values for storage items that are not so interdependent. You can see an example of how this is done [here](https://crates.parity.io/srml_support_procedural/macro.decl_storage.html#example). 
+- **Method 1**: You can hardcode storage items one by one, as you declare them in `decl_storage`. This is recommended when you need to configure simple values for storage items that are not so interdependent. You can see an example of how this is done [here](https://substrate.dev/rustdocs/v1.0/srml_support_procedural/macro.decl_storage.html#example). 
 
-- **Method 2**: You can build storage items one by one, as you declare them in `decl_storage`. This is recommended when you need to build more complex storage items that are not so interdependent. You can see an example of how this is done [here](https://crates.parity.io/srml_support_procedural/macro.decl_storage.html#example).
+- **Method 2**: You can build storage items one by one, as you declare them in `decl_storage`. This is recommended when you need to build more complex storage items that are not so interdependent. You can see an example of how this is done [here](https://substrate.dev/rustdocs/v1.0/srml_support_procedural/macro.decl_storage.html#example).
 
-- **Method 3**:  You can build the storage values in one go, after you declare them in `decl_storage`. This is recommended when you need to build complex storage items that may be interdependent. You can see an example of how this is done [here](https://crates.parity.io/srml_support_procedural/macro.decl_storage.html#genesisconfig).
+- **Method 3**:  You can build the storage values in one go, after you declare them in `decl_storage`. This is recommended when you need to build complex storage items that may be interdependent. You can see an example of how this is done [here](https://substrate.dev/rustdocs/v1.0/srml_support_procedural/macro.decl_storage.html#genesisconfig).
 
 In the kitties runtime, the storage values are highly interdependent, e.g. `KittyOwner` and `OwnedKittiesArray` store the same data. It would be rote to build each storage value one by one using methods 1, 2. 
 

@@ -1,9 +1,9 @@
 イベントを作成する
 ===
 
-Substrateでは、[**Transactions**](https://docs.substrate.dev/docs/glossary#section-transaction)は、Ethereumで慣れ親しんでいたものとは異なる方法で処理されます。トランザクションが確定されたとしても、必ずしもそのトランザクションによって実行された機能が完全に成功したことを意味するわけではありません。
+Substrateでは、[**Transactions**](https://substrate.dev/docs/en/overview/glossary#transaction)は、Ethereumで慣れ親しんでいたものとは異なる方法で処理されます。トランザクションが確定されたとしても、必ずしもそのトランザクションによって実行された機能が完全に成功したことを意味するわけではありません。
 
-それを知るためには、関数の最後に[**`Event`**](https://docs.substrate.dev/docs/glossary#section-events)を発行して、成功を報告するだけでなく、特定の状態遷移が起こったことを「チェーン外の世界」に伝えます。
+それを知るためには、関数の最後に[**`Event`**](https://substrate.dev/docs/en/overview/glossary#events)を発行して、成功を報告するだけでなく、特定の状態遷移が起こったことを「チェーン外の世界」に伝えます。
 
 ## イベントを宣言する
 

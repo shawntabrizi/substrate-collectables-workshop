@@ -135,6 +135,6 @@ cargo build --release
 ---
 **発展**
 
-`construct_runtime!`マクロのドキュメンテーションは[ここ](https://docs.substrate.dev/docs/construct_runtime)で確認してください。
+`construct_runtime!`マクロのドキュメンテーションは[ここ](https://substrate.dev/rustdocs/v1.0/srml_support/macro.construct_runtime.html)で確認してください。
 
 ---

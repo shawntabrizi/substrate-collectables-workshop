@@ -1,9 +1,9 @@
 Creating an Event
 ===
 
-On Substrate, [**Transactions**](https://docs.substrate.dev/docs/glossary#section-transaction) are handled differently than you might have been used to on Ethereum. Even though a transaction may be finalized, it does not necessarily imply that the function executed by that transaction fully succeeded.
+On Substrate, [**Transactions**](https://substrate.dev/docs/en/overview/glossary#transaction) are handled differently than you might have been used to on Ethereum. Even though a transaction may be finalized, it does not necessarily imply that the function executed by that transaction fully succeeded.
 
-To know that, we should emit an [**`Event`**](https://docs.substrate.dev/docs/glossary#section-events) at the end of the function to not only report success, but to tell the "off-chain world" that some particular state transition has happened.
+To know that, we should emit an [**`Event`**](https://substrate.dev/docs/en/overview/glossary#events) at the end of the function to not only report success, but to tell the "off-chain world" that some particular state transition has happened.
 
 ## Declaring an Event
 

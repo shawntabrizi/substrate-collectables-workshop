@@ -20,7 +20,7 @@ ensure!(my_value.is_zero(), "Value is not zero");
 
 到目前为止，我们的链完全独立于 `Balances` module 提供的内部货币。`Balances` module 使我们能够完全管理每个用户的内部货币，这意味着我们需要谨慎使用它。
 
-幸运的是，`Balances` module 暴露出了一个名为 `Currency` 的 trait, 它实现了一个叫 [`transfer()`](https://crates.parity.io/srml_support/traits/trait.Currency.html#tymethod.transfer) 的函数，它允许你安全地将 units 从一个帐户转移到另一个帐户，检查是否有足够的余额，是否上溢或下溢，甚至还能检查为获取 tokens 而创建的账户。
+幸运的是，`Balances` module 暴露出了一个名为 `Currency` 的 trait, 它实现了一个叫 [`transfer()`](https://substrate.dev/rustdocs/v1.0/srml_support/traits/trait.Currency.html#tymethod.transfer) 的函数，它允许你安全地将 units 从一个帐户转移到另一个帐户，检查是否有足够的余额，是否上溢或下溢，甚至还能检查为获取 tokens 而创建的账户。
 
 要访问 `Currency` trait 及其实现的所有函数，你需要将 trait 导入到模块中：
 

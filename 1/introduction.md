@@ -9,7 +9,7 @@ In this section, we will show you the basics of creating a custom runtime:
 
 ## What is a Runtime?
 
-In short, the [*Runtime*](https://docs.substrate.dev/docs/glossary#section-runtime) is block execution logic of a blockchain, sometimes referred to as the state transition function [**STF**](https://docs.substrate.dev/docs/glossary#section-stf-state-transition-function-). In [Substrate](https://docs.substrate.dev/docs/glossary#section-substrate), this is stored on-chain in an implementation-neutral, machine-executable format as a WebAssembly binary. Other systems tend to express it only in human-readable format (e.g. Ethereum) or not at all (e.g. Bitcoin).
+In short, the [*Runtime*](https://substrate.dev/docs/en/overview/glossary#runtime) is block execution logic of a blockchain, sometimes referred to as the state transition function [**STF**](https://substrate.dev/docs/en/overview/glossary#stf-state-transition-function-). In [Substrate](https://substrate.dev/docs/en/overview/glossary#substrate), this is stored on-chain in an implementation-neutral, machine-executable format as a WebAssembly binary. Other systems tend to express it only in human-readable format (e.g. Ethereum) or not at all (e.g. Bitcoin).
 
 ## What is a Module?
 
@@ -21,7 +21,7 @@ Your blockchain's runtime is composed of multiple features and functionalities w
 - Runtime Upgrades
 - and more...
 
-These are all modules that are provided [here](https://github.com/paritytech/substrate/tree/master/srml) in the codebase for you to easily include into your runtime. These default set of modules provided by Substrate are known as the Substrate Runtime Module Library [**SRML**](https://docs.substrate.dev/docs/glossary#section-srml-substrate-runtime-module-library-)
+These are all modules that are provided [here](https://github.com/paritytech/substrate/tree/master/srml) in the codebase for you to easily include into your runtime. These default set of modules provided by Substrate are known as the Substrate Runtime Module Library [**SRML**](https://substrate.dev/docs/en/overview/glossary#srml-substrate-runtime-module-library-)
 
 With the Substrate framework, you are able to easily create and include new modules into your runtime. That is what we will be doing in this tutorial!
 

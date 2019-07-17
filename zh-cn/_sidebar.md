@@ -41,8 +41,8 @@
   - [创建 Kitties](zh-cn/4/creating-kitties.md)
   - [渲染 Kitties](zh-cn/4/rendering-kitties.md)
 
-- [词汇表](https://docs.substrate.dev/docs/glossary)
-- [文档](https://docs.substrate.dev/docs)
+- [词汇表](https://substrate.dev/docs/overview/glossary
+- [文档](https://substrate.dev/docs/)
 - [报告 Issue](https://github.com/substrate-developer-hub/substrate-collectables-workshop/issues)
 - [substrate 的 reddit 频道](https://www.reddit.com/r/substrate)
 

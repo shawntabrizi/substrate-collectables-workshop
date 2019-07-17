@@ -39,7 +39,7 @@ fn foo(origin, bar: Bar, baz: Baz, ...) -> Result;
  - ガバナンスシステムによってのみ許可されているルートコール
  - ブロックの作成者とバリデータによってのみ許可されている内部コール
 
-詳しくはSubstrate Glossaryの[Originの定義](https://docs.substrate.dev/docs/glossary#section-origin)を参照してください。
+詳しくはSubstrate Glossaryの[Originの定義](https://substrate.dev/docs/en/overview/glossary#origin)を参照してください。
 
 ### Result
 さらに、これらの関数は `support::dispatch`モジュールから`Result`型を返さなければなりません。つまり、成功した関数コールは常に`Ok(())`を返し、エラーをキャッチした場合は`Err()`を返さなければなりません。

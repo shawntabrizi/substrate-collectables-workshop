@@ -43,8 +43,8 @@ Substratekitties workshop 是在 [Cryptokitties](https://www.cryptokitties.co/),
 ---
 
 [main link]: https://substrate-developer-hub.github.io/substrate-collectables-workshop/
-[feedback]: https://docs.substrate.dev/docs/feedback
+[feedback]: https://substrate.dev/community/
 [Substrate]: https://www.parity.io/substrate/
-[Substrate docs]: https://docs.substrate.dev/
+[Substrate docs]: https://substrate.dev/docs/
 [Parity]: https://www.parity.io/
 [Rust]: https://www.rust-lang.org/

@@ -1,8 +1,8 @@
 # 创建一个 Event
 
-在Substrate上，[**Transactions**](https://docs.substrate.dev/docs/glossary#section-transaction) 的处理方式与以往在 Ethereum 上的处理方式不同。即使 transaction 可能已经完成，但并不一定意味着该 transaction 执行的函数完全成功。
+在Substrate上，[**Transactions**](https://substrate.dev/docs/en/overview/glossary#transaction) 的处理方式与以往在 Ethereum 上的处理方式不同。即使 transaction 可能已经完成，但并不一定意味着该 transaction 执行的函数完全成功。
 
-为了知道执行函数是否完全成功，我们应该在函数结束时发出一个 [**`Event`**](https://docs.substrate.dev/docs/glossary#section-events)，不仅要报告成功，还要告诉 "off-chain world" 某些特定的状态转换已经发生了。
+为了知道执行函数是否完全成功，我们应该在函数结束时发出一个 [**`Event`**](https://substrate.dev/docs/en/overview/glossary#events)，不仅要报告成功，还要告诉 "off-chain world" 某些特定的状态转换已经发生了。
 
 ## 声明一个 Event
 

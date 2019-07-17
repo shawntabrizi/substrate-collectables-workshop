@@ -136,6 +136,6 @@ cargo build --release
 
 **Learn More**
 
-查看 `construct_runtime!` 宏的[文档](https://docs.substrate.dev/docs/construct_runtime)。
+查看 `construct_runtime!` 宏的[文档](https://substrate.dev/rustdocs/v1.0/srml_support/macro.construct_runtime.html)。
 
 ---

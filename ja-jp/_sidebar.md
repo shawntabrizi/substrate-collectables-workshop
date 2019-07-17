@@ -42,8 +42,8 @@
     - [キティを作る](ja-jp/4/creating-kitties.md)
     - [キティをレンダリングする](ja-jp/4/rendering-kitties.md)
 
-- [グローサリー](https://docs.substrate.dev/docs/glossary)
-- [ドキュメンテーション](https://docs.substrate.dev/docs)
+- [グローサリー](https://substrate.dev/docs/overview/glossary
+- [ドキュメンテーション](https://substrate.dev/docs/)
 - [問題を報告する](https://github.com/substrate-developer-hub/substrate-collectables-workshop/issues)
 - [Reddit/Substrate](https://www.reddit.com/r/substrate)
 

@@ -39,7 +39,7 @@ fn foo(origin, bar: Bar, baz: Baz, ...) -> Result;
 - 允许仅由治理系统进行的 root 调用。
 - 允许仅由块作者和验证者进行的 inherent 调用。
 
-请参阅 Substrate 术语表中的 [Origin](https://docs.substrate.dev/docs/glossary#section-origin) 定义。
+请参阅 Substrate 术语表中的 [Origin](https://substrate.dev/docs/en/overview/glossary#origin) 定义。
 
 ### Result
 

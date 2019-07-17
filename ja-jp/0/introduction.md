@@ -15,7 +15,7 @@ Substrate と Substrate Collectables Workshopは、熱心で協力的な開発�
 
 - [Substrate GitHub](https://github.com/paritytech/substrate)
 - [Substrateコレクタブルワークショップ GitHub](https://github.com/substrate-developer-hub/substrate-collectables-workshop)
-- [Substrateコミュニティチャット](https://docs.substrate.dev/docs/feedback)
+- [Substrateコミュニティチャット](https://substrate.dev/community/)
 
 Have fun and good luck!
 

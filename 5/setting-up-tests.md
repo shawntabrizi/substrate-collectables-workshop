@@ -32,9 +32,9 @@ use runtime_primitives::{
 
 Notably, `runtime_io` imports the following:
 
-- [`TestExternalities`](https://crates.parity.io/sr_io/struct.TestExternalities.html) an in-memory, hashmap-based, externalities implementation. In other words, it mocks a test storage needed for the runtime to execute in a minimal fashion. `TestExternalities` accepts the generic type `Hasher`, hence we also import the `Blake2Hasher` to use it later on when building `TestExternalities`.
+- [`TestExternalities`](https://substrate.dev/rustdocs/v1.0/sr_io/struct.TestExternalities.html) an in-memory, hashmap-based, externalities implementation. In other words, it mocks a test storage needed for the runtime to execute in a minimal fashion. `TestExternalities` accepts the generic type `Hasher`, hence we also import the `Blake2Hasher` to use it later on when building `TestExternalities`.
 
-- [`with_externalities`](https://crates.parity.io/sr_io/fn.with_externalities.html) accepts two arguments, namely:
+- [`with_externalities`](https://substrate.dev/rustdocs/v1.0/sr_io/fn.with_externalities.html) accepts two arguments, namely:
   - an object of type `Externalities`
   - a closure that is being executed given the first argument
 

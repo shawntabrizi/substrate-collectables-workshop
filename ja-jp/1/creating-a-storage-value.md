@@ -2,7 +2,7 @@
 ===
 実行可能な最も簡単なロジックであるストレージ（変数を格納する関数）を追加しましょう。
 
-これを行うには、最初に[**Storage Item**](https://vdocs.substrate.dev/docs/glossary#section-storage-items)のストレージ変数を[**`decl_storage！`**](https://crates.parity.io/srml_support_procedural/macro.decl_storage.html)マクロで定義する必要があります。これにより、Substrateストレージデータベースのタイプセーフな使用が可能になるため、ブロック間の状況を把握することができます。
+これを行うには、最初に[**Storage Item**](https://substrate.dev/docs/en/overview/glossary#storage-items)のストレージ変数を[**`decl_storage！`**](https://substrate.dev/rustdocs/v1.0/srml_support_procedural/macro.decl_storage.html)マクロで定義する必要があります。これにより、Substrateストレージデータベースのタイプセーフな使用が可能になるため、ブロック間の状況を把握することができます。
 
 ## ストレージ変数と宣言する
 
