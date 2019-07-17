@@ -2,7 +2,7 @@
 
 让我们将最简单的逻辑添加到 runtime 中：一个存储变量的函数。
 
-为此，我们首先需要在 [**`decl_storage!`**](https://crates.parity.io/srml_support_procedural/macro.decl_storage.html) 宏中为 [**Storage Item**](https://substrate.dev/docs/en/overview/glossary#storage-items) 定义存储变量。Substrate 存储数据库允许类型安全的用法，因此你可以在区块之间保持一致。
+为此，我们首先需要在 [**`decl_storage!`**](https://substrate.dev/rustdocs/v1.0/srml_support_procedural/macro.decl_storage.html) 宏中为 [**Storage Item**](https://substrate.dev/docs/en/overview/glossary#storage-items) 定义存储变量。Substrate 存储数据库允许类型安全的用法，因此你可以在区块之间保持一致。
 
 ## 声明一个 Storage Value
 

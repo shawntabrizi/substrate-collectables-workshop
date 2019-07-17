@@ -89,8 +89,8 @@ Recall that Substrate provides an `ensure!` macro used to check inputs and logic
 To aid you in writing comprehensive tests, the Substrate framework provides custom assert macros, in addition to the standard [assertion macros](https://doc.rust-lang.org/std/macro.assert.html) provided by Rust. 
 
 You may want to frequently make use of: 
-- [`assert_ok!()`](https://crates.parity.io/srml_support/macro.assert_ok.html): a special macro that checks a dispatch call returns an `Ok(())` Result. (Remember that dispatch calls return a special type of `Result<(), &'static str>`)
-- [`assert_noop!()`](https://crates.parity.io/srml_support/macro.assert_noop.html): a special macro that checks that a call fails, whilst returning that particular error message string.
+- [`assert_ok!()`](https://substrate.dev/rustdocs/v1.0/srml_support/macro.assert_ok.html): a special macro that checks a dispatch call returns an `Ok(())` Result. (Remember that dispatch calls return a special type of `Result<(), &'static str>`)
+- [`assert_noop!()`](https://substrate.dev/rustdocs/v1.0/srml_support/macro.assert_noop.html): a special macro that checks that a call fails, whilst returning that particular error message string.
 
 ## Your Turn!
 

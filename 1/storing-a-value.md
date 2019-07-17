@@ -48,7 +48,7 @@ Refer to definition of [Origin](https://substrate.dev/docs/en/overview/glossary#
 
 ### Result
 
-Additionally, these functions must return the [`Result` type](https://crates.parity.io/srml_support/dispatch/result/index.html) from the `support::dispatch` module. This means that a successful function call will always return `Ok(())`, otherwise, the logic should catch any errors which may cause a problem and return an `Err()`.
+Additionally, these functions must return the [`Result` type](https://substrate.dev/rustdocs/v1.0/srml_support/dispatch/result/index.html) from the `support::dispatch` module. This means that a successful function call will always return `Ok(())`, otherwise, the logic should catch any errors which may cause a problem and return an `Err()`.
 
 Since these are dispatched functions, there are two extremely important things to remember:
 

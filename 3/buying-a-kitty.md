@@ -21,7 +21,7 @@ If you wanted to improve this, we may have the price be an `Option<T::Balance>`,
 
 So far our chain has been completely independent of our internal currency provided by the `Balances` module. The `Balances` module gives us access to completely manage the internal currency of every user, which means we need to be careful how we use it.
 
-Fortunately, the `Balances` module exposes a trait called `Currency` which implements a function called [`transfer()`](https://crates.parity.io/srml_support/traits/trait.Currency.html#tymethod.transfer) which allows you to safely transfer units from one account to another, checking for enough balance, overflow, underflow, and even account creation as a result of getting tokens.
+Fortunately, the `Balances` module exposes a trait called `Currency` which implements a function called [`transfer()`](https://substrate.dev/rustdocs/v1.0/srml_support/traits/trait.Currency.html#tymethod.transfer) which allows you to safely transfer units from one account to another, checking for enough balance, overflow, underflow, and even account creation as a result of getting tokens.
 
 To access the `Currency` trait and all its implemented functions, you need to import the trait into your module with:
 

@@ -21,7 +21,7 @@ ensure!(my_value.is_zero(), "Value is not zero");
 
 これまで、私たちのチェーンは`Balances`モジュールによって提供されるチェーン内部通貨から完全に独立していました。`Balances`モジュールを使うことによって、全ユーザーの通貨を完全に管理することができます。しかしそれは、使い方に非常に注意を払う必要があることを意味します。
 
-幸いなことに、`Balances`モジュールは`Currency`と呼ばれるトレイトを公開しており、それは[`transfer()`](https://crates.parity.io/srml_support/traits/trait.Currency.html#tymethod.transfer)と呼ばれる関数を実装しています。この`transfer()`関数は、通常なら必要である多くの検証(オーバーフロー、アンダーフロー、残高確認など)を行ってくれ、安全かつ簡単にアカウント間の送金を可能にします。
+幸いなことに、`Balances`モジュールは`Currency`と呼ばれるトレイトを公開しており、それは[`transfer()`](https://substrate.dev/rustdocs/v1.0/srml_support/traits/trait.Currency.html#tymethod.transfer)と呼ばれる関数を実装しています。この`transfer()`関数は、通常なら必要である多くの検証(オーバーフロー、アンダーフロー、残高確認など)を行ってくれ、安全かつ簡単にアカウント間の送金を可能にします。
 
 `Currency`トレイトと、それにより実装された機能にアクセスするには、以下のようにトレイトをあなたのモジュールにインポートする必要があります：
 
