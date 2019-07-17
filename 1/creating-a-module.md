@@ -140,6 +140,6 @@ Now it's time to start adding some of our own logic!
 ---
 **Learn More**
 
-Check out the documentation for the `construct_runtime!` macro [here](https://docs.substrate.dev/docs/construct_runtime).
+Check out the documentation for the `construct_runtime!` macro [here](https://substrate.dev/rustdocs/v1.0/srml_support/macro.construct_runtime.html).
 
 ---

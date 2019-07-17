@@ -107,7 +107,7 @@ Thankfully, __not repeating yourself__ is one of the main design intentions behi
 
 Our challenge to the reader is to extend the test functionality by giving Kitties runtime a `genesis config`, which allows you to preconfigure the state of the chain before the first block. A genesis config is useful in scenarios when we want to initialize the chain to have certain parameters for subsequent transactions. In this case, it could be helpful to have some initial kitties to start the game and to make subsequent testing easier.
 
-You can see another sample tutorial which implements the genesis config [here](https://docs.substrate.dev/docs/building-the-substrate-tcr-runtime#section-using-the-genesis-config).
+You can see another sample tutorial which implements the genesis config [here](https://substrate.dev/docs/en/tutorials/tcr/building-the-substrate-tcr-runtime#using-the-genesis-config).
 
 <!-- tabs:start -->
 

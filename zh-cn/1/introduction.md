@@ -8,7 +8,7 @@
 
 ## 什么是 Runtime？
 
-简而言之，[*Runtime*](https://docs.substrate.dev/docs/glossary#section-runtime) 是区块链的块执行逻辑，有时称为状态转换函数 [**STF**](https://docs.substrate.dev/docs/glossary#section-stf-state-transition-function-)。在 [Substrate](https://docs.substrate.dev/docs/glossary#section-substrate) 中，它以 WebAssembly 二进制文件这种实现中立，机器可执行的格式存储在链上 。其他系统倾向于仅以人类可读的格式来表达（例如 Ethereum）或者就根本不存在（例如 Bitcoin）。
+简而言之，[*Runtime*](https://substrate.dev/docs/en/overview/glossary#runtime) 是区块链的块执行逻辑，有时称为状态转换函数 [**STF**](https://substrate.dev/docs/en/overview/glossary#stf-state-transition-function-)。在 [Substrate](https://substrate.dev/docs/en/overview/glossary#substrate) 中，它以 WebAssembly 二进制文件这种实现中立，机器可执行的格式存储在链上 。其他系统倾向于仅以人类可读的格式来表达（例如 Ethereum）或者就根本不存在（例如 Bitcoin）。
 
 ## 什么是 Module？
 
@@ -20,7 +20,7 @@
 - Runtime 升级
 - 和更多...
 
-[这些](https://github.com/paritytech/substrate/tree/master/srml)是代码库中提供的所有 modules，你可以轻松地将其包含在 runtime 中。Substrate 提供的这些默认 module 集合被称为 Substrate Runtime Module Library [**SRML**](https://docs.substrate.dev/docs/glossary#section-srml-substrate-runtime-module-library-)
+[这些](https://github.com/paritytech/substrate/tree/master/srml)是代码库中提供的所有 modules，你可以轻松地将其包含在 runtime 中。Substrate 提供的这些默认 module 集合被称为 Substrate Runtime Module Library [**SRML**](https://substrate.dev/docs/en/overview/glossary#srml-substrate-runtime-module-library-)
 
 使用 Substrate 框架，你可以轻松地在 runtime 中创建新的 module。这就是我们在本教程中将要做的！
 

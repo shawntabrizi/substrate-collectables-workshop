@@ -55,8 +55,8 @@
         - [Bidding an auction](Extras/Auction/bidding-an-auction.md)
         - [Finalizing an auction](Extras/Auction/finalizing-an-auction.md)
 
-- [Glossary](https://docs.substrate.dev/docs/glossary)
-- [Documentation](https://docs.substrate.dev/docs)
+- [Glossary](https://substrate.dev/docs/overview/glossary
+- [Documentation](https://substrate.dev/docs/)
 - [Report an Issue](https://github.com/substrate-developer-hub/substrate-collectables-workshop/issues)
 - [r/substrate](https://www.reddit.com/r/substrate)
 
