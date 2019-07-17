@@ -1,4 +1,4 @@
-- [欢迎](/)
+- [欢迎](/zh-cn/README.md)
 
 - [**#0 开始**](zh-cn/0/introduction.md)
 
@@ -41,7 +41,7 @@
   - [创建 Kitties](zh-cn/4/creating-kitties.md)
   - [渲染 Kitties](zh-cn/4/rendering-kitties.md)
 
-- [词汇表](https://substrate.dev/docs/overview/glossary
+- [词汇表](https://substrate.dev/docs/overview/glossary)
 - [文档](https://substrate.dev/docs/)
 - [报告 Issue](https://github.com/substrate-developer-hub/substrate-collectables-workshop/issues)
 - [substrate 的 reddit 频道](https://www.reddit.com/r/substrate)
@@ -49,5 +49,5 @@
 ---
 
 - [:us: English](/README.md)
-- [:cn: 中文](/zh-cn/)
-- [:jp: 日本語](/ja-jp/)
+- [:cn: 中文](/zh-cn/README.md)
+- [:jp: 日本語](/ja-jp/README.md)

@@ -1,5 +1,5 @@
 
-- [Welcome](/)
+- [Welcome](/README.md)
 
 - [**#0 Getting Started**](0/introduction.md)
 
@@ -55,7 +55,7 @@
         - [Bidding an auction](Extras/Auction/bidding-an-auction.md)
         - [Finalizing an auction](Extras/Auction/finalizing-an-auction.md)
 
-- [Glossary](https://substrate.dev/docs/overview/glossary
+- [Glossary](https://substrate.dev/docs/overview/glossary)
 - [Documentation](https://substrate.dev/docs/)
 - [Report an Issue](https://github.com/substrate-developer-hub/substrate-collectables-workshop/issues)
 - [r/substrate](https://www.reddit.com/r/substrate)
@@ -63,5 +63,5 @@
 ---
 
 - [:us: English](/README.md)
-- [:cn: 中文](/zh-cn/)
-- [:jp: 日本語](/ja-jp/)
+- [:cn: 中文](/zh-cn/README.md)
+- [:jp: 日本語](/ja-jp/README.md)
