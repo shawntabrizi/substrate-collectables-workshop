@@ -1,5 +1,5 @@
 
-- [ようこそ](/)
+- [ようこそ](/ja-jp/README.md)
 
 - [**#0 はじめる**](ja-jp/0/introduction.md)
 
@@ -42,7 +42,7 @@
     - [キティを作る](ja-jp/4/creating-kitties.md)
     - [キティをレンダリングする](ja-jp/4/rendering-kitties.md)
 
-- [グローサリー](https://substrate.dev/docs/overview/glossary
+- [グローサリー](https://substrate.dev/docs/overview/glossary)
 - [ドキュメンテーション](https://substrate.dev/docs/)
 - [問題を報告する](https://github.com/substrate-developer-hub/substrate-collectables-workshop/issues)
 - [Reddit/Substrate](https://www.reddit.com/r/substrate)
@@ -50,5 +50,5 @@
 ---
 
 - [:us: English](/README.md)
-- [:cn: 中文](/zh-cn/)
-- [:jp: 日本語](/ja-jp/)
+- [:cn: 中文](/zh-cn/README.md)
+- [:jp: 日本語](/ja-jp/README.md)

@@ -9,7 +9,7 @@
 
 ## ランタイムとは?
 
-簡単に言うと、[*Runtime*](https://substrate.dev/docs/en/overview/glossary#runtime)はブロックチェーンのブロック実行ロジックで、時にステイトトランジションファンクション([**STF**](https://substrate.dev/docs/en/overview/glossary#stf-state-transition-function-))とも呼ばれます。[Substrate](https://substrate.dev/docs/en/overview/glossary#substrate)では, これは、実装に依存しない、機械実行可能な形式でWebAssemblyバイナリとしてチェーン上に保存されます。他のシステムはそれを人間が読める形式（例えばEthereum）で表現するか、まったく表現しない（例えばBitcoin）などがあります。
+簡単に言うと、[*Runtime*](https://substrate.dev/docs/en/overview/glossary#runtime)はブロックチェーンのブロック実行ロジックで、時にステイトトランジションファンクション([**STF**](https://substrate.dev/docs/en/overview/glossary#stf-state-transition-function))とも呼ばれます。[Substrate](https://substrate.dev/docs/en/overview/glossary#substrate)では, これは、実装に依存しない、機械実行可能な形式でWebAssemblyバイナリとしてチェーン上に保存されます。他のシステムはそれを人間が読める形式（例えばEthereum）で表現するか、まったく表現しない（例えばBitcoin）などがあります。
 
 ## モジュールとは?
 
@@ -22,7 +22,7 @@
 - など...
 
 これら全てのモジュールはランタイムに簡単に導入できるように[コードベース](
-https://github.com/paritytech/substrate/tree/master/srml)で提供されています。Substrateが提供するこれらのデフォルトのモジュールのセットはSubstrate Runtime Module Library ([**SRML**](https://substrate.dev/docs/en/overview/glossary#srml-substrate-runtime-module-library-))と呼ばれます。
+https://github.com/paritytech/substrate/tree/master/srml)で提供されています。Substrateが提供するこれらのデフォルトのモジュールのセットはSubstrate Runtime Module Library ([**SRML**](https://substrate.dev/docs/en/overview/glossary#srml-substrate-runtime-module-library))と呼ばれます。
 
 Substrateフレームワークを使用すると、新しいモジュールを簡単に作成してランタイムに導入することができます。それがこのチュートリアルでやることです！
 
