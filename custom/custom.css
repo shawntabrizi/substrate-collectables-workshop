@@ -13,10 +13,26 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
+.substrate-dev-hub-nav a {
+    display: flex;
+    text-decoration-line: none;
+}
+
+.substrate-dev-hub-nav img {
+    height: 34px;
+    margin: 10px 10px;
+}
+
+.substrate-dev-hub-nav h2 {
+    font-size: 1rem;
+    margin-top: 18px;
+    color: #c8c8c8;
+}
+
 .sidebar {
     background-color: #1b1b1b;
     font-size: 1rem;
-    width: 200px;
+    width: 260px;
 }
 
 input[type="search"], 
@@ -131,6 +147,11 @@ h6,
 .lesson {
     border-right: 1px solid rgba(0,0,0,0.07);
     padding-right: 10px;
+    padding-left: 30px;
+}
+
+.code {
+    padding-right: 30px;
 }
 
 /* When the page does not have code, this style is used to hold the main content */
@@ -169,7 +190,7 @@ h6,
 .content {
     padding-left: 10px;
     padding-top: 0px;
-    left: 200px;
+    left: 260px;
 }
 
 .markdown-section {
