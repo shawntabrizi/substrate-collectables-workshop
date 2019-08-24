@@ -23,7 +23,7 @@ pub struct MyStruct<A, B> {
 要使用自定义的 `Encode` 和 `Decode` traits，你需要从 `parity_codec_derive` crate 中导入它们:
 
 ```rust
-use parity_codec_derive::{Encode, Decode};
+use parity_codec::{Encode, Decode};
 ```
 
 ### 使用 Generics
