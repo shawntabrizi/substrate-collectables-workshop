@@ -1,6 +1,6 @@
 # 创建一个 Module
 
-首先，我们需要为 runtime 创建一个新 module。为此，我们将使用一个空 module 模板，并把它放在一个新的 `substratekities.rs` 文件中：
+首先，我们需要为 runtime 创建一个新 module。为此，我们将使用一个空 module 模板，并把它放在一个新的 `substratekitties.rs` 文件中：
 
 ```
 substratekitties
