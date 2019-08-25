@@ -37,7 +37,7 @@ substratekitties > setValue(value)
 转到 **Chain state** app 页面，然后选择：
 
 ```
-kittyStorage > value(AccountId): u64
+substratekitties > value(AccountId): u64
 ```
 
 在你提交交易的帐户中，查询存储并按下蓝色 `[+]` 按钮：
