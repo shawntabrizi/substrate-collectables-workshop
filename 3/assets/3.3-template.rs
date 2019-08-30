@@ -122,7 +122,7 @@ decl_module! {
 
             // ACTION: Use the `Balances` module's `Currency` trait and `transfer()` function to safely transfer funds
 
-            // ACTION: Transfer the kitty using `tranfer_from()` including a proof of why it cannot fail
+            // ACTION: Transfer the kitty using `transfer_from()` including a proof of why it cannot fail
 
             // ACTION: Reset kitty price back to zero, and update the storage
 
