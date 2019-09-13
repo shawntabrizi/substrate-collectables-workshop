@@ -116,6 +116,4 @@ let my_zero_balance = <T::Balance as As<u64>>::sa(0);
 
 Substrate 不直接支持字符串。Runtime 存储用于存储 runtime 运行的业务逻辑的状态。它不是存储 UI 所需的一般数据。如果你确实需要将一些任意数据存储到 runtime，你总是可以创建一个 bytearray（`Vec<u8>`），但更合乎逻辑的做法是将哈希值存储到 IPFS 之类的服务中，然后获取数据用于 UI 展示。这超出了本次研讨会的范围，但可能会在以后为你的 kitty 添加其他元数据。
 
-[**译者注**： 从编程语言角度来说，Substrate 之所以不直接支持 `String` 是因为 runtime 运行在 Wasm 上，而 Rust 编译为 Wasm 时需要启用 `no_std` 配置，也就是无法使用 `libstd` 标准库，这也就导致了标准库中的 `String` 无法在 runtime 逻辑中使用。但实际上可以直接用 `Vec<u8>` 来代替 `String`，因为 `String` 本身的存储就是一个遵循 `UTF8` 格式的 `Vec<u8>`，而 `Vec<u8>` 可以在不需要导入标准库的情况下通过导入 `liballoc` 库来使用，注意该库还只是 `nightly-only`]
-
 ---

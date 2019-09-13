@@ -50,7 +50,7 @@
 
 > Traits abstract over behavior that types can have in common.
 
-如果你熟悉 interfaces，Traits 是 [Rust 中唯一的 interface 概念](https://blog.rust-lang.org/2015/05/11/traits.html)。[**译者注**： traits 不能完全说成是 interface，它是属于 Rust 独有的部分。不过对常用 OOP 范式的开发者来看，它在使用上的确更接近 interface 的概念，但对常用 FP 范式的开发者来说，它在使用上更接近于 Haskell 中的 typeclass 概念]
+如果你熟悉 interfaces，Traits 是 [Rust 中唯一的 interface 概念](https://blog.rust-lang.org/2015/05/11/traits.html)。
 
 ### 使用 Result 创建 Recoverable Errors
 
@@ -124,7 +124,7 @@ Works!
 
 更简单地说，宏是编写代码的代码，通常用于简化代码或使代码更具可读性。
 
-Substrate 在整个 Runtime 开发过程中使用了很多宏，它们支持十分特有的语法，但是它们返回的错误可读性相当差。[**译者注**： 推荐使用 [cargo-expand 工具](https://github.com/dtolnay/cargo-expand) 来展开宏，以便理解具体调用逻辑]
+Substrate 在整个 Runtime 开发过程中使用了很多宏，它们支持十分特有的语法，但是它们返回的错误可读性相当差。
 
 ---
 
