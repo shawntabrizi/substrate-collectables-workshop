@@ -9,6 +9,10 @@
 以下是声明公开函数的示例：
 
 ```rust
+// Add these imports: 
+//
+// use support::{dispatch::Result, StorageValue};
+// use system::ensure_signed;
 decl_module! {
     pub struct Module<T: Trait> for enum Call where origin: T::Origin {
 
@@ -16,7 +20,7 @@ decl_module! {
             let _sender = ensure_signed(origin)?;
 
             <MyBool<T>>::put(input_bool);
-
+            
             Ok(())
         }
     }
@@ -48,15 +52,15 @@ fn foo(origin, bar: Bar, baz: Baz, ...) -> Result;
 由于这些是调度函数，因此需要记住两件非常重要的事情：
 
 - MUST NOT PANIC: 在任何情况下（保存，或者存储进入一个不可挽回的损坏状态）函数都不能 panic。
-- NO SIDE-EFFECTS ON ERROR: 此函数要么完全完成并返回 `Ok(())`，要么它必须对存储没有副作用并返回 `Err('Some reason'）`。
+- NO SIDE-EFFECTS ON ERROR: 此函数要么全部完成并返回 `Ok(())`，要么它必须对存储没有副作用并返回 `Err('Some reason'）`。
 
 我们稍后会谈到这些。在本教程中，我们将确保满足这两个条件，并且我们也提醒你这样做。
 
 ## 检查签名消息
 
-如上所述，任何这些模块函数中的第一个参数是 `origin`。`system` module 中有三个方便的调用函数 `ensure_signed`, `ensure_root` 和 `ensure_inherent`，可以调用三者中匹配的函数并返回一个结果。**在你的函数中做的第一件事应该总是从这三个调用函数中选择匹配的函数**。
+如上所述，任何这些模块函数中的第一个参数是 `origin`。`system` module 中提供了三个方便的可调用函数 `ensure_signed`, `ensure_root` 和 `ensure_inherent`，它们可以帮你做相应的匹配，并返回一个可用的结果。**在你的函数中做的第一件事应该总是从这三个调用函数中选择匹配的函数**。
 
-我们可以使用 `system` 中的 `ensure_signed()` 函数来检查 origin，并 "ensure" 消息是由有效帐户签名的。我们甚至可以从函数调用的结果中派生签名帐户，如上面的示例函数所示。
+我们可以使用 `system` 中的 `ensure_signed()` 函数来检查 origin，并“确保”消息是经过有效帐户签名的。我们甚至可以从函数调用的结果中派生签名帐户，如上面的示例函数所示。
 
 ## 轮到你了！
 

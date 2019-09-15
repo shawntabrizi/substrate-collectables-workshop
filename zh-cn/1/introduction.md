@@ -8,19 +8,19 @@
 
 ## 什么是 Runtime？
 
-简而言之，[*Runtime*](https://substrate.dev/docs/en/overview/glossary#runtime) 是区块链的块执行逻辑，有时称为状态转换函数 [**STF**](https://substrate.dev/docs/en/overview/glossary#stf-state-transition-function)。在 [Substrate](https://substrate.dev/docs/en/overview/glossary#substrate) 中，它以 WebAssembly 二进制文件这种实现中立，机器可执行的格式存储在链上 。其他系统倾向于仅以人类可读的格式来表达（例如 Ethereum）或者就根本不存在（例如 Bitcoin）。
+简而言之，[*Runtime*](https://substrate.dev/docs/en/overview/glossary#runtime) 是区块链的执行逻辑，有时称为状态转换函数 [**STF**](https://substrate.dev/docs/en/overview/glossary#stf-state-transition-function)。在 [Substrate](https://substrate.dev/docs/en/overview/glossary#substrate) 中，它以 WebAssembly 二进制文件这种实现中立、机器可执行的格式存储在链上 。其它系统倾向于仅以人类可读的格式来表达（例如 Ethereum）或者完全不可读格式（例如 Bitcoin）。
 
 ## 什么是 Module？
 
-你的区块链 runtime 由多个特性和功能组成，这些特性和功能共同为区块链提供支持。像：
+你的区块链 runtime 由多种特性和功能组成，这些特性和功能共同为区块链提供支撑。例如：
 
 - 帐户管理
 - Token 余额
 - 治理
 - Runtime 升级
-- 和更多...
+- 更多...
 
-[这些](https://github.com/paritytech/substrate/tree/master/srml)是代码库中提供的所有 modules，你可以轻松地将其包含在 runtime 中。Substrate 提供的这些默认 module 集合被称为 Substrate Runtime Module Library [**SRML**](https://substrate.dev/docs/en/overview/glossary#srml-substrate-runtime-module-library)
+[这些](https://github.com/paritytech/substrate/tree/master/srml)是代码库中提供的所有模块，你可以轻松地将其包含在 runtime 中。Substrate 提供的这些默认模块集合被称为 Substrate Runtime Module Library [**SRML**](https://substrate.dev/docs/en/overview/glossary#srml-substrate-runtime-module-library)
 
 使用 Substrate 框架，你可以轻松地在 runtime 中创建新的 module。这就是我们在本教程中将要做的！
 
@@ -28,7 +28,7 @@
 
 目前，Substrate 和 Runtime 开发使用 [Rust编程语言](https://www.parity.io/why-rust/)。
 
-本教程 **不是** 学习 Rust 的课程，但我们应该回顾一下在使用本指南时与用其他语言编程时相比可能遇到的一些基本差异。
+本教程 **不是** 学习 Rust 的课程，但我们将会介绍在使用本指南时，使用Rust和使用其它语言相比可能遇到的一些基本差异。
 
 ### Ownership 和 Borrowing
 
@@ -42,7 +42,7 @@
 
 你将在整个教程中看到我们将在一些变量前面添加一个与号（＆），这意味着我们正在借用该值。如果我们需要在整个函数中多次重用该值，这种方式将非常有用。
 
-它基本上阻止了你在处理内存时会犯的一些愚蠢错误，所以当 Rust 编译器建议你不要做某件事，请心存感激。
+它基本上阻止了你在处理内存时会犯的一些愚蠢错误，所以当 Rust 编译器建议你不要做某件事时，请心存感激。
 
 ### Traits
 
@@ -50,9 +50,9 @@
 
 > Traits abstract over behavior that types can have in common.
 
-如果你熟悉 interfaces，Traits 是 [Rust 中唯一的 interface 概念](https://blog.rust-lang.org/2015/05/11/traits.html)。
+如果你熟悉 interfaces，Traits 是 [Rust 中唯一和 interface 类似的概念](https://blog.rust-lang.org/2015/05/11/traits.html)。
 
-### 使用 Result 创建 Recoverable Errors
+### 使用 Result 表示 Recoverable Errors
 
 稍后你将了解到模块函数必须返回 `Result` 类型，这允许我们处理函数中的错误。返回结果是 `Ok()` 时表示成功，是 `Err()` 时表示失败。
 
@@ -124,13 +124,13 @@ Works!
 
 更简单地说，宏是编写代码的代码，通常用于简化代码或使代码更具可读性。
 
-Substrate 在整个 Runtime 开发过程中使用了很多宏，它们支持十分特有的语法，但是它们返回的错误可读性相当差。
+Substrate 在整个 Runtime 开发过程中使用了很多宏，它们支持特有的语法，但是它们返回的错误可读性相当差。
 
 ---
 
 **Learn More**
 
-Result 和 ? 如何工作？
+Result/? 是如何工作的？
 
 介绍 Traits 和 interfaces 的关系？
 

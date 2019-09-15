@@ -1,6 +1,6 @@
-# 存储一个 Structure
+# 存储结构体
 
-如果你认为每个人都有自己的 number 是一件很酷的事，那让我们试着给所有的数字 kitties 添加吧
+如果你认为每个人都有自己的 number 是一件很酷的事，那让我们试着给每个人添加虚拟 kitties。
 
 首先，我们需要以 `struct` 的形式定义我们的 kitties 具有哪些属性，然后我们需要学习如何在 runtime 存储中存储这些自定义结构。
 
@@ -18,19 +18,19 @@ pub struct MyStruct<A, B> {
 }
 ```
 
-与在其他语言中定义结构相比，这应该看起来很正常。但是，你会在 runtime 开发中注意到这个声明的两个奇怪之处。
-
-要使用自定义的 `Encode` 和 `Decode` traits，你需要从 `parity_codec_derive` crate 中导入它们:
+要使用自定义的 `Encode` 和 `Decode` traits，你需要从 `parity_codec` crate 中导入它们:
 
 ```rust
 use parity_codec::{Encode, Decode};
 ```
 
+与在其他语言中定义结构体相比，这应该看起来很正常。但是，你会在 runtime 开发中注意到这个声明的两个奇怪之处...
+
 ### 使用 Generics
 
 你会注意到我们使用泛型定义了我们的示例结构来作为我们的一个存储类型。当我们尝试在结构中使用 `Substrate` 中的类型（如 `AccountId` 或 `Balances`）时，这显得非常重要，因为每次我们在使用我们的结构体时都需要传递这些类型。
 
-因此，如果我们想在 `some_generic` 中存储 `AccountId`，我们需要像这样定义我们的存储项：
+因此，如果我们想存储 `Balance` 和 `Hash` 类型的数据，我们需要像这样定义我们的存储项：
 
 ```rust
 decl_storage! {
@@ -44,7 +44,7 @@ decl_storage! {
 
 ### Derive Macro
 
-你会注意到的另一件事是顶部的 `＃[derive(...)]`。这是 Rust 编译器提供的属性，允许基本地实现某些 trait。第二行，`＃[cfg_attr(feature = "std", derive(Debug))]` 对 `Debug` trait 做了同样的事情，但仅在使用“标准”库时启用，即在编译本机二进制文件而不是 Wasm 的时候。你可以在[这里](https://doc.rust-lang.org/rust-by-example/trait/derive.html)了解更多相关信息。出于本教程的目的，你可以将其视为 magic。
+你会注意到的另一件事是顶部的 `＃[derive(...)]`。这是 Rust 编译器提供的属性，提供了某些 trait 的基本实现。第二行，`＃[cfg_attr(feature = "std", derive(Debug))]` 对 `Debug` trait 做了同样的事情，但仅在使用“标准”库时启用，即在编译本机二进制文件而不是 Wasm 的时候。你可以在[这里](https://doc.rust-lang.org/rust-by-example/trait/derive.html)了解更多相关信息。出于本教程的目的，你可以将其视为 magic。
 
 ## Module 函数中的自定义 Struct
 
@@ -114,6 +114,6 @@ let my_zero_balance = <T::Balance as As<u64>>::sa(0);
 
 你可能希望我们为 kitties 添加一个名称属性！毕竟，谁不会给他们喜欢的东西取名呢?
 
-Substrate 不直接支持字符串。Runtime 存储用于存储 runtime 运行的业务逻辑的状态。它不是存储 UI 所需的一般数据。如果你确实需要将一些任意数据存储到 runtime，你总是可以创建一个 bytearray（`Vec<u8>`），但更合乎逻辑的做法是将哈希值存储到 IPFS 之类的服务中，然后获取数据用于 UI 展示。这超出了本次研讨会的范围，但可能会在以后为你的 kitty 添加其他元数据。
+Substrate 不直接支持字符串。Runtime 存储用于存储 runtime 运行的业务逻辑的状态。它不是存储 UI 所需的一般数据。如果你确实需要将一些任意数据存储到 runtime，你总是可以创建一个 字节数组（`Vec<u8>`），但更合乎逻辑的做法是将哈希值存储到 IPFS 之类的服务中，然后获取数据用于 UI 展示。这超出了本次研讨会的范围，但可能会在以后为你的 kitty 支持其他元数据时添加。
 
 ---

@@ -2,11 +2,11 @@
 
 让我们将最简单的逻辑添加到 runtime 中：一个存储变量的函数。
 
-为此，我们首先需要在 [**`decl_storage!`**](https://substrate.dev/rustdocs/v1.0/srml_support_procedural/macro.decl_storage.html) 宏中为 [**Storage Item**](https://substrate.dev/docs/en/overview/glossary#storage-items) 定义存储变量。Substrate 存储数据库允许类型安全的用法，因此你可以在区块之间保持一致。
+为此，我们首先需要在 [**`decl_storage!`**](https://substrate.dev/rustdocs/v1.0/srml_support_procedural/macro.decl_storage.html) 宏中为 [**Storage Item**](https://substrate.dev/docs/en/overview/glossary#storage-items) 定义存储变量。这种用法使得 Substrate 存储数据库的使用是类型安全的，因此你可以在区块中保存这些数据。
 
 ## 声明一个 Storage Value
 
-Substrate 本身支持 Rust 中可用的所有原始类型（`bool`，`u8`，`u32` 等）以及一些 Substrate 中的特定自定义类型 (`AccountId`, `Balance`, `Hash`, [and more](https://polkadot.js.org/api/types/)...)
+Substrate 本身支持 Rust 中可用的所有原始类型（`bool`，`u8`，`u32` 等）以及一些 Substrate 中的一些自定义类型 (`AccountId`, `BlockNumber`, `Hash`, [其它](https://polkadot.js.org/api/types/)...)
 
 你可以声明一个简单的 storage item，如下所示：
 
@@ -21,11 +21,11 @@ decl_storage! {
 
 这里我们定义了两个变量：一个 `u32` 变量和一个带有 getter 函数 `my_bool_getter` 的 `bool` 变量。`get` 参数是可选的，但如果将其添加到 storage item，它将公开具有指定名称的 getter 函数（`fn getter_name() -> Type`）。
 
-要存储这些基本存储值，你需要导入 `support::StorageValue`  module。
+要存储这些基本类型，你需要导入 `support::StorageValue`模块。
 
-### 使用 Storage Value 工作
+### 使用 Storage Value
 
-用于访问 `StorageValue` 的函数被定义在 [`srml/support` 文件夹](https://github.com/paritytech/substrate/blob/master/srml/support/src/storage/generator.rs#L98) 中：
+用于访问 `StorageValue` 的函数被定义在 [`srml_support::storage`](https://substrate.dev/rustdocs/v1.0/srml_support/storage/trait.StorageValue.html) 中：
 
 ```rust
 /// Get the storage key.
@@ -69,13 +69,13 @@ let my_bool = <MyBool<T>>::get();
 let also_my_bool = Self::my_bool_getter();
 ```
 
-我们将在下一节中向你展示如何将这些调用集成到你自己的 module 中。
+我们将在下一节中向你展示如何将这些函数调用集成到你自己的 module 中。
 
 ## 轮到你了！
 
-创建一个名为 `Value` 的存储值，用于存储 `u64`。
+创建一个名为 `Value` 的存储值，用于存储 `u64`类型。
 
-确保编译器所需的任何库都被导入了。你的代码应该能编译成功。
+确保编译器所需的依赖都被导入了。你的代码应该能编译成功。
 
 <!-- tabs:start -->
 
