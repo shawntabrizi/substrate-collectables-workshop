@@ -4,7 +4,7 @@
 
 Substrate 是个快速发展的项目，这意味着可能会不时地引入 breaking changes 。为了改善本教程的开发体验，我们创建了一个稳定的，可工作的 Substrate 节点版本和兼容的 Substrate UI，你将在本教程中使用它们。
 
-一旦你开始使用这个 Substrate 包，那么完成本教程的剩余部分对你来说应该没有问题，但若是出现问题请及时让我们知道。为获取该包，在你的工作目录运行以下命令：
+如果你开始使用这个 Substrate package，那么完成本教程的剩余部分对你来说应该没有问题，出现任何问题请及时联系我们。为获取该程序包，在你的工作目录运行以下命令：
 
 ```bash
 git clone https://github.com/shawntabrizi/substrate-package
@@ -15,9 +15,9 @@ git clone https://github.com/shawntabrizi/substrate-package
 1. `substrate-node-template`
 2. `substrate-ui`
 
-我们在本教程第 4 章前不会涉及到 `substrate-ui`，但从名字我们就能知道，该文件夹主要包含一份预构建的，由 [React](https://reactjs.org/) 编写的 UI，以后可以被自定义地扩展。
+我们在本教程第 4 章前不会涉及到 `substrate-ui`，但从名字我们就能知道，该文件夹主要包含一份预构建的，由 [React](https://reactjs.org/) 编写的 UI，并且可以被自定义地扩展。
 
-相反，我们将主要在 `substrate-node-template` 文件夹中工作，该文件夹包含一个最小的，可运行的 Substrate 节点，我们将开始修改它。
+我们将主要在 `substrate-node-template` 文件夹中工作，该文件夹包含一个最小、可运行的 Substrate 节点程序，我们将开始修改它。
 
 让我们使用 `substrate-package-rename.sh` 脚本重命名我们的项目和项目文件夹：
 
