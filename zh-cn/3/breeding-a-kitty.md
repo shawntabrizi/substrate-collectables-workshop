@@ -6,9 +6,9 @@
 
 ## 遗传特征
 
-在我们的 UI 中，我们将使用 kitty DNA 生成我们的 kitties 图像。在我们的 runtime 中，DNA 是 256 位的 hash 值，在我们的代码中用 bytearray 表示，在我们即将实现的 UI 中用十六进制字符串表示。
+在我们的 UI 中，我们将使用 kitty DNA 生成我们的 kitties 图像。在我们的 runtime 中，DNA 是 256 位的 hash 值，在我们的代码中用字节数组表示，在我们即将实现的 UI 中用十六进制字符串表示。
 
-这意味着有 32 个元素，每个元素可以是 0 到 255 之间的值。我们将使用这些元素来确定我们的 kitty 有哪些特征。例如，byte array 的第一个索引可以确定 kitty 的颜色（从256种颜色的范围）;下一个元素可以代表眼睛形状等...
+这意味着有 32 个元素，每个元素可以是 0 到 255 之间的值。我们将使用这些元素来确定我们的 kitty 有哪些特征。例如，字节数组的第一个索引可以确定 kitty 的颜色（从256种颜色的范围）;下一个元素可以代表眼睛形状等...
 
 ```
 Attribute:  Color Eyes Hair Collar Accessory
@@ -54,9 +54,9 @@ submit the following extrinsic: sudo > sudo(proposal)
 
 ![Image of the runtime extrinsic](../../3/assets/runtime-upgrade-extrinsic.png)
 
-然后使用 `compact.wasm` 文件作为此次调用的输入。确保执行此函数，因为在 genesis 配置中 **Alice** 是被设置为允许进行 `Sudo` 调用的 `admin`。
+然后使用 `compact.wasm` 文件作为此次调用的输入。确保执行此函数，因为在 genesis 配置中 **Alice** 是被设置为允许进行 `Sudo` 调用的“管理员”。
 
-按下 **Submit Transaction** 创建一个块后，你应该可以看到一个显示合同升级成功的 `Sudid` event！
+按下 **Submit Transaction** 创建一个块后，你应该可以看到一个显示升级成功的 `Sudid` event！
 
 ![Image of the Sudid event](../../3/assets/sudid-event.png)
 
