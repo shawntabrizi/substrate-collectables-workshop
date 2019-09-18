@@ -2,9 +2,7 @@
 
 ## Rust 编译器是你的朋友
 
-使用强类型编程语言（如 Rust）的众多优点之一
-
-[TODO: 让 RUST 成为你的朋友，在需要时帮助你添加代码]
+使用强类型编程语言（如 Rust）的众多优点之一是，编译器十分有用并且会对代码中出现的错误提供修复建议。通过[这篇文章](https://jvns.ca/blog/2018/01/13/rust-in-2018--way-easier-to-use/)来学习更多内容，关于Rust编译器如何帮助你。当然你还需要学习Rust，参考[Rust 官方书籍](https://doc.rust-lang.org/book/)。
 
 ## 更新你的 Runtime
 
@@ -15,18 +13,18 @@
 - WebAssembly（Wasm）image
 - 标准二进制可执行文件
 
-Wasm 文件用作标准二进制文件编译的一部分，因此在构建可执行文件之前需要先编译 Wasm image。
+Wasm 文件被用来编译二进制文件的一部分，因此在构建可执行文件之前需要先编译 Wasm image。
 
 模式应该是：
 
 ```bash
-./scripts/build.sh               // Build Wasm
-cargo build --release    // Build binary
+./scripts/build.sh               // 构建 Wasm
+cargo build --release    // 构建 binary
 ```
 
 此外，当你对节点进行更改时，之前旧版本节点生成的块仍然存在。你可能会注意到，当重启节点时，块只会从中断处继续生成。
 
-但是，如果你对 runtime 的更改很重要，那么可能需要使用以下命令清除链上先前所有的块：
+但是，如果你对 runtime 的改动内容很多，那么可能需要使用以下命令清除链上先前所有的块：
 
 ```bash
 ./target/release/substratekitties purge-chain --dev
@@ -44,7 +42,7 @@ cargo build --release    // Build binary
 
 **Learn More**
 
-你总是应该使用最近的 Rust stable 和 nightly 版本来在 Substrate 上开发。
+基于 Substrate 开发时，你应该总是使用最新的 Rust stable 和 nightly 版本。
 
 我们在 `build.sh` 所在的目录中提供了另一个脚本，你应该在每次启动一个新项目时运行它：
 
@@ -52,6 +50,6 @@ cargo build --release    // Build binary
 ./scripts/init.sh
 ```
 
-此脚本只是简单更新 Rust 版本和相关工具。确保你没有奇怪的编译错误。如果你有相关问题，请记得联系我们，具体方式我们已经在本教程的 instructions 部分提到过了。
+此脚本只是简单更新 Rust 版本和相关工具。确保你没有奇怪的编译错误。如果你有相关问题，请记得联系我们，具体方式我们已经在本教程的介绍一节提到过了。
 
 ---

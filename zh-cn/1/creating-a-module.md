@@ -12,7 +12,12 @@ substratekitties
         +-- lib.rs
         |
         +-- * substratekitties.rs
+	|
+	+-- template.rs 
 ```
+
+> **注意：** `substrate-node-template`还提供了一个`template.rs`文件。通常你可以从这个模板文件开始构建你的模块。这里为了从头开始，我们使用一个新文件。
+
 
 **substratekitties<span>.</span>rs**
 
@@ -34,7 +39,7 @@ decl_module! {
 }
 ```
 
-你可以看到，该模板允许我们开始编写 module 的最基本部分：公共函数和存储。
+你可以看到，该模板提供给我们编写 module 的最基本部分：公共函数和存储。
 
 但在我们开始这样做之前，我们应该将此文件包含在我们的整个 runtime 中，runtime 被定义在同一目录中的 `lib.rs` 文件中。
 
@@ -104,7 +109,7 @@ construct_runtime!(
 
 请注意，我们在此定义中添加了三种类型（`Module`，`Call`，`Storage`），所有这些类型都是由模板中定义的宏生成的。
 
-这样，这段代码是有效的，并且应该能编译通过。试一试：
+这样，这段代码是有效的，并且应该能编译通过。通过下面的命令试一试：
 
 ```bash
 ./scripts/build.sh

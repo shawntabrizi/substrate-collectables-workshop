@@ -8,7 +8,7 @@
 
 > 重要提示：此部分非常重要
 
-作为基于 Substrate 框架开发应用的开发人员，很重要的一点是要区分 Substrate 上 runtime 的逻辑设计和 Ethereum 平台上的智能合约开发。
+作为基于 Substrate 框架的应用开发人员，很重要的一点是要区分 Substrate 上 runtime 的逻辑设计和 Ethereum 平台上的智能合约开发的不同。
 
 在 Ethereum 中，如果你的交易在任何时候失败（错误，没有 gas 等...），你的智能合约的状态将不受影响。但是，在 Substrate 上并非如此。一旦交易开始修改区块链的存储，这些更改就是永久性的，即使交易在 runtime 执行期间失败也是如此。
 
@@ -18,7 +18,15 @@
 
 ## 创建一个 List
 
-Substrate 本身不支持 list 类型，因为它可能会导致开发者养成危险的习惯。在 runtime 开发中，列表迭代通常是坏事。除非明确防范了其危险操作，否则它将为仅花费 O(1) 复杂度的操作添加无限制的 O(N) 复杂度。结果就是你的链变得容易被攻击。作为替代，你可以使用映射和计数器模拟列表，如下所示：
+Substrate 通过 [`EnumerableStorageMap`](https://substrate.dev/rustdocs/v1.0/srml_support/storage/trait.EnumerableStorageMap.html) 这种形式支持列表操作，它其实就像我们之前用到的 storage map 一样，但是可以被枚举。文档中指出：
+
+> Note that type is primarily useful for off-chain computations. Runtime implementors should avoid enumerating storage entries.
+
+在 runtime 开发中，列表循环通常是坏事。如果没有明确对其防范，枚举一个列表的 runtime 函数会增加 O(N) 的复杂度，但是仅仅花费了 O(1) 的费用。结果就是你的链变得容易被攻击。并且，如果你所枚举的列表过大甚至是无限的，你的 runtime 可能需要比区块生成的间隔更多的时间。这意味着区块生产者不能正常地生产区块！
+
+基于上述原因，本教程在 runtime 逻辑中不会使用任何列表循环。如果你选择使用，请确保已经考虑清楚。
+
+作为替代，我们可以使用映射和计数器模拟列表，如下所示：
 
 ```rust
 decl_storage! {

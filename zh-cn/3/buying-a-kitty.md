@@ -70,7 +70,7 @@ Self::transfer_from(owner.clone(), sender.clone(), kitty_id)?;
 
 因此，在我们可以按照我们想要的方式链接函数之前，我们需要确保所有这些检查都能成功：
 
-1. 确保你的 `buy_kitty` 函数检查 kitty 是否有所有者
+1. 确保你的 `buy_kitty` 函数检查 kitty 有所有者
 2. 使用该所有者的值直接驱动你的 `transfer_from()` 函数
 3. 要确保如果存在 kitty 的所有者，那么该所有者的 kitty 计数大于 0（否则你在 runtime 中会遇到更大的问题）。
 4. 确保 `all_kitties_count` 和 `owned_kitties_count` 使用相同的类型（`u64`）来跟踪小猫的数量。 我们的 mint 函数要确保 `all_kitties_count` 永远不会溢出。因为 `owned_kitties_count` 必须小于或等于 `all_kitties_count`，所以我们可以自信地说 `owned_kitties_count` 永远不会溢出。
@@ -89,7 +89,7 @@ Self::transfer_from(owner.clone(), sender.clone(), kitty_id)
 
 你实际上将会在 [substrate 仓库](https://github.com/paritytech/substrate/search?q=expect) 中找到类似的地方。
 
-请记住，作为区块链开发人员，你有责任验证其中的代码和逻辑的正确性。Substrate 不是为让你免受智能合约平台可能遇到的错误而构建的框架。
+请记住，作为区块链开发人员，你有责任验证其中的代码和逻辑的正确性。和智能合约平台不同，Substrate 框架不能在出现错误的情况下保护你。
 
 花一点时间坐下想想上面所做的，因为当你开始用 substrate 开发自己的项目时要记住这一点很重要。
 

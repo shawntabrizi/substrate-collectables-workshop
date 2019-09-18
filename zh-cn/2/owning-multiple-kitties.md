@@ -45,7 +45,7 @@ MyFriendsIndex: map (T::AccountId, T::AccountId) => u32;
 MyKittiesIndex: map T::Hash => u32;
 ```
 
-这个索引告诉了我们对于一个给定的 kitty，可以在哪里查看该项目的 *所有者* 数组。
+这个索引告诉了我们对于一个给定的 kitty，可以在哪里查看该项的 *所有者* 数组。
 
 ## 轮到你了！
 

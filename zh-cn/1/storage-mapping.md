@@ -43,7 +43,7 @@ decl_storage! {
 
 ### 使用 StorageMap
 
-用于访问 `StorageMap` 的函数与 `StorageValue` 的位于 [同一位置](https://github.com/paritytech/substrate/blob/master/srml/support/src/storage/generator.rs#L162)：
+用于访问 `StorageMap` 的函数与 `StorageValue` 的位于 [同一位置](https://substrate.dev/rustdocs/v1.0/srml_support/storage/trait.StorageMap.html)：
 
 ```rust
 /// Get the prefix key in storage.

@@ -9,7 +9,7 @@
 ---
 **联系我们**
 
-Substrate 和 Substrate Collectables Workshop 是由热情友好的开发人员构建的开源项目。我们希望你能提供反馈意见，将出现的问题告诉我们，并帮助我们一起完善这个项目。
+Substrate 和 Substrate Collectables Workshop 是由热情友好的开发人员构建的开源项目。我们希望你能提供反馈意见，将出现的问题告诉我们，并帮助我们一起完善该项目。
 
 如果你想要询问或者告诉我们一些事情，请使用最合适的平台，我们将很乐意与你沟通！
 
@@ -17,6 +17,6 @@ Substrate 和 Substrate Collectables Workshop 是由热情友好的开发人员�
 - [Substrate Collectables Workshop GitHub](https://github.com/substrate-developer-hub/substrate-collectables-workshop)
 - [Substrate Community Chat](https://substrate.dev/community/)
 
-Have fun and good luck!
+玩得开心，祝你好运！
 
 ---

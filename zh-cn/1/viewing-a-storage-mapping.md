@@ -18,7 +18,7 @@ cargo build --release
 
 如果我们回到 [Polkadot-JS Apps UI](https://polkadot.js.org/apps)，我们应该看到我们的节点正在产生块。
 
-## 提交一个交易
+## 提交一个 Transaction
 
 进入 **Extrinsics** app 页面，然后在 “from extrinsic section” 下拉列表中选择：
 

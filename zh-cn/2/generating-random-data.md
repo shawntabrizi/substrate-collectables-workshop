@@ -12,7 +12,7 @@
 <system::Module<T>>::random_seed()
 ```
 
-Substrate 使用一个安全混合的算法，该算法使用先前块的熵(entropy)来为每个后续块生成新的随机数据。
+Substrate 使用一个混合安全式的算法，该算法使用先前块的熵(entropy)来为每个后续块生成新的随机数据。
 
 但是，由于它依赖于先前的块，因此可能需要超过 80 个块才能完全 warm up，并且你可能注意到了种子在此之前不会改变。
 
@@ -42,7 +42,7 @@ let random_hash = (random_seed, sender, nonce).using_encoded(<T as system::Trait
 
 ## 检查碰撞
 
-标准化我们的逻辑以使用唯一 id 作为我们存储项的全局 key，对轻松追踪我们的所有 kitties 是很有帮助的。这意味着有单个唯一键将指向我们的 `Kitty` 对象，而且所有其他链接或映射将会指向该键。
+标准化我们的逻辑以使用唯一 id 作为我们存储项的全局 key，对轻松追踪所有的 kitties 是很有帮助的。这意味着有单个唯一键将指向我们的 `Kitty` 对象，而且所有其他链接或映射将会指向该键。
 
 `Kitty` 对象上的 `id` 就用于此目的，但我们需要确保新 kitty 的 `id` 始终是唯一的。我们可以使用新的存储项目 `Kitties` 来实现这一点，它将是从 `id` (`Hash`) 到 `Kitty` 对象的映射。
 
@@ -52,7 +52,7 @@ let random_hash = (random_seed, sender, nonce).using_encoded(<T as system::Trait
 ensure!(!<Kitties<T>>::exists(new_id), "This new id already exists");
 ```
 
-由于两个随机生成的 hashes 可能会发生碰撞，因此，当我们可能引入其他生成 kitties 的方法时，进行此检查非常重要，我们的存储结构取决于这种唯一性。
+虽然两个随机生成的 hashes 不太可能发生碰撞，但是我们可能引入其他生成 kitties 的方式，所以进行此检查非常重要，并且我们的存储结构依赖这种唯一性。
 
 ## 轮到你了！
 
