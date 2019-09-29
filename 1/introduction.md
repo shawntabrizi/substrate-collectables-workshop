@@ -84,7 +84,7 @@ fn main() {
     let mut s = String::from("hello");
     let t1 = &s;      // t1 is an immutable reference to the String
     let t2 = &mut s;  // t2 is a mutable reference to the String
-    t2.push_str(&t1); // We want to append t2 to t1.
+    t2.push_str(&t1); // We want to append t1 to t2.
                       //
 		      // This is broken since both are references to the same underlying string.
 }
