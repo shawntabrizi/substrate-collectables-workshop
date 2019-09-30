@@ -16,7 +16,7 @@ Settings > remote node/endpoint to connect to > Local Node (127.0.0.1:9944)
 ![An image of the settings in Polkadot-JS Apps UI](./assets/polkadot-js-settings.png)
 
 After you press **Save and Reload**, you should notice the Polkadot-JS Apps UI come to life.
-Note that you should have your `./target/substratekitties --dev` chain up and running while browsing the Polkadot UI.
+Note that you should have your `./target/release/substratekitties --dev` chain up and running while browsing the Polkadot UI.
 
 Note that we will import a JSON file with additional type definitions later on in section "Registering a Custom Struct" of Section 1 > Viewing a Structure.
 
