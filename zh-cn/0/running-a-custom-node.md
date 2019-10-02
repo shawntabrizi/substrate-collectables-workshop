@@ -7,7 +7,7 @@ Substrate 是个快速发展的项目，这意味着可能会不时地引入 bre
 如果你开始使用这个 Substrate package，那么完成本教程的剩余部分对你来说应该没有问题，出现任何问题请及时联系我们。为获取该程序包，在你的工作目录运行以下命令：
 
 ```bash
-git clone https://github.com/shawntabrizi/substrate-package
+git clone https://github.com/substrate-developer-hub/substrate-package.git
 ```
 
 `substrate-package` 仓库包含两个文件夹：
