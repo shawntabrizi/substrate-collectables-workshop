@@ -8,7 +8,7 @@ Substrate is a rapidly evolving project, which means that breaking changes may b
 As long as you start with this Substrate package, you should be able to complete the rest of this tutorial without issue, but please let us know if that is not the case. To get the package, run the following command in your working directory:
 
 ```bash
-git clone https://github.com/shawntabrizi/substrate-package
+git clone --branch v1.0 https://github.com/substrate-developer-hub/substrate-package
 ```
 
 The `substrate-package` repository consists of two folders:
