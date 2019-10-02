@@ -14,6 +14,17 @@
   <link rel="icon" type="image/png" sizes="32x32" href="./media/favicons/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="./media/favicons/favicon-16x16.png">
   <link rel="manifest" href="./media/favicons/site.webmanifest">
+  <!-- Klaro scripts – Cookie consent manager -->
+  <script defer type="text/javascript" src="./custom/config.js"></script>
+  <script defer type="text/javascript" src="./custom/klaro.min.js"></script>
+  <!-- Global site tag (gtag.js) - Google Analytics with Klaro script -->
+  <script async type="opt-in" data-type="application/javascript" data-src="https://www.googletagmanager.com/gtag/js?id=UA-145158313-2" data-name="googleAnalytics"></script>
+  <script type="opt-in" data-type="application/javascript" data-name="googleAnalytics">
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-145158313-2');
+  </script>
 </head>
 
 <body>
@@ -56,8 +67,8 @@
   <script src="//unpkg.com/prismjs/components/prism-rust.min.js"></script>
   <script src="//unpkg.com/prismjs/components/prism-bash.min.js"></script>
   <!-- Custom JS for CodeView -->
-  <script type="text/javascript" src="//unpkg.com/monaco-editor@0.15.6/min/vs/loader.js"></script>
-  <script src="./custom/codeview.js"></script>
+  <script defer type="text/javascript" src="//unpkg.com/monaco-editor@0.15.6/min/vs/loader.js"></script>
+  <script defer src="./custom/codeview.js"></script>
   <script src="./custom/hub.js"></script>
   <!-- Gitter Chat -->
   <script>
