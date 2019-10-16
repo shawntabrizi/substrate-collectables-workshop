@@ -28,7 +28,7 @@ Substrateフレームワークを使用すると、新しいモジュールを�
 
 ## Rust
 
-現時点では、SubstrateとRuntimeの開発は[Rustプログラミング言語]（https://www.parity.io/why-rust/）を使用しています。
+現時点では、SubstrateとRuntimeの開発は[Rustプログラミング言語](https://www.parity.io/why-rust/)を使用しています。
 
 このチュートリアルは、**Rustを学ぶコースではありません** が、他の言語でのプログラミングと比較して、このガイドに従うときに遭遇する可能性のある基本的な違いのいくつかを紹介します。
 
