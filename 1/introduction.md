@@ -21,7 +21,7 @@ Your blockchain's runtime is composed of multiple features and functionalities w
 - Runtime Upgrades
 - and more...
 
-These are all modules that are provided [here](https://github.com/paritytech/substrate/tree/master/srml) in the codebase for you to easily include into your runtime. These default set of modules provided by Substrate are known as the Substrate Runtime Module Library [**SRML**](https://substrate.dev/docs/en/overview/glossary#srml-substrate-runtime-module-library)
+These are all modules that are provided [here](https://github.com/paritytech/substrate/tree/v1.0/srml) in the codebase for you to easily include into your runtime. These default set of modules provided by Substrate are known as the Substrate Runtime Module Library [**SRML**](https://substrate.dev/docs/en/overview/glossary#srml-substrate-runtime-module-library)
 
 With the Substrate framework, you are able to easily create and include new modules into your runtime. That is what we will be doing in this tutorial!
 

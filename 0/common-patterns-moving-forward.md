@@ -19,8 +19,8 @@ The Wasm file is used as a part of the compilation of the standard binary, so it
 The pattern should be:
 
 ```bash
-./scripts/build.sh               // Build Wasm
-cargo build --release    // Build binary
+./scripts/build.sh       # Build Wasm
+cargo build --release    # Build binary
 ```
 
 Additionally, when you make changes to your node, the blocks produced in the past by older versions of your node persist. You may notice that when restarting your node, block production simply picks up where it left off.
