@@ -5,7 +5,7 @@ By the end of this tutorial we will have you create your own custom UI to intera
 
 Open **Chrome** and navigate to:
 
-https://polkadot.js.org/apps/
+https://substrate-ui.parity.io/
 
 To point the UI to your local node, you need to adjust the **Settings**. Just select 'Local Node (127.0.0.1:9944)' from the endpoint dropdown:
 
