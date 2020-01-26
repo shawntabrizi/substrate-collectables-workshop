@@ -16,7 +16,7 @@ cargo build --release
 ./target/release/substratekitties --dev
 ```
 
-如果我们回到 [Polkadot-JS Apps UI](https://polkadot.js.org/apps)，我们应该看到我们的节点正在产生块。
+如果我们回到 [Polkadot-JS Apps UI](https://substrate-ui.parity.io/)，我们应该看到我们的节点正在产生块。
 
 ## 提交一个 Transaction
 

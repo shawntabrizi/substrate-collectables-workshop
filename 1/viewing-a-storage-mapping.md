@@ -16,7 +16,7 @@ We can start our node:
 ./target/release/substratekitties --dev
 ```
 
-If we go back into the [Polkadot-JS Apps UI](https://polkadot.js.org/apps), we should see evidence of our node producing blocks.
+If we go back into the [Polkadot-JS Apps UI](https://substrate-ui.parity.io/), we should see evidence of our node producing blocks.
 
 ## Submit a Transaction
 

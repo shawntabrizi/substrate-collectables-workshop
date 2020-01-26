@@ -17,7 +17,7 @@ cargo build --release
 ./target/release/substratekitties --dev
 ```
 
-[Polkadot-JS Apps UI](https://polkadot.js.org/apps)に戻ると、ノードがブロックを生成しはじめるはずです。
+[Polkadot-JS Apps UI](https://substrate-ui.parity.io/)に戻ると、ノードがブロックを生成しはじめるはずです。
 
 ##トランザクションを送信する
 

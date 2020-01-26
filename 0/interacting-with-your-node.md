@@ -5,7 +5,7 @@ By the end of this tutorial we will have you create your own custom UI to intera
 
 In your web browser, navigate to:
 
-https://polkadot.js.org/apps/
+https://substrate-ui.parity.io/
 
 > Some browsers, notably Firefox, will not connect to a local node from an https website. An easy work around is to try another browser, like Chromium. Another option is to [host this interface locally](https://github.com/polkadot-js/apps#development).
 
