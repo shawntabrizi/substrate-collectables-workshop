@@ -22,7 +22,7 @@ You can call functions defined here using the `Self::function_name()` pattern yo
 ```rust
 decl_module! {
     pub struct Module<T: Trait> for enum Call where origin: T::Origin {
-        fn adder_to_storage(origin, num1: u32, num2: u32) -> DispatchResult {
+        fn adder_to_storage(origin, num1: u32, num2: u32) -> Result<(), &'static str> {
             let _sender = ensure_signed(origin)?;
             let result = Self::_adder(num1, num2)?;
 
@@ -38,7 +38,7 @@ impl<T: Trait> Module<T> {
         num1.checked_add(num2).ok_or("Overflow when adding")
     }
 
-    fn _store_value(value: u32) -> DispatchResult {
+    fn _store_value(value: u32) -> Result<(), &'static str> {
         <MyStorage<T>>::put(value);
 
         Ok(())
