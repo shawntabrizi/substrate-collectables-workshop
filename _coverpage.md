@@ -1,14 +1,11 @@
-![logo](media/substratekitty.png ':size=300')
-![substrate-logo](media/icon-parity-substrate-light.png ':size=300')
+![logo](media/libp2p.png ':size=500')
 
-# Substrate Collectables Workshop
+# Js-Libp2p Chat Tutorial
 
-> Learn to build blockchains with Parity Substrate
+> Learn to build p2p chat app using Js-Libp2p
 
 [Get Started](README.md)
-[开始吧](zh-cn/README.md)
-[はじめる](ja-jp/README.md)
 [GitHub](https://github.com/substrate-developer-hub/substrate-collectables-workshop)
 
 <!-- Overwrite Background Image with black -->
-![color](#3a3a3a)
+![color](#FFFFFF)
