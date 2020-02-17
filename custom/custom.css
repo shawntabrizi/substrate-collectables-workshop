@@ -1,12 +1,12 @@
 
 /* PARITY STYLING -- https://www.parity.io/assets/css/theme-parity.css?v=1c871864d6 */
 :root {
-    --theme-color: #FF1864;
+    --theme-color: #ffffff;
 }
 
 /* Make the whole site have larger text*/
 body {
-    background-color: #282828;
+    background-color: #ecd093;
     font-size: 1em;
     line-height: 1.85714286em;
     -webkit-font-smoothing: antialiased;
@@ -26,11 +26,11 @@ body {
 .substrate-dev-hub-nav h2 {
     font-size: 1rem;
     margin-top: 18px;
-    color: #c8c8c8;
+    color: #ffffff;
 }
 
 .sidebar {
-    background-color: #1b1b1b;
+    background-color:#FF1864;
     font-size: 1rem;
     width: 260px;
 }
@@ -38,11 +38,11 @@ body {
 input[type="search"], 
 .markdown-section pre,
 .markdown-section pre > code {
-    background-color: #1b1b1b;
+    background-color: #ffffff;
 }
 
 input[type="search"]:focus {
-    color: var(--theme-color);
+    color: #1b1b1b;
 }
 
 .sidebar-toggle {
@@ -145,7 +145,7 @@ h6,
 
 /* Add separation between the Editor and the tutorial */
 .lesson {
-    border-right: 1px solid rgba(0,0,0,0.07);
+    border-right: 1px solid rgba(223, 170, 27, 0.07);
     padding-right: 10px;
     padding-left: 30px;
 }
@@ -220,7 +220,7 @@ section.cover .cover-main > p:last-child a:last-child {
 .markdown-section h4,
 .markdown-section strong,
 .markdown-section blockquote {
-    color: #989898;
+    color: #ffffff;
 }
 
 .markdown-section a {
@@ -277,12 +277,12 @@ section.cover .cover-main > p:last-child a:last-child {
 /* End Custm Styling for Pagination */
 
 /* Gitter */
-
+/* 
 @media (max-width: 600px) {
     .gitter-open-chat-button,
     .gitter-chat-embed {
         display: none;
     }
-}
+} */
 
 /* End Gitter */
