@@ -1,12 +1,12 @@
 
 /* PARITY STYLING -- https://www.parity.io/assets/css/theme-parity.css?v=1c871864d6 */
 :root {
-    --theme-color: #ffffff;
+    --theme-color: #fd9534;
 }
 
 /* Make the whole site have larger text*/
 body {
-    background-color: #ecd093;
+    background-color: #ffffff;
     font-size: 1em;
     line-height: 1.85714286em;
     -webkit-font-smoothing: antialiased;
@@ -198,16 +198,20 @@ h6,
     padding: 0;
 }
 
+.markdown-section p {
+    color:#000000;
+}
+
 /* Styling for Cover Page Buttons */
 
 section.cover .cover-main > p:last-child a:first-child {
-    background-color: var(--theme-color, #ea6f5a);
-    color: #fff;
+    background-color: var(#000000, #ea6f5a);
+    color: #000000;
 }
 
 section.cover .cover-main > p:last-child a:last-child {
     background-color: unset;
-    color: var(--theme-color);
+    color: #000000;
 }
 
 /* End Styling for Cover Page Buttons */
@@ -220,7 +224,7 @@ section.cover .cover-main > p:last-child a:last-child {
 .markdown-section h4,
 .markdown-section strong,
 .markdown-section blockquote {
-    color: #ffffff;
+    color: #000000;
 }
 
 .markdown-section a {
@@ -232,7 +236,7 @@ section.cover .cover-main > p:last-child a:last-child {
 /* Custom Styling For Code Blocks */
 
 .token.function {
-    color: #dcdca9;
+    color: #051f55;
 }
 
 .token.keyword {
@@ -241,14 +245,14 @@ section.cover .cover-main > p:last-child a:last-child {
 
 .markdown-section code {
     background-color: #1b1b1b;
-    color: #d4d4d4;
+    color: #ffffff;
 }
 .markdown-section pre > code {
-    color: #d4d4d4;
+    color: #000000;
 }
 
 .token.punctuation {
-    color: #d4d4d4;
+    color: #000000;
 }
 
 .token.comment {
@@ -273,16 +277,25 @@ section.cover .cover-main > p:last-child a:last-child {
     font-weight: 700;
     padding-bottom: 0.5em;
 }
+.anchor span {
+    color:rgb(200,200,200);
+}
+.sidebar-toggle span {
+    background-color:#ffffff;
+}
+.markdown-section a {
+    color:#000000;
+}
 
 /* End Custm Styling for Pagination */
 
 /* Gitter */
-/* 
+ 
 @media (max-width: 600px) {
     .gitter-open-chat-button,
     .gitter-chat-embed {
         display: none;
     }
-} */
+} 
 
 /* End Gitter */
