@@ -65,7 +65,7 @@ let new_all_people_count = match all_people_count.checked_add(1) {
 };
 ```
 
-However, `ok_or` it is more is more clear and readable than `match`; you just need to make sure to remember the `?` at the end!
+However, `ok_or` it is more clear and readable than `match`; you just need to make sure to remember the `?` at the end!
 
 If we were successfully able to increment `AllPeopleCount` without an overflow, then it will simply assign the new value to `new_all_people_count`. If not, our module will return an `Err()` which can be gracefully handled by our runtime. The error message will also appear directly in our node's console output.
 
