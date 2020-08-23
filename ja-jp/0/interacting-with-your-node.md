@@ -5,7 +5,15 @@
 
 **Chrome** を開き、以下の場所に移動します。
 
-https://substrate-ui.parity.io/
+You will need to clone a specific commit of the Polkadot-JS Apps UI: https://github.com/polkadot-js/apps/commit/38eebe7118f6385f120a1d53ce3b14a39cc9cb46
+
+So run the following in your working directory:
+
+```bash
+git clone https://github.com/polkadot-js/apps/
+git checkout 38eebe
+yarn && yarn start
+```
 
 あなたのローカルノードとUIを接続するために、**Settings** のエンドポイントのドロップダウンから'Local Node(127.0.0.1:9944)'を選択します:
 

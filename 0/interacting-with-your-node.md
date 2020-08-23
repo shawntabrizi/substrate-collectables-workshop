@@ -3,9 +3,15 @@ Interacting With Your Node
 
 By the end of this tutorial we will have you create your own custom UI to interact with your collectables blockchain. In the meantime, we can use the [Polkadot-JS](https://polkadot.js.org) Apps UI which is a generalized interface that adapts to your custom node.
 
-In your web browser, navigate to:
+You will need to clone a specific commit of the Polkadot-JS Apps UI: https://github.com/polkadot-js/apps/commit/38eebe7118f6385f120a1d53ce3b14a39cc9cb46
 
-https://substrate-ui.parity.io/
+So run the following in your working directory:
+
+```bash
+git clone https://github.com/polkadot-js/apps/
+git checkout 38eebe
+yarn && yarn start
+```
 
 > Some browsers, notably Firefox, will not connect to a local node from an https website. An easy work around is to try another browser, like Chromium. Another option is to [host this interface locally](https://github.com/polkadot-js/apps#development).
 

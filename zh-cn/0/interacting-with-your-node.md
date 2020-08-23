@@ -4,7 +4,15 @@
 
 打开 **Chrome** 并导航至:
 
-https://substrate-ui.parity.io/
+You will need to clone a specific commit of the Polkadot-JS Apps UI: https://github.com/polkadot-js/apps/commit/38eebe7118f6385f120a1d53ce3b14a39cc9cb46
+
+So run the following in your working directory:
+
+```bash
+git clone https://github.com/polkadot-js/apps/
+git checkout 38eebe
+yarn && yarn start
+```
 
 要将 UI 指向 local node，你需要调整 **设置**，只需从下拉列表中选择 'Local Node (127.0.0.1:9944)'：
 
