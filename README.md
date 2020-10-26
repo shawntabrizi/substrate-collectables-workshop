@@ -24,6 +24,16 @@ Just go through the material chapter by chapter, do one exercise at a time. Whil
 
 Substrate is a rapidly evolving project, which means that breaking changes may cause you problems when trying to follow these instructions. Feel free to [contact us](https://substrate.readme.io/v1.0.0/docs/feedback) with any problems you encounter.
 
+If you encounter compatibility issues, please try to switch the Rust version:
+```shell
+rustup toolchain install nightly-2020-08-23
+rustup target add wasm32-unknown-unknown --toolchain nightly-2020-08-23
+```
+Use the following command to compile your node:
+```shell
+cargo +nightly-2020-08-23 build --release
+```
+
 ---
 
 ## How to contribute
