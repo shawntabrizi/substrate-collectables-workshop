@@ -1,0 +1,8 @@
+/Users/shawntabrizi/Documents/GitHub/substrate-collectables-workshop/target/debug/build/target-lexicon-0dcb4c4db042f919/build_script_build-0dcb4c4db042f919: /Users/shawntabrizi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/target-lexicon-0.12.15/build.rs /Users/shawntabrizi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/target-lexicon-0.12.15/src/data_model.rs /Users/shawntabrizi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/target-lexicon-0.12.15/src/triple.rs /Users/shawntabrizi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/target-lexicon-0.12.15/src/targets.rs
+
+/Users/shawntabrizi/Documents/GitHub/substrate-collectables-workshop/target/debug/build/target-lexicon-0dcb4c4db042f919/build_script_build-0dcb4c4db042f919.d: /Users/shawntabrizi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/target-lexicon-0.12.15/build.rs /Users/shawntabrizi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/target-lexicon-0.12.15/src/data_model.rs /Users/shawntabrizi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/target-lexicon-0.12.15/src/triple.rs /Users/shawntabrizi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/target-lexicon-0.12.15/src/targets.rs
+
+/Users/shawntabrizi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/target-lexicon-0.12.15/build.rs:
+/Users/shawntabrizi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/target-lexicon-0.12.15/src/data_model.rs:
+/Users/shawntabrizi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/target-lexicon-0.12.15/src/triple.rs:
+/Users/shawntabrizi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/target-lexicon-0.12.15/src/targets.rs:

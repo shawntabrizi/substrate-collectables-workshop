@@ -1,0 +1,20 @@
+diff --git a/src/lib.rs b/src/lib.rs
+index 2be7665..e78b63b 100644
+--- a/src/lib.rs
++++ b/src/lib.rs
+@@ -28,6 +28,7 @@ pub mod pallet {
+ 	#[pallet::error]
+ 	pub enum Error<T> {}
+ 
++	// Learn about callable functions and dispatch.
+ 	#[pallet::call]
+ 	impl<T: Config> Pallet<T> {
+ 		pub fn hello_world(origin: OriginFor<T>) -> DispatchResult {
+@@ -37,6 +38,7 @@ pub mod pallet {
+ 		}
+ 	}
+ 
++	// Learn about internal functions.
+ 	impl<T: Config> Pallet<T> {
+ 		fn say_hello(who: T::AccountId) {
+ 			Self::deposit_event(Event::<T>::Hello { who });

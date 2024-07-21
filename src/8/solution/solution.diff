@@ -1,0 +1,28 @@
+diff --git a/src/lib.rs b/src/lib.rs
+index bda56e6..62a809b 100644
+--- a/src/lib.rs
++++ b/src/lib.rs
+@@ -22,7 +22,7 @@ pub mod pallet {
+ 
+ 	/// Learn about storage value.
+ 	#[pallet::storage]
+-	pub(super) type CountForHellos<T: Config> = StorageValue<Value = u64, QueryKind = ValueQuery>;
++	pub(super) type CountForHellos<T: Config> = StorageValue<Value = u64>;
+ 
+ 	// Learn about events.
+ 	#[pallet::event]
+@@ -49,11 +49,9 @@ pub mod pallet {
+ 	impl<T: Config> Pallet<T> {
+ 		// Learn about `AccountId`.
+ 		fn say_hello(who: T::AccountId) {
+-			/* TODO:
+-				- `get` the current count of hellos.
+-				- increment the count by one.
+-				- `set` the new count of hellos.
+-			*/
++			let current_count = CountForHellos::<T>::get().unwrap_or(0);
++			let new_count = current_count + 1;
++			CountForHellos::<T>::set(Some(new_count));
+ 			Self::deposit_event(Event::<T>::Hello { who });
+ 		}
+ 	}

@@ -1,0 +1,15 @@
+diff --git a/src/lib.rs b/src/lib.rs
+index 7a99bdc..4fe0734 100644
+--- a/src/lib.rs
++++ b/src/lib.rs
+@@ -20,6 +20,10 @@ pub mod pallet {
+ 		type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
+ 	}
+ 
++	/// Learn about storage value.
++	#[pallet::storage]
++	pub(super) type CountForHellos<T: Config> = StorageValue<Value = u64, QueryKind = ValueQuery>;
++
+ 	// Learn about events.
+ 	#[pallet::event]
+ 	#[pallet::generate_deposit(pub(super) fn deposit_event)]

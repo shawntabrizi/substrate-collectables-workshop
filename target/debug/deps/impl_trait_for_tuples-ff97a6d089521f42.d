@@ -1,0 +1,8 @@
+/Users/shawntabrizi/Documents/GitHub/substrate-collectables-workshop/target/debug/deps/libimpl_trait_for_tuples-ff97a6d089521f42.dylib: /Users/shawntabrizi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/impl-trait-for-tuples-0.2.2/src/lib.rs /Users/shawntabrizi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/impl-trait-for-tuples-0.2.2/src/full_automatic.rs /Users/shawntabrizi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/impl-trait-for-tuples-0.2.2/src/semi_automatic.rs /Users/shawntabrizi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/impl-trait-for-tuples-0.2.2/src/utils.rs
+
+/Users/shawntabrizi/Documents/GitHub/substrate-collectables-workshop/target/debug/deps/impl_trait_for_tuples-ff97a6d089521f42.d: /Users/shawntabrizi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/impl-trait-for-tuples-0.2.2/src/lib.rs /Users/shawntabrizi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/impl-trait-for-tuples-0.2.2/src/full_automatic.rs /Users/shawntabrizi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/impl-trait-for-tuples-0.2.2/src/semi_automatic.rs /Users/shawntabrizi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/impl-trait-for-tuples-0.2.2/src/utils.rs
+
+/Users/shawntabrizi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/impl-trait-for-tuples-0.2.2/src/lib.rs:
+/Users/shawntabrizi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/impl-trait-for-tuples-0.2.2/src/full_automatic.rs:
+/Users/shawntabrizi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/impl-trait-for-tuples-0.2.2/src/semi_automatic.rs:
+/Users/shawntabrizi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/impl-trait-for-tuples-0.2.2/src/utils.rs:

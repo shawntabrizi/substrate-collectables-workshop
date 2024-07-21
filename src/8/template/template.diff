@@ -1,0 +1,16 @@
+diff --git a/src/lib.rs b/src/lib.rs
+index 4fe0734..bda56e6 100644
+--- a/src/lib.rs
++++ b/src/lib.rs
+@@ -49,6 +49,11 @@ pub mod pallet {
+ 	impl<T: Config> Pallet<T> {
+ 		// Learn about `AccountId`.
+ 		fn say_hello(who: T::AccountId) {
++			/* TODO:
++				- `get` the current count of hellos.
++				- increment the count by one.
++				- `set` the new count of hellos.
++			*/
+ 			Self::deposit_event(Event::<T>::Hello { who });
+ 		}
+ 	}

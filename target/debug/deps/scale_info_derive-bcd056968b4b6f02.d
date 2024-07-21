@@ -1,0 +1,8 @@
+/Users/shawntabrizi/Documents/GitHub/substrate-collectables-workshop/target/debug/deps/libscale_info_derive-bcd056968b4b6f02.dylib: /Users/shawntabrizi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/scale-info-derive-2.11.3/src/lib.rs /Users/shawntabrizi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/scale-info-derive-2.11.3/src/attr.rs /Users/shawntabrizi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/scale-info-derive-2.11.3/src/trait_bounds.rs /Users/shawntabrizi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/scale-info-derive-2.11.3/src/utils.rs
+
+/Users/shawntabrizi/Documents/GitHub/substrate-collectables-workshop/target/debug/deps/scale_info_derive-bcd056968b4b6f02.d: /Users/shawntabrizi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/scale-info-derive-2.11.3/src/lib.rs /Users/shawntabrizi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/scale-info-derive-2.11.3/src/attr.rs /Users/shawntabrizi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/scale-info-derive-2.11.3/src/trait_bounds.rs /Users/shawntabrizi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/scale-info-derive-2.11.3/src/utils.rs
+
+/Users/shawntabrizi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/scale-info-derive-2.11.3/src/lib.rs:
+/Users/shawntabrizi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/scale-info-derive-2.11.3/src/attr.rs:
+/Users/shawntabrizi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/scale-info-derive-2.11.3/src/trait_bounds.rs:
+/Users/shawntabrizi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/scale-info-derive-2.11.3/src/utils.rs:
