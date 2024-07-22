@@ -1,12 +1,14 @@
 diff --git a/.gitignore b/.gitignore
 new file mode 100644
-index 0000000..adf9159
+index 0000000..c537f0b
 --- /dev/null
 +++ b/.gitignore
-@@ -0,0 +1,3 @@
+@@ -0,0 +1,5 @@
 +target/
 +.vscode
 +chain_spec.json
++book
++steps
 diff --git a/.rustfmt.toml b/.rustfmt.toml
 new file mode 100644
 index 0000000..c342153
@@ -4041,10 +4043,10 @@ index 0000000..d7a59f1
 +]
 diff --git a/Cargo.toml b/Cargo.toml
 new file mode 100644
-index 0000000..1f9b588
+index 0000000..2e09572
 --- /dev/null
 +++ b/Cargo.toml
-@@ -0,0 +1,32 @@
+@@ -0,0 +1,33 @@
 +[package]
 +name = "pallet-kitties"
 +version = "4.0.0-dev"
@@ -4077,9 +4079,10 @@ index 0000000..1f9b588
 +	"frame-support/std",
 +	"frame-system/std",
 +]
++try-runtime = []
 diff --git a/src/lib.rs b/src/lib.rs
 new file mode 100644
-index 0000000..c606914
+index 0000000..80f2418
 --- /dev/null
 +++ b/src/lib.rs
 @@ -0,0 +1,42 @@
@@ -4104,7 +4107,7 @@ index 0000000..c606914
 +	#[pallet::event]
 +	#[pallet::generate_deposit(pub(super) fn deposit_event)]
 +	pub enum Event<T: Config> {
-+		Hello { who: T::AccountId },
++		Created { owner: T::AccountId },
 +	}
 +
 +	#[pallet::error]
@@ -4112,16 +4115,16 @@ index 0000000..c606914
 +
 +	#[pallet::call]
 +	impl<T: Config> Pallet<T> {
-+		pub fn hello_world(origin: OriginFor<T>) -> DispatchResult {
++		pub fn create_kitty(origin: OriginFor<T>) -> DispatchResult {
 +			let who = ensure_signed(origin)?;
-+			Self::say_hello(who);
++			Self::mint(who);
 +			Ok(())
 +		}
 +	}
 +
 +	impl<T: Config> Pallet<T> {
-+		fn say_hello(who: T::AccountId) {
-+			Self::deposit_event(Event::<T>::Hello { who });
++		fn mint(owner: T::AccountId) {
++			Self::deposit_event(Event::<T>::Created { owner });
 +		}
 +	}
 +}
