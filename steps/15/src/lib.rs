@@ -38,7 +38,6 @@ pub mod pallet {
 	#[pallet::error]
 	pub enum Error<T> {
 		TooManyKitties,
-		/* TODO: Create a new error `DuplicateKitty`. */
 	}
 
 	// Learn about callable functions and dispatch.
@@ -47,8 +46,9 @@ pub mod pallet {
 		pub fn create_kitty(origin: OriginFor<T>) -> DispatchResult {
 			// Learn about `origin`.
 			let who = ensure_signed(origin)?;
-			let dna = [0u8; 16];
-			Self::mint(who, dna)?;
+			/* TODO: Create `const default_id`, which type `[u8; 16]` and has value `[0u8; 16]`. */
+			/* TODO: Pass `default_id` to the `mint` function. */
+			Self::mint(who)?;
 			Ok(())
 		}
 	}
@@ -56,14 +56,11 @@ pub mod pallet {
 	// Learn about internal functions.
 	impl<T: Config> Pallet<T> {
 		// Learn about `AccountId`.
-		fn mint(owner: T::AccountId, dna: [u8; 16]) -> DispatchResult {
-			/* TODO:
-				- `ensure!` that `Kitties` map does not `contains_key` for `dna`.
-				- If it does, return `Error::<T>::DuplicateKitty`.
-			*/
+		/* TODO: Update this function signature to include `id` which is type `[u8; 16]`. */
+		fn mint(owner: T::AccountId) -> DispatchResult {
 			let current_count = CountForKitties::<T>::get().unwrap_or(0);
 			let new_count = current_count.checked_add(1).ok_or(Error::<T>::TooManyKitties)?;
-			Kitties::<T>::insert(dna, ());
+			/* TODO: In the `Kitties` map, under the key `id`, insert `()`. */
 			CountForKitties::<T>::set(Some(new_count));
 			Self::deposit_event(Event::<T>::Created { owner });
 			Ok(())

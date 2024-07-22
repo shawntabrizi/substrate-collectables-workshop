@@ -20,13 +20,21 @@ pub mod pallet {
 		type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
 	}
 
+	#[derive(Encode, Decode, Clone, Copy, PartialEq, RuntimeDebug, TypeInfo, MaxEncodedLen)]
+	#[scale_info(skip_type_params(T))]
+	pub struct Kitty<T: Config> {
+		// Using 16 bytes to represent a kitty DNA
+		pub dna: [u8; 16],
+		pub owner: T::AccountId,
+	}
+
 	/// Learn about storage value.
 	#[pallet::storage]
 	pub(super) type CountForKitties<T: Config> = StorageValue<Value = u64>;
 
 	/// Learn about storage maps.
 	#[pallet::storage]
-	pub(super) type Kitties<T: Config> = StorageMap<Key = [u8; 16], Value = ()>;
+	pub(super) type Kitties<T: Config> = StorageMap<Key = [u8; 16], Value = Kitty<T>>;
 
 	// Learn about events.
 	#[pallet::event]
@@ -38,6 +46,7 @@ pub mod pallet {
 	#[pallet::error]
 	pub enum Error<T> {
 		TooManyKitties,
+		DuplicateKitty,
 	}
 
 	// Learn about callable functions and dispatch.
@@ -46,21 +55,34 @@ pub mod pallet {
 		pub fn create_kitty(origin: OriginFor<T>) -> DispatchResult {
 			// Learn about `origin`.
 			let who = ensure_signed(origin)?;
-			/* TODO: Create `const default_id`, which type `[u8; 16]` and has value `[0u8; 16]`. */
-			/* TODO: Pass `default_id` to the `mint` function. */
-			Self::mint(who)?;
+			/* TODO: Use the `Self::gen_dna()` function to generate a unique Kitty. */
+			let dna = [0u8; 16];
+			Self::mint(who, dna)?;
 			Ok(())
 		}
 	}
 
 	// Learn about internal functions.
 	impl<T: Config> Pallet<T> {
+		/* TODO: Create a function `gen_dna` which returns a `[u8; 16]`.
+			- Create a `unique_payload` which contains data from `frame_system::Pallet::<T>`:
+				- `parent_hash`
+				- `block_number`
+				- `extrinsic_index`
+			- `encode()` that payload to a byte array named `encoded_payload`.
+			- Use `frame_support::Hashable` to perform a `blake2_128` hash on the encoded payload.
+			- Return the 16 byte hash.
+		*/
+
 		// Learn about `AccountId`.
-		/* TODO: Update this function signature to include `id` which is type `[u8; 16]`. */
-		fn mint(owner: T::AccountId) -> DispatchResult {
+		fn mint(owner: T::AccountId, dna: [u8; 16]) -> DispatchResult {
+			let kitty = Kitty { dna, owner: owner.clone() };
+			// Check if the kitty does not already exist in our storage map
+			ensure!(!Kitties::<T>::contains_key(dna), Error::<T>::DuplicateKitty);
+
 			let current_count = CountForKitties::<T>::get().unwrap_or(0);
 			let new_count = current_count.checked_add(1).ok_or(Error::<T>::TooManyKitties)?;
-			/* TODO: In the `Kitties` map, under the key `id`, insert `()`. */
+			Kitties::<T>::insert(dna, kitty);
 			CountForKitties::<T>::set(Some(new_count));
 			Self::deposit_event(Event::<T>::Created { owner });
 			Ok(())

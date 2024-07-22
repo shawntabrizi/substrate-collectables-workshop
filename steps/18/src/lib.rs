@@ -20,12 +20,6 @@ pub mod pallet {
 		type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
 	}
 
-	pub struct Kitty<T: Config> {
-		// Using 16 bytes to represent a kitty DNA
-		pub dna: [u8; 16],
-		pub owner: T::AccountId,
-	}
-
 	/// Learn about storage value.
 	#[pallet::storage]
 	pub(super) type CountForKitties<T: Config> = StorageValue<Value = u64>;
