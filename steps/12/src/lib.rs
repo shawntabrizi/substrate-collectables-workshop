@@ -22,7 +22,8 @@ pub mod pallet {
 
 	/// Learn about storage value.
 	#[pallet::storage]
-	pub(super) type CountForKitties<T: Config> = StorageValue<Value = u64, QueryKind = ValueQuery>;
+	/* TODO: Update this storage to use a `QueryKind` of `ValueQuery`. */
+	pub(super) type CountForKitties<T: Config> = StorageValue<Value = u64>;
 
 	// Learn about events.
 	#[pallet::event]
@@ -51,9 +52,11 @@ pub mod pallet {
 	impl<T: Config> Pallet<T> {
 		// Learn about `AccountId`.
 		fn mint(owner: T::AccountId) -> DispatchResult {
-			let current_count: u64 = CountForKitties::<T>::get();
+			/* TODO: Remove the `unwrap_or` which is not needed when using `ValueQuery`. */
+			let current_count: u64 = CountForKitties::<T>::get().unwrap_or(0);
 			let new_count = current_count.checked_add(1).ok_or(Error::<T>::TooManyKitties)?;
-			CountForKitties::<T>::set(new_count);
+			/* TODO: Remove the `Option` wrapper when setting the `new_count`. */
+			CountForKitties::<T>::set(Some(new_count));
 			Self::deposit_event(Event::<T>::Created { owner });
 			Ok(())
 		}
