@@ -61,6 +61,7 @@ pub mod pallet {
 	pub enum Event<T: Config> {
 		Created { owner: T::AccountId },
 		Transferred { from: T::AccountId, to: T::AccountId, kitty_id: [u8; 16] },
+		PriceSet { owner: T::AccountId, kitty_id: [u8; 16], new_price: Option<BalanceOf<T>> },
 	}
 
 	#[pallet::error]
@@ -91,6 +92,16 @@ pub mod pallet {
 		) -> DispatchResult {
 			let who = ensure_signed(origin)?;
 			Self::do_transfer(who, to, kitty_id)?;
+			Ok(())
+		}
+
+		pub fn set_price(
+			origin: OriginFor<T>,
+			kitty_id: [u8; 16],
+			new_price: Option<BalanceOf<T>>,
+		) -> DispatchResult {
+			let who = ensure_signed(origin)?;
+			Self::do_set_price(who, kitty_id, new_price)?;
 			Ok(())
 		}
 	}
@@ -155,6 +166,20 @@ pub mod pallet {
 			KittiesOwned::<T>::insert(&from, from_owned);
 
 			Self::deposit_event(Event::<T>::Transferred { from, to, kitty_id });
+			Ok(())
+		}
+
+		pub fn do_set_price(
+			caller: T::AccountId,
+			kitty_id: [u8; 16],
+			new_price: Option<BalanceOf<T>>,
+		) -> DispatchResult {
+			let mut kitty = Kitties::<T>::get(kitty_id).ok_or(Error::<T>::NoKitty)?;
+			ensure!(kitty.owner == caller, Error::<T>::NotOwner);
+			kitty.price = new_price;
+			Kitties::<T>::insert(kitty_id, kitty);
+
+			Self::deposit_event(Event::<T>::PriceSet { owner: caller, kitty_id, new_price });
 			Ok(())
 		}
 	}

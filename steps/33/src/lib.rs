@@ -26,10 +26,6 @@ pub mod pallet {
 		type NativeBalance: Inspect<Self::AccountId> + Mutate<Self::AccountId>;
 	}
 
-	// Allows easy access our Pallet's `Balance` type. Comes from `Fungible` interface.
-	pub type BalanceOf<T> =
-		<<T as Config>::NativeBalance as Inspect<<T as frame_system::Config>::AccountId>>::Balance;
-
 	#[derive(Encode, Decode, Clone, Copy, PartialEq, RuntimeDebug, TypeInfo, MaxEncodedLen)]
 	#[scale_info(skip_type_params(T))]
 	pub struct Kitty<T: Config> {
