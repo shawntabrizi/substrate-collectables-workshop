@@ -1,6 +1,3 @@
-# Kitty Struct
+# Solution
 
-- TODO:
-	- Explain creating a struct
-	- Explain making the struct generic over T
-	- Explain accessing types within T
+Here you will find the solution for the previous step.

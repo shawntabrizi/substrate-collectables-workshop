@@ -6,7 +6,10 @@ pub use pallet::*;
 #[frame_support::pallet(dev_mode)]
 pub mod pallet {
 	use super::*;
-	use frame_support::pallet_prelude::*;
+	use frame_support::{
+		pallet_prelude::*,
+		traits::fungible::{Inspect, Mutate},
+	};
 	use frame_system::pallet_prelude::*;
 
 	// Learn about the Pallet struct: the structure on which we implement all functions and traits
@@ -18,7 +21,14 @@ pub mod pallet {
 	#[pallet::config]
 	pub trait Config: frame_system::Config {
 		type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
+
+		/// The Fungible handler for the kitties pallet.
+		type NativeBalance: Inspect<Self::AccountId> + Mutate<Self::AccountId>;
 	}
+
+	// Allows easy access our Pallet's `Balance` type. Comes from `Fungible` interface.
+	pub type BalanceOf<T> =
+		<<T as Config>::NativeBalance as Inspect<<T as frame_system::Config>::AccountId>>::Balance;
 
 	#[derive(Encode, Decode, Clone, Copy, PartialEq, RuntimeDebug, TypeInfo, MaxEncodedLen)]
 	#[scale_info(skip_type_params(T))]
@@ -26,6 +36,7 @@ pub mod pallet {
 		// Using 16 bytes to represent a kitty DNA
 		pub dna: [u8; 16],
 		pub owner: T::AccountId,
+		pub price: Option<BalanceOf<T>>,
 	}
 
 	/// Learn about storage value.
@@ -50,6 +61,8 @@ pub mod pallet {
 	pub enum Event<T: Config> {
 		Created { owner: T::AccountId },
 		Transferred { from: T::AccountId, to: T::AccountId, kitty_id: [u8; 16] },
+		PriceSet { owner: T::AccountId, kitty_id: [u8; 16], new_price: Option<BalanceOf<T>> },
+		Sold { buyer: T::AccountId, kitty_id: [u8; 16], price: BalanceOf<T> },
 	}
 
 	#[pallet::error]
@@ -60,6 +73,8 @@ pub mod pallet {
 		TransferToSelf,
 		NoKitty,
 		NotOwner,
+		NotForSale,
+		MaxPriceTooLow,
 	}
 
 	// Learn about callable functions and dispatch.
@@ -80,6 +95,26 @@ pub mod pallet {
 		) -> DispatchResult {
 			let who = ensure_signed(origin)?;
 			Self::do_transfer(who, to, kitty_id)?;
+			Ok(())
+		}
+
+		pub fn set_price(
+			origin: OriginFor<T>,
+			kitty_id: [u8; 16],
+			new_price: Option<BalanceOf<T>>,
+		) -> DispatchResult {
+			let who = ensure_signed(origin)?;
+			Self::do_set_price(who, kitty_id, new_price)?;
+			Ok(())
+		}
+
+		pub fn buy_kitty(
+			origin: OriginFor<T>,
+			kitty_id: [u8; 16],
+			max_price: BalanceOf<T>,
+		) -> DispatchResult {
+			let who = ensure_signed(origin)?;
+			Self::do_buy_kitty(who, kitty_id, max_price)?;
 			Ok(())
 		}
 	}
@@ -104,7 +139,7 @@ pub mod pallet {
 
 		// Learn about `AccountId`.
 		fn mint(owner: T::AccountId, dna: [u8; 16]) -> DispatchResult {
-			let kitty = Kitty { dna, owner: owner.clone() };
+			let kitty = Kitty { dna, owner: owner.clone(), price: None };
 			// Check if the kitty does not already exist in our storage map
 			ensure!(!Kitties::<T>::contains_key(dna), Error::<T>::DuplicateKitty);
 
@@ -144,6 +179,37 @@ pub mod pallet {
 			KittiesOwned::<T>::insert(&from, from_owned);
 
 			Self::deposit_event(Event::<T>::Transferred { from, to, kitty_id });
+			Ok(())
+		}
+
+		pub fn do_set_price(
+			caller: T::AccountId,
+			kitty_id: [u8; 16],
+			new_price: Option<BalanceOf<T>>,
+		) -> DispatchResult {
+			let mut kitty = Kitties::<T>::get(kitty_id).ok_or(Error::<T>::NoKitty)?;
+			ensure!(kitty.owner == caller, Error::<T>::NotOwner);
+			kitty.price = new_price;
+			Kitties::<T>::insert(kitty_id, kitty);
+
+			Self::deposit_event(Event::<T>::PriceSet { owner: caller, kitty_id, new_price });
+			Ok(())
+		}
+
+		pub fn do_buy_kitty(
+			buyer: T::AccountId,
+			kitty_id: [u8; 16],
+			price: BalanceOf<T>,
+		) -> DispatchResult {
+			let kitty = Kitties::<T>::get(kitty_id).ok_or(Error::<T>::NoKitty)?;
+			let real_price = kitty.price.ok_or(Error::<T>::NotForSale)?;
+			ensure!(price >= real_price, Error::<T>::MaxPriceTooLow);
+
+			use frame_support::traits::tokens::Preservation;
+			T::NativeBalance::transfer(&buyer, &kitty.owner, real_price, Preservation::Preserve)?;
+			Self::do_transfer(kitty.owner, buyer.clone(), kitty_id)?;
+
+			Self::deposit_event(Event::<T>::Sold { buyer, kitty_id, price: real_price });
 			Ok(())
 		}
 	}

@@ -1,3 +1,6 @@
-# Solution
+# Set Price Extrinsic
 
-Here you will find the solution for the previous step.
+- TODO:
+	- Explain how `price` works as an `Option` on the kitty
+		- `None` is not for sale
+		- `Some` is for sale

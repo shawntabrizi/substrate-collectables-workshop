@@ -55,7 +55,6 @@ pub mod pallet {
 		pub fn create_kitty(origin: OriginFor<T>) -> DispatchResult {
 			// Learn about `origin`.
 			let who = ensure_signed(origin)?;
-			/* TODO: Use the `Self::gen_dna()` function to generate a unique Kitty. */
 			let dna = [0u8; 16];
 			Self::mint(who, dna)?;
 			Ok(())
@@ -64,16 +63,6 @@ pub mod pallet {
 
 	// Learn about internal functions.
 	impl<T: Config> Pallet<T> {
-		/* TODO: Create a function `gen_dna` which returns a `[u8; 16]`.
-			- Create a `unique_payload` which contains data from `frame_system::Pallet::<T>`:
-				- `parent_hash`
-				- `block_number`
-				- `extrinsic_index`
-			- `encode()` that payload to a byte array named `encoded_payload`.
-			- Use `frame_support::Hashable` to perform a `blake2_128` hash on the encoded payload.
-			- Return the 16 byte hash.
-		*/
-
 		// Learn about `AccountId`.
 		fn mint(owner: T::AccountId, dna: [u8; 16]) -> DispatchResult {
 			let kitty = Kitty { dna, owner: owner.clone() };

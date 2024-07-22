@@ -1,5 +1,3 @@
-# Transfer Extrinsic
+# Solution
 
-- TODO:
-	- set up the transfer story for nfts
-	- add event
+Here you will find the solution for the previous step.

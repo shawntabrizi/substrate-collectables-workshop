@@ -1,3 +1,3 @@
-# Solution
+# Kitties Map
 
-Here you will find the solution for the previous step.
+- TODO: Learn the APIs for StorageMap

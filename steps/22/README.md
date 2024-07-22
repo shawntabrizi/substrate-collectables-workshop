@@ -1,3 +1,9 @@
-# Solution
+# Storing a Struct
 
-Here you will find the solution for the previous step.
+- TODO:
+	- Teach about all the derive macros
+		- encode decode
+		- basic ones from rust
+		- max encoded len
+		- typeinfo
+	- Teach how to skip `T` and why

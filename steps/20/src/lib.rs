@@ -20,11 +20,13 @@ pub mod pallet {
 		type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
 	}
 
-	pub struct Kitty<T: Config> {
-		// Using 16 bytes to represent a kitty DNA
-		pub dna: [u8; 16],
-		pub owner: T::AccountId,
-	}
+	/* TODO:
+		- Create a new `struct` called `Kitty`.
+		- Make `Kitty` generic over `T` where `T: Config`.
+		- Add two fields to `Kitty`:
+			- `dna` which is type `[u8; 16]`.
+			- `owner` which is type `T::AccountId`.
+	*/
 
 	/// Learn about storage value.
 	#[pallet::storage]
