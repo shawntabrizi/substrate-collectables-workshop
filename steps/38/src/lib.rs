@@ -36,6 +36,7 @@ pub mod pallet {
 		// Using 16 bytes to represent a kitty DNA
 		pub dna: [u8; 16],
 		pub owner: T::AccountId,
+		pub price: Option<BalanceOf<T>>,
 	}
 
 	/// Learn about storage value.
@@ -131,7 +132,7 @@ pub mod pallet {
 
 		// Learn about `AccountId`.
 		fn mint(owner: T::AccountId, dna: [u8; 16]) -> DispatchResult {
-			let kitty = Kitty { dna, owner: owner.clone() };
+			let kitty = Kitty { dna, owner: owner.clone(), price: None };
 			// Check if the kitty does not already exist in our storage map
 			ensure!(!Kitties::<T>::contains_key(dna), Error::<T>::DuplicateKitty);
 
