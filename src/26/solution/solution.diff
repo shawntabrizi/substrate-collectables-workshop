@@ -1,8 +1,16 @@
 diff --git a/src/lib.rs b/src/lib.rs
-index 6dd3fb3..abe1450 100644
+index 7e04986..abe1450 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -60,11 +60,7 @@ pub mod pallet {
+@@ -36,7 +36,6 @@ pub mod pallet {
+ 		// Using 16 bytes to represent a kitty DNA
+ 		pub dna: [u8; 16],
+ 		pub owner: T::AccountId,
+-		pub price: Option<BalanceOf<T>>,
+ 	}
+ 
+ 	/// Learn about storage value.
+@@ -61,11 +60,7 @@ pub mod pallet {
  	pub enum Event<T: Config> {
  		Created { owner: T::AccountId },
  		Transferred { from: T::AccountId, to: T::AccountId, kitty_id: [u8; 16] },
@@ -15,7 +23,7 @@ index 6dd3fb3..abe1450 100644
  	}
  
  	#[pallet::error]
-@@ -98,17 +94,15 @@ pub mod pallet {
+@@ -99,17 +94,15 @@ pub mod pallet {
  			Ok(())
  		}
  
@@ -42,7 +50,16 @@ index 6dd3fb3..abe1450 100644
  	}
  
  	// Learn about internal functions.
-@@ -174,15 +168,13 @@ pub mod pallet {
+@@ -132,7 +125,7 @@ pub mod pallet {
+ 
+ 		// Learn about `AccountId`.
+ 		fn mint(owner: T::AccountId, dna: [u8; 16]) -> DispatchResult {
+-			let kitty = Kitty { dna, owner: owner.clone(), price: None };
++			let kitty = Kitty { dna, owner: owner.clone() };
+ 			// Check if the kitty does not already exist in our storage map
+ 			ensure!(!Kitties::<T>::contains_key(dna), Error::<T>::DuplicateKitty);
+ 
+@@ -175,15 +168,13 @@ pub mod pallet {
  			Ok(())
  		}
  
