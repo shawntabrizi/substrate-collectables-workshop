@@ -22,7 +22,7 @@ pub mod pallet {
 
 	/// Learn about storage value.
 	#[pallet::storage]
-	pub(super) type CountForHellos<T: Config> = StorageValue<Value = u64, QueryKind = ValueQuery>;
+	pub(super) type CountForHellos<T: Config> = StorageValue<Value = u64>;
 
 	// Learn about events.
 	#[pallet::event]
@@ -51,6 +51,7 @@ pub mod pallet {
 		fn say_hello(who: T::AccountId) {
 			/* TODO:
 				- `get` the current count of hellos.
+				- `unwrap_or` set the count to `0`.
 				- increment the count by one.
 				- `set` the new count of hellos.
 			*/
