@@ -1,6 +1,7 @@
-# Set Price Extrinsic
+# Transfer Logic
 
 - TODO:
-	- Explain how `price` works as an `Option` on the kitty
-		- `None` is not for sale
-		- `Some` is for sale
+	- explain logic for transfer
+	- what needs to be checked
+	- how to do the swap remove
+	- how to update storage

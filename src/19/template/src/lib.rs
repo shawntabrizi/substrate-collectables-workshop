@@ -36,32 +36,23 @@ pub mod pallet {
 	#[pallet::storage]
 	pub(super) type Kitties<T: Config> = StorageMap<Key = [u8; 16], Value = Kitty<T>>;
 
-	/// Track the kitties owned by each account.
-	#[pallet::storage]
-	pub(super) type KittiesOwned<T: Config> = StorageMap<
-		Key = T::AccountId,
-		Value = BoundedVec<[u8; 16], ConstU32<100>>,
-		QueryKind = ValueQuery,
-	>;
+	/* TODO: Create a new `StorageMap` called `KittiesOwned`.
+		- The `Key` of this map is `T::AccountId`.
+		- The `Value` of this map is `Vec<[u8; 16]>`.
+		- The `QueryKind` should be set to `ValueQuery`.
+	*/
 
 	// Learn about events.
 	#[pallet::event]
 	#[pallet::generate_deposit(pub(super) fn deposit_event)]
 	pub enum Event<T: Config> {
 		Created { owner: T::AccountId },
-		/* TODO: Create a new event called `Transferred`:
-			- Parameters are:
-				- `from` which is `T::AccountId`.
-				- `to` which is `T::AccountId`.
-				- `kitty_id` which is `[u8; 16]`.
-		*/
 	}
 
 	#[pallet::error]
 	pub enum Error<T> {
 		TooManyKitties,
 		DuplicateKitty,
-		TooManyOwned,
 	}
 
 	// Learn about callable functions and dispatch.
@@ -74,18 +65,6 @@ pub mod pallet {
 			Self::mint(who, dna)?;
 			Ok(())
 		}
-
-		/* TODO: Make a new extrinsic called `transfer`.
-			- Input parameters are:
-				- `origin` which is `OriginFor<T>`.
-				- `to` which is `T::AccountId`.
-				- `kitty_id` which is `[u8; 16]`.
-			- Returns a `DispatchResult`.
-			- The inner logic should be:
-				- Get the caller `who` from `ensure_signed`.
-				- Call `Self::do_transfer`, and propagate the result.
-				- End with Ok(()).
-		*/
 	}
 
 	// Learn about internal functions.
@@ -115,23 +94,12 @@ pub mod pallet {
 			let current_count: u64 = CountForKitties::<T>::get();
 			let new_count = current_count.checked_add(1).ok_or(Error::<T>::TooManyKitties)?;
 
-			KittiesOwned::<T>::try_append(&owner, dna).map_err(|_| Error::<T>::TooManyOwned)?;
+			/* TODO: `append` the `dna` to the `KittiesOwned` storage for the `owner`. */
+
 			Kitties::<T>::insert(dna, kitty);
 			CountForKitties::<T>::set(new_count);
-
 			Self::deposit_event(Event::<T>::Created { owner });
 			Ok(())
 		}
-
-		/* TODO: Create an internal function called `do_transfer`:
-			- It has inputs:
-				- `from` which is `T::AccountId`.
-				- `to` which is `T::AccountId`.
-				- `kitty_id` which is `[u8; 16]`.
-			- It returns a `DispatchResult`
-			- The inner logic for now is:
-				- Call `Self::dispatch_event` on and emit `Event::<T>:Transferred` with params.
-				- Return `Ok(())`.
-		*/
 	}
 }

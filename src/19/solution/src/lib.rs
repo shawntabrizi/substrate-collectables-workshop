@@ -40,7 +40,7 @@ pub mod pallet {
 	#[pallet::storage]
 	pub(super) type KittiesOwned<T: Config> = StorageMap<
 		Key = T::AccountId,
-		Value = BoundedVec<[u8; 16], ConstU32<100>>,
+		Value = Vec<[u8; 16]>,
 		QueryKind = ValueQuery,
 	>;
 
@@ -49,14 +49,12 @@ pub mod pallet {
 	#[pallet::generate_deposit(pub(super) fn deposit_event)]
 	pub enum Event<T: Config> {
 		Created { owner: T::AccountId },
-		Transferred { from: T::AccountId, to: T::AccountId, kitty_id: [u8; 16] },
 	}
 
 	#[pallet::error]
 	pub enum Error<T> {
 		TooManyKitties,
 		DuplicateKitty,
-		TooManyOwned,
 	}
 
 	// Learn about callable functions and dispatch.
@@ -67,16 +65,6 @@ pub mod pallet {
 			let who = ensure_signed(origin)?;
 			let dna = Self::gen_dna();
 			Self::mint(who, dna)?;
-			Ok(())
-		}
-
-		pub fn transfer(
-			origin: OriginFor<T>,
-			to: T::AccountId,
-			kitty_id: [u8; 16],
-		) -> DispatchResult {
-			let who = ensure_signed(origin)?;
-			Self::do_transfer(who, to, kitty_id)?;
 			Ok(())
 		}
 	}
@@ -108,21 +96,11 @@ pub mod pallet {
 			let current_count: u64 = CountForKitties::<T>::get();
 			let new_count = current_count.checked_add(1).ok_or(Error::<T>::TooManyKitties)?;
 
-			KittiesOwned::<T>::try_append(&owner, dna).map_err(|_| Error::<T>::TooManyOwned)?;
+			KittiesOwned::<T>::append(&owner, dna);
 			Kitties::<T>::insert(dna, kitty);
 			CountForKitties::<T>::set(new_count);
 
 			Self::deposit_event(Event::<T>::Created { owner });
-			Ok(())
-		}
-
-		// Update storage to transfer kitty
-		pub fn do_transfer(
-			from: T::AccountId,
-			to: T::AccountId,
-			kitty_id: [u8; 16],
-		) -> DispatchResult {
-			Self::deposit_event(Event::<T>::Transferred { from, to, kitty_id });
 			Ok(())
 		}
 	}

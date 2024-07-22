@@ -20,13 +20,13 @@ pub mod pallet {
 		type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
 	}
 
-	#[derive(Encode, Decode, Clone, Copy, PartialEq, RuntimeDebug, TypeInfo, MaxEncodedLen)]
-	#[scale_info(skip_type_params(T))]
-	pub struct Kitty<T: Config> {
-		// Using 16 bytes to represent a kitty DNA
-		pub dna: [u8; 16],
-		pub owner: T::AccountId,
-	}
+	/* TODO:
+		- Create a new `struct` called `Kitty`.
+		- Make `Kitty` generic over `T` where `T: Config`.
+		- Add two fields to `Kitty`:
+			- `dna` which is type `[u8; 16]`.
+			- `owner` which is type `T::AccountId`.
+	*/
 
 	/// Learn about storage value.
 	#[pallet::storage]
@@ -34,7 +34,7 @@ pub mod pallet {
 
 	/// Learn about storage maps.
 	#[pallet::storage]
-	pub(super) type Kitties<T: Config> = StorageMap<Key = [u8; 16], Value = Kitty<T>>;
+	pub(super) type Kitties<T: Config> = StorageMap<Key = [u8; 16], Value = ()>;
 
 	// Learn about events.
 	#[pallet::event]
@@ -55,7 +55,6 @@ pub mod pallet {
 		pub fn create_kitty(origin: OriginFor<T>) -> DispatchResult {
 			// Learn about `origin`.
 			let who = ensure_signed(origin)?;
-			/* TODO: Use the `Self::gen_dna()` function to generate a unique Kitty. */
 			let dna = [0u8; 16];
 			Self::mint(who, dna)?;
 			Ok(())
@@ -64,25 +63,14 @@ pub mod pallet {
 
 	// Learn about internal functions.
 	impl<T: Config> Pallet<T> {
-		/* TODO: Create a function `gen_dna` which returns a `[u8; 16]`.
-			- Create a `unique_payload` which contains data from `frame_system::Pallet::<T>`:
-				- `parent_hash`
-				- `block_number`
-				- `extrinsic_index`
-			- `encode()` that payload to a byte array named `encoded_payload`.
-			- Use `frame_support::Hashable` to perform a `blake2_128` hash on the encoded payload.
-			- Return the 16 byte hash.
-		*/
-
 		// Learn about `AccountId`.
 		fn mint(owner: T::AccountId, dna: [u8; 16]) -> DispatchResult {
-			let kitty = Kitty { dna, owner: owner.clone() };
 			// Check if the kitty does not already exist in our storage map
 			ensure!(!Kitties::<T>::contains_key(dna), Error::<T>::DuplicateKitty);
 
 			let current_count: u64 = CountForKitties::<T>::get();
 			let new_count = current_count.checked_add(1).ok_or(Error::<T>::TooManyKitties)?;
-			Kitties::<T>::insert(dna, kitty);
+			Kitties::<T>::insert(dna, ());
 			CountForKitties::<T>::set(new_count);
 			Self::deposit_event(Event::<T>::Created { owner });
 			Ok(())

@@ -14,18 +14,7 @@
 
 <div id="Source" class="maintab tabcontent active">
 
-<div class="tab">
-<button class="subtab tablinks file-source file-modified active" onclick="switchSubTab(event, 'src/lib.rs')" data-id="src/lib.rs">src/lib.rs</button>
-</div>
-<div id="source/src/lib.rs" class="subtab tabcontent active" data-id="src/lib.rs">
-
-```rust
-{{#include ./source/src/lib.rs}}
-```
-
-</div>
-
-
+No files edited in this step.
 
 </div>
 

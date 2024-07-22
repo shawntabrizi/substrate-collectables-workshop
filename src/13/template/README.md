@@ -1,3 +1,3 @@
-# Duplicate Kitty Check
+# Kitties Map
 
-- TODO: Explain important safety needed when dealing with maps and managing state.
+- TODO: Learn the APIs for StorageMap

@@ -1,6 +1,9 @@
-# Track Owned Kitties
+# Storing a Struct
 
 - TODO:
-	- Explain advantages and disadvantages of redundant storage
-	- Explain tradeoffs with UIs
-	- Explain iteration over maps and vecs
+	- Teach about all the derive macros
+		- encode decode
+		- basic ones from rust
+		- max encoded len
+		- typeinfo
+	- Teach how to skip `T` and why

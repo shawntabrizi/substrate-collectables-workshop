@@ -6,10 +6,7 @@ pub use pallet::*;
 #[frame_support::pallet(dev_mode)]
 pub mod pallet {
 	use super::*;
-	use frame_support::{
-		pallet_prelude::*,
-		traits::fungible::{Inspect, Mutate},
-	};
+	use frame_support::pallet_prelude::*;
 	use frame_system::pallet_prelude::*;
 
 	// Learn about the Pallet struct: the structure on which we implement all functions and traits
@@ -21,14 +18,7 @@ pub mod pallet {
 	#[pallet::config]
 	pub trait Config: frame_system::Config {
 		type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
-
-		/// The Fungible handler for the kitties pallet.
-		type NativeBalance: Inspect<Self::AccountId> + Mutate<Self::AccountId>;
 	}
-
-	// Allows easy access our Pallet's `Balance` type. Comes from `Fungible` interface.
-	pub type BalanceOf<T> =
-		<<T as Config>::NativeBalance as Inspect<<T as frame_system::Config>::AccountId>>::Balance;
 
 	#[derive(Encode, Decode, Clone, Copy, PartialEq, RuntimeDebug, TypeInfo, MaxEncodedLen)]
 	#[scale_info(skip_type_params(T))]
@@ -60,7 +50,6 @@ pub mod pallet {
 	pub enum Event<T: Config> {
 		Created { owner: T::AccountId },
 		Transferred { from: T::AccountId, to: T::AccountId, kitty_id: [u8; 16] },
-		PriceSet { owner: T::AccountId, kitty_id: [u8; 16], new_price: Option<BalanceOf<T>> },
 	}
 
 	#[pallet::error]
@@ -91,16 +80,6 @@ pub mod pallet {
 		) -> DispatchResult {
 			let who = ensure_signed(origin)?;
 			Self::do_transfer(who, to, kitty_id)?;
-			Ok(())
-		}
-
-		pub fn set_price(
-			origin: OriginFor<T>,
-			kitty_id: [u8; 16],
-			new_price: Option<BalanceOf<T>>,
-		) -> DispatchResult {
-			let who = ensure_signed(origin)?;
-			Self::do_set_price(who, kitty_id, new_price)?;
 			Ok(())
 		}
 	}
@@ -165,15 +144,6 @@ pub mod pallet {
 			KittiesOwned::<T>::insert(&from, from_owned);
 
 			Self::deposit_event(Event::<T>::Transferred { from, to, kitty_id });
-			Ok(())
-		}
-
-		pub fn do_set_price(
-			caller: T::AccountId,
-			kitty_id: [u8; 16],
-			new_price: Option<BalanceOf<T>>,
-		) -> DispatchResult {
-			Self::deposit_event(Event::<T>::PriceSet { owner: caller, kitty_id, new_price });
 			Ok(())
 		}
 	}

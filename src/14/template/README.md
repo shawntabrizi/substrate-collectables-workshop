@@ -1,6 +1,3 @@
-# Kitty Struct
+# Duplicate Kitty Check
 
-- TODO:
-	- Explain creating a struct
-	- Explain making the struct generic over T
-	- Explain accessing types within T
+- TODO: Explain important safety needed when dealing with maps and managing state.

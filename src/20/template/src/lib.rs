@@ -40,7 +40,8 @@ pub mod pallet {
 	#[pallet::storage]
 	pub(super) type KittiesOwned<T: Config> = StorageMap<
 		Key = T::AccountId,
-		Value = BoundedVec<[u8; 16], ConstU32<100>>,
+		/* TODO: Turn this into a `BoundedVec` with a limit of `ConstU32<100>`. */
+		Value = Vec<[u8; 16]>,
 		QueryKind = ValueQuery,
 	>;
 
@@ -49,19 +50,13 @@ pub mod pallet {
 	#[pallet::generate_deposit(pub(super) fn deposit_event)]
 	pub enum Event<T: Config> {
 		Created { owner: T::AccountId },
-		Transferred { from: T::AccountId, to: T::AccountId, kitty_id: [u8; 16] },
 	}
 
 	#[pallet::error]
 	pub enum Error<T> {
 		TooManyKitties,
 		DuplicateKitty,
-		TooManyOwned,
-		/* Add new `Error` variants needed for `do_transfer`:
-			- `TransferToSelf`: for when the `from` and `to` of the transfer is the same.
-			- `NoKitty`: for when a transfer involves a kitty that does not exist.
-			- `NotOwner`: for when a transfer is initiated by someone who is not the current owner.
-		*/
+		/* TODO: Add a new `Error` named `TooManyOwned` */
 	}
 
 	// Learn about callable functions and dispatch.
@@ -72,16 +67,6 @@ pub mod pallet {
 			let who = ensure_signed(origin)?;
 			let dna = Self::gen_dna();
 			Self::mint(who, dna)?;
-			Ok(())
-		}
-
-		pub fn transfer(
-			origin: OriginFor<T>,
-			to: T::AccountId,
-			kitty_id: [u8; 16],
-		) -> DispatchResult {
-			let who = ensure_signed(origin)?;
-			Self::do_transfer(who, to, kitty_id)?;
 			Ok(())
 		}
 	}
@@ -113,43 +98,12 @@ pub mod pallet {
 			let current_count: u64 = CountForKitties::<T>::get();
 			let new_count = current_count.checked_add(1).ok_or(Error::<T>::TooManyKitties)?;
 
-			KittiesOwned::<T>::try_append(&owner, dna).map_err(|_| Error::<T>::TooManyOwned)?;
+			/* TODO: Update `append` to `try_append` and `map_err` to `Error::<T>::TooManyOwned`. */
+			KittiesOwned::<T>::append(&owner, dna);
 			Kitties::<T>::insert(dna, kitty);
 			CountForKitties::<T>::set(new_count);
 
 			Self::deposit_event(Event::<T>::Created { owner });
-			Ok(())
-		}
-
-		// Update storage to transfer kitty
-		pub fn do_transfer(
-			from: T::AccountId,
-			to: T::AccountId,
-			kitty_id: [u8; 16],
-		) -> DispatchResult {
-			/* TODO: Sanity check the transfer is allowed:
-				- First `ensure!` that `from` and `to` are not equal, else return `Error::<T>::TransferToSelf`.
-				- Get the `kitty` from `Kitties` using `kitty_id`, else return `Error::<T>::NoKitty`.
-				- Check the `kitty.owner` is equal to `from`, else return `NotOwner`.
-				- Update `kitty.owner` to `to`.
-			*/
-
-			/* TODO: Update the `KittiesOwned` of `from` and `to:
-				- Create a mutable `from_owned` by querying `KittiesOwned` for `from`.
-				- Write logic to `swap_remove` the item from the `from_owned` vector.
-					- If you cannot find the kitty in the vector, return `Error::<T>::NoKitty`.
-				- Create a mutable `to_owned` by querying `KittiesOwned` for `to`.
-				- `try_push` the `kitty_id` to the `to_owned` vector.
-					- If the vector is full, `map_err` and return `Error::<T>::TooManyOwned`.
-			*/
-
-			/* TODO: Update the final storage.
-				- Insert into `Kitties` under `kitty_id` the modified `kitty` struct.
-				- Insert into `KittiesOwned` under `to` the modified `to_owned` vector.
-				- Insert into `KittiesOwned` under `from` the modified `from_owned` vector.
-			*/
-
-			Self::deposit_event(Event::<T>::Transferred { from, to, kitty_id });
 			Ok(())
 		}
 	}

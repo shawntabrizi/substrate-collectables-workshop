@@ -1,6 +1,3 @@
-# Value Query
+# Safe Math
 
-- TODO:
-	- Explain storage as an option
-	- Explain `OptionQuery` and `ValueQuery`
-	- Explain default value
+- Explain safe math, overflows, saturating, checked, and APIs

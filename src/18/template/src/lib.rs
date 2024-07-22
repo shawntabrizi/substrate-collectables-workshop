@@ -36,15 +36,6 @@ pub mod pallet {
 	#[pallet::storage]
 	pub(super) type Kitties<T: Config> = StorageMap<Key = [u8; 16], Value = Kitty<T>>;
 
-	/// Track the kitties owned by each account.
-	#[pallet::storage]
-	pub(super) type KittiesOwned<T: Config> = StorageMap<
-		Key = T::AccountId,
-		/* TODO: Turn this into a `BoundedVec` with a limit of `ConstU32<100>`. */
-		Value = Vec<[u8; 16]>,
-		QueryKind = ValueQuery,
-	>;
-
 	// Learn about events.
 	#[pallet::event]
 	#[pallet::generate_deposit(pub(super) fn deposit_event)]
@@ -56,7 +47,6 @@ pub mod pallet {
 	pub enum Error<T> {
 		TooManyKitties,
 		DuplicateKitty,
-		/* TODO: Add a new `Error` named `TooManyOwned` */
 	}
 
 	// Learn about callable functions and dispatch.
@@ -65,7 +55,8 @@ pub mod pallet {
 		pub fn create_kitty(origin: OriginFor<T>) -> DispatchResult {
 			// Learn about `origin`.
 			let who = ensure_signed(origin)?;
-			let dna = Self::gen_dna();
+			/* TODO: Use the `Self::gen_dna()` function to generate a unique Kitty. */
+			let dna = [0u8; 16];
 			Self::mint(who, dna)?;
 			Ok(())
 		}
@@ -73,21 +64,15 @@ pub mod pallet {
 
 	// Learn about internal functions.
 	impl<T: Config> Pallet<T> {
-		// Generates and returns DNA and Sex
-		fn gen_dna() -> [u8; 16] {
-			// Create randomness payload. Multiple kitties can be generated in the same block,
-			// retaining uniqueness.
-			let unique_payload = (
-				frame_system::Pallet::<T>::parent_hash(),
-				frame_system::Pallet::<T>::block_number(),
-				frame_system::Pallet::<T>::extrinsic_index().unwrap_or_default(),
-				CountForKitties::<T>::get(),
-			);
-
-			// Turns into a byte array
-			let encoded_payload = unique_payload.encode();
-			frame_support::Hashable::blake2_128(&encoded_payload)
-		}
+		/* TODO: Create a function `gen_dna` which returns a `[u8; 16]`.
+			- Create a `unique_payload` which contains data from `frame_system::Pallet::<T>`:
+				- `parent_hash`
+				- `block_number`
+				- `extrinsic_index`
+			- `encode()` that payload to a byte array named `encoded_payload`.
+			- Use `frame_support::Hashable` to perform a `blake2_128` hash on the encoded payload.
+			- Return the 16 byte hash.
+		*/
 
 		// Learn about `AccountId`.
 		fn mint(owner: T::AccountId, dna: [u8; 16]) -> DispatchResult {
@@ -97,12 +82,8 @@ pub mod pallet {
 
 			let current_count: u64 = CountForKitties::<T>::get();
 			let new_count = current_count.checked_add(1).ok_or(Error::<T>::TooManyKitties)?;
-
-			/* TODO: Update `append` to `try_append` and `map_err` to `Error::<T>::TooManyOwned`. */
-			KittiesOwned::<T>::append(&owner, dna);
 			Kitties::<T>::insert(dna, kitty);
 			CountForKitties::<T>::set(new_count);
-
 			Self::deposit_event(Event::<T>::Created { owner });
 			Ok(())
 		}

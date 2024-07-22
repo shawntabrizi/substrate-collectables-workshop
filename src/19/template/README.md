@@ -1,5 +1,6 @@
-# Transfer Extrinsic
+# Track Owned Kitties
 
 - TODO:
-	- set up the transfer story for nfts
-	- add event
+	- Explain advantages and disadvantages of redundant storage
+	- Explain tradeoffs with UIs
+	- Explain iteration over maps and vecs

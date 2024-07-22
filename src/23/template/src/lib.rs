@@ -6,10 +6,7 @@ pub use pallet::*;
 #[frame_support::pallet(dev_mode)]
 pub mod pallet {
 	use super::*;
-	use frame_support::{
-		pallet_prelude::*,
-		traits::fungible::{Inspect, Mutate},
-	};
+	use frame_support::pallet_prelude::*;
 	use frame_system::pallet_prelude::*;
 
 	// Learn about the Pallet struct: the structure on which we implement all functions and traits
@@ -21,14 +18,7 @@ pub mod pallet {
 	#[pallet::config]
 	pub trait Config: frame_system::Config {
 		type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
-
-		/// The Fungible handler for the kitties pallet.
-		type NativeBalance: Inspect<Self::AccountId> + Mutate<Self::AccountId>;
 	}
-
-	// Allows easy access our Pallet's `Balance` type. Comes from `Fungible` interface.
-	pub type BalanceOf<T> =
-		<<T as Config>::NativeBalance as Inspect<<T as frame_system::Config>::AccountId>>::Balance;
 
 	#[derive(Encode, Decode, Clone, Copy, PartialEq, RuntimeDebug, TypeInfo, MaxEncodedLen)]
 	#[scale_info(skip_type_params(T))]
@@ -60,11 +50,6 @@ pub mod pallet {
 	pub enum Event<T: Config> {
 		Created { owner: T::AccountId },
 		Transferred { from: T::AccountId, to: T::AccountId, kitty_id: [u8; 16] },
-		/* TODO: Create a new `Event` called `PriceSet` with fields:
-			- `owner` which is `T::AccountId`.
-			- `kitty_id` which is `[u8; 16]`.
-			- `new_price` which is `Option<BalanceOf<T>>`.
-		*/
 	}
 
 	#[pallet::error]
@@ -72,9 +57,11 @@ pub mod pallet {
 		TooManyKitties,
 		DuplicateKitty,
 		TooManyOwned,
-		TransferToSelf,
-		NoKitty,
-		NotOwner,
+		/* Add new `Error` variants needed for `do_transfer`:
+			- `TransferToSelf`: for when the `from` and `to` of the transfer is the same.
+			- `NoKitty`: for when a transfer involves a kitty that does not exist.
+			- `NotOwner`: for when a transfer is initiated by someone who is not the current owner.
+		*/
 	}
 
 	// Learn about callable functions and dispatch.
@@ -97,18 +84,6 @@ pub mod pallet {
 			Self::do_transfer(who, to, kitty_id)?;
 			Ok(())
 		}
-
-		/* TODO: Make an callable function called `set_price`:
-			- Inputs to the function are:
-				- `origin` which is `OriginFor<T>`.
-				- `kitty_id` which is `[u8; 16]`.
-				- `new_price` which is `Option<BalanceOf<T>`.
-			- Returns a `DispatchResult`
-			- The internal logic, for now, should be:
-				- Extract the caller `who` with `ensure_signed`.
-				- Call `Self::do_set_price` with the appropriate parameters, propagating the result.
-				- Return `Ok(())`.
-		*/
 	}
 
 	// Learn about internal functions.
@@ -152,37 +127,30 @@ pub mod pallet {
 			to: T::AccountId,
 			kitty_id: [u8; 16],
 		) -> DispatchResult {
-			ensure!(from != to, Error::<T>::TransferToSelf);
-			let mut kitty = Kitties::<T>::get(kitty_id).ok_or(Error::<T>::NoKitty)?;
-			ensure!(kitty.owner == from, Error::<T>::NotOwner);
-			kitty.owner = to.clone();
+			/* TODO: Sanity check the transfer is allowed:
+				- First `ensure!` that `from` and `to` are not equal, else return `Error::<T>::TransferToSelf`.
+				- Get the `kitty` from `Kitties` using `kitty_id`, else return `Error::<T>::NoKitty`.
+				- Check the `kitty.owner` is equal to `from`, else return `NotOwner`.
+				- Update `kitty.owner` to `to`.
+			*/
 
-			let mut from_owned = KittiesOwned::<T>::get(&from);
-			if let Some(ind) = from_owned.iter().position(|&id| id == kitty_id) {
-				from_owned.swap_remove(ind);
-			} else {
-				return Err(Error::<T>::NoKitty.into())
-			}
-			let mut to_owned = KittiesOwned::<T>::get(&to);
-			to_owned.try_push(kitty_id).map_err(|_| Error::<T>::TooManyOwned)?;
+			/* TODO: Update the `KittiesOwned` of `from` and `to:
+				- Create a mutable `from_owned` by querying `KittiesOwned` for `from`.
+				- Write logic to `swap_remove` the item from the `from_owned` vector.
+					- If you cannot find the kitty in the vector, return `Error::<T>::NoKitty`.
+				- Create a mutable `to_owned` by querying `KittiesOwned` for `to`.
+				- `try_push` the `kitty_id` to the `to_owned` vector.
+					- If the vector is full, `map_err` and return `Error::<T>::TooManyOwned`.
+			*/
 
-			Kitties::<T>::insert(kitty_id, kitty);
-			KittiesOwned::<T>::insert(&to, to_owned);
-			KittiesOwned::<T>::insert(&from, from_owned);
+			/* TODO: Update the final storage.
+				- Insert into `Kitties` under `kitty_id` the modified `kitty` struct.
+				- Insert into `KittiesOwned` under `to` the modified `to_owned` vector.
+				- Insert into `KittiesOwned` under `from` the modified `from_owned` vector.
+			*/
 
 			Self::deposit_event(Event::<T>::Transferred { from, to, kitty_id });
 			Ok(())
 		}
-
-		/* TODO: Make an internal function called `do_set_price`:
-			- Inputs to the function are:
-				- `caller` which is `T::AccountId`.
-				- `kitty_id` which is `[u8; 16]`.
-				- `new_price` which is `Option<BalanceOf<T>`.
-			- Returns a `DispatchResult`.
-			- The internal logic, for now, should be:
-				- `Self::deposit_event` for `Event::<T>::PriceSet` with the appropriate params.
-				- Return `Ok(())`.
-		*/
 	}
 }
