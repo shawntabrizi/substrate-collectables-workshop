@@ -1,6 +1,3 @@
-# Track Owned Kitties
+# Solution
 
-- TODO:
-	- Explain advantages and disadvantages of redundant storage
-	- Explain tradeoffs with UIs
-	- Explain iteration over maps and vecs
+Here you will find the solution for the previous step.

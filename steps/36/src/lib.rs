@@ -36,6 +36,7 @@ pub mod pallet {
 		// Using 16 bytes to represent a kitty DNA
 		pub dna: [u8; 16],
 		pub owner: T::AccountId,
+		pub price: Option<BalanceOf<T>>,
 	}
 
 	/// Learn about storage value.
@@ -60,11 +61,6 @@ pub mod pallet {
 	pub enum Event<T: Config> {
 		Created { owner: T::AccountId },
 		Transferred { from: T::AccountId, to: T::AccountId, kitty_id: [u8; 16] },
-		/* TODO: Create a new `Event` called `PriceSet` with fields:
-			- `owner` which is `T::AccountId`.
-			- `kitty_id` which is `[u8; 16]`.
-			- `new_price` which is `Option<BalanceOf<T>>`.
-		*/
 	}
 
 	#[pallet::error]
@@ -97,18 +93,6 @@ pub mod pallet {
 			Self::do_transfer(who, to, kitty_id)?;
 			Ok(())
 		}
-
-		/* TODO: Make an callable function called `set_price`:
-			- Inputs to the function are:
-				- `origin` which is `OriginFor<T>`.
-				- `kitty_id` which is `[u8; 16]`.
-				- `new_price` which is `Option<BalanceOf<T>`.
-			- Returns a `DispatchResult`
-			- The internal logic, for now, should be:
-				- Extract the caller `who` with `ensure_signed`.
-				- Call `Self::do_set_price` with the appropriate parameters, propagating the result.
-				- Return `Ok(())`.
-		*/
 	}
 
 	// Learn about internal functions.
@@ -131,7 +115,7 @@ pub mod pallet {
 
 		// Learn about `AccountId`.
 		fn mint(owner: T::AccountId, dna: [u8; 16]) -> DispatchResult {
-			let kitty = Kitty { dna, owner: owner.clone() };
+			let kitty = Kitty { dna, owner: owner.clone(), price: None };
 			// Check if the kitty does not already exist in our storage map
 			ensure!(!Kitties::<T>::contains_key(dna), Error::<T>::DuplicateKitty);
 
@@ -173,16 +157,5 @@ pub mod pallet {
 			Self::deposit_event(Event::<T>::Transferred { from, to, kitty_id });
 			Ok(())
 		}
-
-		/* TODO: Make an internal function called `do_set_price`:
-			- Inputs to the function are:
-				- `caller` which is `T::AccountId`.
-				- `kitty_id` which is `[u8; 16]`.
-				- `new_price` which is `Option<BalanceOf<T>`.
-			- Returns a `DispatchResult`.
-			- The internal logic, for now, should be:
-				- `Self::deposit_event` for `Event::<T>::PriceSet` with the appropriate params.
-				- Return `Ok(())`.
-		*/
 	}
 }
