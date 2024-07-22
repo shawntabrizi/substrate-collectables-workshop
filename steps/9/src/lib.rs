@@ -28,7 +28,7 @@ pub mod pallet {
 	#[pallet::event]
 	#[pallet::generate_deposit(pub(super) fn deposit_event)]
 	pub enum Event<T: Config> {
-		Hello { who: T::AccountId },
+		Created { owner: T::AccountId },
 	}
 
 	#[pallet::error]
@@ -37,10 +37,10 @@ pub mod pallet {
 	// Learn about callable functions and dispatch.
 	#[pallet::call]
 	impl<T: Config> Pallet<T> {
-		pub fn hello_world(origin: OriginFor<T>) -> DispatchResult {
+		pub fn create_kitty(origin: OriginFor<T>) -> DispatchResult {
 			// Learn about `origin`.
 			let who = ensure_signed(origin)?;
-			Self::say_hello(who);
+			Self::mint(who);
 			Ok(())
 		}
 	}
@@ -48,11 +48,11 @@ pub mod pallet {
 	// Learn about internal functions.
 	impl<T: Config> Pallet<T> {
 		// Learn about `AccountId`.
-		fn say_hello(who: T::AccountId) {
+		fn mint(owner: T::AccountId) {
 			let current_count = CountForHellos::<T>::get().unwrap_or(0);
 			let new_count = current_count + 1;
 			CountForHellos::<T>::set(Some(new_count));
-			Self::deposit_event(Event::<T>::Hello { who });
+			Self::deposit_event(Event::<T>::Created { owner });
 		}
 	}
 }
