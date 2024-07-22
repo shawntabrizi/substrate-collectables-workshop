@@ -5,7 +5,7 @@
     - [4. Origin](4/README.md)
     - [5. FRAME System](5/README.md)
     - [6. Pallet Events](6/README.md)
-    - [7. Storage Basics](7/README.md)
+- [7. Storage Basics](7/README.md)
     - [8. Storage Values](8/README.md)
     - [9. Kitty Counter](9/README.md)
     - [10. Safe Math](10/README.md)
