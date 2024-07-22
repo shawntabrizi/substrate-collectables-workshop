@@ -30,14 +30,15 @@ pub mod pallet {
 	impl<T: Config> Pallet<T> {
 		pub fn create_kitty(origin: OriginFor<T>) -> DispatchResult {
 			let who = ensure_signed(origin)?;
-			Self::mint(who);
+			Self::mint(who)?;
 			Ok(())
 		}
 	}
 
 	impl<T: Config> Pallet<T> {
-		fn mint(owner: T::AccountId) {
+		fn mint(owner: T::AccountId) -> DispatchResult {
 			Self::deposit_event(Event::<T>::Created { owner });
+			Ok(())
 		}
 	}
 }

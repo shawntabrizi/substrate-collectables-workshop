@@ -33,7 +33,9 @@ pub mod pallet {
 
 	#[pallet::error]
 	pub enum Error<T> {
-		/* TODO: Introduce a new error `TooManyKitties` */
+		/* TODO:
+			- Introduce a new error `TooManyKitties`.
+		*/
 	}
 
 	// Learn about callable functions and dispatch.
