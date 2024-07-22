@@ -1,0 +1,36 @@
+diff --git a/src/lib.rs b/src/lib.rs
+index abe1450..c5fa2cb 100644
+--- a/src/lib.rs
++++ b/src/lib.rs
+@@ -36,6 +36,7 @@ pub mod pallet {
+ 		// Using 16 bytes to represent a kitty DNA
+ 		pub dna: [u8; 16],
+ 		pub owner: T::AccountId,
++		pub price: Option<BalanceOf<T>>,
+ 	}
+ 
+ 	/// Learn about storage value.
+@@ -125,7 +126,7 @@ pub mod pallet {
+ 
+ 		// Learn about `AccountId`.
+ 		fn mint(owner: T::AccountId, dna: [u8; 16]) -> DispatchResult {
+-			let kitty = Kitty { dna, owner: owner.clone() };
++			let kitty = Kitty { dna, owner: owner.clone(), price: None };
+ 			// Check if the kitty does not already exist in our storage map
+ 			ensure!(!Kitties::<T>::contains_key(dna), Error::<T>::DuplicateKitty);
+ 
+@@ -173,6 +174,14 @@ pub mod pallet {
+ 			kitty_id: [u8; 16],
+ 			new_price: Option<BalanceOf<T>>,
+ 		) -> DispatchResult {
++			/* TODO: Create the logic for setting the Kitty price:
++				- Create a mutable `kitty` by calling `get` on `Kitties` with `kitty_id`.
++					- Return an error if the kitty doesn't exist by returning `Error::<T>::NoKitty`.
++				- `ensure!` that the `kitty.owner` is equal to the `caller` else return `Error::<T>::NotOwner`.
++				- Set the `kitty.price` to `new_price`.
++				- Insert the modified `kitty` back into the `Kitties` map under `kitty_id`.
++			*/
++
+ 			Self::deposit_event(Event::<T>::PriceSet { owner: caller, kitty_id, new_price });
+ 			Ok(())
+ 		}
