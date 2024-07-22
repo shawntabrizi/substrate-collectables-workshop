@@ -1,11 +1,11 @@
 diff --git a/src/lib.rs b/src/lib.rs
-index 6dbe1b6..689d8ba 100644
+index 67dd167..356e547 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
 @@ -49,6 +49,12 @@ pub mod pallet {
  	impl<T: Config> Pallet<T> {
  		// Learn about `AccountId`.
- 		fn mint(owner: T::AccountId) {
+ 		fn mint(owner: T::AccountId) -> DispatchResult {
 +			/* TODO:
 +				- `get` the current count of kitties.
 +				- `unwrap_or` set the count to `0`.
@@ -13,5 +13,5 @@ index 6dbe1b6..689d8ba 100644
 +				- `set` the new count of kitties.
 +			*/
  			Self::deposit_event(Event::<T>::Created { owner });
+ 			Ok(())
  		}
- 	}

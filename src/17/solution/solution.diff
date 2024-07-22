@@ -1,0 +1,36 @@
+diff --git a/src/lib.rs b/src/lib.rs
+index b82e8b8..d9f272d 100644
+--- a/src/lib.rs
++++ b/src/lib.rs
+@@ -36,11 +36,13 @@ pub mod pallet {
+ 	#[pallet::storage]
+ 	pub(super) type Kitties<T: Config> = StorageMap<Key = [u8; 16], Value = Kitty<T>>;
+ 
+-	/* TODO: Create a new `StorageMap` called `KittiesOwned`.
+-		- The `Key` of this map is `T::AccountId`.
+-		- The `Value` of this map is `Vec<[u8; 16]>`.
+-		- The `QueryKind` should be set to `ValueQuery`.
+-	*/
++	/// Track the kitties owned by each account.
++	#[pallet::storage]
++	pub(super) type KittiesOwned<T: Config> = StorageMap<
++		Key = T::AccountId,
++		Value = Vec<[u8; 16]>,
++		QueryKind = ValueQuery,
++	>;
+ 
+ 	// Learn about events.
+ 	#[pallet::event]
+@@ -94,10 +96,10 @@ pub mod pallet {
+ 			let current_count: u64 = CountForKitties::<T>::get();
+ 			let new_count = current_count.checked_add(1).ok_or(Error::<T>::TooManyKitties)?;
+ 
+-			/* TODO: `append` the `dna` to the `KittiesOwned` storage for the `owner`. */
+-
++			KittiesOwned::<T>::append(&owner, dna);
+ 			Kitties::<T>::insert(dna, kitty);
+ 			CountForKitties::<T>::set(new_count);
++
+ 			Self::deposit_event(Event::<T>::Created { owner });
+ 			Ok(())
+ 		}

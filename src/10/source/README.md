@@ -1,1 +1,0 @@
-# Kitties Tutorial

@@ -1,20 +1,23 @@
 diff --git a/src/lib.rs b/src/lib.rs
-index 3c338fc..95953bf 100644
+index 924f26f..2ed0e74 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -33,7 +33,7 @@ pub mod pallet {
+@@ -33,9 +33,7 @@ pub mod pallet {
  
  	#[pallet::error]
  	pub enum Error<T> {
--		/* TODO: Introduce a new error `TooManyKitties` */
+-		/* TODO:
+-			- Introduce a new error `TooManyKitties`.
+-		*/
 +		TooManyKitties,
  	}
  
  	// Learn about callable functions and dispatch.
-@@ -53,7 +53,7 @@ pub mod pallet {
+@@ -54,8 +52,7 @@ pub mod pallet {
+ 		// Learn about `AccountId`.
  		fn mint(owner: T::AccountId) -> DispatchResult {
- 			let current_count = CountForKitties::<T>::get().unwrap_or(0);
- 			/* TODO: Update this logic to use safe math. */
+ 			let current_count: u64 = CountForKitties::<T>::get().unwrap_or(0);
+-			/* TODO: Update this logic to use safe math. */
 -			let new_count = current_count + 1;
 +			let new_count = current_count.checked_add(1).ok_or(Error::<T>::TooManyKitties)?;
  			CountForKitties::<T>::set(Some(new_count));

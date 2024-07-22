@@ -1,0 +1,38 @@
+diff --git a/src/lib.rs b/src/lib.rs
+index 5ffb395..b7a5372 100644
+--- a/src/lib.rs
++++ b/src/lib.rs
+@@ -20,6 +20,10 @@ pub mod pallet {
+ 		type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
+ 	}
+ 
++	/* TODO:
++		- Add the derive macros needed for putting a struct in storage.
++		- Add `#[scale_info(skip_type_params(T))]` to ignore the generic `T`.
++	*/
+ 	pub struct Kitty<T: Config> {
+ 		// Using 16 bytes to represent a kitty DNA
+ 		pub dna: [u8; 16],
+@@ -32,6 +36,7 @@ pub mod pallet {
+ 
+ 	/// Learn about storage maps.
+ 	#[pallet::storage]
++	/* TODO: Update the `Value` to be type `Kitty<T>` instead of (). */
+ 	pub(super) type Kitties<T: Config> = StorageMap<Key = [u8; 16], Value = ()>;
+ 
+ 	// Learn about events.
+@@ -63,11 +68,14 @@ pub mod pallet {
+ 	impl<T: Config> Pallet<T> {
+ 		// Learn about `AccountId`.
+ 		fn mint(owner: T::AccountId, dna: [u8; 16]) -> DispatchResult {
++			/* Create a new variable `kitty` which is a `Kitty` struct with `dna` and `owner`. */
++
+ 			// Check if the kitty does not already exist in our storage map
+ 			ensure!(!Kitties::<T>::contains_key(dna), Error::<T>::DuplicateKitty);
+ 
+ 			let current_count: u64 = CountForKitties::<T>::get();
+ 			let new_count = current_count.checked_add(1).ok_or(Error::<T>::TooManyKitties)?;
++			/* TODO: Insert `kitty`into the map instead of `()`. */
+ 			Kitties::<T>::insert(dna, ());
+ 			CountForKitties::<T>::set(new_count);
+ 			Self::deposit_event(Event::<T>::Created { owner });

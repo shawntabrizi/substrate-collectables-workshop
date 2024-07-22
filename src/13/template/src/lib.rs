@@ -20,17 +20,9 @@ pub mod pallet {
 		type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
 	}
 
-	/* TODO:
-		- Create a new `struct` called `Kitty`.
-		- Make `Kitty` generic over `T` where `T: Config`.
-		- Add two fields to `Kitty`:
-			- `dna` which is type `[u8; 16]`.
-			- `owner` which is type `T::AccountId`.
-	*/
-
 	/// Learn about storage value.
 	#[pallet::storage]
-	pub(super) type CountForKitties<T: Config> = StorageValue<Value = u64>;
+	pub(super) type CountForKitties<T: Config> = StorageValue<Value = u64, QueryKind = ValueQuery>;
 
 	/// Learn about storage maps.
 	#[pallet::storage]
@@ -46,7 +38,7 @@ pub mod pallet {
 	#[pallet::error]
 	pub enum Error<T> {
 		TooManyKitties,
-		DuplicateKitty,
+		/* TODO: Create a new error `DuplicateKitty`. */
 	}
 
 	// Learn about callable functions and dispatch.
@@ -65,13 +57,14 @@ pub mod pallet {
 	impl<T: Config> Pallet<T> {
 		// Learn about `AccountId`.
 		fn mint(owner: T::AccountId, dna: [u8; 16]) -> DispatchResult {
-			// Check if the kitty does not already exist in our storage map
-			ensure!(!Kitties::<T>::contains_key(dna), Error::<T>::DuplicateKitty);
-
-			let current_count = CountForKitties::<T>::get().unwrap_or(0);
+			/* TODO:
+				- `ensure!` that `Kitties` map does not `contains_key` for `dna`.
+				- If it does, return `Error::<T>::DuplicateKitty`.
+			*/
+			let current_count: u64 = CountForKitties::<T>::get();
 			let new_count = current_count.checked_add(1).ok_or(Error::<T>::TooManyKitties)?;
 			Kitties::<T>::insert(dna, ());
-			CountForKitties::<T>::set(Some(new_count));
+			CountForKitties::<T>::set(new_count);
 			Self::deposit_event(Event::<T>::Created { owner });
 			Ok(())
 		}

@@ -40,7 +40,7 @@ pub mod pallet {
 		pub fn create_kitty(origin: OriginFor<T>) -> DispatchResult {
 			// Learn about `origin`.
 			let who = ensure_signed(origin)?;
-			Self::mint(who);
+			Self::mint(who)?;
 			Ok(())
 		}
 	}
@@ -48,7 +48,7 @@ pub mod pallet {
 	// Learn about internal functions.
 	impl<T: Config> Pallet<T> {
 		// Learn about `AccountId`.
-		fn mint(owner: T::AccountId) {
+		fn mint(owner: T::AccountId) -> DispatchResult {
 			/* TODO:
 				- `get` the current count of kitties.
 				- `unwrap_or` set the count to `0`.
@@ -56,6 +56,7 @@ pub mod pallet {
 				- `set` the new count of kitties.
 			*/
 			Self::deposit_event(Event::<T>::Created { owner });
+			Ok(())
 		}
 	}
 }
