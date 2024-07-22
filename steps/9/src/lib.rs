@@ -49,7 +49,7 @@ pub mod pallet {
 	impl<T: Config> Pallet<T> {
 		// Learn about `AccountId`.
 		fn mint(owner: T::AccountId) {
-			let current_count = CountForKitties::<T>::get().unwrap_or(0);
+			let current_count: u64 = CountForKitties::<T>::get().unwrap_or(0);
 			let new_count = current_count + 1;
 			CountForKitties::<T>::set(Some(new_count));
 			Self::deposit_event(Event::<T>::Created { owner });

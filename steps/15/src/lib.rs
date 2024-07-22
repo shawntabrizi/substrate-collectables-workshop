@@ -58,7 +58,7 @@ pub mod pallet {
 		// Learn about `AccountId`.
 		/* TODO: Update this function signature to include `id` which is type `[u8; 16]`. */
 		fn mint(owner: T::AccountId) -> DispatchResult {
-			let current_count = CountForKitties::<T>::get().unwrap_or(0);
+			let current_count: u64 = CountForKitties::<T>::get().unwrap_or(0);
 			let new_count = current_count.checked_add(1).ok_or(Error::<T>::TooManyKitties)?;
 			/* TODO: In the `Kitties` map, under the key `id`, insert `()`. */
 			CountForKitties::<T>::set(Some(new_count));

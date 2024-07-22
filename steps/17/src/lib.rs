@@ -61,7 +61,7 @@ pub mod pallet {
 				- `ensure!` that `Kitties` map does not `contains_key` for `dna`.
 				- If it does, return `Error::<T>::DuplicateKitty`.
 			*/
-			let current_count = CountForKitties::<T>::get().unwrap_or(0);
+			let current_count: u64 = CountForKitties::<T>::get().unwrap_or(0);
 			let new_count = current_count.checked_add(1).ok_or(Error::<T>::TooManyKitties)?;
 			Kitties::<T>::insert(dna, ());
 			CountForKitties::<T>::set(Some(new_count));
