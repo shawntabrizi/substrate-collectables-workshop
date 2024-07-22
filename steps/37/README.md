@@ -1,3 +1,4 @@
-# Solution
+# Set Price Logic
 
-Here you will find the solution for the previous step.
+- TODO:
+	- Not sure what much there is to mention here.
