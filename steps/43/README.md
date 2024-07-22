@@ -1,3 +1,3 @@
-# Buy Kitty Logic
+# Solution
 
-- TODO
+Here you will find the solution for the previous step.

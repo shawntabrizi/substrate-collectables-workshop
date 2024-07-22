@@ -57,9 +57,11 @@ pub mod pallet {
 		TooManyKitties,
 		DuplicateKitty,
 		TooManyOwned,
-		TransferToSelf,
-		NoKitty,
-		NotOwner,
+		/* Add new `Error` variants needed for `do_transfer`:
+			- `TransferToSelf`: for when the `from` and `to` of the transfer is the same.
+			- `NoKitty`: for when a transfer involves a kitty that does not exist.
+			- `NotOwner`: for when a transfer is initiated by someone who is not the current owner.
+		*/
 	}
 
 	// Learn about callable functions and dispatch.
@@ -125,23 +127,27 @@ pub mod pallet {
 			to: T::AccountId,
 			kitty_id: [u8; 16],
 		) -> DispatchResult {
-			ensure!(from != to, Error::<T>::TransferToSelf);
-			let mut kitty = Kitties::<T>::get(kitty_id).ok_or(Error::<T>::NoKitty)?;
-			ensure!(kitty.owner == from, Error::<T>::NotOwner);
-			kitty.owner = to.clone();
+			/* TODO: Sanity check the transfer is allowed:
+				- First `ensure!` that `from` and `to` are not equal, else return `Error::<T>::TransferToSelf`.
+				- Get the `kitty` from `Kitties` using `kitty_id`, else return `Error::<T>::NoKitty`.
+				- Check the `kitty.owner` is equal to `from`, else return `NotOwner`.
+				- Update `kitty.owner` to `to`.
+			*/
 
-			let mut from_owned = KittiesOwned::<T>::get(&from);
-			if let Some(ind) = from_owned.iter().position(|&id| id == kitty_id) {
-				from_owned.swap_remove(ind);
-			} else {
-				return Err(Error::<T>::NoKitty.into())
-			}
-			let mut to_owned = KittiesOwned::<T>::get(&to);
-			to_owned.try_push(kitty_id).map_err(|_| Error::<T>::TooManyOwned)?;
+			/* TODO: Update the `KittiesOwned` of `from` and `to:
+				- Create a mutable `from_owned` by querying `KittiesOwned` for `from`.
+				- Write logic to `swap_remove` the item from the `from_owned` vector.
+					- If you cannot find the kitty in the vector, return `Error::<T>::NoKitty`.
+				- Create a mutable `to_owned` by querying `KittiesOwned` for `to`.
+				- `try_push` the `kitty_id` to the `to_owned` vector.
+					- If the vector is full, `map_err` and return `Error::<T>::TooManyOwned`.
+			*/
 
-			Kitties::<T>::insert(kitty_id, kitty);
-			KittiesOwned::<T>::insert(&to, to_owned);
-			KittiesOwned::<T>::insert(&from, from_owned);
+			/* TODO: Update the final storage.
+				- Insert into `Kitties` under `kitty_id` the modified `kitty` struct.
+				- Insert into `KittiesOwned` under `to` the modified `to_owned` vector.
+				- Insert into `KittiesOwned` under `from` the modified `from_owned` vector.
+			*/
 
 			Self::deposit_event(Event::<T>::Transferred { from, to, kitty_id });
 			Ok(())

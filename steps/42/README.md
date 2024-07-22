@@ -1,3 +1,6 @@
-# Solution
+# Buy Kitty Extrinsic
 
-Here you will find the solution for the previous step.
+- TODO:
+	- Explain the need for `max_price`
+	- Hint how we can reuse the `do_transfer` function we made
+	- Explain to users `Preservation`
