@@ -22,7 +22,7 @@ pub mod pallet {
 
 	/// Learn about storage value.
 	#[pallet::storage]
-	pub(super) type CountForHellos<T: Config> = StorageValue<Value = u64>;
+	pub(super) type CountForKitties<T: Config> = StorageValue<Value = u64>;
 
 	// Learn about events.
 	#[pallet::event]
@@ -50,10 +50,10 @@ pub mod pallet {
 		// Learn about `AccountId`.
 		fn mint(owner: T::AccountId) {
 			/* TODO:
-				- `get` the current count of hellos.
+				- `get` the current count of kitties.
 				- `unwrap_or` set the count to `0`.
 				- increment the count by one.
-				- `set` the new count of hellos.
+				- `set` the new count of kitties.
 			*/
 			Self::deposit_event(Event::<T>::Created { owner });
 		}

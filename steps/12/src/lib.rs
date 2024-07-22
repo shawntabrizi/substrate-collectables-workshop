@@ -22,7 +22,7 @@ pub mod pallet {
 
 	/// Learn about storage value.
 	#[pallet::storage]
-	pub(super) type CountForHellos<T: Config> = StorageValue<Value = u64>;
+	pub(super) type CountForKitties<T: Config> = StorageValue<Value = u64>;
 
 	/// Learn about storage maps.
 	#[pallet::storage]
@@ -37,7 +37,7 @@ pub mod pallet {
 
 	#[pallet::error]
 	pub enum Error<T> {
-		CannotSayHello,
+		TooManyKitties,
 	}
 
 	// Learn about callable functions and dispatch.
@@ -55,10 +55,10 @@ pub mod pallet {
 	impl<T: Config> Pallet<T> {
 		// Learn about `AccountId`.
 		fn mint(owner: T::AccountId) -> DispatchResult {
-			let current_count = CountForHellos::<T>::get().unwrap_or(0);
+			let current_count = CountForKitties::<T>::get().unwrap_or(0);
 			/* TODO: Update this logic to use safe math. */
-			let new_count = current_count.checked_add(1).ok_or(Error::<T>::CannotSayHello)?;
-			CountForHellos::<T>::set(Some(new_count));
+			let new_count = current_count.checked_add(1).ok_or(Error::<T>::TooManyKitties)?;
+			CountForKitties::<T>::set(Some(new_count));
 			Self::deposit_event(Event::<T>::Created { owner });
 			Ok(())
 		}

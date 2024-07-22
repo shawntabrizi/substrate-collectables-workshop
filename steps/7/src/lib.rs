@@ -22,7 +22,7 @@ pub mod pallet {
 
 	/// Learn about storage value.
 	#[pallet::storage]
-	pub(super) type CountForHellos<T: Config> = StorageValue<Value = u64>;
+	pub(super) type CountForKitties<T: Config> = StorageValue<Value = u64>;
 
 	// Learn about events.
 	#[pallet::event]
