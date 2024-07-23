@@ -2,7 +2,6 @@
 
 pub use pallet::*;
 
-// Learn about Macros used in the `polkadot-sdk`, making pallet development easier.
 #[frame_support::pallet(dev_mode)]
 pub mod pallet {
 	use super::*;

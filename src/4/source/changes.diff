@@ -1,20 +1,20 @@
 diff --git a/src/lib.rs b/src/lib.rs
-index d4093e0..56fe9dc 100644
+index 63d0b59..d4093e0 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -32,6 +32,7 @@ pub mod pallet {
+@@ -28,6 +28,7 @@ pub mod pallet {
+ 	#[pallet::error]
+ 	pub enum Error<T> {}
+ 
++	// Learn about callable functions and dispatch.
  	#[pallet::call]
  	impl<T: Config> Pallet<T> {
  		pub fn create_kitty(origin: OriginFor<T>) -> DispatchResult {
-+			// Learn about `origin`.
- 			let who = ensure_signed(origin)?;
- 			Self::mint(who)?;
- 			Ok(())
-@@ -40,6 +41,7 @@ pub mod pallet {
+@@ -37,6 +38,7 @@ pub mod pallet {
+ 		}
+ 	}
  
- 	// Learn about internal functions.
++	// Learn about internal functions.
  	impl<T: Config> Pallet<T> {
-+		// Learn about `AccountId`.
  		fn mint(owner: T::AccountId) -> DispatchResult {
  			Self::deposit_event(Event::<T>::Created { owner });
- 			Ok(())

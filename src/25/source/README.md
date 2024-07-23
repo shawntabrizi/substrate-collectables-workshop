@@ -1,8 +1,7 @@
-# Native Balance Type
+# Native Balances
 
 - TODO:
-	- Introduce the `BalanceOf<T>` type
-		- explain how it navigates the traits to access the underlying type
-		- explain how it is just a number, but can be any type of number
-		- explain `AtLeast32BitsUnsigned`
-	- Show how to use the `BalanceOf<T>` type.
+	- Explain the balances pallet
+	- Accessing the pallet through the `fungible` traits
+			- inspect and mutate traits
+	- Ability to switch implementation

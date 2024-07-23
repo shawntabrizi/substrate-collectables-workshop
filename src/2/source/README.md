@@ -1,3 +1,3 @@
-# Pallet Struct
+# FRAME Macros
 
-- TODO: Learn about the Pallet struct and what is implemented on it and how it is used.
+- TODO: Teach the basics of FRAME macros.

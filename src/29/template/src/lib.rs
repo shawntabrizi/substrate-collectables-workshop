@@ -62,7 +62,11 @@ pub mod pallet {
 		Created { owner: T::AccountId },
 		Transferred { from: T::AccountId, to: T::AccountId, kitty_id: [u8; 16] },
 		PriceSet { owner: T::AccountId, kitty_id: [u8; 16], new_price: Option<BalanceOf<T>> },
-		Sold { buyer: T::AccountId, kitty_id: [u8; 16], price: BalanceOf<T> },
+		/* TODO: Create a new `Event` called `Sold` with the following parameters:
+			- `buyer` which is `T::AccountId`.
+			- `kitty_id` which is `[u8; 16]`.
+			- `price` which is `BalanceOf<T>`.
+		*/
 	}
 
 	#[pallet::error]
@@ -73,10 +77,6 @@ pub mod pallet {
 		TransferToSelf,
 		NoKitty,
 		NotOwner,
-		/* TODO: Add `Errors` needed for `do_buy_kitty`:
-			- `NotForSale`: for when the Kitty has a price set to `None`.
-			- `MaxPriceTooLow`: for when the price offered by the buyer is too low.
-		*/
 	}
 
 	// Learn about callable functions and dispatch.
@@ -110,15 +110,17 @@ pub mod pallet {
 			Ok(())
 		}
 
-		pub fn buy_kitty(
-			origin: OriginFor<T>,
-			kitty_id: [u8; 16],
-			max_price: BalanceOf<T>,
-		) -> DispatchResult {
-			let who = ensure_signed(origin)?;
-			Self::do_buy_kitty(who, kitty_id, max_price)?;
-			Ok(())
-		}
+		/* Create a new callable function `buy_kitty`:
+			- Inputs to the function are:
+				- `origin` which is `OriginFor<T>`.
+				- `kitty_id` which is `[u8; 16]`.
+				- `max_price` which is `BalanceOf<T>`.
+			- It returns `DispatchResult`.
+			- The internal logic should be:
+				- Extract `who` using `ensure_signed` on `origin`.
+				- Call `Self::do_buy_kitty` using appropriate params, and propagating the result.
+				- Return `Ok(())`.
+		*/
 	}
 
 	// Learn about internal functions.
@@ -198,29 +200,15 @@ pub mod pallet {
 			Ok(())
 		}
 
-		pub fn do_buy_kitty(
-			buyer: T::AccountId,
-			kitty_id: [u8; 16],
-			price: BalanceOf<T>,
-		) -> DispatchResult {
-			/* TODO: Sanity check that the purchase is allowed:
-				- Get `kitty` from `Kitties` using `kitty_id`, `ok_or` return `Error::<T>::NoKitty`.
-				- Get the `real_price` from `kitty.price`, `ok_or` return `Error::<T>::NotForSale`.
-				- `ensure!` that `price` is greater or equal to `real_price`, else `Error::<T>::MaxPriceTooLow`.
-			*/
-
-			/* TODO: Execute the transfers:
-				- Import `use frame_support::traits::tokens::Preservation;`, which is used for balance transfer.
-				- Use `T::NativeBalance` to `transfer` from the `buyer` to the `kitty.owner`.
-					- The amount transferred should be the `real_price`.
-					- Use `Preservation::Preserve` to ensure the buyer account stays alive.
-				- Use `Self::do_transfer` to transfer from the `kitty.owner` to the `buyer` with `kitty_id`.
-				- Remember to propagate up all results from these functions with `?`.
-			*/
-
-			/* TODO: Update the event to use the `real_price` in the `Event`. */
-			Self::deposit_event(Event::<T>::Sold { buyer, kitty_id, price });
-			Ok(())
-		}
+		/* Create a new internal function `do_buy_kitty`:
+			- Inputs to the function are:
+				- `buyer` which is `T::AccountId`.
+				- `kitty_id` which is `[u8; 16]`.
+				- `price` which is `BalanceOf<T>`.
+			- It returns `DispatchResult`.
+			- The internal logic, for now, should be:
+				- `Self::deposit_event` with `Event::<T>::Sold` and the appropriate params.
+				- Return `Ok(())`.
+		*/
 	}
 }

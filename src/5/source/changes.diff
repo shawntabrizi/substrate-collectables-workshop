@@ -1,12 +1,20 @@
 diff --git a/src/lib.rs b/src/lib.rs
-index 56fe9dc..12bb0aa 100644
+index d4093e0..56fe9dc 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -14,6 +14,7 @@ pub mod pallet {
- 	#[pallet::pallet]
- 	pub struct Pallet<T>(_);
+@@ -32,6 +32,7 @@ pub mod pallet {
+ 	#[pallet::call]
+ 	impl<T: Config> Pallet<T> {
+ 		pub fn create_kitty(origin: OriginFor<T>) -> DispatchResult {
++			// Learn about `origin`.
+ 			let who = ensure_signed(origin)?;
+ 			Self::mint(who)?;
+ 			Ok(())
+@@ -40,6 +41,7 @@ pub mod pallet {
  
-+	// Learn about frame_system, and `Config`.
- 	#[pallet::config]
- 	pub trait Config: frame_system::Config {
- 		type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
+ 	// Learn about internal functions.
+ 	impl<T: Config> Pallet<T> {
++		// Learn about `AccountId`.
+ 		fn mint(owner: T::AccountId) -> DispatchResult {
+ 			Self::deposit_event(Event::<T>::Created { owner });
+ 			Ok(())

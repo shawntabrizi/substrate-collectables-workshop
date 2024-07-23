@@ -20,8 +20,6 @@ pub mod pallet {
 		type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
 	}
 
-	#[derive(Encode, Decode, Clone, Copy, PartialEq, RuntimeDebug, TypeInfo, MaxEncodedLen)]
-	#[scale_info(skip_type_params(T))]
 	pub struct Kitty<T: Config> {
 		// Using 16 bytes to represent a kitty DNA
 		pub dna: [u8; 16],
@@ -34,7 +32,7 @@ pub mod pallet {
 
 	/// Learn about storage maps.
 	#[pallet::storage]
-	pub(super) type Kitties<T: Config> = StorageMap<Key = [u8; 16], Value = Kitty<T>>;
+	pub(super) type Kitties<T: Config> = StorageMap<Key = [u8; 16], Value = ()>;
 
 	// Learn about events.
 	#[pallet::event]
@@ -65,13 +63,12 @@ pub mod pallet {
 	impl<T: Config> Pallet<T> {
 		// Learn about `AccountId`.
 		fn mint(owner: T::AccountId, dna: [u8; 16]) -> DispatchResult {
-			let kitty = Kitty { dna, owner: owner.clone() };
 			// Check if the kitty does not already exist in our storage map
 			ensure!(!Kitties::<T>::contains_key(dna), Error::<T>::DuplicateKitty);
 
 			let current_count: u64 = CountForKitties::<T>::get();
 			let new_count = current_count.checked_add(1).ok_or(Error::<T>::TooManyKitties)?;
-			Kitties::<T>::insert(dna, kitty);
+			Kitties::<T>::insert(dna, ());
 			CountForKitties::<T>::set(new_count);
 			Self::deposit_event(Event::<T>::Created { owner });
 			Ok(())

@@ -1,3 +1,9 @@
-# FRAME Macros
+# Polkadot-SDK
 
-- TODO: Teach the basics of FRAME macros.
+Welcome to the new Substrate Collectables Workshop.
+
+TODO: Content.
+	- Blockchain
+	- Runtime
+	- Pallet
+	- NFTs

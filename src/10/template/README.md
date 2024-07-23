@@ -1,3 +1,5 @@
-# Safe Math
+# Kitty Counter
 
-- Explain safe math, overflows, saturating, checked, and APIs
+- TODO:
+	- Explain the Storage APIs for building a counter.
+	- get, set

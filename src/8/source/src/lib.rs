@@ -20,10 +20,6 @@ pub mod pallet {
 		type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
 	}
 
-	/// Learn about storage value.
-	#[pallet::storage]
-	pub(super) type CountForKitties<T: Config> = StorageValue<Value = u64>;
-
 	// Learn about events.
 	#[pallet::event]
 	#[pallet::generate_deposit(pub(super) fn deposit_event)]

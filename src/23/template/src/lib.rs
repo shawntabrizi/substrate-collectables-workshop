@@ -49,7 +49,12 @@ pub mod pallet {
 	#[pallet::generate_deposit(pub(super) fn deposit_event)]
 	pub enum Event<T: Config> {
 		Created { owner: T::AccountId },
-		Transferred { from: T::AccountId, to: T::AccountId, kitty_id: [u8; 16] },
+		/* TODO: Create a new event called `Transferred`:
+			- Parameters are:
+				- `from` which is `T::AccountId`.
+				- `to` which is `T::AccountId`.
+				- `kitty_id` which is `[u8; 16]`.
+		*/
 	}
 
 	#[pallet::error]
@@ -57,11 +62,6 @@ pub mod pallet {
 		TooManyKitties,
 		DuplicateKitty,
 		TooManyOwned,
-		/* Add new `Error` variants needed for `do_transfer`:
-			- `TransferToSelf`: for when the `from` and `to` of the transfer is the same.
-			- `NoKitty`: for when a transfer involves a kitty that does not exist.
-			- `NotOwner`: for when a transfer is initiated by someone who is not the current owner.
-		*/
 	}
 
 	// Learn about callable functions and dispatch.
@@ -75,15 +75,17 @@ pub mod pallet {
 			Ok(())
 		}
 
-		pub fn transfer(
-			origin: OriginFor<T>,
-			to: T::AccountId,
-			kitty_id: [u8; 16],
-		) -> DispatchResult {
-			let who = ensure_signed(origin)?;
-			Self::do_transfer(who, to, kitty_id)?;
-			Ok(())
-		}
+		/* TODO: Make a new extrinsic called `transfer`.
+			- Input parameters are:
+				- `origin` which is `OriginFor<T>`.
+				- `to` which is `T::AccountId`.
+				- `kitty_id` which is `[u8; 16]`.
+			- Returns a `DispatchResult`.
+			- The inner logic should be:
+				- Get the caller `who` from `ensure_signed`.
+				- Call `Self::do_transfer`, and propagate the result.
+				- End with Ok(()).
+		*/
 	}
 
 	// Learn about internal functions.
@@ -121,36 +123,15 @@ pub mod pallet {
 			Ok(())
 		}
 
-		// Update storage to transfer kitty
-		pub fn do_transfer(
-			from: T::AccountId,
-			to: T::AccountId,
-			kitty_id: [u8; 16],
-		) -> DispatchResult {
-			/* TODO: Sanity check the transfer is allowed:
-				- First `ensure!` that `from` and `to` are not equal, else return `Error::<T>::TransferToSelf`.
-				- Get the `kitty` from `Kitties` using `kitty_id`, else return `Error::<T>::NoKitty`.
-				- Check the `kitty.owner` is equal to `from`, else return `NotOwner`.
-				- Update `kitty.owner` to `to`.
-			*/
-
-			/* TODO: Update the `KittiesOwned` of `from` and `to:
-				- Create a mutable `from_owned` by querying `KittiesOwned` for `from`.
-				- Write logic to `swap_remove` the item from the `from_owned` vector.
-					- If you cannot find the kitty in the vector, return `Error::<T>::NoKitty`.
-				- Create a mutable `to_owned` by querying `KittiesOwned` for `to`.
-				- `try_push` the `kitty_id` to the `to_owned` vector.
-					- If the vector is full, `map_err` and return `Error::<T>::TooManyOwned`.
-			*/
-
-			/* TODO: Update the final storage.
-				- Insert into `Kitties` under `kitty_id` the modified `kitty` struct.
-				- Insert into `KittiesOwned` under `to` the modified `to_owned` vector.
-				- Insert into `KittiesOwned` under `from` the modified `from_owned` vector.
-			*/
-
-			Self::deposit_event(Event::<T>::Transferred { from, to, kitty_id });
-			Ok(())
-		}
+		/* TODO: Create an internal function called `do_transfer`:
+			- It has inputs:
+				- `from` which is `T::AccountId`.
+				- `to` which is `T::AccountId`.
+				- `kitty_id` which is `[u8; 16]`.
+			- It returns a `DispatchResult`
+			- The inner logic for now is:
+				- Call `Self::dispatch_event` on and emit `Event::<T>:Transferred` with params.
+				- Return `Ok(())`.
+		*/
 	}
 }

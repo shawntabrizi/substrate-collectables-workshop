@@ -61,7 +61,11 @@ pub mod pallet {
 	pub enum Event<T: Config> {
 		Created { owner: T::AccountId },
 		Transferred { from: T::AccountId, to: T::AccountId, kitty_id: [u8; 16] },
-		PriceSet { owner: T::AccountId, kitty_id: [u8; 16], new_price: Option<BalanceOf<T>> },
+		/* TODO: Create a new `Event` called `PriceSet` with fields:
+			- `owner` which is `T::AccountId`.
+			- `kitty_id` which is `[u8; 16]`.
+			- `new_price` which is `Option<BalanceOf<T>>`.
+		*/
 	}
 
 	#[pallet::error]
@@ -95,15 +99,17 @@ pub mod pallet {
 			Ok(())
 		}
 
-		pub fn set_price(
-			origin: OriginFor<T>,
-			kitty_id: [u8; 16],
-			new_price: Option<BalanceOf<T>>,
-		) -> DispatchResult {
-			let who = ensure_signed(origin)?;
-			Self::do_set_price(who, kitty_id, new_price)?;
-			Ok(())
-		}
+		/* TODO: Make an callable function called `set_price`:
+			- Inputs to the function are:
+				- `origin` which is `OriginFor<T>`.
+				- `kitty_id` which is `[u8; 16]`.
+				- `new_price` which is `Option<BalanceOf<T>`.
+			- Returns a `DispatchResult`
+			- The internal logic, for now, should be:
+				- Extract the caller `who` with `ensure_signed`.
+				- Call `Self::do_set_price` with the appropriate parameters, propagating the result.
+				- Return `Ok(())`.
+		*/
 	}
 
 	// Learn about internal functions.
@@ -169,21 +175,15 @@ pub mod pallet {
 			Ok(())
 		}
 
-		pub fn do_set_price(
-			caller: T::AccountId,
-			kitty_id: [u8; 16],
-			new_price: Option<BalanceOf<T>>,
-		) -> DispatchResult {
-			/* TODO: Create the logic for setting the Kitty price:
-				- Create a mutable `kitty` by calling `get` on `Kitties` with `kitty_id`.
-					- Return an error if the kitty doesn't exist by returning `Error::<T>::NoKitty`.
-				- `ensure!` that the `kitty.owner` is equal to the `caller` else return `Error::<T>::NotOwner`.
-				- Set the `kitty.price` to `new_price`.
-				- Insert the modified `kitty` back into the `Kitties` map under `kitty_id`.
-			*/
-
-			Self::deposit_event(Event::<T>::PriceSet { owner: caller, kitty_id, new_price });
-			Ok(())
-		}
+		/* TODO: Make an internal function called `do_set_price`:
+			- Inputs to the function are:
+				- `caller` which is `T::AccountId`.
+				- `kitty_id` which is `[u8; 16]`.
+				- `new_price` which is `Option<BalanceOf<T>`.
+			- Returns a `DispatchResult`.
+			- The internal logic, for now, should be:
+				- `Self::deposit_event` for `Event::<T>::PriceSet` with the appropriate params.
+				- Return `Ok(())`.
+		*/
 	}
 }

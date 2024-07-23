@@ -57,9 +57,6 @@ pub mod pallet {
 		TooManyKitties,
 		DuplicateKitty,
 		TooManyOwned,
-		TransferToSelf,
-		NoKitty,
-		NotOwner,
 	}
 
 	// Learn about callable functions and dispatch.
@@ -125,24 +122,6 @@ pub mod pallet {
 			to: T::AccountId,
 			kitty_id: [u8; 16],
 		) -> DispatchResult {
-			ensure!(from != to, Error::<T>::TransferToSelf);
-			let mut kitty = Kitties::<T>::get(kitty_id).ok_or(Error::<T>::NoKitty)?;
-			ensure!(kitty.owner == from, Error::<T>::NotOwner);
-			kitty.owner = to.clone();
-
-			let mut from_owned = KittiesOwned::<T>::get(&from);
-			if let Some(ind) = from_owned.iter().position(|&id| id == kitty_id) {
-				from_owned.swap_remove(ind);
-			} else {
-				return Err(Error::<T>::NoKitty.into())
-			}
-			let mut to_owned = KittiesOwned::<T>::get(&to);
-			to_owned.try_push(kitty_id).map_err(|_| Error::<T>::TooManyOwned)?;
-
-			Kitties::<T>::insert(kitty_id, kitty);
-			KittiesOwned::<T>::insert(&to, to_owned);
-			KittiesOwned::<T>::insert(&from, from_owned);
-
 			Self::deposit_event(Event::<T>::Transferred { from, to, kitty_id });
 			Ok(())
 		}

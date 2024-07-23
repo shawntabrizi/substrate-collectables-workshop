@@ -1,20 +1,13 @@
 diff --git a/src/lib.rs b/src/lib.rs
-index 63d0b59..d4093e0 100644
+index 44cc2ec..63d0b59 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -28,6 +28,7 @@ pub mod pallet {
- 	#[pallet::error]
- 	pub enum Error<T> {}
+@@ -9,6 +9,8 @@ pub mod pallet {
+ 	use frame_support::pallet_prelude::*;
+ 	use frame_system::pallet_prelude::*;
  
-+	// Learn about callable functions and dispatch.
- 	#[pallet::call]
- 	impl<T: Config> Pallet<T> {
- 		pub fn create_kitty(origin: OriginFor<T>) -> DispatchResult {
-@@ -37,6 +38,7 @@ pub mod pallet {
- 		}
- 	}
++	// Learn about the Pallet struct: the structure on which we implement all functions and traits
++	// for the Pallet.
+ 	#[pallet::pallet]
+ 	pub struct Pallet<T>(_);
  
-+	// Learn about internal functions.
- 	impl<T: Config> Pallet<T> {
- 		fn mint(owner: T::AccountId) -> DispatchResult {
- 			Self::deposit_event(Event::<T>::Created { owner });

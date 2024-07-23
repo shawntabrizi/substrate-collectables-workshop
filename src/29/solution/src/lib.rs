@@ -73,8 +73,6 @@ pub mod pallet {
 		TransferToSelf,
 		NoKitty,
 		NotOwner,
-		NotForSale,
-		MaxPriceTooLow,
 	}
 
 	// Learn about callable functions and dispatch.
@@ -201,15 +199,7 @@ pub mod pallet {
 			kitty_id: [u8; 16],
 			price: BalanceOf<T>,
 		) -> DispatchResult {
-			let kitty = Kitties::<T>::get(kitty_id).ok_or(Error::<T>::NoKitty)?;
-			let real_price = kitty.price.ok_or(Error::<T>::NotForSale)?;
-			ensure!(price >= real_price, Error::<T>::MaxPriceTooLow);
-
-			use frame_support::traits::tokens::Preservation;
-			T::NativeBalance::transfer(&buyer, &kitty.owner, real_price, Preservation::Preserve)?;
-			Self::do_transfer(kitty.owner, buyer.clone(), kitty_id)?;
-
-			Self::deposit_event(Event::<T>::Sold { buyer, kitty_id, price: real_price });
+			Self::deposit_event(Event::<T>::Sold { buyer, kitty_id, price });
 			Ok(())
 		}
 	}

@@ -1,6 +1,4 @@
-# Buy Kitty Extrinsic
+# Set Price Logic
 
 - TODO:
-	- Explain the need for `max_price`
-	- Hint how we can reuse the `do_transfer` function we made
-	- Explain to users `Preservation`
+	- Not sure what much there is to mention here.

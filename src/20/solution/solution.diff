@@ -1,33 +1,36 @@
 diff --git a/src/lib.rs b/src/lib.rs
-index bec376d..da2d602 100644
+index b82e8b8..d9f272d 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -40,8 +40,7 @@ pub mod pallet {
+@@ -36,11 +36,13 @@ pub mod pallet {
  	#[pallet::storage]
- 	pub(super) type KittiesOwned<T: Config> = StorageMap<
- 		Key = T::AccountId,
--		/* TODO: Turn this into a `BoundedVec` with a limit of `ConstU32<100>`. */
--		Value = Vec<[u8; 16]>,
-+		Value = BoundedVec<[u8; 16], ConstU32<100>>,
- 		QueryKind = ValueQuery,
- 	>;
+ 	pub(super) type Kitties<T: Config> = StorageMap<Key = [u8; 16], Value = Kitty<T>>;
  
-@@ -56,7 +55,7 @@ pub mod pallet {
- 	pub enum Error<T> {
- 		TooManyKitties,
- 		DuplicateKitty,
--		/* TODO: Add a new `Error` named `TooManyOwned` */
-+		TooManyOwned,
- 	}
+-	/* TODO: Create a new `StorageMap` called `KittiesOwned`.
+-		- The `Key` of this map is `T::AccountId`.
+-		- The `Value` of this map is `Vec<[u8; 16]>`.
+-		- The `QueryKind` should be set to `ValueQuery`.
+-	*/
++	/// Track the kitties owned by each account.
++	#[pallet::storage]
++	pub(super) type KittiesOwned<T: Config> = StorageMap<
++		Key = T::AccountId,
++		Value = Vec<[u8; 16]>,
++		QueryKind = ValueQuery,
++	>;
  
- 	// Learn about callable functions and dispatch.
-@@ -98,8 +97,7 @@ pub mod pallet {
+ 	// Learn about events.
+ 	#[pallet::event]
+@@ -94,10 +96,10 @@ pub mod pallet {
  			let current_count: u64 = CountForKitties::<T>::get();
  			let new_count = current_count.checked_add(1).ok_or(Error::<T>::TooManyKitties)?;
  
--			/* TODO: Update `append` to `try_append` and `map_err` to `Error::<T>::TooManyOwned`. */
--			KittiesOwned::<T>::append(&owner, dna);
-+			KittiesOwned::<T>::try_append(&owner, dna).map_err(|_| Error::<T>::TooManyOwned)?;
+-			/* TODO: `append` the `dna` to the `KittiesOwned` storage for the `owner`. */
+-
++			KittiesOwned::<T>::append(&owner, dna);
  			Kitties::<T>::insert(dna, kitty);
  			CountForKitties::<T>::set(new_count);
- 
++
+ 			Self::deposit_event(Event::<T>::Created { owner });
+ 			Ok(())
+ 		}

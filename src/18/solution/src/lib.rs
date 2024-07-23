@@ -55,7 +55,7 @@ pub mod pallet {
 		pub fn create_kitty(origin: OriginFor<T>) -> DispatchResult {
 			// Learn about `origin`.
 			let who = ensure_signed(origin)?;
-			let dna = Self::gen_dna();
+			let dna = [0u8; 16];
 			Self::mint(who, dna)?;
 			Ok(())
 		}
@@ -63,22 +63,6 @@ pub mod pallet {
 
 	// Learn about internal functions.
 	impl<T: Config> Pallet<T> {
-		// Generates and returns DNA and Sex
-		fn gen_dna() -> [u8; 16] {
-			// Create randomness payload. Multiple kitties can be generated in the same block,
-			// retaining uniqueness.
-			let unique_payload = (
-				frame_system::Pallet::<T>::parent_hash(),
-				frame_system::Pallet::<T>::block_number(),
-				frame_system::Pallet::<T>::extrinsic_index().unwrap_or_default(),
-				CountForKitties::<T>::get(),
-			);
-
-			// Turns into a byte array
-			let encoded_payload = unique_payload.encode();
-			frame_support::Hashable::blake2_128(&encoded_payload)
-		}
-
 		// Learn about `AccountId`.
 		fn mint(owner: T::AccountId, dna: [u8; 16]) -> DispatchResult {
 			let kitty = Kitty { dna, owner: owner.clone() };

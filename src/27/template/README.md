@@ -1,4 +1,6 @@
-# Set Price Logic
+# Set Price Extrinsic
 
 - TODO:
-	- Not sure what much there is to mention here.
+	- Explain how `price` works as an `Option` on the kitty
+		- `None` is not for sale
+		- `Some` is for sale

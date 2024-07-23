@@ -1,6 +1,8 @@
-# Track Owned Kitties
+# Generate Unique DNA
 
 - TODO:
-	- Explain advantages and disadvantages of redundant storage
-	- Explain tradeoffs with UIs
-	- Explain iteration over maps and vecs
+	- Teach about the uniqueness features of substrate
+		- block + extrinsic
+	- Teach how multiple kitties can be made in a single block if we also include counter
+	- Teach about SCALE, and encoding arbitrary objects
+	- Teach about hash functions

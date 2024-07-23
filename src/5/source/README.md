@@ -1,3 +1,6 @@
-# FRAME System
+# Origin
 
-- TODO: Learn about FRAME system and what it provides.
+- TODO:
+	- Learn about origin
+	- Compare to `sender` from ethereum
+	- Learn about `ensure_signed`

@@ -62,7 +62,6 @@ pub mod pallet {
 		Created { owner: T::AccountId },
 		Transferred { from: T::AccountId, to: T::AccountId, kitty_id: [u8; 16] },
 		PriceSet { owner: T::AccountId, kitty_id: [u8; 16], new_price: Option<BalanceOf<T>> },
-		Sold { buyer: T::AccountId, kitty_id: [u8; 16], price: BalanceOf<T> },
 	}
 
 	#[pallet::error]
@@ -103,16 +102,6 @@ pub mod pallet {
 		) -> DispatchResult {
 			let who = ensure_signed(origin)?;
 			Self::do_set_price(who, kitty_id, new_price)?;
-			Ok(())
-		}
-
-		pub fn buy_kitty(
-			origin: OriginFor<T>,
-			kitty_id: [u8; 16],
-			max_price: BalanceOf<T>,
-		) -> DispatchResult {
-			let who = ensure_signed(origin)?;
-			Self::do_buy_kitty(who, kitty_id, max_price)?;
 			Ok(())
 		}
 	}
@@ -191,15 +180,6 @@ pub mod pallet {
 			Kitties::<T>::insert(kitty_id, kitty);
 
 			Self::deposit_event(Event::<T>::PriceSet { owner: caller, kitty_id, new_price });
-			Ok(())
-		}
-
-		pub fn do_buy_kitty(
-			buyer: T::AccountId,
-			kitty_id: [u8; 16],
-			price: BalanceOf<T>,
-		) -> DispatchResult {
-			Self::deposit_event(Event::<T>::Sold { buyer, kitty_id, price });
 			Ok(())
 		}
 	}

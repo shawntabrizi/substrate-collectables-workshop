@@ -1,5 +1,6 @@
-# Bounded Vectors
+# Track Owned Kitties
 
 - TODO:
-	- Teach about bounded storage
-	- Teach about bounded vec and API
+	- Explain advantages and disadvantages of redundant storage
+	- Explain tradeoffs with UIs
+	- Explain iteration over maps and vecs
