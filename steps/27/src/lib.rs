@@ -36,12 +36,6 @@ pub mod pallet {
 	#[pallet::storage]
 	pub(super) type Kitties<T: Config> = StorageMap<Key = [u8; 16], Value = Kitty<T>>;
 
-	/* TODO: Create a new `StorageMap` called `KittiesOwned`.
-		- The `Key` of this map is `T::AccountId`.
-		- The `Value` of this map is `Vec<[u8; 16]>`.
-		- The `QueryKind` should be set to `ValueQuery`.
-	*/
-
 	// Learn about events.
 	#[pallet::event]
 	#[pallet::generate_deposit(pub(super) fn deposit_event)]
@@ -93,9 +87,6 @@ pub mod pallet {
 
 			let current_count: u64 = CountForKitties::<T>::get();
 			let new_count = current_count.checked_add(1).ok_or(Error::<T>::TooManyKitties)?;
-
-			/* TODO: `append` the `dna` to the `KittiesOwned` storage for the `owner`. */
-
 			Kitties::<T>::insert(dna, kitty);
 			CountForKitties::<T>::set(new_count);
 			Self::deposit_event(Event::<T>::Created { owner });

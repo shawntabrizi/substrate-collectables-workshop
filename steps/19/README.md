@@ -1,3 +1,3 @@
-# Solution
+# Duplicate Kitty Check
 
-Here you will find the solution for the previous step.
+- TODO: Explain important safety needed when dealing with maps and managing state.

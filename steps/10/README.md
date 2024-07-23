@@ -1,3 +1,5 @@
-# Solution
+# Kitty Counter
 
-Here you will find the solution for the previous step.
+- TODO:
+	- Explain the Storage APIs for building a counter.
+	- get, set

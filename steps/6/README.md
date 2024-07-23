@@ -1,5 +1,3 @@
-# Pallet Events
+# FRAME System
 
-- TODO:
-	- Learn about events and how they are used
-	- Learn about `deposit_event` through `frame_system`
+- TODO: Learn about FRAME system and what it provides.

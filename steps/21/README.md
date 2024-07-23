@@ -1,6 +1,5 @@
-# Kitty Struct
+# Storing Objects
 
-- TODO:
-	- Explain creating a struct
-	- Explain making the struct generic over T
-	- Explain accessing types within T
+In this section, you will learn how to store more complex objects in storage.
+
+TODO: more

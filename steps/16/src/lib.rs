@@ -46,8 +46,6 @@ pub mod pallet {
 		pub fn create_kitty(origin: OriginFor<T>) -> DispatchResult {
 			// Learn about `origin`.
 			let who = ensure_signed(origin)?;
-			/* TODO: Create `const default_id`, which type `[u8; 16]` and has value `[0u8; 16]`. */
-			/* TODO: Pass `default_id` to the `mint` function. */
 			Self::mint(who)?;
 			Ok(())
 		}
@@ -56,11 +54,9 @@ pub mod pallet {
 	// Learn about internal functions.
 	impl<T: Config> Pallet<T> {
 		// Learn about `AccountId`.
-		/* TODO: Update this function signature to include `id` which is type `[u8; 16]`. */
 		fn mint(owner: T::AccountId) -> DispatchResult {
 			let current_count: u64 = CountForKitties::<T>::get();
 			let new_count = current_count.checked_add(1).ok_or(Error::<T>::TooManyKitties)?;
-			/* TODO: In the `Kitties` map, under the key `id`, insert `()`. */
 			CountForKitties::<T>::set(new_count);
 			Self::deposit_event(Event::<T>::Created { owner });
 			Ok(())

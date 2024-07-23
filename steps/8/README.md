@@ -1,4 +1,5 @@
-# Storage Values
+# Storage Basics
 
-- TODO:
-	- Learn about basic storage values
+In this section you will learn the basics of creating and using storage in your Pallet.
+
+TODO: more content

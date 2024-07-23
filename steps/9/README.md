@@ -1,5 +1,4 @@
-# Kitty Counter
+# Storage Values
 
 - TODO:
-	- Explain the Storage APIs for building a counter.
-	- get, set
+	- Learn about basic storage values

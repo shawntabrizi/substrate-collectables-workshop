@@ -1,5 +1,3 @@
-# Bounded Vectors
+# Solution
 
-- TODO:
-	- Teach about bounded storage
-	- Teach about bounded vec and API
+Here you will find the solution for the previous step.

@@ -1,3 +1,3 @@
-# Kitties Map
+# Storage Maps
 
-- TODO: Learn the APIs for StorageMap
+- Learn about storage maps

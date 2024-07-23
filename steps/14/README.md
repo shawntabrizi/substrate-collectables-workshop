@@ -1,3 +1,6 @@
-# Solution
+# Value Query
 
-Here you will find the solution for the previous step.
+- TODO:
+	- Explain storage as an option
+	- Explain `OptionQuery` and `ValueQuery`
+	- Explain default value

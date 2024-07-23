@@ -1,3 +1,3 @@
-# Storage Maps
+# Solution
 
-- Learn about storage maps
+Here you will find the solution for the previous step.

@@ -1,6 +1,5 @@
-# Origin
+# Pallet Functions
 
 - TODO:
-	- Learn about origin
-	- Compare to `sender` from ethereum
-	- Learn about `ensure_signed`
+	- Learn about extrinsics and callable functions
+	- Learn about internal functions

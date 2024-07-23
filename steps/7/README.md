@@ -1,5 +1,5 @@
-# Storage Basics
+# Pallet Events
 
-In this section you will learn the basics of creating and using storage in your Pallet.
-
-TODO: more content
+- TODO:
+	- Learn about events and how they are used
+	- Learn about `deposit_event` through `frame_system`

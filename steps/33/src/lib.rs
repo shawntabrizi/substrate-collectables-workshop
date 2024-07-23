@@ -49,7 +49,12 @@ pub mod pallet {
 	#[pallet::generate_deposit(pub(super) fn deposit_event)]
 	pub enum Event<T: Config> {
 		Created { owner: T::AccountId },
-		Transferred { from: T::AccountId, to: T::AccountId, kitty_id: [u8; 16] },
+		/* TODO: Create a new event called `Transferred`:
+			- Parameters are:
+				- `from` which is `T::AccountId`.
+				- `to` which is `T::AccountId`.
+				- `kitty_id` which is `[u8; 16]`.
+		*/
 	}
 
 	#[pallet::error]
@@ -70,15 +75,17 @@ pub mod pallet {
 			Ok(())
 		}
 
-		pub fn transfer(
-			origin: OriginFor<T>,
-			to: T::AccountId,
-			kitty_id: [u8; 16],
-		) -> DispatchResult {
-			let who = ensure_signed(origin)?;
-			Self::do_transfer(who, to, kitty_id)?;
-			Ok(())
-		}
+		/* TODO: Make a new extrinsic called `transfer`.
+			- Input parameters are:
+				- `origin` which is `OriginFor<T>`.
+				- `to` which is `T::AccountId`.
+				- `kitty_id` which is `[u8; 16]`.
+			- Returns a `DispatchResult`.
+			- The inner logic should be:
+				- Get the caller `who` from `ensure_signed`.
+				- Call `Self::do_transfer`, and propagate the result.
+				- End with Ok(()).
+		*/
 	}
 
 	// Learn about internal functions.
@@ -116,14 +123,15 @@ pub mod pallet {
 			Ok(())
 		}
 
-		// Update storage to transfer kitty
-		pub fn do_transfer(
-			from: T::AccountId,
-			to: T::AccountId,
-			kitty_id: [u8; 16],
-		) -> DispatchResult {
-			Self::deposit_event(Event::<T>::Transferred { from, to, kitty_id });
-			Ok(())
-		}
+		/* TODO: Create an internal function called `do_transfer`:
+			- It has inputs:
+				- `from` which is `T::AccountId`.
+				- `to` which is `T::AccountId`.
+				- `kitty_id` which is `[u8; 16]`.
+			- It returns a `DispatchResult`
+			- The inner logic for now is:
+				- Call `Self::dispatch_event` on and emit `Event::<T>:Transferred` with params.
+				- Return `Ok(())`.
+		*/
 	}
 }

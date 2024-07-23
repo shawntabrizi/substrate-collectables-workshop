@@ -28,7 +28,6 @@ pub mod pallet {
 	#[pallet::error]
 	pub enum Error<T> {}
 
-	// Learn about callable functions and dispatch.
 	#[pallet::call]
 	impl<T: Config> Pallet<T> {
 		pub fn create_kitty(origin: OriginFor<T>) -> DispatchResult {
@@ -38,7 +37,6 @@ pub mod pallet {
 		}
 	}
 
-	// Learn about internal functions.
 	impl<T: Config> Pallet<T> {
 		fn mint(owner: T::AccountId) -> DispatchResult {
 			Self::deposit_event(Event::<T>::Created { owner });
