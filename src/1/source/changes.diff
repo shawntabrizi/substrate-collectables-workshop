@@ -1,33 +1,3 @@
-diff --git a/.rustfmt.toml b/.rustfmt.toml
-new file mode 100644
-index 0000000..c342153
---- /dev/null
-+++ b/.rustfmt.toml
-@@ -0,0 +1,24 @@
-+# Basic
-+edition = "2021"
-+hard_tabs = true
-+max_width = 100
-+use_small_heuristics = "Max"
-+# Imports
-+imports_granularity = "Crate"
-+reorder_imports = true
-+# Consistency
-+newline_style = "Unix"
-+# Misc
-+chain_width = 80
-+spaces_around_ranges = false
-+binop_separator = "Back"
-+reorder_impl_items = false
-+match_arm_leading_pipes = "Preserve"
-+match_arm_blocks = false
-+match_block_trailing_comma = true
-+trailing_comma = "Vertical"
-+trailing_semicolon = false
-+use_field_init_shorthand = true
-+# Format comments
-+comment_width = 100
-+wrap_comments = true
 diff --git a/Cargo.lock b/Cargo.lock
 new file mode 100644
 index 0000000..d7a59f1
@@ -4069,6 +4039,36 @@ index 0000000..2e09572
 +	"frame-system/std",
 +]
 +try-runtime = []
+diff --git a/rustfmt.toml b/rustfmt.toml
+new file mode 100644
+index 0000000..c342153
+--- /dev/null
++++ b/rustfmt.toml
+@@ -0,0 +1,24 @@
++# Basic
++edition = "2021"
++hard_tabs = true
++max_width = 100
++use_small_heuristics = "Max"
++# Imports
++imports_granularity = "Crate"
++reorder_imports = true
++# Consistency
++newline_style = "Unix"
++# Misc
++chain_width = 80
++spaces_around_ranges = false
++binop_separator = "Back"
++reorder_impl_items = false
++match_arm_leading_pipes = "Preserve"
++match_arm_blocks = false
++match_block_trailing_comma = true
++trailing_comma = "Vertical"
++trailing_semicolon = false
++use_field_init_shorthand = true
++# Format comments
++comment_width = 100
++wrap_comments = true
 diff --git a/src/lib.rs b/src/lib.rs
 new file mode 100644
 index 0000000..8b9507e
