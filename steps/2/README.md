@@ -26,6 +26,16 @@ We can see a direct example of how much smaller we can make a Rust project by us
 
 So this shows that a Pallet written with macros can be 7 times smaller than a Pallet which isn't.
 
+## The Risk of Macros
+
+One of the risks of using macros is the creation of "macro magic". This is slang for when macros do so much code generation, that the user is not even sure what is happening.
+
+Especially with declarative macros, where users can basically create a new programming language within the macros.
+
+The goal of FRAME macros is to stay as close to Rust as possible, but also remove all the boilerplate code that would otherwise be annoying to write.
+
+We will call out such cases of macro magic in the next chapters.
+
 ## Macros in Our Template
 
 Our starting template includes all the basic macros used for developing a FRAME pallet.
