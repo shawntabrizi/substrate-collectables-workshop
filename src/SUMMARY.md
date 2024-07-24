@@ -4,7 +4,7 @@
     - [3. Pallet Struct](3/README.md)
     - [4. Pallet Functions](4/README.md)
     - [5. Origin](5/README.md)
-    - [6. FRAME System](6/README.md)
+    - [6. Pallet Config](6/README.md)
     - [7. Pallet Events](7/README.md)
 - [8. Storage Basics](8/README.md)
     - [9. Storage Values](9/README.md)
