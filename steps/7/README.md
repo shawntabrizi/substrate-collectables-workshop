@@ -54,7 +54,7 @@ Delete the `generate_deposit` line, and copy and paste this code block into your
 
 It is literally the same. In this case, I think the macro magic is justified.
 
-You are able to access this funciton like you could any other funciton implemented on `Pallet`:
+You are able to access this function like you could any other function implemented on `Pallet`:
 
 ```rust
 Self::deposit_event(Event::<T>::Created { owner });
