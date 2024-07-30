@@ -1,5 +1,5 @@
 diff --git a/src/lib.rs b/src/lib.rs
-index 317296f..6a46bd4 100644
+index e1d2dd7..6a46bd4 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
 @@ -46,9 +46,8 @@ pub mod pallet {
@@ -7,7 +7,7 @@ index 317296f..6a46bd4 100644
  			// Learn about `origin`.
  			let who = ensure_signed(origin)?;
 -			/* TODO: Create `const default_id`, which type `[u8; 16]` and has value `[0u8; 16]`. */
--			/* TODO: Pass `default_id` to the `mint` function. */
+-			/* TODO: Pass `default_id` to the `mint` function as a second parameter. */
 -			Self::mint(who)?;
 +			let dna = [0u8; 16];
 +			Self::mint(who, dna)?;

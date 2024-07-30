@@ -9,7 +9,7 @@
 - [8. Storage Basics](8/README.md)
     - [9. Storage Values](9/README.md)
     - [10. Kitty Counter](10/README.md)
-    - [11. Safe Math](11/README.md)
+    - [11. Safety First](11/README.md)
     - [12. Value Query](12/README.md)
     - [13. Storage Maps](13/README.md)
     - [14. Kitties Map](14/README.md)
