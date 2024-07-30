@@ -47,7 +47,7 @@ pub mod pallet {
 			// Learn about `origin`.
 			let who = ensure_signed(origin)?;
 			/* TODO: Create `const default_id`, which type `[u8; 16]` and has value `[0u8; 16]`. */
-			/* TODO: Pass `default_id` to the `mint` function. */
+			/* TODO: Pass `default_id` to the `mint` function as a second parameter. */
 			Self::mint(who)?;
 			Ok(())
 		}
