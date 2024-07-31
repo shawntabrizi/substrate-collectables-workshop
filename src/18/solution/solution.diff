@@ -1,5 +1,5 @@
 diff --git a/src/lib.rs b/src/lib.rs
-index b7a5372..55d90bc 100644
+index b7a5372..62bd20e 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
 @@ -20,10 +20,8 @@ pub mod pallet {
@@ -10,7 +10,7 @@ index b7a5372..55d90bc 100644
 -		- Add the derive macros needed for putting a struct in storage.
 -		- Add `#[scale_info(skip_type_params(T))]` to ignore the generic `T`.
 -	*/
-+	#[derive(Encode, Decode, Clone, Copy, PartialEq, RuntimeDebug, TypeInfo, MaxEncodedLen)]
++	#[derive(Encode, Decode, TypeInfo, MaxEncodedLen)]
 +	#[scale_info(skip_type_params(T))]
  	pub struct Kitty<T: Config> {
  		// Using 16 bytes to represent a kitty DNA

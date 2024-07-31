@@ -1,5 +1,5 @@
 diff --git a/src/lib.rs b/src/lib.rs
-index bec376d..da2d602 100644
+index 5c8c3d6..6730289 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
 @@ -40,8 +40,7 @@ pub mod pallet {
@@ -21,7 +21,7 @@ index bec376d..da2d602 100644
  	}
  
  	// Learn about callable functions and dispatch.
-@@ -98,8 +97,7 @@ pub mod pallet {
+@@ -97,8 +96,7 @@ pub mod pallet {
  			let current_count: u64 = CountForKitties::<T>::get();
  			let new_count = current_count.checked_add(1).ok_or(Error::<T>::TooManyKitties)?;
  

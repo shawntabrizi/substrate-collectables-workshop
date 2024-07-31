@@ -1,5 +1,5 @@
 diff --git a/src/lib.rs b/src/lib.rs
-index 4b7e602..267a7cf 100644
+index 5472d69..c379017 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
 @@ -26,12 +26,17 @@ pub mod pallet {
@@ -10,7 +10,7 @@ index 4b7e602..267a7cf 100644
 +	pub type BalanceOf<T> =
 +		<<T as Config>::NativeBalance as Inspect<<T as frame_system::Config>::AccountId>>::Balance;
 +
- 	#[derive(Encode, Decode, Clone, Copy, PartialEq, RuntimeDebug, TypeInfo, MaxEncodedLen)]
+ 	#[derive(Encode, Decode, TypeInfo, MaxEncodedLen)]
  	#[scale_info(skip_type_params(T))]
  	pub struct Kitty<T: Config> {
  		// Using 16 bytes to represent a kitty DNA
@@ -20,7 +20,7 @@ index 4b7e602..267a7cf 100644
  	}
  
  	/// Learn about storage value.
-@@ -110,7 +115,7 @@ pub mod pallet {
+@@ -109,7 +114,7 @@ pub mod pallet {
  
  		// Learn about `AccountId`.
  		fn mint(owner: T::AccountId, dna: [u8; 16]) -> DispatchResult {

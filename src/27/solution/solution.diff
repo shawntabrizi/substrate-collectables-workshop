@@ -1,5 +1,5 @@
 diff --git a/src/lib.rs b/src/lib.rs
-index 7e04986..482733a 100644
+index 6567e52..ebaf904 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
 @@ -61,11 +61,7 @@ pub mod pallet {
@@ -42,7 +42,7 @@ index 7e04986..482733a 100644
  	}
  
  	// Learn about internal functions.
-@@ -175,15 +169,13 @@ pub mod pallet {
+@@ -174,15 +168,13 @@ pub mod pallet {
  			Ok(())
  		}
  

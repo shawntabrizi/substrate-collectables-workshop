@@ -30,7 +30,7 @@ pub mod pallet {
 	pub type BalanceOf<T> =
 		<<T as Config>::NativeBalance as Inspect<<T as frame_system::Config>::AccountId>>::Balance;
 
-	#[derive(Encode, Decode, Clone, Copy, PartialEq, RuntimeDebug, TypeInfo, MaxEncodedLen)]
+	#[derive(Encode, Decode, TypeInfo, MaxEncodedLen)]
 	#[scale_info(skip_type_params(T))]
 	pub struct Kitty<T: Config> {
 		// Using 16 bytes to represent a kitty DNA
@@ -104,11 +104,10 @@ pub mod pallet {
 			let unique_payload = (
 				frame_system::Pallet::<T>::parent_hash(),
 				frame_system::Pallet::<T>::block_number(),
-				frame_system::Pallet::<T>::extrinsic_index().unwrap_or_default(),
+				frame_system::Pallet::<T>::extrinsic_index(),
 				CountForKitties::<T>::get(),
 			);
 
-			// Turns into a byte array
 			let encoded_payload = unique_payload.encode();
 			frame_support::Hashable::blake2_128(&encoded_payload)
 		}
@@ -141,14 +140,14 @@ pub mod pallet {
 			ensure!(kitty.owner == from, Error::<T>::NotOwner);
 			kitty.owner = to.clone();
 
+			let mut to_owned = KittiesOwned::<T>::get(&to);
+			to_owned.try_push(kitty_id).map_err(|_| Error::<T>::TooManyOwned)?;
 			let mut from_owned = KittiesOwned::<T>::get(&from);
 			if let Some(ind) = from_owned.iter().position(|&id| id == kitty_id) {
 				from_owned.swap_remove(ind);
 			} else {
 				return Err(Error::<T>::NoKitty.into())
 			}
-			let mut to_owned = KittiesOwned::<T>::get(&to);
-			to_owned.try_push(kitty_id).map_err(|_| Error::<T>::TooManyOwned)?;
 
 			Kitties::<T>::insert(kitty_id, kitty);
 			KittiesOwned::<T>::insert(&to, to_owned);

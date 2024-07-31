@@ -1,8 +1,8 @@
 diff --git a/src/lib.rs b/src/lib.rs
-index b82e8b8..d9f272d 100644
+index fa1418e..7142e28 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -36,11 +36,13 @@ pub mod pallet {
+@@ -36,11 +36,10 @@ pub mod pallet {
  	#[pallet::storage]
  	pub(super) type Kitties<T: Config> = StorageMap<Key = [u8; 16], Value = Kitty<T>>;
  
@@ -13,15 +13,12 @@ index b82e8b8..d9f272d 100644
 -	*/
 +	/// Track the kitties owned by each account.
 +	#[pallet::storage]
-+	pub(super) type KittiesOwned<T: Config> = StorageMap<
-+		Key = T::AccountId,
-+		Value = Vec<[u8; 16]>,
-+		QueryKind = ValueQuery,
-+	>;
++	pub(super) type KittiesOwned<T: Config> =
++		StorageMap<Key = T::AccountId, Value = Vec<[u8; 16]>, QueryKind = ValueQuery>;
  
  	// Learn about events.
  	#[pallet::event]
-@@ -94,10 +96,10 @@ pub mod pallet {
+@@ -93,10 +92,10 @@ pub mod pallet {
  			let current_count: u64 = CountForKitties::<T>::get();
  			let new_count = current_count.checked_add(1).ok_or(Error::<T>::TooManyKitties)?;
  

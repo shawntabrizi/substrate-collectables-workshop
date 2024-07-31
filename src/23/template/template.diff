@@ -1,5 +1,5 @@
 diff --git a/src/lib.rs b/src/lib.rs
-index da2d602..cbee4a2 100644
+index 6730289..bfddc9e 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
 @@ -49,6 +49,12 @@ pub mod pallet {
@@ -34,7 +34,7 @@ index da2d602..cbee4a2 100644
  	}
  
  	// Learn about internal functions.
-@@ -104,5 +122,16 @@ pub mod pallet {
+@@ -103,5 +121,16 @@ pub mod pallet {
  			Self::deposit_event(Event::<T>::Created { owner });
  			Ok(())
  		}

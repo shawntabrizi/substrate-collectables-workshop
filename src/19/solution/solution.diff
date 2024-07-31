@@ -1,5 +1,5 @@
 diff --git a/src/lib.rs b/src/lib.rs
-index d465ccd..e16558e 100644
+index c8ef256..cbfa8b5 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
 @@ -55,8 +55,7 @@ pub mod pallet {
@@ -12,7 +12,7 @@ index d465ccd..e16558e 100644
  			Self::mint(who, dna)?;
  			Ok(())
  		}
-@@ -64,15 +63,21 @@ pub mod pallet {
+@@ -64,16 +63,20 @@ pub mod pallet {
  
  	// Learn about internal functions.
  	impl<T: Config> Pallet<T> {
@@ -21,6 +21,7 @@ index d465ccd..e16558e 100644
 -				- `parent_hash`
 -				- `block_number`
 -				- `extrinsic_index`
+-				- `CountForKitties::<T>::get()`
 -			- `encode()` that payload to a byte array named `encoded_payload`.
 -			- Use `frame_support::Hashable` to perform a `blake2_128` hash on the encoded payload.
 -			- Return the 16 byte hash.
@@ -32,12 +33,11 @@ index d465ccd..e16558e 100644
 +			let unique_payload = (
 +				frame_system::Pallet::<T>::parent_hash(),
 +				frame_system::Pallet::<T>::block_number(),
-+				frame_system::Pallet::<T>::extrinsic_index().unwrap_or_default(),
++				frame_system::Pallet::<T>::extrinsic_index(),
 +				CountForKitties::<T>::get(),
 +			);
 +
-+			// Turns into a byte array
-+			let encoded_payload = unique_payload.encode();
++			let encoded_payload: Vec<u8> = unique_payload.encode();
 +			frame_support::Hashable::blake2_128(&encoded_payload)
 +		}
  

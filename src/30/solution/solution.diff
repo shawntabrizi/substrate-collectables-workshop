@@ -1,5 +1,5 @@
 diff --git a/src/lib.rs b/src/lib.rs
-index 73a4bd5..67315db 100644
+index 035a4de..6ec31f6 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
 @@ -73,10 +73,8 @@ pub mod pallet {
@@ -15,7 +15,7 @@ index 73a4bd5..67315db 100644
  	}
  
  	// Learn about callable functions and dispatch.
-@@ -203,23 +201,15 @@ pub mod pallet {
+@@ -202,23 +200,15 @@ pub mod pallet {
  			kitty_id: [u8; 16],
  			price: BalanceOf<T>,
  		) -> DispatchResult {

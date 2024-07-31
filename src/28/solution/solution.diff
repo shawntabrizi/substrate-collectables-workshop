@@ -1,8 +1,8 @@
 diff --git a/src/lib.rs b/src/lib.rs
-index c5fa2cb..534d4f3 100644
+index 36836ad..0ac3bab 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -174,13 +174,10 @@ pub mod pallet {
+@@ -173,13 +173,10 @@ pub mod pallet {
  			kitty_id: [u8; 16],
  			new_price: Option<BalanceOf<T>>,
  		) -> DispatchResult {

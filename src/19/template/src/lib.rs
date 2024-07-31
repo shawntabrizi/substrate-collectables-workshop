@@ -20,7 +20,7 @@ pub mod pallet {
 		type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
 	}
 
-	#[derive(Encode, Decode, Clone, Copy, PartialEq, RuntimeDebug, TypeInfo, MaxEncodedLen)]
+	#[derive(Encode, Decode, TypeInfo, MaxEncodedLen)]
 	#[scale_info(skip_type_params(T))]
 	pub struct Kitty<T: Config> {
 		// Using 16 bytes to represent a kitty DNA
@@ -69,6 +69,7 @@ pub mod pallet {
 				- `parent_hash`
 				- `block_number`
 				- `extrinsic_index`
+				- `CountForKitties::<T>::get()`
 			- `encode()` that payload to a byte array named `encoded_payload`.
 			- Use `frame_support::Hashable` to perform a `blake2_128` hash on the encoded payload.
 			- Return the 16 byte hash.

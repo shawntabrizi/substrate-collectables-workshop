@@ -1,5 +1,5 @@
 diff --git a/src/lib.rs b/src/lib.rs
-index 267a7cf..7e04986 100644
+index c379017..6567e52 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
 @@ -61,6 +61,11 @@ pub mod pallet {
@@ -33,7 +33,7 @@ index 267a7cf..7e04986 100644
  	}
  
  	// Learn about internal functions.
-@@ -157,5 +174,16 @@ pub mod pallet {
+@@ -156,5 +173,16 @@ pub mod pallet {
  			Self::deposit_event(Event::<T>::Transferred { from, to, kitty_id });
  			Ok(())
  		}
