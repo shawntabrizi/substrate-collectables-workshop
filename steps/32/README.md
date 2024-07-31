@@ -1,5 +1,7 @@
 # Kitty Marketplace
 
+We have completed all the logic needed to create new kitties in our Pallet.
+
 In this section, we will add logic to our pallet, enabling a marketplace for Kitties.
 
 You will be able to:
