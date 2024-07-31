@@ -1,6 +1,10 @@
 #!/bin/bash
 
+# If there are any errors, stop the script immediately.
 set -e
+
+# Use sccache
+export RUSTC_WRAPPER=sccache
 
 # Default to 'check' mode if no argument is provided
 MODE=${1:-check}
