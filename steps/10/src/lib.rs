@@ -1,5 +1,7 @@
 #![cfg_attr(not(feature = "std"), no_std)]
 
+mod impls;
+
 pub use pallet::*;
 
 // Learn about Macros used in the `polkadot-sdk`, making pallet development easier.
@@ -41,21 +43,6 @@ pub mod pallet {
 			// Learn about `origin`.
 			let who = ensure_signed(origin)?;
 			Self::mint(who)?;
-			Ok(())
-		}
-	}
-
-	// Learn about internal functions.
-	impl<T: Config> Pallet<T> {
-		// Learn about `AccountId`.
-		pub fn mint(owner: T::AccountId) -> DispatchResult {
-			/* TODO:
-				- `get` the current count of kitties.
-				- `unwrap_or` set the count to `0`.
-				- increment the count by one.
-				- `set` the new count of kitties.
-			*/
-			Self::deposit_event(Event::<T>::Created { owner });
 			Ok(())
 		}
 	}
