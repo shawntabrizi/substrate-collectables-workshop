@@ -74,8 +74,7 @@ pub mod pallet {
 				CountForKitties::<T>::get(),
 			);
 
-			// Turns into a byte array
-			let encoded_payload = unique_payload.encode();
+			let encoded_payload: Vec<u8> = unique_payload.encode();
 			frame_support::Hashable::blake2_128(&encoded_payload)
 		}
 
