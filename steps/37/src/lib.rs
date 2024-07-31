@@ -135,14 +135,14 @@ pub mod pallet {
 			ensure!(kitty.owner == from, Error::<T>::NotOwner);
 			kitty.owner = to.clone();
 
+			let mut to_owned = KittiesOwned::<T>::get(&to);
+			to_owned.try_push(kitty_id).map_err(|_| Error::<T>::TooManyOwned)?;
 			let mut from_owned = KittiesOwned::<T>::get(&from);
 			if let Some(ind) = from_owned.iter().position(|&id| id == kitty_id) {
 				from_owned.swap_remove(ind);
 			} else {
 				return Err(Error::<T>::NoKitty.into())
 			}
-			let mut to_owned = KittiesOwned::<T>::get(&to);
-			to_owned.try_push(kitty_id).map_err(|_| Error::<T>::TooManyOwned)?;
 
 			Kitties::<T>::insert(kitty_id, kitty);
 			KittiesOwned::<T>::insert(&to, to_owned);

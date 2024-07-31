@@ -130,16 +130,17 @@ pub mod pallet {
 				- First `ensure!` that `from` and `to` are not equal, else return `Error::<T>::TransferToSelf`.
 				- Get the `kitty` from `Kitties` using `kitty_id`, else return `Error::<T>::NoKitty`.
 				- Check the `kitty.owner` is equal to `from`, else return `NotOwner`.
-				- Update `kitty.owner` to `to`.
 			*/
 
-			/* TODO: Update the `KittiesOwned` of `from` and `to:
-				- Create a mutable `from_owned` by querying `KittiesOwned` for `from`.
-				- Write logic to `swap_remove` the item from the `from_owned` vector.
-					- If you cannot find the kitty in the vector, return `Error::<T>::NoKitty`.
-				- Create a mutable `to_owned` by querying `KittiesOwned` for `to`.
-				- `try_push` the `kitty_id` to the `to_owned` vector.
-					- If the vector is full, `map_err` and return `Error::<T>::TooManyOwned`.
+			/* TODO: Update the owner of the kitty:
+				- Update `kitty.owner` to `to`.
+				 - Update the `KittiesOwned` of `from` and `to:
+					- Create a mutable `to_owned` by querying `KittiesOwned` for `to`.
+					- `try_push` the `kitty_id` to the `to_owned` vector.
+						- If the vector is full, `map_err` and return `Error::<T>::TooManyOwned`.
+					- Create a mutable `from_owned` by querying `KittiesOwned` for `from`.
+					- Write logic to `swap_remove` the item from the `from_owned` vector.
+						- If you cannot find the kitty in the vector, return `Error::<T>::NoKitty`.
 			*/
 
 			/* TODO: Update the final storage.
