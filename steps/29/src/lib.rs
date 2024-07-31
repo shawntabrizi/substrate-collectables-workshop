@@ -38,11 +38,8 @@ pub mod pallet {
 
 	/// Track the kitties owned by each account.
 	#[pallet::storage]
-	pub(super) type KittiesOwned<T: Config> = StorageMap<
-		Key = T::AccountId,
-		Value = Vec<[u8; 16]>,
-		QueryKind = ValueQuery,
-	>;
+	pub(super) type KittiesOwned<T: Config> =
+		StorageMap<Key = T::AccountId, Value = Vec<[u8; 16]>, QueryKind = ValueQuery>;
 
 	// Learn about events.
 	#[pallet::event]
