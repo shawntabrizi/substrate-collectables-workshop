@@ -120,7 +120,7 @@ pub mod pallet {
 	// Learn about internal functions.
 	impl<T: Config> Pallet<T> {
 		// Generates and returns DNA and Sex
-		fn gen_dna() -> [u8; 16] {
+		pub fn gen_dna() -> [u8; 16] {
 			// Create randomness payload. Multiple kitties can be generated in the same block,
 			// retaining uniqueness.
 			let unique_payload = (
@@ -135,7 +135,7 @@ pub mod pallet {
 		}
 
 		// Learn about `AccountId`.
-		fn mint(owner: T::AccountId, dna: [u8; 16]) -> DispatchResult {
+		pub fn mint(owner: T::AccountId, dna: [u8; 16]) -> DispatchResult {
 			let kitty = Kitty { dna, owner: owner.clone(), price: None };
 			// Check if the kitty does not already exist in our storage map
 			ensure!(!Kitties::<T>::contains_key(dna), Error::<T>::DuplicateKitty);

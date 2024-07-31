@@ -51,7 +51,7 @@ pub mod pallet {
 	// Learn about internal functions.
 	impl<T: Config> Pallet<T> {
 		// Learn about `AccountId`.
-		fn mint(owner: T::AccountId) -> DispatchResult {
+		pub fn mint(owner: T::AccountId) -> DispatchResult {
 			/* TODO: Remove the `unwrap_or` which is not needed when using `ValueQuery`. */
 			let current_count: u64 = CountForKitties::<T>::get().unwrap_or(0);
 			let new_count = current_count.checked_add(1).ok_or(Error::<T>::TooManyKitties)?;

@@ -55,7 +55,7 @@ pub mod pallet {
 	// Learn about internal functions.
 	impl<T: Config> Pallet<T> {
 		// Learn about `AccountId`.
-		fn mint(owner: T::AccountId, dna: [u8; 16]) -> DispatchResult {
+		pub fn mint(owner: T::AccountId, dna: [u8; 16]) -> DispatchResult {
 			let current_count: u64 = CountForKitties::<T>::get();
 			let new_count = current_count.checked_add(1).ok_or(Error::<T>::TooManyKitties)?;
 			Kitties::<T>::insert(dna, ());

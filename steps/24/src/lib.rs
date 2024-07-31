@@ -67,7 +67,7 @@ pub mod pallet {
 	// Learn about internal functions.
 	impl<T: Config> Pallet<T> {
 		// Learn about `AccountId`.
-		fn mint(owner: T::AccountId, dna: [u8; 16]) -> DispatchResult {
+		pub fn mint(owner: T::AccountId, dna: [u8; 16]) -> DispatchResult {
 			/* Create a new variable `kitty` which is a `Kitty` struct with `dna` and `owner`. */
 
 			// Check if the kitty does not already exist in our storage map

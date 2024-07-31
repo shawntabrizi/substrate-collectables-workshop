@@ -64,7 +64,7 @@ pub mod pallet {
 	// Learn about internal functions.
 	impl<T: Config> Pallet<T> {
 		// Learn about `AccountId`.
-		fn mint(owner: T::AccountId, dna: [u8; 16]) -> DispatchResult {
+		pub fn mint(owner: T::AccountId, dna: [u8; 16]) -> DispatchResult {
 			// Check if the kitty does not already exist in our storage map
 			ensure!(!Kitties::<T>::contains_key(dna), Error::<T>::DuplicateKitty);
 
