@@ -104,7 +104,7 @@ pub mod pallet {
 			let unique_payload = (
 				frame_system::Pallet::<T>::parent_hash(),
 				frame_system::Pallet::<T>::block_number(),
-				frame_system::Pallet::<T>::extrinsic_index().unwrap_or_default(),
+				frame_system::Pallet::<T>::extrinsic_index(),
 				CountForKitties::<T>::get(),
 			);
 

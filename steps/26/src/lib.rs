@@ -69,6 +69,7 @@ pub mod pallet {
 				- `parent_hash`
 				- `block_number`
 				- `extrinsic_index`
+				- `CountForKitties::<T>::get()`
 			- `encode()` that payload to a byte array named `encoded_payload`.
 			- Use `frame_support::Hashable` to perform a `blake2_128` hash on the encoded payload.
 			- Return the 16 byte hash.
