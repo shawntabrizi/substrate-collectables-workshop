@@ -1,8 +1,50 @@
+diff --git a/src/impls.rs b/src/impls.rs
+index 415b4e7..4770d83 100644
+--- a/src/impls.rs
++++ b/src/impls.rs
+@@ -1,5 +1,5 @@
+ use super::*;
+-use frame_support::pallet_prelude::*;
++use frame_support::{pallet_prelude::*, traits::fungible::Mutate};
+ 
+ // Learn about internal functions.
+ impl<T: Config> Pallet<T> {
+@@ -78,23 +78,15 @@ impl<T: Config> Pallet<T> {
+ 		kitty_id: [u8; 16],
+ 		price: BalanceOf<T>,
+ 	) -> DispatchResult {
+-		/* TODO: Sanity check that the purchase is allowed:
+-			- Get `kitty` from `Kitties` using `kitty_id`, `ok_or` return `Error::<T>::NoKitty`.
+-			- Get the `real_price` from `kitty.price`, `ok_or` return `Error::<T>::NotForSale`.
+-			- `ensure!` that `price` is greater or equal to `real_price`, else `Error::<T>::MaxPriceTooLow`.
+-		*/
++		let kitty = Kitties::<T>::get(kitty_id).ok_or(Error::<T>::NoKitty)?;
++		let real_price = kitty.price.ok_or(Error::<T>::NotForSale)?;
++		ensure!(price >= real_price, Error::<T>::MaxPriceTooLow);
+ 
+-		/* TODO: Execute the transfers:
+-			- Import `use frame_support::traits::tokens::Preservation;`, which is used for balance transfer.
+-			- Use `T::NativeBalance` to `transfer` from the `buyer` to the `kitty.owner`.
+-				- The amount transferred should be the `real_price`.
+-				- Use `Preservation::Preserve` to ensure the buyer account stays alive.
+-			- Use `Self::do_transfer` to transfer from the `kitty.owner` to the `buyer` with `kitty_id`.
+-			- Remember to propagate up all results from these functions with `?`.
+-		*/
++		use frame_support::traits::tokens::Preservation;
++		T::NativeBalance::transfer(&buyer, &kitty.owner, real_price, Preservation::Preserve)?;
++		Self::do_transfer(kitty.owner, buyer.clone(), kitty_id)?;
+ 
+-		/* TODO: Update the event to use the `real_price` in the `Event`. */
+-		Self::deposit_event(Event::<T>::Sold { buyer, kitty_id, price });
++		Self::deposit_event(Event::<T>::Sold { buyer, kitty_id, price: real_price });
+ 		Ok(())
+ 	}
+ }
 diff --git a/src/lib.rs b/src/lib.rs
-index 035a4de..6ec31f6 100644
+index 32d98e9..4a404e2 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -73,10 +73,8 @@ pub mod pallet {
+@@ -75,10 +75,8 @@ pub mod pallet {
  		TransferToSelf,
  		NoKitty,
  		NotOwner,
@@ -15,36 +57,3 @@ index 035a4de..6ec31f6 100644
  	}
  
  	// Learn about callable functions and dispatch.
-@@ -202,23 +200,15 @@ pub mod pallet {
- 			kitty_id: [u8; 16],
- 			price: BalanceOf<T>,
- 		) -> DispatchResult {
--			/* TODO: Sanity check that the purchase is allowed:
--				- Get `kitty` from `Kitties` using `kitty_id`, `ok_or` return `Error::<T>::NoKitty`.
--				- Get the `real_price` from `kitty.price`, `ok_or` return `Error::<T>::NotForSale`.
--				- `ensure!` that `price` is greater or equal to `real_price`, else `Error::<T>::MaxPriceTooLow`.
--			*/
--
--			/* TODO: Execute the transfers:
--				- Import `use frame_support::traits::tokens::Preservation;`, which is used for balance transfer.
--				- Use `T::NativeBalance` to `transfer` from the `buyer` to the `kitty.owner`.
--					- The amount transferred should be the `real_price`.
--					- Use `Preservation::Preserve` to ensure the buyer account stays alive.
--				- Use `Self::do_transfer` to transfer from the `kitty.owner` to the `buyer` with `kitty_id`.
--				- Remember to propagate up all results from these functions with `?`.
--			*/
--
--			/* TODO: Update the event to use the `real_price` in the `Event`. */
--			Self::deposit_event(Event::<T>::Sold { buyer, kitty_id, price });
-+			let kitty = Kitties::<T>::get(kitty_id).ok_or(Error::<T>::NoKitty)?;
-+			let real_price = kitty.price.ok_or(Error::<T>::NotForSale)?;
-+			ensure!(price >= real_price, Error::<T>::MaxPriceTooLow);
-+
-+			use frame_support::traits::tokens::Preservation;
-+			T::NativeBalance::transfer(&buyer, &kitty.owner, real_price, Preservation::Preserve)?;
-+			Self::do_transfer(kitty.owner, buyer.clone(), kitty_id)?;
-+
-+			Self::deposit_event(Event::<T>::Sold { buyer, kitty_id, price: real_price });
- 			Ok(())
- 		}
- 	}

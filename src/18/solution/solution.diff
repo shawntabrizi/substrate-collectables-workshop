@@ -1,8 +1,30 @@
+diff --git a/src/impls.rs b/src/impls.rs
+index 4b507f2..5ec6eb6 100644
+--- a/src/impls.rs
++++ b/src/impls.rs
+@@ -4,15 +4,13 @@ use frame_support::pallet_prelude::*;
+ impl<T: Config> Pallet<T> {
+ 	// Learn about `AccountId`.
+ 	pub fn mint(owner: T::AccountId, dna: [u8; 16]) -> DispatchResult {
+-		/* Create a new variable `kitty` which is a `Kitty` struct with `dna` and `owner`. */
+-
++		let kitty = Kitty { dna, owner: owner.clone() };
+ 		// Check if the kitty does not already exist in our storage map
+ 		ensure!(!Kitties::<T>::contains_key(dna), Error::<T>::DuplicateKitty);
+ 
+ 		let current_count: u64 = CountForKitties::<T>::get();
+ 		let new_count = current_count.checked_add(1).ok_or(Error::<T>::TooManyKitties)?;
+-		/* TODO: Insert `kitty`into the map instead of `()`. */
+-		Kitties::<T>::insert(dna, ());
++		Kitties::<T>::insert(dna, kitty);
+ 		CountForKitties::<T>::set(new_count);
+ 		Self::deposit_event(Event::<T>::Created { owner });
+ 		Ok(())
 diff --git a/src/lib.rs b/src/lib.rs
-index b7a5372..62bd20e 100644
+index 5e40b25..7fcaaad 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -20,10 +20,8 @@ pub mod pallet {
+@@ -22,10 +22,8 @@ pub mod pallet {
  		type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
  	}
  
@@ -15,7 +37,7 @@ index b7a5372..62bd20e 100644
  	pub struct Kitty<T: Config> {
  		// Using 16 bytes to represent a kitty DNA
  		pub dna: [u8; 16],
-@@ -36,8 +34,7 @@ pub mod pallet {
+@@ -38,8 +36,7 @@ pub mod pallet {
  
  	/// Learn about storage maps.
  	#[pallet::storage]
@@ -25,21 +47,3 @@ index b7a5372..62bd20e 100644
  
  	// Learn about events.
  	#[pallet::event]
-@@ -68,15 +65,13 @@ pub mod pallet {
- 	impl<T: Config> Pallet<T> {
- 		// Learn about `AccountId`.
- 		fn mint(owner: T::AccountId, dna: [u8; 16]) -> DispatchResult {
--			/* Create a new variable `kitty` which is a `Kitty` struct with `dna` and `owner`. */
--
-+			let kitty = Kitty { dna, owner: owner.clone() };
- 			// Check if the kitty does not already exist in our storage map
- 			ensure!(!Kitties::<T>::contains_key(dna), Error::<T>::DuplicateKitty);
- 
- 			let current_count: u64 = CountForKitties::<T>::get();
- 			let new_count = current_count.checked_add(1).ok_or(Error::<T>::TooManyKitties)?;
--			/* TODO: Insert `kitty`into the map instead of `()`. */
--			Kitties::<T>::insert(dna, ());
-+			Kitties::<T>::insert(dna, kitty);
- 			CountForKitties::<T>::set(new_count);
- 			Self::deposit_event(Event::<T>::Created { owner });
- 			Ok(())

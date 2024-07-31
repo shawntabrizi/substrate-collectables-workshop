@@ -1,8 +1,28 @@
+diff --git a/src/impls.rs b/src/impls.rs
+index d53238c..d2b2015 100644
+--- a/src/impls.rs
++++ b/src/impls.rs
+@@ -72,4 +72,15 @@ impl<T: Config> Pallet<T> {
+ 		Self::deposit_event(Event::<T>::PriceSet { owner: caller, kitty_id, new_price });
+ 		Ok(())
+ 	}
++
++	/* Create a new internal function `do_buy_kitty`:
++		- Inputs to the function are:
++			- `buyer` which is `T::AccountId`.
++			- `kitty_id` which is `[u8; 16]`.
++			- `price` which is `BalanceOf<T>`.
++		- It returns `DispatchResult`.
++		- The internal logic, for now, should be:
++			- `Self::deposit_event` with `Event::<T>::Sold` and the appropriate params.
++			- Return `Ok(())`.
++	*/
+ }
 diff --git a/src/lib.rs b/src/lib.rs
-index 0ac3bab..b84ac0d 100644
+index 52c6f53..5072ec6 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -62,6 +62,11 @@ pub mod pallet {
+@@ -64,6 +64,11 @@ pub mod pallet {
  		Created { owner: T::AccountId },
  		Transferred { from: T::AccountId, to: T::AccountId, kitty_id: [u8; 16] },
  		PriceSet { owner: T::AccountId, kitty_id: [u8; 16], new_price: Option<BalanceOf<T>> },
@@ -14,7 +34,7 @@ index 0ac3bab..b84ac0d 100644
  	}
  
  	#[pallet::error]
-@@ -104,6 +109,18 @@ pub mod pallet {
+@@ -106,5 +111,17 @@ pub mod pallet {
  			Self::do_set_price(who, kitty_id, new_price)?;
  			Ok(())
  		}
@@ -28,24 +48,6 @@ index 0ac3bab..b84ac0d 100644
 +			- The internal logic should be:
 +				- Extract `who` using `ensure_signed` on `origin`.
 +				- Call `Self::do_buy_kitty` using appropriate params, and propagating the result.
-+				- Return `Ok(())`.
-+		*/
- 	}
- 
- 	// Learn about internal functions.
-@@ -181,5 +198,16 @@ pub mod pallet {
- 			Self::deposit_event(Event::<T>::PriceSet { owner: caller, kitty_id, new_price });
- 			Ok(())
- 		}
-+
-+		/* Create a new internal function `do_buy_kitty`:
-+			- Inputs to the function are:
-+				- `buyer` which is `T::AccountId`.
-+				- `kitty_id` which is `[u8; 16]`.
-+				- `price` which is `BalanceOf<T>`.
-+			- It returns `DispatchResult`.
-+			- The internal logic, for now, should be:
-+				- `Self::deposit_event` with `Event::<T>::Sold` and the appropriate params.
 +				- Return `Ok(())`.
 +		*/
  	}

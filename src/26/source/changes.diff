@@ -1,8 +1,21 @@
+diff --git a/src/impls.rs b/src/impls.rs
+index 502cfc1..765ad4f 100644
+--- a/src/impls.rs
++++ b/src/impls.rs
+@@ -20,7 +20,7 @@ impl<T: Config> Pallet<T> {
+ 
+ 	// Learn about `AccountId`.
+ 	pub fn mint(owner: T::AccountId, dna: [u8; 16]) -> DispatchResult {
+-		let kitty = Kitty { dna, owner: owner.clone() };
++		let kitty = Kitty { dna, owner: owner.clone(), price: None };
+ 		// Check if the kitty does not already exist in our storage map
+ 		ensure!(!Kitties::<T>::contains_key(dna), Error::<T>::DuplicateKitty);
+ 
 diff --git a/src/lib.rs b/src/lib.rs
-index 5472d69..c379017 100644
+index 6b60305..65fb75e 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -26,12 +26,17 @@ pub mod pallet {
+@@ -28,12 +28,17 @@ pub mod pallet {
  		type NativeBalance: Inspect<Self::AccountId> + Mutate<Self::AccountId>;
  	}
  
@@ -20,12 +33,3 @@ index 5472d69..c379017 100644
  	}
  
  	/// Learn about storage value.
-@@ -109,7 +114,7 @@ pub mod pallet {
- 
- 		// Learn about `AccountId`.
- 		fn mint(owner: T::AccountId, dna: [u8; 16]) -> DispatchResult {
--			let kitty = Kitty { dna, owner: owner.clone() };
-+			let kitty = Kitty { dna, owner: owner.clone(), price: None };
- 			// Check if the kitty does not already exist in our storage map
- 			ensure!(!Kitties::<T>::contains_key(dna), Error::<T>::DuplicateKitty);
- 

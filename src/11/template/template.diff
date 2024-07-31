@@ -1,8 +1,20 @@
+diff --git a/src/impls.rs b/src/impls.rs
+index ef53a56..ba4070f 100644
+--- a/src/impls.rs
++++ b/src/impls.rs
+@@ -5,6 +5,7 @@ impl<T: Config> Pallet<T> {
+ 	// Learn about `AccountId`.
+ 	pub fn mint(owner: T::AccountId) -> DispatchResult {
+ 		let current_count: u64 = CountForKitties::<T>::get().unwrap_or(0);
++		/* TODO: Update this logic to use safe math. */
+ 		let new_count = current_count + 1;
+ 		CountForKitties::<T>::set(Some(new_count));
+ 		Self::deposit_event(Event::<T>::Created { owner });
 diff --git a/src/lib.rs b/src/lib.rs
-index 59a65fe..924f26f 100644
+index acea2e2..110d15d 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -32,7 +32,11 @@ pub mod pallet {
+@@ -34,7 +34,11 @@ pub mod pallet {
  	}
  
  	#[pallet::error]
@@ -15,11 +27,3 @@ index 59a65fe..924f26f 100644
  
  	// Learn about callable functions and dispatch.
  	#[pallet::call]
-@@ -50,6 +54,7 @@ pub mod pallet {
- 		// Learn about `AccountId`.
- 		fn mint(owner: T::AccountId) -> DispatchResult {
- 			let current_count: u64 = CountForKitties::<T>::get().unwrap_or(0);
-+			/* TODO: Update this logic to use safe math. */
- 			let new_count = current_count + 1;
- 			CountForKitties::<T>::set(Some(new_count));
- 			Self::deposit_event(Event::<T>::Created { owner });

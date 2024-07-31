@@ -1,8 +1,35 @@
+diff --git a/src/impls.rs b/src/impls.rs
+index 0afb6df..d844db6 100644
+--- a/src/impls.rs
++++ b/src/impls.rs
+@@ -59,14 +59,12 @@ impl<T: Config> Pallet<T> {
+ 		Ok(())
+ 	}
+ 
+-	/* TODO: Make an internal function called `do_set_price`:
+-		- Inputs to the function are:
+-			- `caller` which is `T::AccountId`.
+-			- `kitty_id` which is `[u8; 16]`.
+-			- `new_price` which is `Option<BalanceOf<T>`.
+-		- Returns a `DispatchResult`.
+-		- The internal logic, for now, should be:
+-			- `Self::deposit_event` for `Event::<T>::PriceSet` with the appropriate params.
+-			- Return `Ok(())`.
+-	*/
++	pub fn do_set_price(
++		caller: T::AccountId,
++		kitty_id: [u8; 16],
++		new_price: Option<BalanceOf<T>>,
++	) -> DispatchResult {
++		Self::deposit_event(Event::<T>::PriceSet { owner: caller, kitty_id, new_price });
++		Ok(())
++	}
+ }
 diff --git a/src/lib.rs b/src/lib.rs
-index 6567e52..ebaf904 100644
+index 5c9dabe..52c6f53 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -61,11 +61,7 @@ pub mod pallet {
+@@ -63,11 +63,7 @@ pub mod pallet {
  	pub enum Event<T: Config> {
  		Created { owner: T::AccountId },
  		Transferred { from: T::AccountId, to: T::AccountId, kitty_id: [u8; 16] },
@@ -15,7 +42,7 @@ index 6567e52..ebaf904 100644
  	}
  
  	#[pallet::error]
-@@ -99,17 +95,15 @@ pub mod pallet {
+@@ -101,16 +97,14 @@ pub mod pallet {
  			Ok(())
  		}
  
@@ -37,31 +64,6 @@ index 6567e52..ebaf904 100644
 +		) -> DispatchResult {
 +			let who = ensure_signed(origin)?;
 +			Self::do_set_price(who, kitty_id, new_price)?;
-+			Ok(())
-+		}
- 	}
- 
- 	// Learn about internal functions.
-@@ -174,15 +168,13 @@ pub mod pallet {
- 			Ok(())
- 		}
- 
--		/* TODO: Make an internal function called `do_set_price`:
--			- Inputs to the function are:
--				- `caller` which is `T::AccountId`.
--				- `kitty_id` which is `[u8; 16]`.
--				- `new_price` which is `Option<BalanceOf<T>`.
--			- Returns a `DispatchResult`.
--			- The internal logic, for now, should be:
--				- `Self::deposit_event` for `Event::<T>::PriceSet` with the appropriate params.
--				- Return `Ok(())`.
--		*/
-+		pub fn do_set_price(
-+			caller: T::AccountId,
-+			kitty_id: [u8; 16],
-+			new_price: Option<BalanceOf<T>>,
-+		) -> DispatchResult {
-+			Self::deposit_event(Event::<T>::PriceSet { owner: caller, kitty_id, new_price });
 +			Ok(())
 +		}
  	}

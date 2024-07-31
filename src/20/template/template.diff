@@ -1,8 +1,31 @@
+diff --git a/src/impls.rs b/src/impls.rs
+index 1088c86..9678a42 100644
+--- a/src/impls.rs
++++ b/src/impls.rs
+@@ -13,7 +13,7 @@ impl<T: Config> Pallet<T> {
+ 			CountForKitties::<T>::get(),
+ 		);
+ 
+-		let encoded_payload: Vec<u8> = unique_payload.encode();
++		let encoded_payload = unique_payload.encode();
+ 		frame_support::Hashable::blake2_128(&encoded_payload)
+ 	}
+ 
+@@ -25,6 +25,9 @@ impl<T: Config> Pallet<T> {
+ 
+ 		let current_count: u64 = CountForKitties::<T>::get();
+ 		let new_count = current_count.checked_add(1).ok_or(Error::<T>::TooManyKitties)?;
++
++		/* TODO: `append` the `dna` to the `KittiesOwned` storage for the `owner`. */
++
+ 		Kitties::<T>::insert(dna, kitty);
+ 		CountForKitties::<T>::set(new_count);
+ 		Self::deposit_event(Event::<T>::Created { owner });
 diff --git a/src/lib.rs b/src/lib.rs
-index cbfa8b5..fa1418e 100644
+index ed0a13b..db7d83b 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -36,6 +36,12 @@ pub mod pallet {
+@@ -38,6 +38,12 @@ pub mod pallet {
  	#[pallet::storage]
  	pub(super) type Kitties<T: Config> = StorageMap<Key = [u8; 16], Value = Kitty<T>>;
  
@@ -15,22 +38,3 @@ index cbfa8b5..fa1418e 100644
  	// Learn about events.
  	#[pallet::event]
  	#[pallet::generate_deposit(pub(super) fn deposit_event)]
-@@ -74,7 +80,7 @@ pub mod pallet {
- 				CountForKitties::<T>::get(),
- 			);
- 
--			let encoded_payload: Vec<u8> = unique_payload.encode();
-+			let encoded_payload = unique_payload.encode();
- 			frame_support::Hashable::blake2_128(&encoded_payload)
- 		}
- 
-@@ -86,6 +92,9 @@ pub mod pallet {
- 
- 			let current_count: u64 = CountForKitties::<T>::get();
- 			let new_count = current_count.checked_add(1).ok_or(Error::<T>::TooManyKitties)?;
-+
-+			/* TODO: `append` the `dna` to the `KittiesOwned` storage for the `owner`. */
-+
- 			Kitties::<T>::insert(dna, kitty);
- 			CountForKitties::<T>::set(new_count);
- 			Self::deposit_event(Event::<T>::Created { owner });

@@ -1,5 +1,7 @@
 #![cfg_attr(not(feature = "std"), no_std)]
 
+mod impls;
+
 pub use pallet::*;
 
 // Learn about Macros used in the `polkadot-sdk`, making pallet development easier.
@@ -31,13 +33,6 @@ pub mod pallet {
 		pub fn create_kitty(origin: OriginFor<T>) -> DispatchResult {
 			let who = ensure_signed(origin)?;
 			Self::mint(who)?;
-			Ok(())
-		}
-	}
-
-	impl<T: Config> Pallet<T> {
-		fn mint(owner: T::AccountId) -> DispatchResult {
-			Self::deposit_event(Event::<T>::Created { owner });
 			Ok(())
 		}
 	}

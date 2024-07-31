@@ -1,5 +1,7 @@
 #![cfg_attr(not(feature = "std"), no_std)]
 
+mod impls;
+
 pub use pallet::*;
 
 // Learn about Macros used in the `polkadot-sdk`, making pallet development easier.
@@ -49,20 +51,6 @@ pub mod pallet {
 			/* TODO: Create `const default_id`, which type `[u8; 16]` and has value `[0u8; 16]`. */
 			/* TODO: Pass `default_id` to the `mint` function as a second parameter. */
 			Self::mint(who)?;
-			Ok(())
-		}
-	}
-
-	// Learn about internal functions.
-	impl<T: Config> Pallet<T> {
-		// Learn about `AccountId`.
-		/* TODO: Update this function signature to include `id` which is type `[u8; 16]`. */
-		fn mint(owner: T::AccountId) -> DispatchResult {
-			let current_count: u64 = CountForKitties::<T>::get();
-			let new_count = current_count.checked_add(1).ok_or(Error::<T>::TooManyKitties)?;
-			/* TODO: In the `Kitties` map, under the key `id`, insert `()`. */
-			CountForKitties::<T>::set(new_count);
-			Self::deposit_event(Event::<T>::Created { owner });
 			Ok(())
 		}
 	}

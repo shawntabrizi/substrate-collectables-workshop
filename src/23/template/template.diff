@@ -1,8 +1,28 @@
+diff --git a/src/impls.rs b/src/impls.rs
+index 300924a..b2b0d67 100644
+--- a/src/impls.rs
++++ b/src/impls.rs
+@@ -34,4 +34,15 @@ impl<T: Config> Pallet<T> {
+ 		Self::deposit_event(Event::<T>::Created { owner });
+ 		Ok(())
+ 	}
++
++	/* TODO: Create an internal function called `do_transfer`:
++		- It has inputs:
++			- `from` which is `T::AccountId`.
++			- `to` which is `T::AccountId`.
++			- `kitty_id` which is `[u8; 16]`.
++		- It returns a `DispatchResult`
++		- The inner logic for now is:
++			- Call `Self::dispatch_event` on and emit `Event::<T>:Transferred` with params.
++			- Return `Ok(())`.
++	*/
+ }
 diff --git a/src/lib.rs b/src/lib.rs
-index 6730289..bfddc9e 100644
+index 8209cc2..2c51fa7 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -49,6 +49,12 @@ pub mod pallet {
+@@ -51,6 +51,12 @@ pub mod pallet {
  	#[pallet::generate_deposit(pub(super) fn deposit_event)]
  	pub enum Event<T: Config> {
  		Created { owner: T::AccountId },
@@ -15,7 +35,7 @@ index 6730289..bfddc9e 100644
  	}
  
  	#[pallet::error]
-@@ -68,6 +74,18 @@ pub mod pallet {
+@@ -70,5 +76,17 @@ pub mod pallet {
  			Self::mint(who, dna)?;
  			Ok(())
  		}
@@ -30,24 +50,6 @@ index 6730289..bfddc9e 100644
 +				- Get the caller `who` from `ensure_signed`.
 +				- Call `Self::do_transfer`, and propagate the result.
 +				- End with Ok(()).
-+		*/
- 	}
- 
- 	// Learn about internal functions.
-@@ -103,5 +121,16 @@ pub mod pallet {
- 			Self::deposit_event(Event::<T>::Created { owner });
- 			Ok(())
- 		}
-+
-+		/* TODO: Create an internal function called `do_transfer`:
-+			- It has inputs:
-+				- `from` which is `T::AccountId`.
-+				- `to` which is `T::AccountId`.
-+				- `kitty_id` which is `[u8; 16]`.
-+			- It returns a `DispatchResult`
-+			- The inner logic for now is:
-+				- Call `Self::dispatch_event` on and emit `Event::<T>:Transferred` with params.
-+				- Return `Ok(())`.
 +		*/
  	}
  }

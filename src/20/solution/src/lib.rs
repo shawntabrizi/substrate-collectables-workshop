@@ -1,5 +1,7 @@
 #![cfg_attr(not(feature = "std"), no_std)]
 
+mod impls;
+
 pub use pallet::*;
 
 // Learn about Macros used in the `polkadot-sdk`, making pallet development easier.
@@ -62,41 +64,6 @@ pub mod pallet {
 			let who = ensure_signed(origin)?;
 			let dna = Self::gen_dna();
 			Self::mint(who, dna)?;
-			Ok(())
-		}
-	}
-
-	// Learn about internal functions.
-	impl<T: Config> Pallet<T> {
-		// Generates and returns DNA and Sex
-		fn gen_dna() -> [u8; 16] {
-			// Create randomness payload. Multiple kitties can be generated in the same block,
-			// retaining uniqueness.
-			let unique_payload = (
-				frame_system::Pallet::<T>::parent_hash(),
-				frame_system::Pallet::<T>::block_number(),
-				frame_system::Pallet::<T>::extrinsic_index(),
-				CountForKitties::<T>::get(),
-			);
-
-			let encoded_payload = unique_payload.encode();
-			frame_support::Hashable::blake2_128(&encoded_payload)
-		}
-
-		// Learn about `AccountId`.
-		fn mint(owner: T::AccountId, dna: [u8; 16]) -> DispatchResult {
-			let kitty = Kitty { dna, owner: owner.clone() };
-			// Check if the kitty does not already exist in our storage map
-			ensure!(!Kitties::<T>::contains_key(dna), Error::<T>::DuplicateKitty);
-
-			let current_count: u64 = CountForKitties::<T>::get();
-			let new_count = current_count.checked_add(1).ok_or(Error::<T>::TooManyKitties)?;
-
-			KittiesOwned::<T>::append(&owner, dna);
-			Kitties::<T>::insert(dna, kitty);
-			CountForKitties::<T>::set(new_count);
-
-			Self::deposit_event(Event::<T>::Created { owner });
 			Ok(())
 		}
 	}

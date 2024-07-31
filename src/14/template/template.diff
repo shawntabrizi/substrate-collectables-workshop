@@ -1,8 +1,24 @@
+diff --git a/src/impls.rs b/src/impls.rs
+index 1af97cb..e4449c9 100644
+--- a/src/impls.rs
++++ b/src/impls.rs
+@@ -3,9 +3,11 @@ use frame_support::pallet_prelude::*;
+ 
+ impl<T: Config> Pallet<T> {
+ 	// Learn about `AccountId`.
++	/* TODO: Update this function signature to include `id` which is type `[u8; 16]`. */
+ 	pub fn mint(owner: T::AccountId) -> DispatchResult {
+ 		let current_count: u64 = CountForKitties::<T>::get();
+ 		let new_count = current_count.checked_add(1).ok_or(Error::<T>::TooManyKitties)?;
++		/* TODO: In the `Kitties` map, under the key `id`, insert `()`. */
+ 		CountForKitties::<T>::set(new_count);
+ 		Self::deposit_event(Event::<T>::Created { owner });
+ 		Ok(())
 diff --git a/src/lib.rs b/src/lib.rs
-index c320583..e1d2dd7 100644
+index 38fafb0..978c774 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -46,6 +46,8 @@ pub mod pallet {
+@@ -48,6 +48,8 @@ pub mod pallet {
  		pub fn create_kitty(origin: OriginFor<T>) -> DispatchResult {
  			// Learn about `origin`.
  			let who = ensure_signed(origin)?;
@@ -11,15 +27,3 @@ index c320583..e1d2dd7 100644
  			Self::mint(who)?;
  			Ok(())
  		}
-@@ -54,9 +56,11 @@ pub mod pallet {
- 	// Learn about internal functions.
- 	impl<T: Config> Pallet<T> {
- 		// Learn about `AccountId`.
-+		/* TODO: Update this function signature to include `id` which is type `[u8; 16]`. */
- 		fn mint(owner: T::AccountId) -> DispatchResult {
- 			let current_count: u64 = CountForKitties::<T>::get();
- 			let new_count = current_count.checked_add(1).ok_or(Error::<T>::TooManyKitties)?;
-+			/* TODO: In the `Kitties` map, under the key `id`, insert `()`. */
- 			CountForKitties::<T>::set(new_count);
- 			Self::deposit_event(Event::<T>::Created { owner });
- 			Ok(())

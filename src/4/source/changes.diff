@@ -1,8 +1,20 @@
+diff --git a/src/impls.rs b/src/impls.rs
+index d49f793..49906c6 100644
+--- a/src/impls.rs
++++ b/src/impls.rs
+@@ -1,6 +1,7 @@
+ use super::*;
+ use frame_support::pallet_prelude::*;
+ 
++// Learn about internal functions.
+ impl<T: Config> Pallet<T> {
+ 	pub fn mint(owner: T::AccountId) -> DispatchResult {
+ 		Self::deposit_event(Event::<T>::Created { owner });
 diff --git a/src/lib.rs b/src/lib.rs
-index 63d0b59..d4093e0 100644
+index a6155ed..613e92b 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -28,6 +28,7 @@ pub mod pallet {
+@@ -30,6 +30,7 @@ pub mod pallet {
  	#[pallet::error]
  	pub enum Error<T> {}
  
@@ -10,11 +22,3 @@ index 63d0b59..d4093e0 100644
  	#[pallet::call]
  	impl<T: Config> Pallet<T> {
  		pub fn create_kitty(origin: OriginFor<T>) -> DispatchResult {
-@@ -37,6 +38,7 @@ pub mod pallet {
- 		}
- 	}
- 
-+	// Learn about internal functions.
- 	impl<T: Config> Pallet<T> {
- 		fn mint(owner: T::AccountId) -> DispatchResult {
- 			Self::deposit_event(Event::<T>::Created { owner });

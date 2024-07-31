@@ -1,5 +1,7 @@
 #![cfg_attr(not(feature = "std"), no_std)]
 
+mod impls;
+
 pub use pallet::*;
 
 // Learn about Macros used in the `polkadot-sdk`, making pallet development easier.
@@ -49,23 +51,6 @@ pub mod pallet {
 			let who = ensure_signed(origin)?;
 			let dna = [0u8; 16];
 			Self::mint(who, dna)?;
-			Ok(())
-		}
-	}
-
-	// Learn about internal functions.
-	impl<T: Config> Pallet<T> {
-		// Learn about `AccountId`.
-		fn mint(owner: T::AccountId, dna: [u8; 16]) -> DispatchResult {
-			/* TODO:
-				- `ensure!` that `Kitties` map does not `contains_key` for `dna`.
-				- If it does, return `Error::<T>::DuplicateKitty`.
-			*/
-			let current_count: u64 = CountForKitties::<T>::get();
-			let new_count = current_count.checked_add(1).ok_or(Error::<T>::TooManyKitties)?;
-			Kitties::<T>::insert(dna, ());
-			CountForKitties::<T>::set(new_count);
-			Self::deposit_event(Event::<T>::Created { owner });
 			Ok(())
 		}
 	}

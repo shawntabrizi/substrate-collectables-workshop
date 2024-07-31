@@ -1,8 +1,8 @@
 diff --git a/src/lib.rs b/src/lib.rs
-index 5a3aec3..5ffb395 100644
+index a142105..5f5f631 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -20,13 +20,11 @@ pub mod pallet {
+@@ -22,13 +22,11 @@ pub mod pallet {
  		type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
  	}
  

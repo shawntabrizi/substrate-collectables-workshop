@@ -1,8 +1,32 @@
+diff --git a/src/impls.rs b/src/impls.rs
+index b2b0d67..8210525 100644
+--- a/src/impls.rs
++++ b/src/impls.rs
+@@ -35,14 +35,9 @@ impl<T: Config> Pallet<T> {
+ 		Ok(())
+ 	}
+ 
+-	/* TODO: Create an internal function called `do_transfer`:
+-		- It has inputs:
+-			- `from` which is `T::AccountId`.
+-			- `to` which is `T::AccountId`.
+-			- `kitty_id` which is `[u8; 16]`.
+-		- It returns a `DispatchResult`
+-		- The inner logic for now is:
+-			- Call `Self::dispatch_event` on and emit `Event::<T>:Transferred` with params.
+-			- Return `Ok(())`.
+-	*/
++	// Update storage to transfer kitty
++	pub fn do_transfer(from: T::AccountId, to: T::AccountId, kitty_id: [u8; 16]) -> DispatchResult {
++		Self::deposit_event(Event::<T>::Transferred { from, to, kitty_id });
++		Ok(())
++	}
+ }
 diff --git a/src/lib.rs b/src/lib.rs
-index bfddc9e..8f48917 100644
+index 2c51fa7..2f975da 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -49,12 +49,7 @@ pub mod pallet {
+@@ -51,12 +51,7 @@ pub mod pallet {
  	#[pallet::generate_deposit(pub(super) fn deposit_event)]
  	pub enum Event<T: Config> {
  		Created { owner: T::AccountId },
@@ -16,7 +40,7 @@ index bfddc9e..8f48917 100644
  	}
  
  	#[pallet::error]
-@@ -75,17 +70,15 @@ pub mod pallet {
+@@ -77,16 +72,14 @@ pub mod pallet {
  			Ok(())
  		}
  
@@ -38,32 +62,6 @@ index bfddc9e..8f48917 100644
 +		) -> DispatchResult {
 +			let who = ensure_signed(origin)?;
 +			Self::do_transfer(who, to, kitty_id)?;
-+			Ok(())
-+		}
- 	}
- 
- 	// Learn about internal functions.
-@@ -122,15 +115,14 @@ pub mod pallet {
- 			Ok(())
- 		}
- 
--		/* TODO: Create an internal function called `do_transfer`:
--			- It has inputs:
--				- `from` which is `T::AccountId`.
--				- `to` which is `T::AccountId`.
--				- `kitty_id` which is `[u8; 16]`.
--			- It returns a `DispatchResult`
--			- The inner logic for now is:
--				- Call `Self::dispatch_event` on and emit `Event::<T>:Transferred` with params.
--				- Return `Ok(())`.
--		*/
-+		// Update storage to transfer kitty
-+		pub fn do_transfer(
-+			from: T::AccountId,
-+			to: T::AccountId,
-+			kitty_id: [u8; 16],
-+		) -> DispatchResult {
-+			Self::deposit_event(Event::<T>::Transferred { from, to, kitty_id });
 +			Ok(())
 +		}
  	}
