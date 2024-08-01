@@ -124,6 +124,16 @@ You can add them, subtract them, multiply them, divide them, and even better, do
 let total_balance: BalanceOf<T> = balance_1.checked_add(balance_2).ok_or(ArithmeticError::Overflow)?;
 ```
 
+## Price Field
+
+We are going to use `BalanceOf<T>` in the `Kitty` struct to keep track if it is for sale, and the price the owner wants.
+
+For this we can use an `Option<BalanceOf<T>>`, where `None` denotes that a kitty is not for sale, and `Some(price)` denotes the kitty is for sale at some `price`.
+
 ## Your Turn
 
 Now that you know how to create and use the `BalanceOf<T>` type, add the type alias to your Pallet as shown in the template.
+
+Then add a new field to the `Kitty` struct called `price`, which is an `Option<BalanceOf<T>>`.
+
+Finally, update the `mint` function to create a new `Kitty` with the new `price` field set as `None`.
