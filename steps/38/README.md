@@ -55,7 +55,7 @@ This is kind of a crazy line of code, so let's break it down:
 	```rust
 	<<T as Config>::NativeBalance as Inspect<<T as frame_system::Config>::AccountId>>::Balance
 	```
-- Finally, we assign this to a new alias `BalanceOf` which is generic over `<T>`
+- Finally, we assign this to a new alias `BalanceOf` which is generic over `<T>`.
 	```rust
 	pub type BalanceOf<T> = <<T as Config>::NativeBalance as Inspect<<T as frame_system::Config>::AccountId>>::Balance
 	```
@@ -84,9 +84,46 @@ The second is way better right? This type alias handles extracting the `Balance`
 
 ## Basic API
 
-- TODO:
-	- Introduce the `BalanceOf<T>` type
-		- explain how it navigates the traits to access the underlying type
-		- explain how it is just a number, but can be any type of number
-		- explain `AtLeast32BitsUnsigned`
-	- Show how to use the `BalanceOf<T>` type.
+Let's learn how we can use the `BalanceOf<T>` type in our code.
+
+### Interacting with Primitive Numbers
+
+I will repeat again: Because the `BalanceOf<T>` type is generic, we cannot know what underlying type it is. This means we CANNOT write the following:
+
+```rust
+// This code doesn't work
+fn add_one(input: BalanceOf<T>) -> BalanceOf<T> {
+	input + 1u128
+}
+```
+
+Even if we don't include `u128`, we cannot write the line above. This is because that line assumes that `input` must be some specific number type, and in that code, it is simply generic.
+
+However, `BalanceOf<T>` [does have traits](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/tokens/trait.Balance.html) that we can use to interact with it. The key one being [`AtLeast32BitUnsigned`](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_frame/arithmetic/trait.AtLeast32BitUnsigned.html).
+
+This means our `BalanceOf<T>` must be an unsigned integer, and must be at least `u32`. So it could be `u32`, `u64`, `u128`, or even bigger if you import other crates with those larger unsigned types.
+
+This also means we **would** be able to write the following:
+
+```rust
+// This code does work
+fn add_one(input: BalanceOf<T>) -> BalanceOf<T> {
+	input + 1u32.into()
+}
+```
+
+We can convert any `u32` into the `BalanceOf<T>` type because we know at a minimum `BalanceOf<T>` is `AtLeast32BitUnsigned`.
+
+### Interacting with Itself
+
+Interacting between two `BalanceOf<T>` types will act just like two normal numbers of the same type.
+
+You can add them, subtract them, multiply them, divide them, and even better, do safe math operations on all of them.
+
+```rust
+let total_balance: BalanceOf<T> = balance_1.checked_add(balance_2).ok_or(ArithmeticError::Overflow)?;
+```
+
+## Your Turn
+
+Now that you know how to create and use the `BalanceOf<T>` type, add the type alias to your Pallet as shown in the template.
