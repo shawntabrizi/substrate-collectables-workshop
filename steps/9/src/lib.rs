@@ -33,7 +33,6 @@ pub mod pallet {
 	#[pallet::error]
 	pub enum Error<T> {}
 
-	// Learn about callable functions and dispatch.
 	#[pallet::call]
 	impl<T: Config> Pallet<T> {
 		pub fn create_kitty(origin: OriginFor<T>) -> DispatchResult {

@@ -46,7 +46,6 @@ pub mod pallet {
 		DuplicateKitty,
 	}
 
-	// Learn about callable functions and dispatch.
 	#[pallet::call]
 	impl<T: Config> Pallet<T> {
 		pub fn create_kitty(origin: OriginFor<T>) -> DispatchResult {
