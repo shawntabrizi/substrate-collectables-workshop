@@ -31,7 +31,6 @@ pub mod pallet {
 	#[pallet::storage]
 	pub(super) type CountForKitties<T: Config> = StorageValue<Value = u64, QueryKind = ValueQuery>;
 
-	/// Learn about storage maps.
 	#[pallet::storage]
 	/* TODO: Update the `Value` to be type `Kitty<T>` instead of (). */
 	pub(super) type Kitties<T: Config> = StorageMap<Key = [u8; 16], Value = ()>;
