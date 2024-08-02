@@ -36,7 +36,7 @@ pub mod pallet {
 	#[pallet::storage]
 	pub(super) type KittiesOwned<T: Config> = StorageMap<
 		Key = T::AccountId,
-		/* TODO: Turn this into a `BoundedVec` with a limit of `ConstU32<100>`. */
+		/* 🚧 TODO 🚧: Turn this into a `BoundedVec` with a limit of `ConstU32<100>`. */
 		Value = Vec<[u8; 16]>,
 		QueryKind = ValueQuery,
 	>;
@@ -51,7 +51,7 @@ pub mod pallet {
 	pub enum Error<T> {
 		TooManyKitties,
 		DuplicateKitty,
-		/* TODO: Add a new `Error` named `TooManyOwned` */
+		/* 🚧 TODO 🚧: Add a new `Error` named `TooManyOwned` */
 	}
 
 	#[pallet::call]

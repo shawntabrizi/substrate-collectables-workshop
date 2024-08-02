@@ -10,7 +10,7 @@ pub mod pallet {
 	use frame_support::pallet_prelude::*;
 	use frame_system::pallet_prelude::*;
 
-	/* TODO: Learn about the Pallet struct. */
+	/* 🚧 TODO 🚧: Learn about the Pallet struct. */
 	#[pallet::pallet]
 	pub struct Pallet<T>(_);
 

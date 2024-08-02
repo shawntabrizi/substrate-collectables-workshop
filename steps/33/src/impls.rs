@@ -34,7 +34,7 @@ impl<T: Config> Pallet<T> {
 		Ok(())
 	}
 
-	/* TODO: Create an internal function called `do_transfer`:
+	/* 🚧 TODO 🚧: Create an internal function called `do_transfer`:
 		- It has inputs:
 			- `from` which is `T::AccountId`.
 			- `to` which is `T::AccountId`.

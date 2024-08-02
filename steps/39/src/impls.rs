@@ -57,7 +57,7 @@ impl<T: Config> Pallet<T> {
 		Ok(())
 	}
 
-	/* TODO: Make an internal function called `do_set_price`:
+	/* 🚧 TODO 🚧: Make an internal function called `do_set_price`:
 		- Inputs to the function are:
 			- `caller` which is `T::AccountId`.
 			- `kitty_id` which is `[u8; 16]`.

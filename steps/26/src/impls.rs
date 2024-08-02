@@ -2,7 +2,7 @@ use super::*;
 use frame_support::pallet_prelude::*;
 
 impl<T: Config> Pallet<T> {
-	/* TODO: Create a function `gen_dna` which returns a `[u8; 16]`.
+	/* 🚧 TODO 🚧: Create a function `gen_dna` which returns a `[u8; 16]`.
 		- Create a `unique_payload` which contains data from `frame_system::Pallet::<T>`:
 			- `parent_hash`
 			- `block_number`

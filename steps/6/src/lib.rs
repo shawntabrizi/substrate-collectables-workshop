@@ -13,7 +13,7 @@ pub mod pallet {
 	#[pallet::pallet]
 	pub struct Pallet<T>(_);
 
-	/* TODO: Learn about Pallet `Config` and `frame_system`. */
+	/* 🚧 TODO 🚧: Learn about Pallet `Config` and `frame_system`. */
 	#[pallet::config]
 	pub trait Config: frame_system::Config {
 		type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;

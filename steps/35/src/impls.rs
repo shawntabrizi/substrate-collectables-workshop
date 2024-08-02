@@ -35,13 +35,13 @@ impl<T: Config> Pallet<T> {
 	}
 
 	pub fn do_transfer(from: T::AccountId, to: T::AccountId, kitty_id: [u8; 16]) -> DispatchResult {
-		/* TODO: Sanity check the transfer is allowed:
+		/* 🚧 TODO 🚧: Sanity check the transfer is allowed:
 			- First `ensure!` that `from` and `to` are not equal, else return `Error::<T>::TransferToSelf`.
 			- Get the `kitty` from `Kitties` using `kitty_id`, else return `Error::<T>::NoKitty`.
 			- Check the `kitty.owner` is equal to `from`, else return `NotOwner`.
 		*/
 
-		/* TODO: Update the owner of the kitty:
+		/* 🚧 TODO 🚧: Update the owner of the kitty:
 			- Update `kitty.owner` to `to`.
 			 - Update the `KittiesOwned` of `from` and `to:
 				- Create a mutable `to_owned` by querying `KittiesOwned` for `to`.
@@ -52,7 +52,7 @@ impl<T: Config> Pallet<T> {
 					- If you cannot find the kitty in the vector, return `Error::<T>::NoKitty`.
 		*/
 
-		/* TODO: Update the final storage.
+		/* 🚧 TODO 🚧: Update the final storage.
 			- Insert into `Kitties` under `kitty_id` the modified `kitty` struct.
 			- Insert into `KittiesOwned` under `to` the modified `to_owned` vector.
 			- Insert into `KittiesOwned` under `from` the modified `from_owned` vector.

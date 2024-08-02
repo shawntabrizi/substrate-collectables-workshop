@@ -30,7 +30,7 @@ pub mod pallet {
 	#[pallet::call]
 	impl<T: Config> Pallet<T> {
 		pub fn create_kitty(origin: OriginFor<T>) -> DispatchResult {
-			/* TODO: Learn about origin. */
+			/* 🚧 TODO 🚧: Learn about origin. */
 			let who = ensure_signed(origin)?;
 			Self::mint(who)?;
 			Ok(())

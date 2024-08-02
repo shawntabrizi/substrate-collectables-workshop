@@ -29,7 +29,7 @@ pub mod pallet {
 
 	#[pallet::error]
 	pub enum Error<T> {
-		/* TODO:
+		/* 🚧 TODO 🚧:
 			- Introduce a new error `TooManyKitties`.
 		*/
 	}

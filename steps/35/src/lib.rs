@@ -52,7 +52,7 @@ pub mod pallet {
 		TooManyKitties,
 		DuplicateKitty,
 		TooManyOwned,
-		/* TODO: Add new `Error` variants needed for `do_transfer`:
+		/* 🚧 TODO 🚧: Add new `Error` variants needed for `do_transfer`:
 			- `TransferToSelf`: for when the `from` and `to` of the transfer is the same.
 			- `NoKitty`: for when a transfer involves a kitty that does not exist.
 			- `NotOwner`: for when a transfer is initiated by someone who is not the current owner.

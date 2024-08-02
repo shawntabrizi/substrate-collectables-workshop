@@ -56,7 +56,7 @@ pub mod pallet {
 	pub enum Event<T: Config> {
 		Created { owner: T::AccountId },
 		Transferred { from: T::AccountId, to: T::AccountId, kitty_id: [u8; 16] },
-		/* TODO: Create a new `Event` called `PriceSet` with fields:
+		/* 🚧 TODO 🚧: Create a new `Event` called `PriceSet` with fields:
 			- `owner` which is `T::AccountId`.
 			- `kitty_id` which is `[u8; 16]`.
 			- `new_price` which is `Option<BalanceOf<T>>`.
@@ -92,7 +92,7 @@ pub mod pallet {
 			Ok(())
 		}
 
-		/* TODO: Make an callable function called `set_price`:
+		/* 🚧 TODO 🚧: Make an callable function called `set_price`:
 			- Inputs to the function are:
 				- `origin` which is `OriginFor<T>`.
 				- `kitty_id` which is `[u8; 16]`.

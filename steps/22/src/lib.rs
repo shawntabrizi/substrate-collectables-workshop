@@ -18,7 +18,7 @@ pub mod pallet {
 		type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
 	}
 
-	/* TODO:
+	/* 🚧 TODO 🚧:
 		- Create a new `struct` called `Kitty`.
 		- Make `Kitty` generic over `T` where `T: Config`.
 		- Add two fields to `Kitty`:

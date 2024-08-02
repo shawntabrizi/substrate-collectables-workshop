@@ -71,7 +71,7 @@ impl<T: Config> Pallet<T> {
 		Ok(())
 	}
 
-	/* TODO: Create a new internal function `do_buy_kitty`:
+	/* 🚧 TODO 🚧: Create a new internal function `do_buy_kitty`:
 		- Inputs to the function are:
 			- `buyer` which is `T::AccountId`.
 			- `kitty_id` which is `[u8; 16]`.

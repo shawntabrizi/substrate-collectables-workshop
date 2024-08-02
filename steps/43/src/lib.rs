@@ -57,7 +57,7 @@ pub mod pallet {
 		Created { owner: T::AccountId },
 		Transferred { from: T::AccountId, to: T::AccountId, kitty_id: [u8; 16] },
 		PriceSet { owner: T::AccountId, kitty_id: [u8; 16], new_price: Option<BalanceOf<T>> },
-		/* TODO: Create a new `Event` called `Sold` with the following parameters:
+		/* 🚧 TODO 🚧: Create a new `Event` called `Sold` with the following parameters:
 			- `buyer` which is `T::AccountId`.
 			- `kitty_id` which is `[u8; 16]`.
 			- `price` which is `BalanceOf<T>`.
@@ -103,7 +103,7 @@ pub mod pallet {
 			Ok(())
 		}
 
-		/* TODO: Create a new callable function `buy_kitty`:
+		/* 🚧 TODO 🚧: Create a new callable function `buy_kitty`:
 			- Inputs to the function are:
 				- `origin` which is `OriginFor<T>`.
 				- `kitty_id` which is `[u8; 16]`.

@@ -4,7 +4,7 @@ mod impls;
 
 pub use pallet::*;
 
-/* TODO: Learn about macros used in the `polkadot-sdk`, making pallet development easier. */
+/* 🚧 TODO 🚧: Learn about macros used in the `polkadot-sdk`, making pallet development easier. */
 #[frame_support::pallet(dev_mode)]
 pub mod pallet {
 	use super::*;

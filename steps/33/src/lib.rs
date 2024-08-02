@@ -44,7 +44,7 @@ pub mod pallet {
 	#[pallet::generate_deposit(pub(super) fn deposit_event)]
 	pub enum Event<T: Config> {
 		Created { owner: T::AccountId },
-		/* TODO: Create a new event called `Transferred`:
+		/* 🚧 TODO 🚧: Create a new event called `Transferred`:
 			- Parameters are:
 				- `from` which is `T::AccountId`.
 				- `to` which is `T::AccountId`.
@@ -68,7 +68,7 @@ pub mod pallet {
 			Ok(())
 		}
 
-		/* TODO: Make a new extrinsic called `transfer`.
+		/* 🚧 TODO 🚧: Make a new extrinsic called `transfer`.
 			- Input parameters are:
 				- `origin` which is `OriginFor<T>`.
 				- `to` which is `T::AccountId`.
