@@ -4,6 +4,8 @@ This repository is the basis for a tutorial teaching how to develop a simple NFT
 
 <img src="./screenshot.png" width="400px" />
 
+> If you are looking for the previous version of this tutorial from 2020, you can find all the original source code on the [`docsify-old` branch](https://github.com/shawntabrizi/substrate-collectables-workshop/tree/docsify-old). However, this content is way out of date, hence this new tutorial! :)
+
 ## Goal
 
 The goal of this tutorial is to **teach by experience** various entry level concepts around Polkadot Pallet development.
