@@ -4,7 +4,6 @@ mod impls;
 
 pub use pallet::*;
 
-// Learn about Macros used in the `polkadot-sdk`, making pallet development easier.
 #[frame_support::pallet(dev_mode)]
 pub mod pallet {
 	use super::*;
@@ -14,8 +13,6 @@ pub mod pallet {
 	};
 	use frame_system::pallet_prelude::*;
 
-	// Learn about the Pallet struct: the structure on which we implement all functions and traits
-	// for the Pallet.
 	#[pallet::pallet]
 	pub struct Pallet<T>(_);
 
