@@ -1,4 +1,4 @@
-- [0. Kitties Tutorial](0/README.md)
+- [0. Introduction](0/README.md)
     - [1. Polkadot-SDK](1/README.md)
     - [2. FRAME Macros](2/README.md)
     - [3. Pallet Struct](3/README.md)
