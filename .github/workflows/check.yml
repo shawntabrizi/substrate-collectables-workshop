@@ -8,11 +8,18 @@ on:
     branches:
       - master
 
+env:
+  SCCACHE_GHA_ENABLED: "true"
+  RUSTC_WRAPPER: "sccache"
+
 jobs:
   cargo:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Run sccache-cache
+        uses: mozilla-actions/sccache-action@v0.0.5
+
       - name: Checkout code
         uses: actions/checkout@v2
 
