@@ -16,7 +16,6 @@ pub mod pallet {
 	#[pallet::pallet]
 	pub struct Pallet<T>(_);
 
-	// Learn about frame_system, and `Config`.
 	#[pallet::config]
 	pub trait Config: frame_system::Config {
 		type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
@@ -38,7 +37,6 @@ pub mod pallet {
 		pub price: Option<BalanceOf<T>>,
 	}
 
-	/// Learn about storage value.
 	#[pallet::storage]
 	pub(super) type CountForKitties<T: Config> = StorageValue<Value = u64, QueryKind = ValueQuery>;
 
@@ -54,7 +52,6 @@ pub mod pallet {
 		QueryKind = ValueQuery,
 	>;
 
-	// Learn about events.
 	#[pallet::event]
 	#[pallet::generate_deposit(pub(super) fn deposit_event)]
 	pub enum Event<T: Config> {
