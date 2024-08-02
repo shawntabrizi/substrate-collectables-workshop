@@ -34,7 +34,6 @@ impl<T: Config> Pallet<T> {
 		Ok(())
 	}
 
-	// Update storage to transfer kitty
 	pub fn do_transfer(from: T::AccountId, to: T::AccountId, kitty_id: [u8; 16]) -> DispatchResult {
 		ensure!(from != to, Error::<T>::TransferToSelf);
 		let mut kitty = Kitties::<T>::get(kitty_id).ok_or(Error::<T>::NoKitty)?;

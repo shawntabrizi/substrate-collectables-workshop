@@ -34,7 +34,6 @@ impl<T: Config> Pallet<T> {
 		Ok(())
 	}
 
-	// Update storage to transfer kitty
 	pub fn do_transfer(from: T::AccountId, to: T::AccountId, kitty_id: [u8; 16]) -> DispatchResult {
 		/* TODO: Sanity check the transfer is allowed:
 			- First `ensure!` that `from` and `to` are not equal, else return `Error::<T>::TransferToSelf`.
