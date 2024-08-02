@@ -2,7 +2,7 @@
 
 This repository is the basis for a tutorial teaching how to develop a simple NFT marketplace using the [`polkadot-sdk`](https://github.com/paritytech/polkadot-sdk).
 
-![The Substrate Kitty](./screenshot.png | width=400)
+<img src="./screenshot.png" width="400px" />
 
 ## Goal
 
