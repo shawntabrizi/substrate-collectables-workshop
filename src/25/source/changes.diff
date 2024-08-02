@@ -1,8 +1,8 @@
 diff --git a/src/lib.rs b/src/lib.rs
-index bdcaa68..6b60305 100644
+index bcfe4da..ab7c5ed 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -8,7 +8,10 @@ pub use pallet::*;
+@@ -7,7 +7,10 @@ pub use pallet::*;
  #[frame_support::pallet(dev_mode)]
  pub mod pallet {
  	use super::*;
@@ -13,8 +13,8 @@ index bdcaa68..6b60305 100644
 +	};
  	use frame_system::pallet_prelude::*;
  
- 	// Learn about the Pallet struct: the structure on which we implement all functions and traits
-@@ -20,6 +23,9 @@ pub mod pallet {
+ 	#[pallet::pallet]
+@@ -16,6 +19,9 @@ pub mod pallet {
  	#[pallet::config]
  	pub trait Config: frame_system::Config {
  		type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;

@@ -4,19 +4,15 @@ mod impls;
 
 pub use pallet::*;
 
-// Learn about Macros used in the `polkadot-sdk`, making pallet development easier.
 #[frame_support::pallet(dev_mode)]
 pub mod pallet {
 	use super::*;
 	use frame_support::pallet_prelude::*;
 	use frame_system::pallet_prelude::*;
 
-	// Learn about the Pallet struct: the structure on which we implement all functions and traits
-	// for the Pallet.
 	#[pallet::pallet]
 	pub struct Pallet<T>(_);
 
-	// Learn about frame_system, and `Config`.
 	#[pallet::config]
 	pub trait Config: frame_system::Config {
 		type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
@@ -30,11 +26,9 @@ pub mod pallet {
 		pub owner: T::AccountId,
 	}
 
-	/// Learn about storage value.
 	#[pallet::storage]
 	pub(super) type CountForKitties<T: Config> = StorageValue<Value = u64, QueryKind = ValueQuery>;
 
-	/// Learn about storage maps.
 	#[pallet::storage]
 	pub(super) type Kitties<T: Config> = StorageMap<Key = [u8; 16], Value = Kitty<T>>;
 
@@ -42,12 +36,11 @@ pub mod pallet {
 	#[pallet::storage]
 	pub(super) type KittiesOwned<T: Config> = StorageMap<
 		Key = T::AccountId,
-		/* TODO: Turn this into a `BoundedVec` with a limit of `ConstU32<100>`. */
+		/* 🚧 TODO 🚧: Turn this into a `BoundedVec` with a limit of `ConstU32<100>`. */
 		Value = Vec<[u8; 16]>,
 		QueryKind = ValueQuery,
 	>;
 
-	// Learn about events.
 	#[pallet::event]
 	#[pallet::generate_deposit(pub(super) fn deposit_event)]
 	pub enum Event<T: Config> {
@@ -58,14 +51,12 @@ pub mod pallet {
 	pub enum Error<T> {
 		TooManyKitties,
 		DuplicateKitty,
-		/* TODO: Add a new `Error` named `TooManyOwned` */
+		/* 🚧 TODO 🚧: Add a new `Error` named `TooManyOwned` */
 	}
 
-	// Learn about callable functions and dispatch.
 	#[pallet::call]
 	impl<T: Config> Pallet<T> {
 		pub fn create_kitty(origin: OriginFor<T>) -> DispatchResult {
-			// Learn about `origin`.
 			let who = ensure_signed(origin)?;
 			let dna = Self::gen_dna();
 			Self::mint(who, dna)?;

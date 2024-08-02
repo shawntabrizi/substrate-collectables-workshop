@@ -1,15 +1,15 @@
 diff --git a/src/lib.rs b/src/lib.rs
-index 824c5ac..38fafb0 100644
+index 1dd2bca..bb6737b 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -26,6 +26,10 @@ pub mod pallet {
+@@ -21,6 +21,10 @@ pub mod pallet {
  	#[pallet::storage]
  	pub(super) type CountForKitties<T: Config> = StorageValue<Value = u64, QueryKind = ValueQuery>;
  
-+	/// Learn about storage maps.
++	/* 🚧 TODO 🚧: Learn about storage maps. */
 +	#[pallet::storage]
 +	pub(super) type Kitties<T: Config> = StorageMap<Key = [u8; 16], Value = ()>;
 +
- 	// Learn about events.
  	#[pallet::event]
  	#[pallet::generate_deposit(pub(super) fn deposit_event)]
+ 	pub enum Event<T: Config> {

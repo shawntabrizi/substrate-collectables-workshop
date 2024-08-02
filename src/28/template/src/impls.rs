@@ -18,7 +18,6 @@ impl<T: Config> Pallet<T> {
 		frame_support::Hashable::blake2_128(&encoded_payload)
 	}
 
-	// Learn about `AccountId`.
 	pub fn mint(owner: T::AccountId, dna: [u8; 16]) -> DispatchResult {
 		let kitty = Kitty { dna, owner: owner.clone(), price: None };
 		// Check if the kitty does not already exist in our storage map
@@ -35,7 +34,6 @@ impl<T: Config> Pallet<T> {
 		Ok(())
 	}
 
-	// Update storage to transfer kitty
 	pub fn do_transfer(from: T::AccountId, to: T::AccountId, kitty_id: [u8; 16]) -> DispatchResult {
 		ensure!(from != to, Error::<T>::TransferToSelf);
 		let mut kitty = Kitties::<T>::get(kitty_id).ok_or(Error::<T>::NoKitty)?;
@@ -64,7 +62,7 @@ impl<T: Config> Pallet<T> {
 		kitty_id: [u8; 16],
 		new_price: Option<BalanceOf<T>>,
 	) -> DispatchResult {
-		/* TODO: Create the logic for setting the Kitty price:
+		/* 🚧 TODO 🚧: Create the logic for setting the Kitty price:
 			- Create a mutable `kitty` by calling `get` on `Kitties` with `kitty_id`.
 				- Return an error if the kitty doesn't exist by returning `Error::<T>::NoKitty`.
 			- `ensure!` that the `kitty.owner` is equal to the `caller` else return `Error::<T>::NotOwner`.

@@ -1,32 +1,32 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index 99141c0..1af97cb 100644
+index b7fa63d..ca7e21b 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
-@@ -4,11 +4,9 @@ use frame_support::pallet_prelude::*;
+@@ -3,11 +3,9 @@ use frame_support::pallet_prelude::*;
+ 
  impl<T: Config> Pallet<T> {
- 	// Learn about `AccountId`.
  	pub fn mint(owner: T::AccountId) -> DispatchResult {
--		/* TODO: Remove the `unwrap_or` which is not needed when using `ValueQuery`. */
+-		/* 🚧 TODO 🚧: Remove the `unwrap_or` which is not needed when using `ValueQuery`. */
 -		let current_count: u64 = CountForKitties::<T>::get().unwrap_or(0);
 +		let current_count: u64 = CountForKitties::<T>::get();
  		let new_count = current_count.checked_add(1).ok_or(Error::<T>::TooManyKitties)?;
--		/* TODO: Remove the `Option` wrapper when setting the `new_count`. */
+-		/* 🚧 TODO 🚧: Remove the `Option` wrapper when setting the `new_count`. */
 -		CountForKitties::<T>::set(Some(new_count));
 +		CountForKitties::<T>::set(new_count);
  		Self::deposit_event(Event::<T>::Created { owner });
  		Ok(())
  	}
 diff --git a/src/lib.rs b/src/lib.rs
-index 5ef793a..824c5ac 100644
+index 12592cd..1dd2bca 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -24,8 +24,7 @@ pub mod pallet {
+@@ -19,8 +19,7 @@ pub mod pallet {
+ 	}
  
- 	/// Learn about storage value.
  	#[pallet::storage]
--	/* TODO: Update this storage to use a `QueryKind` of `ValueQuery`. */
+-	/* 🚧 TODO 🚧: Update this storage to use a `QueryKind` of `ValueQuery`. */
 -	pub(super) type CountForKitties<T: Config> = StorageValue<Value = u64>;
 +	pub(super) type CountForKitties<T: Config> = StorageValue<Value = u64, QueryKind = ValueQuery>;
  
- 	// Learn about events.
  	#[pallet::event]
+ 	#[pallet::generate_deposit(pub(super) fn deposit_event)]

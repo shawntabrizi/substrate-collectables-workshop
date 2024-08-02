@@ -1,12 +1,12 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index 0afb6df..d844db6 100644
+index 5f31ab7..29a1536 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
-@@ -59,14 +59,12 @@ impl<T: Config> Pallet<T> {
+@@ -57,14 +57,12 @@ impl<T: Config> Pallet<T> {
  		Ok(())
  	}
  
--	/* TODO: Make an internal function called `do_set_price`:
+-	/* 🚧 TODO 🚧: Make an internal function called `do_set_price`:
 -		- Inputs to the function are:
 -			- `caller` which is `T::AccountId`.
 -			- `kitty_id` which is `[u8; 16]`.
@@ -26,14 +26,14 @@ index 0afb6df..d844db6 100644
 +	}
  }
 diff --git a/src/lib.rs b/src/lib.rs
-index 5c9dabe..52c6f53 100644
+index 155850b..60f1a1d 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -63,11 +63,7 @@ pub mod pallet {
+@@ -56,11 +56,7 @@ pub mod pallet {
  	pub enum Event<T: Config> {
  		Created { owner: T::AccountId },
  		Transferred { from: T::AccountId, to: T::AccountId, kitty_id: [u8; 16] },
--		/* TODO: Create a new `Event` called `PriceSet` with fields:
+-		/* 🚧 TODO 🚧: Create a new `Event` called `PriceSet` with fields:
 -			- `owner` which is `T::AccountId`.
 -			- `kitty_id` which is `[u8; 16]`.
 -			- `new_price` which is `Option<BalanceOf<T>>`.
@@ -42,11 +42,11 @@ index 5c9dabe..52c6f53 100644
  	}
  
  	#[pallet::error]
-@@ -101,16 +97,14 @@ pub mod pallet {
+@@ -92,16 +88,14 @@ pub mod pallet {
  			Ok(())
  		}
  
--		/* TODO: Make an callable function called `set_price`:
+-		/* 🚧 TODO 🚧: Make an callable function called `set_price`:
 -			- Inputs to the function are:
 -				- `origin` which is `OriginFor<T>`.
 -				- `kitty_id` which is `[u8; 16]`.

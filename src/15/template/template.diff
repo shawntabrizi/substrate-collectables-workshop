@@ -1,12 +1,12 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index c8320f8..c984894 100644
+index 9cd37fd..76126c0 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
-@@ -4,6 +4,10 @@ use frame_support::pallet_prelude::*;
+@@ -3,6 +3,10 @@ use frame_support::pallet_prelude::*;
+ 
  impl<T: Config> Pallet<T> {
- 	// Learn about `AccountId`.
  	pub fn mint(owner: T::AccountId, dna: [u8; 16]) -> DispatchResult {
-+		/* TODO:
++		/* 🚧 TODO 🚧:
 +			- `ensure!` that `Kitties` map does not `contains_key` for `dna`.
 +			- If it does, return `Error::<T>::DuplicateKitty`.
 +		*/
@@ -14,14 +14,14 @@ index c8320f8..c984894 100644
  		let new_count = current_count.checked_add(1).ok_or(Error::<T>::TooManyKitties)?;
  		Kitties::<T>::insert(dna, ());
 diff --git a/src/lib.rs b/src/lib.rs
-index 331ff28..f2120f9 100644
+index c1cde0b..dec17aa 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -40,6 +40,7 @@ pub mod pallet {
+@@ -33,6 +33,7 @@ pub mod pallet {
  	#[pallet::error]
  	pub enum Error<T> {
  		TooManyKitties,
-+		/* TODO: Create a new error `DuplicateKitty`. */
++		/* 🚧 TODO 🚧: Create a new error `DuplicateKitty`. */
  	}
  
- 	// Learn about callable functions and dispatch.
+ 	#[pallet::call]

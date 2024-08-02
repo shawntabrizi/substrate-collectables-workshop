@@ -4,15 +4,12 @@ mod impls;
 
 pub use pallet::*;
 
-// Learn about Macros used in the `polkadot-sdk`, making pallet development easier.
 #[frame_support::pallet(dev_mode)]
 pub mod pallet {
 	use super::*;
 	use frame_support::pallet_prelude::*;
 	use frame_system::pallet_prelude::*;
 
-	// Learn about the Pallet struct: the structure on which we implement all functions and traits
-	// for the Pallet.
 	#[pallet::pallet]
 	pub struct Pallet<T>(_);
 
@@ -30,11 +27,10 @@ pub mod pallet {
 	#[pallet::error]
 	pub enum Error<T> {}
 
-	// Learn about callable functions and dispatch.
 	#[pallet::call]
 	impl<T: Config> Pallet<T> {
 		pub fn create_kitty(origin: OriginFor<T>) -> DispatchResult {
-			// Learn about `origin`.
+			/* 🚧 TODO 🚧: Learn about origin. */
 			let who = ensure_signed(origin)?;
 			Self::mint(who)?;
 			Ok(())

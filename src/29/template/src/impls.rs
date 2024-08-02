@@ -18,7 +18,6 @@ impl<T: Config> Pallet<T> {
 		frame_support::Hashable::blake2_128(&encoded_payload)
 	}
 
-	// Learn about `AccountId`.
 	pub fn mint(owner: T::AccountId, dna: [u8; 16]) -> DispatchResult {
 		let kitty = Kitty { dna, owner: owner.clone(), price: None };
 		// Check if the kitty does not already exist in our storage map
@@ -35,7 +34,6 @@ impl<T: Config> Pallet<T> {
 		Ok(())
 	}
 
-	// Update storage to transfer kitty
 	pub fn do_transfer(from: T::AccountId, to: T::AccountId, kitty_id: [u8; 16]) -> DispatchResult {
 		ensure!(from != to, Error::<T>::TransferToSelf);
 		let mut kitty = Kitties::<T>::get(kitty_id).ok_or(Error::<T>::NoKitty)?;
@@ -73,7 +71,7 @@ impl<T: Config> Pallet<T> {
 		Ok(())
 	}
 
-	/* Create a new internal function `do_buy_kitty`:
+	/* 🚧 TODO 🚧: Create a new internal function `do_buy_kitty`:
 		- Inputs to the function are:
 			- `buyer` which is `T::AccountId`.
 			- `kitty_id` which is `[u8; 16]`.

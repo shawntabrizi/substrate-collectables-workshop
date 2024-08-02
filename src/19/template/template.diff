@@ -1,12 +1,12 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index 5ec6eb6..4a482ed 100644
+index 46d0290..b8bdd01 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
 @@ -2,6 +2,17 @@ use super::*;
  use frame_support::pallet_prelude::*;
  
  impl<T: Config> Pallet<T> {
-+	/* TODO: Create a function `gen_dna` which returns a `[u8; 16]`.
++	/* 🚧 TODO 🚧: Create a function `gen_dna` which returns a `[u8; 16]`.
 +		- Create a `unique_payload` which contains data from `frame_system::Pallet::<T>`:
 +			- `parent_hash`
 +			- `block_number`
@@ -17,18 +17,18 @@ index 5ec6eb6..4a482ed 100644
 +		- Return the 16 byte hash.
 +	*/
 +
- 	// Learn about `AccountId`.
  	pub fn mint(owner: T::AccountId, dna: [u8; 16]) -> DispatchResult {
  		let kitty = Kitty { dna, owner: owner.clone() };
+ 		// Check if the kitty does not already exist in our storage map
 diff --git a/src/lib.rs b/src/lib.rs
-index 7fcaaad..63c9b02 100644
+index 43a3d23..88924bf 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -57,6 +57,7 @@ pub mod pallet {
+@@ -48,6 +48,7 @@ pub mod pallet {
+ 	impl<T: Config> Pallet<T> {
  		pub fn create_kitty(origin: OriginFor<T>) -> DispatchResult {
- 			// Learn about `origin`.
  			let who = ensure_signed(origin)?;
-+			/* TODO: Use the `Self::gen_dna()` function to generate a unique Kitty. */
++			/* 🚧 TODO 🚧: Use the `Self::gen_dna()` function to generate a unique Kitty. */
  			let dna = [0u8; 16];
  			Self::mint(who, dna)?;
  			Ok(())

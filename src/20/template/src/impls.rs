@@ -17,7 +17,6 @@ impl<T: Config> Pallet<T> {
 		frame_support::Hashable::blake2_128(&encoded_payload)
 	}
 
-	// Learn about `AccountId`.
 	pub fn mint(owner: T::AccountId, dna: [u8; 16]) -> DispatchResult {
 		let kitty = Kitty { dna, owner: owner.clone() };
 		// Check if the kitty does not already exist in our storage map
@@ -26,7 +25,7 @@ impl<T: Config> Pallet<T> {
 		let current_count: u64 = CountForKitties::<T>::get();
 		let new_count = current_count.checked_add(1).ok_or(Error::<T>::TooManyKitties)?;
 
-		/* TODO: `append` the `dna` to the `KittiesOwned` storage for the `owner`. */
+		/* 🚧 TODO 🚧: `append` the `dna` to the `KittiesOwned` storage for the `owner`. */
 
 		Kitties::<T>::insert(dna, kitty);
 		CountForKitties::<T>::set(new_count);

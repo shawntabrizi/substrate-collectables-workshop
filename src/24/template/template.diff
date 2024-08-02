@@ -1,18 +1,18 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index 8210525..97b5feb 100644
+index 868d386..a3755da 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
-@@ -37,6 +37,29 @@ impl<T: Config> Pallet<T> {
+@@ -35,6 +35,29 @@ impl<T: Config> Pallet<T> {
+ 	}
  
- 	// Update storage to transfer kitty
  	pub fn do_transfer(from: T::AccountId, to: T::AccountId, kitty_id: [u8; 16]) -> DispatchResult {
-+		/* TODO: Sanity check the transfer is allowed:
++		/* 🚧 TODO 🚧: Sanity check the transfer is allowed:
 +			- First `ensure!` that `from` and `to` are not equal, else return `Error::<T>::TransferToSelf`.
 +			- Get the `kitty` from `Kitties` using `kitty_id`, else return `Error::<T>::NoKitty`.
 +			- Check the `kitty.owner` is equal to `from`, else return `NotOwner`.
 +		*/
 +
-+		/* TODO: Update the owner of the kitty:
++		/* 🚧 TODO 🚧: Update the owner of the kitty:
 +			- Update `kitty.owner` to `to`.
 +			 - Update the `KittiesOwned` of `from` and `to:
 +				- Create a mutable `to_owned` by querying `KittiesOwned` for `to`.
@@ -23,7 +23,7 @@ index 8210525..97b5feb 100644
 +					- If you cannot find the kitty in the vector, return `Error::<T>::NoKitty`.
 +		*/
 +
-+		/* TODO: Update the final storage.
++		/* 🚧 TODO 🚧: Update the final storage.
 +			- Insert into `Kitties` under `kitty_id` the modified `kitty` struct.
 +			- Insert into `KittiesOwned` under `to` the modified `to_owned` vector.
 +			- Insert into `KittiesOwned` under `from` the modified `from_owned` vector.
@@ -33,18 +33,18 @@ index 8210525..97b5feb 100644
  		Ok(())
  	}
 diff --git a/src/lib.rs b/src/lib.rs
-index 2f975da..a55136f 100644
+index 45c4370..36963ee 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -59,6 +59,11 @@ pub mod pallet {
+@@ -52,6 +52,11 @@ pub mod pallet {
  		TooManyKitties,
  		DuplicateKitty,
  		TooManyOwned,
-+		/* Add new `Error` variants needed for `do_transfer`:
++		/* 🚧 TODO 🚧: Add new `Error` variants needed for `do_transfer`:
 +			- `TransferToSelf`: for when the `from` and `to` of the transfer is the same.
 +			- `NoKitty`: for when a transfer involves a kitty that does not exist.
 +			- `NotOwner`: for when a transfer is initiated by someone who is not the current owner.
 +		*/
  	}
  
- 	// Learn about callable functions and dispatch.
+ 	#[pallet::call]

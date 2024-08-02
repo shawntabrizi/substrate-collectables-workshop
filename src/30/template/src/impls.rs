@@ -18,7 +18,6 @@ impl<T: Config> Pallet<T> {
 		frame_support::Hashable::blake2_128(&encoded_payload)
 	}
 
-	// Learn about `AccountId`.
 	pub fn mint(owner: T::AccountId, dna: [u8; 16]) -> DispatchResult {
 		let kitty = Kitty { dna, owner: owner.clone(), price: None };
 		// Check if the kitty does not already exist in our storage map
@@ -35,7 +34,6 @@ impl<T: Config> Pallet<T> {
 		Ok(())
 	}
 
-	// Update storage to transfer kitty
 	pub fn do_transfer(from: T::AccountId, to: T::AccountId, kitty_id: [u8; 16]) -> DispatchResult {
 		ensure!(from != to, Error::<T>::TransferToSelf);
 		let mut kitty = Kitties::<T>::get(kitty_id).ok_or(Error::<T>::NoKitty)?;
@@ -78,13 +76,13 @@ impl<T: Config> Pallet<T> {
 		kitty_id: [u8; 16],
 		price: BalanceOf<T>,
 	) -> DispatchResult {
-		/* TODO: Sanity check that the purchase is allowed:
+		/* 🚧 TODO 🚧: Sanity check that the purchase is allowed:
 			- Get `kitty` from `Kitties` using `kitty_id`, `ok_or` return `Error::<T>::NoKitty`.
 			- Get the `real_price` from `kitty.price`, `ok_or` return `Error::<T>::NotForSale`.
 			- `ensure!` that `price` is greater or equal to `real_price`, else `Error::<T>::MaxPriceTooLow`.
 		*/
 
-		/* TODO: Execute the transfers:
+		/* 🚧 TODO 🚧: Execute the transfers:
 			- Import `use frame_support::traits::tokens::Preservation;`, which is used for balance transfer.
 			- Use `T::NativeBalance` to `transfer` from the `buyer` to the `kitty.owner`.
 				- The amount transferred should be the `real_price`.
@@ -93,7 +91,7 @@ impl<T: Config> Pallet<T> {
 			- Remember to propagate up all results from these functions with `?`.
 		*/
 
-		/* TODO: Update the event to use the `real_price` in the `Event`. */
+		/* 🚧 TODO 🚧: Update the event to use the `real_price` in the `Event`. */
 		Self::deposit_event(Event::<T>::Sold { buyer, kitty_id, price });
 		Ok(())
 	}

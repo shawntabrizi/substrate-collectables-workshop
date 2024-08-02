@@ -1,12 +1,12 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index 9678a42..b91e955 100644
+index 8d17a87..52636e4 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
-@@ -26,10 +26,10 @@ impl<T: Config> Pallet<T> {
+@@ -25,10 +25,10 @@ impl<T: Config> Pallet<T> {
  		let current_count: u64 = CountForKitties::<T>::get();
  		let new_count = current_count.checked_add(1).ok_or(Error::<T>::TooManyKitties)?;
  
--		/* TODO: `append` the `dna` to the `KittiesOwned` storage for the `owner`. */
+-		/* 🚧 TODO 🚧: `append` the `dna` to the `KittiesOwned` storage for the `owner`. */
 -
 +		KittiesOwned::<T>::append(&owner, dna);
  		Kitties::<T>::insert(dna, kitty);
@@ -16,14 +16,14 @@ index 9678a42..b91e955 100644
  		Ok(())
  	}
 diff --git a/src/lib.rs b/src/lib.rs
-index db7d83b..f6d7426 100644
+index 050016c..2e8e81a 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -38,11 +38,10 @@ pub mod pallet {
+@@ -32,11 +32,10 @@ pub mod pallet {
  	#[pallet::storage]
  	pub(super) type Kitties<T: Config> = StorageMap<Key = [u8; 16], Value = Kitty<T>>;
  
--	/* TODO: Create a new `StorageMap` called `KittiesOwned`.
+-	/* 🚧 TODO 🚧: Create a new `StorageMap` called `KittiesOwned`.
 -		- The `Key` of this map is `T::AccountId`.
 -		- The `Value` of this map is `Vec<[u8; 16]>`.
 -		- The `QueryKind` should be set to `ValueQuery`.
@@ -33,5 +33,5 @@ index db7d83b..f6d7426 100644
 +	pub(super) type KittiesOwned<T: Config> =
 +		StorageMap<Key = T::AccountId, Value = Vec<[u8; 16]>, QueryKind = ValueQuery>;
  
- 	// Learn about events.
  	#[pallet::event]
+ 	#[pallet::generate_deposit(pub(super) fn deposit_event)]

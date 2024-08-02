@@ -1,12 +1,12 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index d2b2015..0f425a0 100644
+index d73e0e1..a68886b 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
-@@ -73,14 +73,12 @@ impl<T: Config> Pallet<T> {
+@@ -71,14 +71,12 @@ impl<T: Config> Pallet<T> {
  		Ok(())
  	}
  
--	/* Create a new internal function `do_buy_kitty`:
+-	/* 🚧 TODO 🚧: Create a new internal function `do_buy_kitty`:
 -		- Inputs to the function are:
 -			- `buyer` which is `T::AccountId`.
 -			- `kitty_id` which is `[u8; 16]`.
@@ -26,14 +26,14 @@ index d2b2015..0f425a0 100644
 +	}
  }
 diff --git a/src/lib.rs b/src/lib.rs
-index 5072ec6..d6c59f0 100644
+index 818a34b..13ae0b1 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -64,11 +64,7 @@ pub mod pallet {
+@@ -57,11 +57,7 @@ pub mod pallet {
  		Created { owner: T::AccountId },
  		Transferred { from: T::AccountId, to: T::AccountId, kitty_id: [u8; 16] },
  		PriceSet { owner: T::AccountId, kitty_id: [u8; 16], new_price: Option<BalanceOf<T>> },
--		/* TODO: Create a new `Event` called `Sold` with the following parameters:
+-		/* 🚧 TODO 🚧: Create a new `Event` called `Sold` with the following parameters:
 -			- `buyer` which is `T::AccountId`.
 -			- `kitty_id` which is `[u8; 16]`.
 -			- `price` which is `BalanceOf<T>`.
@@ -42,11 +42,11 @@ index 5072ec6..d6c59f0 100644
  	}
  
  	#[pallet::error]
-@@ -112,16 +108,14 @@ pub mod pallet {
+@@ -103,16 +99,14 @@ pub mod pallet {
  			Ok(())
  		}
  
--		/* Create a new callable function `buy_kitty`:
+-		/* 🚧 TODO 🚧: Create a new callable function `buy_kitty`:
 -			- Inputs to the function are:
 -				- `origin` which is `OriginFor<T>`.
 -				- `kitty_id` which is `[u8; 16]`.

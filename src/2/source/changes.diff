@@ -1,12 +1,12 @@
 diff --git a/src/lib.rs b/src/lib.rs
-index f846f0b..4d56aa1 100644
+index f846f0b..0ab36ce 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
 @@ -4,6 +4,7 @@ mod impls;
  
  pub use pallet::*;
  
-+// Learn about Macros used in the `polkadot-sdk`, making pallet development easier.
++/* 🚧 TODO 🚧: Learn about macros used in the `polkadot-sdk`, making pallet development easier. */
  #[frame_support::pallet(dev_mode)]
  pub mod pallet {
  	use super::*;

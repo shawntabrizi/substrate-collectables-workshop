@@ -18,7 +18,6 @@ impl<T: Config> Pallet<T> {
 		frame_support::Hashable::blake2_128(&encoded_payload)
 	}
 
-	// Learn about `AccountId`.
 	pub fn mint(owner: T::AccountId, dna: [u8; 16]) -> DispatchResult {
 		let kitty = Kitty { dna, owner: owner.clone() };
 		// Check if the kitty does not already exist in our storage map
@@ -35,7 +34,6 @@ impl<T: Config> Pallet<T> {
 		Ok(())
 	}
 
-	// Update storage to transfer kitty
 	pub fn do_transfer(from: T::AccountId, to: T::AccountId, kitty_id: [u8; 16]) -> DispatchResult {
 		Self::deposit_event(Event::<T>::Transferred { from, to, kitty_id });
 		Ok(())

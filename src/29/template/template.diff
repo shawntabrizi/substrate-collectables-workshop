@@ -1,13 +1,13 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index d53238c..d2b2015 100644
+index fba3fde..d73e0e1 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
-@@ -72,4 +72,15 @@ impl<T: Config> Pallet<T> {
+@@ -70,4 +70,15 @@ impl<T: Config> Pallet<T> {
  		Self::deposit_event(Event::<T>::PriceSet { owner: caller, kitty_id, new_price });
  		Ok(())
  	}
 +
-+	/* Create a new internal function `do_buy_kitty`:
++	/* 🚧 TODO 🚧: Create a new internal function `do_buy_kitty`:
 +		- Inputs to the function are:
 +			- `buyer` which is `T::AccountId`.
 +			- `kitty_id` which is `[u8; 16]`.
@@ -19,14 +19,14 @@ index d53238c..d2b2015 100644
 +	*/
  }
 diff --git a/src/lib.rs b/src/lib.rs
-index 52c6f53..5072ec6 100644
+index 60f1a1d..818a34b 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -64,6 +64,11 @@ pub mod pallet {
+@@ -57,6 +57,11 @@ pub mod pallet {
  		Created { owner: T::AccountId },
  		Transferred { from: T::AccountId, to: T::AccountId, kitty_id: [u8; 16] },
  		PriceSet { owner: T::AccountId, kitty_id: [u8; 16], new_price: Option<BalanceOf<T>> },
-+		/* TODO: Create a new `Event` called `Sold` with the following parameters:
++		/* 🚧 TODO 🚧: Create a new `Event` called `Sold` with the following parameters:
 +			- `buyer` which is `T::AccountId`.
 +			- `kitty_id` which is `[u8; 16]`.
 +			- `price` which is `BalanceOf<T>`.
@@ -34,12 +34,12 @@ index 52c6f53..5072ec6 100644
  	}
  
  	#[pallet::error]
-@@ -106,5 +111,17 @@ pub mod pallet {
+@@ -97,5 +102,17 @@ pub mod pallet {
  			Self::do_set_price(who, kitty_id, new_price)?;
  			Ok(())
  		}
 +
-+		/* Create a new callable function `buy_kitty`:
++		/* 🚧 TODO 🚧: Create a new callable function `buy_kitty`:
 +			- Inputs to the function are:
 +				- `origin` which is `OriginFor<T>`.
 +				- `kitty_id` which is `[u8; 16]`.

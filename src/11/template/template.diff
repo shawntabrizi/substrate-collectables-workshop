@@ -1,29 +1,29 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index ef53a56..ba4070f 100644
+index cabecf1..8acfe79 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
-@@ -5,6 +5,7 @@ impl<T: Config> Pallet<T> {
- 	// Learn about `AccountId`.
+@@ -4,6 +4,7 @@ use frame_support::pallet_prelude::*;
+ impl<T: Config> Pallet<T> {
  	pub fn mint(owner: T::AccountId) -> DispatchResult {
  		let current_count: u64 = CountForKitties::<T>::get().unwrap_or(0);
-+		/* TODO: Update this logic to use safe math. */
++		/* 🚧 TODO 🚧: Update this logic to use safe math. */
  		let new_count = current_count + 1;
  		CountForKitties::<T>::set(Some(new_count));
  		Self::deposit_event(Event::<T>::Created { owner });
 diff --git a/src/lib.rs b/src/lib.rs
-index acea2e2..110d15d 100644
+index 29f7ff7..69e4980 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -34,7 +34,11 @@ pub mod pallet {
+@@ -28,7 +28,11 @@ pub mod pallet {
  	}
  
  	#[pallet::error]
 -	pub enum Error<T> {}
 +	pub enum Error<T> {
-+		/* TODO:
++		/* 🚧 TODO 🚧:
 +			- Introduce a new error `TooManyKitties`.
 +		*/
 +	}
  
- 	// Learn about callable functions and dispatch.
  	#[pallet::call]
+ 	impl<T: Config> Pallet<T> {

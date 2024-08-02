@@ -1,5 +1,5 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index 1d20f32..300924a 100644
+index bf9d3b7..a616253 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
 @@ -1,6 +1,7 @@
@@ -10,36 +10,38 @@ index 1d20f32..300924a 100644
  impl<T: Config> Pallet<T> {
  	// Generates and returns DNA and Sex
  	pub fn gen_dna() -> [u8; 16] {
-@@ -26,8 +27,7 @@ impl<T: Config> Pallet<T> {
+@@ -25,10 +26,7 @@ impl<T: Config> Pallet<T> {
  		let current_count: u64 = CountForKitties::<T>::get();
  		let new_count = current_count.checked_add(1).ok_or(Error::<T>::TooManyKitties)?;
  
--		/* TODO: Update `append` to `try_append` and `map_err` to `Error::<T>::TooManyOwned`. */
+-		/* 🚧 TODO 🚧:
+-			- Update `append` to `try_append` and `map_err` to `Error::<T>::TooManyOwned`.
+-		*/
 -		KittiesOwned::<T>::append(&owner, dna);
 +		KittiesOwned::<T>::try_append(&owner, dna).map_err(|_| Error::<T>::TooManyOwned)?;
  		Kitties::<T>::insert(dna, kitty);
  		CountForKitties::<T>::set(new_count);
  
 diff --git a/src/lib.rs b/src/lib.rs
-index ec52a49..8209cc2 100644
+index bf5d3e8..03778ba 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -42,8 +42,7 @@ pub mod pallet {
+@@ -36,8 +36,7 @@ pub mod pallet {
  	#[pallet::storage]
  	pub(super) type KittiesOwned<T: Config> = StorageMap<
  		Key = T::AccountId,
--		/* TODO: Turn this into a `BoundedVec` with a limit of `ConstU32<100>`. */
+-		/* 🚧 TODO 🚧: Turn this into a `BoundedVec` with a limit of `ConstU32<100>`. */
 -		Value = Vec<[u8; 16]>,
 +		Value = BoundedVec<[u8; 16], ConstU32<100>>,
  		QueryKind = ValueQuery,
  	>;
  
-@@ -58,7 +57,7 @@ pub mod pallet {
+@@ -51,7 +50,7 @@ pub mod pallet {
  	pub enum Error<T> {
  		TooManyKitties,
  		DuplicateKitty,
--		/* TODO: Add a new `Error` named `TooManyOwned` */
+-		/* 🚧 TODO 🚧: Add a new `Error` named `TooManyOwned` */
 +		TooManyOwned,
  	}
  
- 	// Learn about callable functions and dispatch.
+ 	#[pallet::call]

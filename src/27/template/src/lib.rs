@@ -4,7 +4,6 @@ mod impls;
 
 pub use pallet::*;
 
-// Learn about Macros used in the `polkadot-sdk`, making pallet development easier.
 #[frame_support::pallet(dev_mode)]
 pub mod pallet {
 	use super::*;
@@ -14,12 +13,9 @@ pub mod pallet {
 	};
 	use frame_system::pallet_prelude::*;
 
-	// Learn about the Pallet struct: the structure on which we implement all functions and traits
-	// for the Pallet.
 	#[pallet::pallet]
 	pub struct Pallet<T>(_);
 
-	// Learn about frame_system, and `Config`.
 	#[pallet::config]
 	pub trait Config: frame_system::Config {
 		type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
@@ -41,11 +37,9 @@ pub mod pallet {
 		pub price: Option<BalanceOf<T>>,
 	}
 
-	/// Learn about storage value.
 	#[pallet::storage]
 	pub(super) type CountForKitties<T: Config> = StorageValue<Value = u64, QueryKind = ValueQuery>;
 
-	/// Learn about storage maps.
 	#[pallet::storage]
 	pub(super) type Kitties<T: Config> = StorageMap<Key = [u8; 16], Value = Kitty<T>>;
 
@@ -57,13 +51,12 @@ pub mod pallet {
 		QueryKind = ValueQuery,
 	>;
 
-	// Learn about events.
 	#[pallet::event]
 	#[pallet::generate_deposit(pub(super) fn deposit_event)]
 	pub enum Event<T: Config> {
 		Created { owner: T::AccountId },
 		Transferred { from: T::AccountId, to: T::AccountId, kitty_id: [u8; 16] },
-		/* TODO: Create a new `Event` called `PriceSet` with fields:
+		/* 🚧 TODO 🚧: Create a new `Event` called `PriceSet` with fields:
 			- `owner` which is `T::AccountId`.
 			- `kitty_id` which is `[u8; 16]`.
 			- `new_price` which is `Option<BalanceOf<T>>`.
@@ -80,11 +73,9 @@ pub mod pallet {
 		NotOwner,
 	}
 
-	// Learn about callable functions and dispatch.
 	#[pallet::call]
 	impl<T: Config> Pallet<T> {
 		pub fn create_kitty(origin: OriginFor<T>) -> DispatchResult {
-			// Learn about `origin`.
 			let who = ensure_signed(origin)?;
 			let dna = Self::gen_dna();
 			Self::mint(who, dna)?;
@@ -101,7 +92,7 @@ pub mod pallet {
 			Ok(())
 		}
 
-		/* TODO: Make an callable function called `set_price`:
+		/* 🚧 TODO 🚧: Make an callable function called `set_price`:
 			- Inputs to the function are:
 				- `origin` which is `OriginFor<T>`.
 				- `kitty_id` which is `[u8; 16]`.

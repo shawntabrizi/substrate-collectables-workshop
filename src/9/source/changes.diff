@@ -1,15 +1,15 @@
 diff --git a/src/lib.rs b/src/lib.rs
-index 330d3e6..acea2e2 100644
+index f846f0b..817e9b0 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -22,6 +22,10 @@ pub mod pallet {
+@@ -18,6 +18,10 @@ pub mod pallet {
  		type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
  	}
  
-+	/// Learn about storage value.
++	/* 🚧 TODO 🚧: Learn about storage value. */
 +	#[pallet::storage]
 +	pub(super) type CountForKitties<T: Config> = StorageValue<Value = u64>;
 +
- 	// Learn about events.
  	#[pallet::event]
  	#[pallet::generate_deposit(pub(super) fn deposit_event)]
+ 	pub enum Event<T: Config> {

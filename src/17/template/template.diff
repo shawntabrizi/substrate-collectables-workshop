@@ -1,12 +1,12 @@
 diff --git a/src/lib.rs b/src/lib.rs
-index a5bb629..a142105 100644
+index 25918a6..8dc3357 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -22,6 +22,14 @@ pub mod pallet {
+@@ -18,6 +18,14 @@ pub mod pallet {
  		type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
  	}
  
-+	/* TODO:
++	/* 🚧 TODO 🚧:
 +		- Create a new `struct` called `Kitty`.
 +		- Make `Kitty` generic over `T` where `T: Config`.
 +		- Add two fields to `Kitty`:
@@ -14,6 +14,6 @@ index a5bb629..a142105 100644
 +			- `owner` which is type `T::AccountId`.
 +	*/
 +
- 	/// Learn about storage value.
  	#[pallet::storage]
  	pub(super) type CountForKitties<T: Config> = StorageValue<Value = u64, QueryKind = ValueQuery>;
+ 
