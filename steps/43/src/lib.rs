@@ -103,7 +103,7 @@ pub mod pallet {
 			Ok(())
 		}
 
-		/* Create a new callable function `buy_kitty`:
+		/* TODO: Create a new callable function `buy_kitty`:
 			- Inputs to the function are:
 				- `origin` which is `OriginFor<T>`.
 				- `kitty_id` which is `[u8; 16]`.
