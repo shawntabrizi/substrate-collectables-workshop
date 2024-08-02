@@ -2,7 +2,6 @@ use super::*;
 use frame_support::pallet_prelude::*;
 
 impl<T: Config> Pallet<T> {
-	// Learn about `AccountId`.
 	/* TODO: Update this function signature to include `id` which is type `[u8; 16]`. */
 	pub fn mint(owner: T::AccountId) -> DispatchResult {
 		let current_count: u64 = CountForKitties::<T>::get();

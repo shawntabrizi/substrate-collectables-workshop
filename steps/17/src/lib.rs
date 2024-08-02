@@ -42,7 +42,6 @@ pub mod pallet {
 	#[pallet::call]
 	impl<T: Config> Pallet<T> {
 		pub fn create_kitty(origin: OriginFor<T>) -> DispatchResult {
-			// Learn about `origin`.
 			let who = ensure_signed(origin)?;
 			/* TODO: Create `const default_id`, which type `[u8; 16]` and has value `[0u8; 16]`. */
 			/* TODO: Pass `default_id` to the `mint` function as a second parameter. */

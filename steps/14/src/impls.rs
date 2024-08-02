@@ -2,7 +2,6 @@ use super::*;
 use frame_support::pallet_prelude::*;
 
 impl<T: Config> Pallet<T> {
-	// Learn about `AccountId`.
 	pub fn mint(owner: T::AccountId) -> DispatchResult {
 		/* TODO: Remove the `unwrap_or` which is not needed when using `ValueQuery`. */
 		let current_count: u64 = CountForKitties::<T>::get().unwrap_or(0);

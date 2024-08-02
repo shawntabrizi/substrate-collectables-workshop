@@ -70,7 +70,6 @@ pub mod pallet {
 	#[pallet::call]
 	impl<T: Config> Pallet<T> {
 		pub fn create_kitty(origin: OriginFor<T>) -> DispatchResult {
-			// Learn about `origin`.
 			let who = ensure_signed(origin)?;
 			let dna = Self::gen_dna();
 			Self::mint(who, dna)?;

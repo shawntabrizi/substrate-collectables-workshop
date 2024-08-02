@@ -2,7 +2,6 @@ use super::*;
 use frame_support::pallet_prelude::*;
 
 impl<T: Config> Pallet<T> {
-	// Learn about `AccountId`.
 	pub fn mint(owner: T::AccountId) -> DispatchResult {
 		let current_count: u64 = CountForKitties::<T>::get().unwrap_or(0);
 		/* TODO: Update this logic to use safe math. */

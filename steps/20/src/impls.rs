@@ -2,7 +2,6 @@ use super::*;
 use frame_support::pallet_prelude::*;
 
 impl<T: Config> Pallet<T> {
-	// Learn about `AccountId`.
 	pub fn mint(owner: T::AccountId, dna: [u8; 16]) -> DispatchResult {
 		// Check if the kitty does not already exist in our storage map
 		ensure!(!Kitties::<T>::contains_key(dna), Error::<T>::DuplicateKitty);
