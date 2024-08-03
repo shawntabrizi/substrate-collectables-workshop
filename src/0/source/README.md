@@ -2,7 +2,7 @@
 
 Welcome to the new Substrate Collectables Workshop.
 
-The goal of this tutorial is to **teach by experience** various entry level concepts around Polkadot Pallet development.
+The goal of this tutorial is to **teach by experience** various entry level concepts around developing on [Polkadot](https://polkadot.network/).
 
 Before we get started writing code, we will need to cover some basics.
 
@@ -43,11 +43,11 @@ cd substrate-collectables-workshop
 
 Or access the template directly here:
 
-https://github.com/shawntabrizi/substrate-collectables-workshop/releases/tag/starting-template
+[https://github.com/shawntabrizi/substrate-collectables-workshop/releases/tag/starting-template](https://github.com/shawntabrizi/substrate-collectables-workshop/releases/tag/starting-template)
 
-We will go over the starting template in detail throughout this section, but don't be afraid to peek around yourself.
+The starting template includes a `README` with instructions to setup your working environment. Follow those instructions.
 
-Make sure your checks pass on this initial template without warning or errors:
+Make sure you are able to run the following checks on this starting template without warnings or errors:
 
 ```bash
 cargo +nightly fmt

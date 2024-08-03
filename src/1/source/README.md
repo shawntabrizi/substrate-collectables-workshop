@@ -4,7 +4,7 @@ Our starting template for this tutorial uses the [Polkadot SDK](https://github.c
 
 This is the same technology stack used to build and power the [Polkadot Network](https://polkadot.network/).
 
-To better understand what you will be doing in this tutorial, we need to give you a high level overview of the blockchain ecosystem to make sure we are all on the same page.
+To better understand what you will be doing in this tutorial, we need to start with a high level overview of blockchains.
 
 ## Blockchain
 
@@ -12,13 +12,19 @@ Blockchains are the foundation of building Web3 technologies.
 
 Web3 is a promise toward a world with less trust, and more truth.
 
-Through blockchains, people are able to develop and deploy software that are decentralized, open, permissionless, censorship resistant, and independently verifiable.
+Through blockchain technology, we are able to develop and deploy software that are decentralized, open, permissionless, censorship resistant, and independently verifiable.
 
 The main purpose of a blockchain node is to come to consensus with other nodes on the decentralized network.
+
+<details>
+
+<summary>Deep Dive</summary>
 
 If you want to learn more about blockchains, check out the following video from the Polkadot Blockchain Academy:
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/8UvdfFGYFiE?si=5PIyppVBZ91vUtjf" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+</details>
 
 ## Runtime
 
@@ -30,9 +36,15 @@ In the `polkadot-sdk` we refer to this logic as the blockchain's runtime.
 
 All nodes on a blockchain network have and use the same runtime, allowing them to come to consensus about changes to a blockchain.
 
+<details>
+
+<summary>Deep Dive</summary>
+
 To learn more about the runtime, and its role inside of the `polkadot-sdk`, check out this video from the Polkadot Blockchain Academy:
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/-ttmm8gYS04?si=ZH_g83CVtguENoK7" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+</details>
 
 ## Pallets
 
@@ -52,9 +64,15 @@ You can think of different Pallets as different applications or functions that y
 
 You can also think of Pallets very similar to traditional blockchain smart contracts, however Pallets are more powerful and execute much faster than smart contracts.
 
+<details>
+
+<summary>Deep Dive</summary>
+
 To learn more about FRAME and Pallets, check out this video from the Polkadot Blockchain Academy:
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/ghMloMzEEsA?si=3DtsmrYOapbnR2oy" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+</details>
 
 ## NFTs
 
