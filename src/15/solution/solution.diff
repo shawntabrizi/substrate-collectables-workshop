@@ -17,7 +17,7 @@ index 76126c0..50d614b 100644
  		let new_count = current_count.checked_add(1).ok_or(Error::<T>::TooManyKitties)?;
  		Kitties::<T>::insert(dna, ());
 diff --git a/src/lib.rs b/src/lib.rs
-index dec17aa..25918a6 100644
+index dc163bc..21a89df 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
 @@ -33,7 +33,7 @@ pub mod pallet {

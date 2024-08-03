@@ -23,7 +23,7 @@ index 5348929..46d0290 100644
  		Self::deposit_event(Event::<T>::Created { owner });
  		Ok(())
 diff --git a/src/lib.rs b/src/lib.rs
-index f1bfc67..43a3d23 100644
+index e88964a..a12df64 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
 @@ -18,10 +18,8 @@ pub mod pallet {

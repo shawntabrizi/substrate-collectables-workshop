@@ -75,6 +75,14 @@ It has a pretty nasty trait bound:
 type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
 ```
 
-The main purpose of this trait bound is to allow events of this pallet to be converted to and from a
+The main purpose of this trait bound is to allow events of this pallet to be converted to and from an "aggregated" event type, which contains all possible event variants from all possible Pallets in our blockchain.
 
-- TODO: explain this stuff
+Remember, our runtime is composed of multiple pallets, some we create, some which come with the `polkadot-sdk`, some that we import from 3rd parties.
+
+Each of these pallets will want to include their own custom events, and our blockchain as a whole needs to be able to handle all of them.
+
+The `RuntimeEvent` type, with the help of our macros, aggregates all of these events coming from all of these pallets. These trait bounds help us use this type!
+
+If you want to learn more about this (super optional), check out this video:
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/OCBC1pMYPoc?si=hFBq42GN_q_Eo0zs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>

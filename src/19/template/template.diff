@@ -21,7 +21,7 @@ index 46d0290..b8bdd01 100644
  		let kitty = Kitty { dna, owner: owner.clone() };
  		// Check if the kitty does not already exist in our storage map
 diff --git a/src/lib.rs b/src/lib.rs
-index 43a3d23..88924bf 100644
+index a12df64..e1c0e56 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
 @@ -48,6 +48,7 @@ pub mod pallet {

@@ -23,7 +23,7 @@ index bf9d3b7..a616253 100644
  		CountForKitties::<T>::set(new_count);
  
 diff --git a/src/lib.rs b/src/lib.rs
-index bf5d3e8..03778ba 100644
+index 4b81380..4cc4906 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
 @@ -36,8 +36,7 @@ pub mod pallet {

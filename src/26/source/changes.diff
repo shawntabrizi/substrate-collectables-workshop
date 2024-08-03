@@ -12,7 +12,7 @@ index bdda4ec..8c630f0 100644
  		ensure!(!Kitties::<T>::contains_key(dna), Error::<T>::DuplicateKitty);
  
 diff --git a/src/lib.rs b/src/lib.rs
-index ab7c5ed..8e770ae 100644
+index 711193b..c9b5a75 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
 @@ -24,12 +24,17 @@ pub mod pallet {

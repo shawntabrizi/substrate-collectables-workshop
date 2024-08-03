@@ -11,7 +11,7 @@ index d49f793..8d6e03a 100644
  	pub fn mint(owner: T::AccountId) -> DispatchResult {
  		Self::deposit_event(Event::<T>::Created { owner });
 diff --git a/src/lib.rs b/src/lib.rs
-index 9e97c42..f73f837 100644
+index c0e26f2..9172c85 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
 @@ -10,7 +10,6 @@ pub mod pallet {
@@ -20,7 +20,7 @@ index 9e97c42..f73f837 100644
  
 -	/* 🚧 TODO 🚧: Learn about the Pallet struct. */
  	#[pallet::pallet]
- 	pub struct Pallet<T>(_);
+ 	pub struct Pallet<T>(core::marker::PhantomData<T>);
  
 @@ -28,6 +27,7 @@ pub mod pallet {
  	#[pallet::error]

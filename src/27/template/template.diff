@@ -19,7 +19,7 @@ index 8c630f0..5f31ab7 100644
 +	*/
  }
 diff --git a/src/lib.rs b/src/lib.rs
-index 8e770ae..155850b 100644
+index c9b5a75..bab01be 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
 @@ -56,6 +56,11 @@ pub mod pallet {

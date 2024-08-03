@@ -16,7 +16,7 @@ index 8d17a87..52636e4 100644
  		Ok(())
  	}
 diff --git a/src/lib.rs b/src/lib.rs
-index 050016c..2e8e81a 100644
+index ce90287..5cebef6 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
 @@ -32,11 +32,10 @@ pub mod pallet {

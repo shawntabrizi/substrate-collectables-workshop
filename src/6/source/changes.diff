@@ -11,12 +11,12 @@ index 4704ae6..d49f793 100644
  		Self::deposit_event(Event::<T>::Created { owner });
  		Ok(())
 diff --git a/src/lib.rs b/src/lib.rs
-index aa5d372..8ec63e9 100644
+index 77bc8f2..7aaccf0 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
 @@ -13,6 +13,7 @@ pub mod pallet {
  	#[pallet::pallet]
- 	pub struct Pallet<T>(_);
+ 	pub struct Pallet<T>(core::marker::PhantomData<T>);
  
 +	/* 🚧 TODO 🚧: Learn about Pallet `Config` and `frame_system`. */
  	#[pallet::config]

@@ -1,5 +1,5 @@
 diff --git a/src/lib.rs b/src/lib.rs
-index 0ab36ce..9e97c42 100644
+index b521bee..c0e26f2 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
 @@ -4,13 +4,13 @@ mod impls;
@@ -15,5 +15,5 @@ index 0ab36ce..9e97c42 100644
  
 +	/* 🚧 TODO 🚧: Learn about the Pallet struct. */
  	#[pallet::pallet]
- 	pub struct Pallet<T>(_);
+ 	pub struct Pallet<T>(core::marker::PhantomData<T>);
  

@@ -4086,7 +4086,7 @@ index 0000000..d49f793
 +}
 diff --git a/src/lib.rs b/src/lib.rs
 new file mode 100644
-index 0000000..f846f0b
+index 0000000..9d4160f
 --- /dev/null
 +++ b/src/lib.rs
 @@ -0,0 +1,38 @@
@@ -4103,7 +4103,7 @@ index 0000000..f846f0b
 +	use frame_system::pallet_prelude::*;
 +
 +	#[pallet::pallet]
-+	pub struct Pallet<T>(_);
++	pub struct Pallet<T>(core::marker::PhantomData<T>);
 +
 +	#[pallet::config]
 +	pub trait Config: frame_system::Config {

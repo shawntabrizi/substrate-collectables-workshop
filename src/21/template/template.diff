@@ -13,7 +13,7 @@ index 52636e4..bf9d3b7 100644
  		Kitties::<T>::insert(dna, kitty);
  		CountForKitties::<T>::set(new_count);
 diff --git a/src/lib.rs b/src/lib.rs
-index 2e8e81a..bf5d3e8 100644
+index 5cebef6..4b81380 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
 @@ -34,8 +34,12 @@ pub mod pallet {

@@ -11,7 +11,7 @@ index cabecf1..8acfe79 100644
  		CountForKitties::<T>::set(Some(new_count));
  		Self::deposit_event(Event::<T>::Created { owner });
 diff --git a/src/lib.rs b/src/lib.rs
-index 29f7ff7..69e4980 100644
+index b0c4af7..0ba29be 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
 @@ -28,7 +28,11 @@ pub mod pallet {

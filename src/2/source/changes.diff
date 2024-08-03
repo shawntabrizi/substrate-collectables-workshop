@@ -1,5 +1,5 @@
 diff --git a/src/lib.rs b/src/lib.rs
-index f846f0b..0ab36ce 100644
+index 9d4160f..b521bee 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
 @@ -4,6 +4,7 @@ mod impls;

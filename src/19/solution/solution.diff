@@ -34,7 +34,7 @@ index b8bdd01..25786f6 100644
  	pub fn mint(owner: T::AccountId, dna: [u8; 16]) -> DispatchResult {
  		let kitty = Kitty { dna, owner: owner.clone() };
 diff --git a/src/lib.rs b/src/lib.rs
-index 88924bf..d82c74c 100644
+index e1c0e56..fb3e864 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
 @@ -48,8 +48,7 @@ pub mod pallet {
