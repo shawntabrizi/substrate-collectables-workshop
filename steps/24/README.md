@@ -78,3 +78,9 @@ Don't forget to include the `skip_type_params(T)`.
 After that, update your `Kitties` map to use `Value = Kitty<T>`.
 
 Finally, update the logic in `mint` to create and insert this object into storage.
+
+## Learn More
+
+To get a primer on Parity Scale Codec, check out this video from the Polkadot Blockchain Academy:
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/6N6BopyYKq4?si=y7L9rmAoWbD803LW" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
