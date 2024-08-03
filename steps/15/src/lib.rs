@@ -19,7 +19,8 @@ pub mod pallet {
 	}
 
 	#[pallet::storage]
-	pub(super) type CountForKitties<T: Config> = StorageValue<Value = u64, QueryKind = ValueQuery>;
+	/* 🚧 TODO 🚧: Update this storage to use a `QueryKind` of `ValueQuery`. */
+	pub(super) type CountForKitties<T: Config> = StorageValue<Value = u64>;
 
 	#[pallet::event]
 	#[pallet::generate_deposit(pub(super) fn deposit_event)]

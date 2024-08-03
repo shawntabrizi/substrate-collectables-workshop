@@ -21,6 +21,7 @@ pub mod pallet {
 	#[pallet::storage]
 	pub(super) type CountForKitties<T: Config> = StorageValue<Value = u64, QueryKind = ValueQuery>;
 
+	/* 🚧 TODO 🚧: Learn about storage maps. */
 	#[pallet::storage]
 	pub(super) type Kitties<T: Config> = StorageMap<Key = [u8; 32], Value = ()>;
 
@@ -39,10 +40,6 @@ pub mod pallet {
 	impl<T: Config> Pallet<T> {
 		pub fn create_kitty(origin: OriginFor<T>) -> DispatchResult {
 			let who = ensure_signed(origin)?;
-			/* 🚧 TODO 🚧:
-				- Create `const default_id`, which type `[u8; 32]` and has value `[0u8; 32]`.
-				- Pass `default_id` to the `mint` function as a second parameter.
-			*/
 			Self::mint(who)?;
 			Ok(())
 		}

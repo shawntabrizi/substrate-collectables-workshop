@@ -10,6 +10,7 @@ pub mod pallet {
 	use frame_support::pallet_prelude::*;
 	use frame_system::pallet_prelude::*;
 
+	/* 🚧 TODO 🚧: Learn about the Pallet struct. */
 	#[pallet::pallet]
 	pub struct Pallet<T>(core::marker::PhantomData<T>);
 
@@ -27,7 +28,6 @@ pub mod pallet {
 	#[pallet::error]
 	pub enum Error<T> {}
 
-	/* 🚧 TODO 🚧: Learn about callable functions and dispatch. */
 	#[pallet::call]
 	impl<T: Config> Pallet<T> {
 		pub fn create_kitty(origin: OriginFor<T>) -> DispatchResult {

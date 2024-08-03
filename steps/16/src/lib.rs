@@ -21,10 +21,6 @@ pub mod pallet {
 	#[pallet::storage]
 	pub(super) type CountForKitties<T: Config> = StorageValue<Value = u64, QueryKind = ValueQuery>;
 
-	/* 🚧 TODO 🚧: Learn about storage maps. */
-	#[pallet::storage]
-	pub(super) type Kitties<T: Config> = StorageMap<Key = [u8; 32], Value = ()>;
-
 	#[pallet::event]
 	#[pallet::generate_deposit(pub(super) fn deposit_event)]
 	pub enum Event<T: Config> {

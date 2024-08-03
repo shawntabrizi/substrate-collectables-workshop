@@ -62,14 +62,6 @@ impl<T: Config> Pallet<T> {
 		kitty_id: [u8; 32],
 		new_price: Option<BalanceOf<T>>,
 	) -> DispatchResult {
-		/* 🚧 TODO 🚧: Create the logic for setting the Kitty price:
-			- Create a mutable `kitty` by calling `get` on `Kitties` with `kitty_id`.
-				- Return an error if the kitty doesn't exist by returning `Error::<T>::NoKitty`.
-			- `ensure!` that the `kitty.owner` is equal to the `caller` else return `Error::<T>::NotOwner`.
-			- Set the `kitty.price` to `new_price`.
-			- Insert the modified `kitty` back into the `Kitties` map under `kitty_id`.
-		*/
-
 		Self::deposit_event(Event::<T>::PriceSet { owner: caller, kitty_id, new_price });
 		Ok(())
 	}

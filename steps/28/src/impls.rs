@@ -13,7 +13,7 @@ impl<T: Config> Pallet<T> {
 			CountForKitties::<T>::get(),
 		);
 
-		let encoded_payload = unique_payload.encode();
+		let encoded_payload: Vec<u8> = unique_payload.encode();
 		frame_support::Hashable::blake2_256(&encoded_payload)
 	}
 
@@ -24,9 +24,6 @@ impl<T: Config> Pallet<T> {
 
 		let current_count: u64 = CountForKitties::<T>::get();
 		let new_count = current_count.checked_add(1).ok_or(Error::<T>::TooManyKitties)?;
-
-		/* 🚧 TODO 🚧: `append` the `dna` to the `KittiesOwned` storage for the `owner`. */
-
 		Kitties::<T>::insert(dna, kitty);
 		CountForKitties::<T>::set(new_count);
 		Self::deposit_event(Event::<T>::Created { owner });

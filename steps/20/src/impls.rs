@@ -3,9 +3,10 @@ use frame_support::pallet_prelude::*;
 
 impl<T: Config> Pallet<T> {
 	pub fn mint(owner: T::AccountId, dna: [u8; 32]) -> DispatchResult {
-		// Check if the kitty does not already exist in our storage map
-		ensure!(!Kitties::<T>::contains_key(dna), Error::<T>::DuplicateKitty);
-
+		/* 🚧 TODO 🚧:
+			- `ensure!` that `Kitties` map does not `contains_key` for `dna`.
+			- If it does, return `Error::<T>::DuplicateKitty`.
+		*/
 		let current_count: u64 = CountForKitties::<T>::get();
 		let new_count = current_count.checked_add(1).ok_or(Error::<T>::TooManyKitties)?;
 		Kitties::<T>::insert(dna, ());

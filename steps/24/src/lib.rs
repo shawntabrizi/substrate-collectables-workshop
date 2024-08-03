@@ -18,10 +18,6 @@ pub mod pallet {
 		type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
 	}
 
-	/* 🚧 TODO 🚧:
-		- Add the derive macros needed for putting a struct in storage.
-		- Add `#[scale_info(skip_type_params(T))]` to ignore the generic `T`.
-	*/
 	pub struct Kitty<T: Config> {
 		// Using 32 bytes to represent a kitty DNA
 		pub dna: [u8; 32],
@@ -32,7 +28,6 @@ pub mod pallet {
 	pub(super) type CountForKitties<T: Config> = StorageValue<Value = u64, QueryKind = ValueQuery>;
 
 	#[pallet::storage]
-	/* 🚧 TODO 🚧: Update the `Value` to be type `Kitty<T>` instead of (). */
 	pub(super) type Kitties<T: Config> = StorageMap<Key = [u8; 32], Value = ()>;
 
 	#[pallet::event]
