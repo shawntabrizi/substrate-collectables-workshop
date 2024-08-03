@@ -57,7 +57,6 @@ The upside to tight coupling is gaining direct access to the pallet's Rust modul
 With tight coupling, we are able to access the `pallet_balances` APIs like:
 
 ```rust
-// TODO: Double check validity
 let total_issuance = pallet_balances::Pallet::<T>::total_issuance();
 let alice_balance = pallet_balances::Pallet::<T>::total_balance(alice);
 pallet_balances::Pallet::<T>::mint_into(alice, amount)?;
@@ -111,3 +110,9 @@ The power of loose coupling may not be immediately obvious, but as you get deepe
 Import the `Inspect` and `Mutate` traits from `frame_support::traits::fungible`.
 
 Introduce the `NativeBalance` associated type to your `trait Config` using these traits.
+
+## Learn More
+
+To continue learning about Pallet Coupling, check out the following video from the Polkadot Blockchain Academy:
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/mPkgG9ANNzI?si=6CrBZBMaHHBvQLYD" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
