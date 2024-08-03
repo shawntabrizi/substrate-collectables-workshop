@@ -16,7 +16,9 @@ Through blockchains, people are able to develop and deploy software that are dec
 
 The main purpose of a blockchain node is to come to consensus with other nodes on the decentralized network.
 
-TODO: Add nice resources to let people dive deep into blockchain.
+If you want to learn more about blockchains, check out the following video from the Polkadot Blockchain Academy:
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/8UvdfFGYFiE?si=5PIyppVBZ91vUtjf" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 ## Runtime
 
@@ -27,6 +29,10 @@ This is the logic of the blockchain, and defines all the ways a blockchain is al
 In the `polkadot-sdk` we refer to this logic as the blockchain's runtime.
 
 All nodes on a blockchain network have and use the same runtime, allowing them to come to consensus about changes to a blockchain.
+
+To learn more about the runtime, and its role inside of the `polkadot-sdk`, check out this video from the Polkadot Blockchain Academy:
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/-ttmm8gYS04?si=ZH_g83CVtguENoK7" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 ## Pallets
 
@@ -40,11 +46,15 @@ FRAME's key decision is to break apart the blockchain runtime into separate logi
 
 These logical pieces are called Pallets.
 
+TODO: Add images.
+
 You can think of different Pallets as different applications or functions that your blockchain exposes.
 
 You can also think of Pallets very similar to traditional blockchain smart contracts, however Pallets are more powerful and execute much faster than smart contracts.
 
-TODO: Add images and resources.
+To learn more about FRAME and Pallets, check out this video from the Polkadot Blockchain Academy:
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/ghMloMzEEsA?si=3DtsmrYOapbnR2oy" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 ## NFTs
 
