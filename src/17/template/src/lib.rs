@@ -22,7 +22,7 @@ pub mod pallet {
 		- Create a new `struct` called `Kitty`.
 		- Make `Kitty` generic over `T` where `T: Config`.
 		- Add two fields to `Kitty`:
-			- `dna` which is type `[u8; 16]`.
+			- `dna` which is type `[u8; 32]`.
 			- `owner` which is type `T::AccountId`.
 	*/
 
@@ -30,7 +30,7 @@ pub mod pallet {
 	pub(super) type CountForKitties<T: Config> = StorageValue<Value = u64, QueryKind = ValueQuery>;
 
 	#[pallet::storage]
-	pub(super) type Kitties<T: Config> = StorageMap<Key = [u8; 16], Value = ()>;
+	pub(super) type Kitties<T: Config> = StorageMap<Key = [u8; 32], Value = ()>;
 
 	#[pallet::event]
 	#[pallet::generate_deposit(pub(super) fn deposit_event)]
@@ -48,7 +48,7 @@ pub mod pallet {
 	impl<T: Config> Pallet<T> {
 		pub fn create_kitty(origin: OriginFor<T>) -> DispatchResult {
 			let who = ensure_signed(origin)?;
-			let dna = [0u8; 16];
+			let dna = [0u8; 32];
 			Self::mint(who, dna)?;
 			Ok(())
 		}

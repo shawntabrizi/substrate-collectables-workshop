@@ -1,5 +1,5 @@
 diff --git a/src/lib.rs b/src/lib.rs
-index 27f0a2c..14e06dc 100644
+index 27f0a2c..a6e58e5 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
 @@ -21,6 +21,10 @@ pub mod pallet {
@@ -8,7 +8,7 @@ index 27f0a2c..14e06dc 100644
  
 +	/* 🚧 TODO 🚧: Learn about storage maps. */
 +	#[pallet::storage]
-+	pub(super) type Kitties<T: Config> = StorageMap<Key = [u8; 16], Value = ()>;
++	pub(super) type Kitties<T: Config> = StorageMap<Key = [u8; 32], Value = ()>;
 +
  	#[pallet::event]
  	#[pallet::generate_deposit(pub(super) fn deposit_event)]

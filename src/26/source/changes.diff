@@ -1,18 +1,18 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index bdda4ec..8c630f0 100644
+index 4f0f335..e20cf23 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
 @@ -19,7 +19,7 @@ impl<T: Config> Pallet<T> {
  	}
  
- 	pub fn mint(owner: T::AccountId, dna: [u8; 16]) -> DispatchResult {
+ 	pub fn mint(owner: T::AccountId, dna: [u8; 32]) -> DispatchResult {
 -		let kitty = Kitty { dna, owner: owner.clone() };
 +		let kitty = Kitty { dna, owner: owner.clone(), price: None };
  		// Check if the kitty does not already exist in our storage map
  		ensure!(!Kitties::<T>::contains_key(dna), Error::<T>::DuplicateKitty);
  
 diff --git a/src/lib.rs b/src/lib.rs
-index 711193b..c9b5a75 100644
+index bd61167..fb3af80 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
 @@ -24,12 +24,17 @@ pub mod pallet {
@@ -26,8 +26,8 @@ index 711193b..c9b5a75 100644
  	#[derive(Encode, Decode, TypeInfo, MaxEncodedLen)]
  	#[scale_info(skip_type_params(T))]
  	pub struct Kitty<T: Config> {
- 		// Using 16 bytes to represent a kitty DNA
- 		pub dna: [u8; 16],
+ 		// Using 32 bytes to represent a kitty DNA
+ 		pub dna: [u8; 32],
  		pub owner: T::AccountId,
 +		pub price: Option<BalanceOf<T>>,
  	}

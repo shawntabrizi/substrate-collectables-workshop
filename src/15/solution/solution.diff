@@ -1,11 +1,11 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index 76126c0..50d614b 100644
+index 3682da3..dc1b64a 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
 @@ -3,10 +3,9 @@ use frame_support::pallet_prelude::*;
  
  impl<T: Config> Pallet<T> {
- 	pub fn mint(owner: T::AccountId, dna: [u8; 16]) -> DispatchResult {
+ 	pub fn mint(owner: T::AccountId, dna: [u8; 32]) -> DispatchResult {
 -		/* 🚧 TODO 🚧:
 -			- `ensure!` that `Kitties` map does not `contains_key` for `dna`.
 -			- If it does, return `Error::<T>::DuplicateKitty`.
@@ -17,7 +17,7 @@ index 76126c0..50d614b 100644
  		let new_count = current_count.checked_add(1).ok_or(Error::<T>::TooManyKitties)?;
  		Kitties::<T>::insert(dna, ());
 diff --git a/src/lib.rs b/src/lib.rs
-index dc163bc..21a89df 100644
+index 04200fc..e8a3cc5 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
 @@ -33,7 +33,7 @@ pub mod pallet {

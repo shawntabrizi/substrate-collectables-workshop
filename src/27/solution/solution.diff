@@ -1,5 +1,5 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index 5f31ab7..29a1536 100644
+index dcfc6f3..0829bd4 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
 @@ -57,14 +57,12 @@ impl<T: Config> Pallet<T> {
@@ -9,7 +9,7 @@ index 5f31ab7..29a1536 100644
 -	/* 🚧 TODO 🚧: Make an internal function called `do_set_price`:
 -		- Inputs to the function are:
 -			- `caller` which is `T::AccountId`.
--			- `kitty_id` which is `[u8; 16]`.
+-			- `kitty_id` which is `[u8; 32]`.
 -			- `new_price` which is `Option<BalanceOf<T>`.
 -		- Returns a `DispatchResult`.
 -		- The internal logic, for now, should be:
@@ -18,7 +18,7 @@ index 5f31ab7..29a1536 100644
 -	*/
 +	pub fn do_set_price(
 +		caller: T::AccountId,
-+		kitty_id: [u8; 16],
++		kitty_id: [u8; 32],
 +		new_price: Option<BalanceOf<T>>,
 +	) -> DispatchResult {
 +		Self::deposit_event(Event::<T>::PriceSet { owner: caller, kitty_id, new_price });
@@ -26,19 +26,19 @@ index 5f31ab7..29a1536 100644
 +	}
  }
 diff --git a/src/lib.rs b/src/lib.rs
-index bab01be..39656d0 100644
+index d07533c..003605d 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
 @@ -56,11 +56,7 @@ pub mod pallet {
  	pub enum Event<T: Config> {
  		Created { owner: T::AccountId },
- 		Transferred { from: T::AccountId, to: T::AccountId, kitty_id: [u8; 16] },
+ 		Transferred { from: T::AccountId, to: T::AccountId, kitty_id: [u8; 32] },
 -		/* 🚧 TODO 🚧: Create a new `Event` called `PriceSet` with fields:
 -			- `owner` which is `T::AccountId`.
--			- `kitty_id` which is `[u8; 16]`.
+-			- `kitty_id` which is `[u8; 32]`.
 -			- `new_price` which is `Option<BalanceOf<T>>`.
 -		*/
-+		PriceSet { owner: T::AccountId, kitty_id: [u8; 16], new_price: Option<BalanceOf<T>> },
++		PriceSet { owner: T::AccountId, kitty_id: [u8; 32], new_price: Option<BalanceOf<T>> },
  	}
  
  	#[pallet::error]
@@ -49,7 +49,7 @@ index bab01be..39656d0 100644
 -		/* 🚧 TODO 🚧: Make an callable function called `set_price`:
 -			- Inputs to the function are:
 -				- `origin` which is `OriginFor<T>`.
--				- `kitty_id` which is `[u8; 16]`.
+-				- `kitty_id` which is `[u8; 32]`.
 -				- `new_price` which is `Option<BalanceOf<T>`.
 -			- Returns a `DispatchResult`
 -			- The internal logic, for now, should be:
@@ -59,7 +59,7 @@ index bab01be..39656d0 100644
 -		*/
 +		pub fn set_price(
 +			origin: OriginFor<T>,
-+			kitty_id: [u8; 16],
++			kitty_id: [u8; 32],
 +			new_price: Option<BalanceOf<T>>,
 +		) -> DispatchResult {
 +			let who = ensure_signed(origin)?;

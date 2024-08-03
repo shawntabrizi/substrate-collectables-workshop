@@ -1,5 +1,5 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index 753090d..868d386 100644
+index 9e57a9a..3b9788f 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
 @@ -34,14 +34,8 @@ impl<T: Config> Pallet<T> {
@@ -10,19 +10,19 @@ index 753090d..868d386 100644
 -		- It has inputs:
 -			- `from` which is `T::AccountId`.
 -			- `to` which is `T::AccountId`.
--			- `kitty_id` which is `[u8; 16]`.
+-			- `kitty_id` which is `[u8; 32]`.
 -		- It returns a `DispatchResult`
 -		- The inner logic for now is:
 -			- Call `Self::dispatch_event` on and emit `Event::<T>:Transferred` with params.
 -			- Return `Ok(())`.
 -	*/
-+	pub fn do_transfer(from: T::AccountId, to: T::AccountId, kitty_id: [u8; 16]) -> DispatchResult {
++	pub fn do_transfer(from: T::AccountId, to: T::AccountId, kitty_id: [u8; 32]) -> DispatchResult {
 +		Self::deposit_event(Event::<T>::Transferred { from, to, kitty_id });
 +		Ok(())
 +	}
  }
 diff --git a/src/lib.rs b/src/lib.rs
-index 188f0fc..7c18857 100644
+index c665d2c..035e702 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
 @@ -44,12 +44,7 @@ pub mod pallet {
@@ -33,9 +33,9 @@ index 188f0fc..7c18857 100644
 -			- Parameters are:
 -				- `from` which is `T::AccountId`.
 -				- `to` which is `T::AccountId`.
--				- `kitty_id` which is `[u8; 16]`.
+-				- `kitty_id` which is `[u8; 32]`.
 -		*/
-+		Transferred { from: T::AccountId, to: T::AccountId, kitty_id: [u8; 16] },
++		Transferred { from: T::AccountId, to: T::AccountId, kitty_id: [u8; 32] },
  	}
  
  	#[pallet::error]
@@ -47,7 +47,7 @@ index 188f0fc..7c18857 100644
 -			- Input parameters are:
 -				- `origin` which is `OriginFor<T>`.
 -				- `to` which is `T::AccountId`.
--				- `kitty_id` which is `[u8; 16]`.
+-				- `kitty_id` which is `[u8; 32]`.
 -			- Returns a `DispatchResult`.
 -			- The inner logic should be:
 -				- Get the caller `who` from `ensure_signed`.
@@ -57,7 +57,7 @@ index 188f0fc..7c18857 100644
 +		pub fn transfer(
 +			origin: OriginFor<T>,
 +			to: T::AccountId,
-+			kitty_id: [u8; 16],
++			kitty_id: [u8; 32],
 +		) -> DispatchResult {
 +			let who = ensure_signed(origin)?;
 +			Self::do_transfer(who, to, kitty_id)?;

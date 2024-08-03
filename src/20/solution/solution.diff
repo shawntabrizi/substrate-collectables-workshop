@@ -1,5 +1,5 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index 8d17a87..52636e4 100644
+index 7917f2d..1d8c5fb 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
 @@ -25,10 +25,10 @@ impl<T: Config> Pallet<T> {
@@ -16,22 +16,22 @@ index 8d17a87..52636e4 100644
  		Ok(())
  	}
 diff --git a/src/lib.rs b/src/lib.rs
-index ce90287..5cebef6 100644
+index 70c4362..e4ccfe8 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
 @@ -32,11 +32,10 @@ pub mod pallet {
  	#[pallet::storage]
- 	pub(super) type Kitties<T: Config> = StorageMap<Key = [u8; 16], Value = Kitty<T>>;
+ 	pub(super) type Kitties<T: Config> = StorageMap<Key = [u8; 32], Value = Kitty<T>>;
  
 -	/* 🚧 TODO 🚧: Create a new `StorageMap` called `KittiesOwned`.
 -		- The `Key` of this map is `T::AccountId`.
--		- The `Value` of this map is `Vec<[u8; 16]>`.
+-		- The `Value` of this map is `Vec<[u8; 32]>`.
 -		- The `QueryKind` should be set to `ValueQuery`.
 -	*/
 +	/// Track the kitties owned by each account.
 +	#[pallet::storage]
 +	pub(super) type KittiesOwned<T: Config> =
-+		StorageMap<Key = T::AccountId, Value = Vec<[u8; 16]>, QueryKind = ValueQuery>;
++		StorageMap<Key = T::AccountId, Value = Vec<[u8; 32]>, QueryKind = ValueQuery>;
  
  	#[pallet::event]
  	#[pallet::generate_deposit(pub(super) fn deposit_event)]

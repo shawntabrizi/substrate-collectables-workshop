@@ -1,9 +1,9 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index 3551fa9..fba3fde 100644
+index 6148214..044e138 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
 @@ -62,13 +62,10 @@ impl<T: Config> Pallet<T> {
- 		kitty_id: [u8; 16],
+ 		kitty_id: [u8; 32],
  		new_price: Option<BalanceOf<T>>,
  	) -> DispatchResult {
 -		/* 🚧 TODO 🚧: Create the logic for setting the Kitty price:

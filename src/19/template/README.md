@@ -37,7 +37,7 @@ let unique_payload = (item1, item2, item3);
 // Encode that object into a vector of bytes.
 let encoded_payload: Vec<u8> = unique_payload.encode();
 // Hash those bytes to create a fixed-size hash.
-let hash: [u8; 16] = frame_support::Hashable::blake2_128(&encoded_payload)
+let hash: [u8; 32] = frame_support::Hashable::blake2_256(&encoded_payload)
 ```
 
 Another nice thing about using a hash is you get some sense of pseudo-randomness between the input and output. This means that two kitties which are minted right after one another could have totally different DNA, which could be useful if you want to associate unique attributes to the different parts of their DNA. 🤔
@@ -45,6 +45,6 @@ Another nice thing about using a hash is you get some sense of pseudo-randomness
 
 ## Your Turn
 
-Now that you know how to acquire uniqueness from your blockchain, and how to hash those items, create a new function called `fn gen_dna() -> [u8; 16];` which does these steps to create unique DNA for each kitty that is minted.
+Now that you know how to acquire uniqueness from your blockchain, and how to hash those items, create a new function called `fn gen_dna() -> [u8; 32];` which does these steps to create unique DNA for each kitty that is minted.
 
 Update your `create_kitty` extrinsic to generate and use this unique DNA.

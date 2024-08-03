@@ -1,5 +1,5 @@
 diff --git a/src/lib.rs b/src/lib.rs
-index d6f9845..711193b 100644
+index 43ba0d9..bd61167 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
 @@ -7,7 +7,10 @@ pub use pallet::*;

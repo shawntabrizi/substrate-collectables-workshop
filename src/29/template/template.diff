@@ -1,5 +1,5 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index fba3fde..d73e0e1 100644
+index 044e138..4c6130c 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
 @@ -70,4 +70,15 @@ impl<T: Config> Pallet<T> {
@@ -10,7 +10,7 @@ index fba3fde..d73e0e1 100644
 +	/* 🚧 TODO 🚧: Create a new internal function `do_buy_kitty`:
 +		- Inputs to the function are:
 +			- `buyer` which is `T::AccountId`.
-+			- `kitty_id` which is `[u8; 16]`.
++			- `kitty_id` which is `[u8; 32]`.
 +			- `price` which is `BalanceOf<T>`.
 +		- It returns `DispatchResult`.
 +		- The internal logic, for now, should be:
@@ -19,16 +19,16 @@ index fba3fde..d73e0e1 100644
 +	*/
  }
 diff --git a/src/lib.rs b/src/lib.rs
-index 39656d0..20a1172 100644
+index 003605d..1ad969f 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
 @@ -57,6 +57,11 @@ pub mod pallet {
  		Created { owner: T::AccountId },
- 		Transferred { from: T::AccountId, to: T::AccountId, kitty_id: [u8; 16] },
- 		PriceSet { owner: T::AccountId, kitty_id: [u8; 16], new_price: Option<BalanceOf<T>> },
+ 		Transferred { from: T::AccountId, to: T::AccountId, kitty_id: [u8; 32] },
+ 		PriceSet { owner: T::AccountId, kitty_id: [u8; 32], new_price: Option<BalanceOf<T>> },
 +		/* 🚧 TODO 🚧: Create a new `Event` called `Sold` with the following parameters:
 +			- `buyer` which is `T::AccountId`.
-+			- `kitty_id` which is `[u8; 16]`.
++			- `kitty_id` which is `[u8; 32]`.
 +			- `price` which is `BalanceOf<T>`.
 +		*/
  	}
@@ -42,7 +42,7 @@ index 39656d0..20a1172 100644
 +		/* 🚧 TODO 🚧: Create a new callable function `buy_kitty`:
 +			- Inputs to the function are:
 +				- `origin` which is `OriginFor<T>`.
-+				- `kitty_id` which is `[u8; 16]`.
++				- `kitty_id` which is `[u8; 32]`.
 +				- `max_price` which is `BalanceOf<T>`.
 +			- It returns `DispatchResult`.
 +			- The internal logic should be:

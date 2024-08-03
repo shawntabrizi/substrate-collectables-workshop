@@ -1,5 +1,5 @@
 diff --git a/src/lib.rs b/src/lib.rs
-index 21a89df..bca6c0b 100644
+index e8a3cc5..ce3ce92 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
 @@ -18,6 +18,14 @@ pub mod pallet {
@@ -10,7 +10,7 @@ index 21a89df..bca6c0b 100644
 +		- Create a new `struct` called `Kitty`.
 +		- Make `Kitty` generic over `T` where `T: Config`.
 +		- Add two fields to `Kitty`:
-+			- `dna` which is type `[u8; 16]`.
++			- `dna` which is type `[u8; 32]`.
 +			- `owner` which is type `T::AccountId`.
 +	*/
 +

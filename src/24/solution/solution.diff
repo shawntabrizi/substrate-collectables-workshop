@@ -1,11 +1,11 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index a3755da..bdda4ec 100644
+index d8ec581..4f0f335 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
 @@ -35,28 +35,23 @@ impl<T: Config> Pallet<T> {
  	}
  
- 	pub fn do_transfer(from: T::AccountId, to: T::AccountId, kitty_id: [u8; 16]) -> DispatchResult {
+ 	pub fn do_transfer(from: T::AccountId, to: T::AccountId, kitty_id: [u8; 32]) -> DispatchResult {
 -		/* 🚧 TODO 🚧: Sanity check the transfer is allowed:
 -			- First `ensure!` that `from` and `to` are not equal, else return `Error::<T>::TransferToSelf`.
 -			- Get the `kitty` from `Kitties` using `kitty_id`, else return `Error::<T>::NoKitty`.
@@ -49,7 +49,7 @@ index a3755da..bdda4ec 100644
  		Self::deposit_event(Event::<T>::Transferred { from, to, kitty_id });
  		Ok(())
 diff --git a/src/lib.rs b/src/lib.rs
-index 15e336e..d6f9845 100644
+index ca79a8d..43ba0d9 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
 @@ -52,11 +52,9 @@ pub mod pallet {

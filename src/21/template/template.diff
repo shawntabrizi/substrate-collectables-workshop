@@ -1,5 +1,5 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index 52636e4..bf9d3b7 100644
+index 1d8c5fb..20a17d9 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
 @@ -25,6 +25,9 @@ impl<T: Config> Pallet<T> {
@@ -13,7 +13,7 @@ index 52636e4..bf9d3b7 100644
  		Kitties::<T>::insert(dna, kitty);
  		CountForKitties::<T>::set(new_count);
 diff --git a/src/lib.rs b/src/lib.rs
-index 5cebef6..4b81380 100644
+index e4ccfe8..3ad888d 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
 @@ -34,8 +34,12 @@ pub mod pallet {
@@ -21,11 +21,11 @@ index 5cebef6..4b81380 100644
  	/// Track the kitties owned by each account.
  	#[pallet::storage]
 -	pub(super) type KittiesOwned<T: Config> =
--		StorageMap<Key = T::AccountId, Value = Vec<[u8; 16]>, QueryKind = ValueQuery>;
+-		StorageMap<Key = T::AccountId, Value = Vec<[u8; 32]>, QueryKind = ValueQuery>;
 +	pub(super) type KittiesOwned<T: Config> = StorageMap<
 +		Key = T::AccountId,
 +		/* 🚧 TODO 🚧: Turn this into a `BoundedVec` with a limit of `ConstU32<100>`. */
-+		Value = Vec<[u8; 16]>,
++		Value = Vec<[u8; 32]>,
 +		QueryKind = ValueQuery,
 +	>;
  

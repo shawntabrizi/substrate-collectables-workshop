@@ -31,8 +31,8 @@ pub mod pallet {
 	#[derive(Encode, Decode, TypeInfo, MaxEncodedLen)]
 	#[scale_info(skip_type_params(T))]
 	pub struct Kitty<T: Config> {
-		// Using 16 bytes to represent a kitty DNA
-		pub dna: [u8; 16],
+		// Using 32 bytes to represent a kitty DNA
+		pub dna: [u8; 32],
 		pub owner: T::AccountId,
 		pub price: Option<BalanceOf<T>>,
 	}
@@ -41,13 +41,13 @@ pub mod pallet {
 	pub(super) type CountForKitties<T: Config> = StorageValue<Value = u64, QueryKind = ValueQuery>;
 
 	#[pallet::storage]
-	pub(super) type Kitties<T: Config> = StorageMap<Key = [u8; 16], Value = Kitty<T>>;
+	pub(super) type Kitties<T: Config> = StorageMap<Key = [u8; 32], Value = Kitty<T>>;
 
 	/// Track the kitties owned by each account.
 	#[pallet::storage]
 	pub(super) type KittiesOwned<T: Config> = StorageMap<
 		Key = T::AccountId,
-		Value = BoundedVec<[u8; 16], ConstU32<100>>,
+		Value = BoundedVec<[u8; 32], ConstU32<100>>,
 		QueryKind = ValueQuery,
 	>;
 
@@ -55,10 +55,10 @@ pub mod pallet {
 	#[pallet::generate_deposit(pub(super) fn deposit_event)]
 	pub enum Event<T: Config> {
 		Created { owner: T::AccountId },
-		Transferred { from: T::AccountId, to: T::AccountId, kitty_id: [u8; 16] },
+		Transferred { from: T::AccountId, to: T::AccountId, kitty_id: [u8; 32] },
 		/* 🚧 TODO 🚧: Create a new `Event` called `PriceSet` with fields:
 			- `owner` which is `T::AccountId`.
-			- `kitty_id` which is `[u8; 16]`.
+			- `kitty_id` which is `[u8; 32]`.
 			- `new_price` which is `Option<BalanceOf<T>>`.
 		*/
 	}
@@ -85,7 +85,7 @@ pub mod pallet {
 		pub fn transfer(
 			origin: OriginFor<T>,
 			to: T::AccountId,
-			kitty_id: [u8; 16],
+			kitty_id: [u8; 32],
 		) -> DispatchResult {
 			let who = ensure_signed(origin)?;
 			Self::do_transfer(who, to, kitty_id)?;
@@ -95,7 +95,7 @@ pub mod pallet {
 		/* 🚧 TODO 🚧: Make an callable function called `set_price`:
 			- Inputs to the function are:
 				- `origin` which is `OriginFor<T>`.
-				- `kitty_id` which is `[u8; 16]`.
+				- `kitty_id` which is `[u8; 32]`.
 				- `new_price` which is `Option<BalanceOf<T>`.
 			- Returns a `DispatchResult`
 			- The internal logic, for now, should be:

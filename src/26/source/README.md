@@ -67,7 +67,7 @@ Why do we need this `BalanceOf<T>` alias?
 So that we can change this:
 
 ```rust
-fn set_price(id: [u8; 16], price: <<T as Config>::NativeBalance as Inspect<<T as frame_system::Config>::AccountId>>::Balance) {
+fn set_price(id: [u8; 32], price: <<T as Config>::NativeBalance as Inspect<<T as frame_system::Config>::AccountId>>::Balance) {
 	// -- snip --
 }
 ```
@@ -75,7 +75,7 @@ fn set_price(id: [u8; 16], price: <<T as Config>::NativeBalance as Inspect<<T as
 To this:
 
 ```rust
-fn set_price(id: [u8; 16], price: BalanceOf<T>) {
+fn set_price(id: [u8; 32], price: BalanceOf<T>) {
 	// -- snip --
 }
 ```

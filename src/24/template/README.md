@@ -20,7 +20,7 @@ So remember, error early, error fast.
 
 ### Does the Kitty Exist?
 
-The input to the `transfer` extrinsic allows the sender to submit any `[u8; 16]` identifier to transfer, but we shouldn't assume that kitty actually exists in storage.
+The input to the `transfer` extrinsic allows the sender to submit any `[u8; 32]` identifier to transfer, but we shouldn't assume that kitty actually exists in storage.
 
 If the sender is trying to send a kitty which doesn't exist, we should emit an error.
 

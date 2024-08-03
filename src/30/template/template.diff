@@ -1,9 +1,9 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index a68886b..dd0a807 100644
+index 6d1ad0e..036a441 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
 @@ -76,6 +76,22 @@ impl<T: Config> Pallet<T> {
- 		kitty_id: [u8; 16],
+ 		kitty_id: [u8; 32],
  		price: BalanceOf<T>,
  	) -> DispatchResult {
 +		/* 🚧 TODO 🚧: Sanity check that the purchase is allowed:
@@ -26,7 +26,7 @@ index a68886b..dd0a807 100644
  		Ok(())
  	}
 diff --git a/src/lib.rs b/src/lib.rs
-index dde08bf..3edaa3d 100644
+index df2ccc1..da5e656 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
 @@ -68,6 +68,10 @@ pub mod pallet {

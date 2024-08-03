@@ -1,5 +1,5 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index dd0a807..9a42716 100644
+index 036a441..ae179e5 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
 @@ -1,5 +1,5 @@
@@ -10,7 +10,7 @@ index dd0a807..9a42716 100644
  // Learn about internal functions.
  impl<T: Config> Pallet<T> {
 @@ -76,23 +76,15 @@ impl<T: Config> Pallet<T> {
- 		kitty_id: [u8; 16],
+ 		kitty_id: [u8; 32],
  		price: BalanceOf<T>,
  	) -> DispatchResult {
 -		/* 🚧 TODO 🚧: Sanity check that the purchase is allowed:
@@ -41,7 +41,7 @@ index dd0a807..9a42716 100644
  	}
  }
 diff --git a/src/lib.rs b/src/lib.rs
-index 3edaa3d..5fd83db 100644
+index da5e656..2b45aee 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
 @@ -68,10 +68,8 @@ pub mod pallet {
