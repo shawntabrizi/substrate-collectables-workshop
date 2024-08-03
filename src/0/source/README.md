@@ -37,10 +37,13 @@ The best way to follow this tutorial is to clone the starting template, and foll
 Run the following:
 
 ```bash
-git clone https://github.com/shawntabrizi/substrate-collectables-workshop/ -b gitorial --single-branch
+git clone https://github.com/shawntabrizi/substrate-collectables-workshop/ -b starting-template --single-branch
 cd substrate-collectables-workshop
-git reset --hard 5acc3fdfd97ff7f7e5f73e061ef05018c05b773a
 ```
+
+Or access the template directly here:
+
+https://github.com/shawntabrizi/substrate-collectables-workshop/releases/tag/starting-template
 
 We will go over the starting template in detail throughout this section, but don't be afraid to peek around yourself.
 
