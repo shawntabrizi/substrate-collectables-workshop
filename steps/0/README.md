@@ -45,9 +45,9 @@ Or access the template directly here:
 
 [https://github.com/shawntabrizi/substrate-collectables-workshop/releases/tag/starting-template](https://github.com/shawntabrizi/substrate-collectables-workshop/releases/tag/starting-template)
 
-We will go over the starting template in detail throughout this section, but don't be afraid to peek around yourself.
+The starting template includes a `README` with instructions to setup your working environment. Follow those instructions.
 
-Make sure you are able to run the following checks on this initial template without warnings or errors:
+Make sure you are able to run the following checks on this starting template without warnings or errors:
 
 ```bash
 cargo +nightly fmt
