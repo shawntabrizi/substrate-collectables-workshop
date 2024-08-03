@@ -6,7 +6,19 @@ We placed a vector in storage in the last step. This is okay for initial develop
 
 We mentioned earlier that we require all blockchain storage to have a maximum upper limit to the encoded length of that object.
 
-TODO
+We are able to create a trait for items which track that maximum encoded length, and then use that information to predict in the worst case scenario how much data will be used.
+
+- For a `u8`, the `max_encoded_len()` is always the same: 1 byte.
+- For a basic `enum`, it is also just 1 byte, since an enum can represent up to 256 variants.
+- For a `struct`, the `max_encoded_len()` will be the sum of the `max_encoded_len()` of all items in the `struct`.
+
+> NOTE: If you want to learn more about `MaxEncodedLen`, you should investigate [`parity-scale-codec`](https://github.com/paritytech/parity-scale-codec), and how all of the various Rust types are encoded to bytes.
+
+But what is the `max_encoded_len()` of a `Vec<T>`? I guess one answer might be approximately `T * 2^32`, but this is not a reasonable answer. :)
+
+So we need to create a new structure which can act like a `Vec`, but also have reasonable bounds as to how many items are inside of it.
+
+Hence the `BoundedVec` was born.
 
 ## Construction
 
