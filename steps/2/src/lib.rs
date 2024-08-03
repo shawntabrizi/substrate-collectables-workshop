@@ -12,7 +12,7 @@ pub mod pallet {
 	use frame_system::pallet_prelude::*;
 
 	#[pallet::pallet]
-	pub struct Pallet<T>(_);
+	pub struct Pallet<T>(core::marker::PhantomData<T>);
 
 	#[pallet::config]
 	pub trait Config: frame_system::Config {

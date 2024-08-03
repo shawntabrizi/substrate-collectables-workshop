@@ -11,7 +11,7 @@ pub mod pallet {
 	use frame_system::pallet_prelude::*;
 
 	#[pallet::pallet]
-	pub struct Pallet<T>(_);
+	pub struct Pallet<T>(core::marker::PhantomData<T>);
 
 	/* 🚧 TODO 🚧: Learn about Pallet `Config` and `frame_system`. */
 	#[pallet::config]

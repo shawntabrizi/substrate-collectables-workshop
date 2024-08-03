@@ -4,7 +4,7 @@ The `Pallet` struct is the anchor on which we implement all logic and traits for
 
 ```rust
 #[pallet::pallet]
-pub struct Pallet<T>(_);
+pub struct Pallet<T>(core::marker::PhantomData<T>);
 ```
 
 ## Function Implementations
@@ -48,11 +48,3 @@ One simple example is the trait [`PalletInfoAccess`](https://docs.rs/frame-suppo
 With this trait, you can do things like call `pallet_kitties::Pallet::<T>::module_name()` which will return to you the name of the rust module, in this case `pallet_kitties`. Information like this is used mostly between other macros, which is why we hide it all from you behind the macros.
 
 In this tutorial, you will not interact with any of these automatically generated traits, but knowing that they exist can allow you to investigate further after learning the basics.
-
-## Macro Magic
-
-We hit our first instance of macro magic, although its a tiny one...
-
-What does `(_)` mean in the `struct Pallet` definition?
-
-TODO: complete this
