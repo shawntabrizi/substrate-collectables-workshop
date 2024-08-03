@@ -2,13 +2,12 @@
 
 mod impls;
 
+use frame::prelude::*;
 pub use pallet::*;
 
-#[frame_support::pallet(dev_mode)]
+#[frame::pallet(dev_mode)]
 pub mod pallet {
 	use super::*;
-	use frame_support::pallet_prelude::*;
-	use frame_system::pallet_prelude::*;
 
 	/* 🚧 TODO 🚧: Learn about the Pallet struct. */
 	#[pallet::pallet]

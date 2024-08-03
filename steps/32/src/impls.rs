@@ -1,5 +1,5 @@
 use super::*;
-use frame_support::pallet_prelude::*;
+use frame::prelude::*;
 
 // Learn about internal functions.
 impl<T: Config> Pallet<T> {

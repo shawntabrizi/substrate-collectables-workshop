@@ -1,5 +1,5 @@
 use super::*;
-use frame_support::pallet_prelude::*;
+use frame::prelude::*;
 
 impl<T: Config> Pallet<T> {
 	pub fn mint(owner: T::AccountId) -> DispatchResult {

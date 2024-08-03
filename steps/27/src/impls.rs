@@ -1,5 +1,5 @@
 use super::*;
-use frame_support::pallet_prelude::*;
+use frame::prelude::*;
 
 impl<T: Config> Pallet<T> {
 	/* 🚧 TODO 🚧: Create a function `gen_dna` which returns a `[u8; 32]`.
