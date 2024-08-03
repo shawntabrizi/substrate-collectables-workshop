@@ -8,7 +8,8 @@ pub use pallet::*;
 #[frame::pallet(dev_mode)]
 pub mod pallet {
 	use super::*;
-	use frame::traits::fungible::{Inspect, Mutate};
+	use frame::traits::fungible::Inspect;
+	use frame::traits::fungible::Mutate;
 
 	#[pallet::pallet]
 	pub struct Pallet<T>(core::marker::PhantomData<T>);
