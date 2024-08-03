@@ -8,6 +8,8 @@ export RUSTC_WRAPPER=sccache
 
 # Default to 'check' mode if no argument is provided
 MODE=${1:-check}
+START=${2:-}
+END=${3:-}
 
 # Check if the mode is valid
 if [[ "$MODE" != "check" && "$MODE" != "fix" ]]; then
@@ -25,6 +27,22 @@ fi
 for dir in steps/*/; do
   # Extract the directory name
   dir_name=$(basename "$dir")
+
+  # Check if the directory name is a number and within the specified range
+  if ! [[ "$dir_name" =~ ^[0-9]+$ ]]; then
+    echo "Skipping non-numeric directory: $dir"
+    continue
+  fi
+
+  if [[ -n "$START" && "$dir_name" -lt "$START" ]]; then
+    echo "Skipping directory (below start range): $dir"
+    continue
+  fi
+
+  if [[ -n "$END" && "$dir_name" -gt "$END" ]]; then
+    echo "Skipping directory (above end range): $dir"
+    continue
+  fi
 
   # Check if the directory contains a Cargo.toml file
   if [ ! -f "$dir/Cargo.toml" ]; then
