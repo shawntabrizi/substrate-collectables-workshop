@@ -10,14 +10,14 @@ Declaring a new `StorageMap` is very similar to a `StorageValue`:
 
 ```rust
 #[pallet::storage]
-pub(super) type Kitties<T: Config> = StorageMap<Key = [u8; 16], Value = ()>;
+pub(super) type Kitties<T: Config> = StorageMap<Key = [u8; 32], Value = ()>;
 ```
 
 Nearly everything is the same, except you need to define a `Key` and `Value`.
 
 Each `Key` can store a separate `Value`, which makes maps super useful.
 
-In this case `[u8; 16]` represents some unique identifier for each Kitty we will store, and `()` is simply a placeholder type for now.
+In this case `[u8; 32]` represents some unique identifier for each Kitty we will store, and `()` is simply a placeholder type for now.
 
 ## Conceptual
 

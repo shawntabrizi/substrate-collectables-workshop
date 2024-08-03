@@ -21,8 +21,8 @@ pub mod pallet {
 	#[derive(Encode, Decode, TypeInfo, MaxEncodedLen)]
 	#[scale_info(skip_type_params(T))]
 	pub struct Kitty<T: Config> {
-		// Using 16 bytes to represent a kitty DNA
-		pub dna: [u8; 16],
+		// Using 32 bytes to represent a kitty DNA
+		pub dna: [u8; 32],
 		pub owner: T::AccountId,
 	}
 
@@ -30,11 +30,11 @@ pub mod pallet {
 	pub(super) type CountForKitties<T: Config> = StorageValue<Value = u64, QueryKind = ValueQuery>;
 
 	#[pallet::storage]
-	pub(super) type Kitties<T: Config> = StorageMap<Key = [u8; 16], Value = Kitty<T>>;
+	pub(super) type Kitties<T: Config> = StorageMap<Key = [u8; 32], Value = Kitty<T>>;
 
 	/* 🚧 TODO 🚧: Create a new `StorageMap` called `KittiesOwned`.
 		- The `Key` of this map is `T::AccountId`.
-		- The `Value` of this map is `Vec<[u8; 16]>`.
+		- The `Value` of this map is `Vec<[u8; 32]>`.
 		- The `QueryKind` should be set to `ValueQuery`.
 	*/
 

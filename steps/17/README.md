@@ -15,7 +15,7 @@ But we will go over just the basics we need to build our Pallet.
 To read the current value of a key in a `StorageMap`, you can simply call the `get(key)` API:
 
 ```rust
-let my_key: [u8; 16] = [0u8; 16];
+let my_key: [u8; 32] = [0u8; 32];
 let maybe_value: Option<()> = Kitties::<T>::get(my_key);
 ```
 
@@ -32,7 +32,7 @@ let kitty: () = Kitties::<T>::get(my_key).ok_or(Error::<T>::NoKitty)?;
 To add a new value to the `StorageMap`, you can simply call the `insert` API:
 
 ```rust
-let my_key: [u8; 16] = [0u8; 16];
+let my_key: [u8; 32] = [0u8; 32];
 Kitties::<T>::insert(my_key, ());
 ```
 

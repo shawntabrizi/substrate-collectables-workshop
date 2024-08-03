@@ -2,7 +2,7 @@ use super::*;
 use frame_support::pallet_prelude::*;
 
 impl<T: Config> Pallet<T> {
-	pub fn mint(owner: T::AccountId, dna: [u8; 16]) -> DispatchResult {
+	pub fn mint(owner: T::AccountId, dna: [u8; 32]) -> DispatchResult {
 		/* 🚧 TODO 🚧:
 			- Create a new variable `kitty` which is a `Kitty` struct with `dna` and `owner`.
 		*/

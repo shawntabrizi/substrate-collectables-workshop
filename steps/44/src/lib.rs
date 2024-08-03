@@ -31,8 +31,8 @@ pub mod pallet {
 	#[derive(Encode, Decode, TypeInfo, MaxEncodedLen)]
 	#[scale_info(skip_type_params(T))]
 	pub struct Kitty<T: Config> {
-		// Using 16 bytes to represent a kitty DNA
-		pub dna: [u8; 16],
+		// Using 32 bytes to represent a kitty DNA
+		pub dna: [u8; 32],
 		pub owner: T::AccountId,
 		pub price: Option<BalanceOf<T>>,
 	}
@@ -41,13 +41,13 @@ pub mod pallet {
 	pub(super) type CountForKitties<T: Config> = StorageValue<Value = u64, QueryKind = ValueQuery>;
 
 	#[pallet::storage]
-	pub(super) type Kitties<T: Config> = StorageMap<Key = [u8; 16], Value = Kitty<T>>;
+	pub(super) type Kitties<T: Config> = StorageMap<Key = [u8; 32], Value = Kitty<T>>;
 
 	/// Track the kitties owned by each account.
 	#[pallet::storage]
 	pub(super) type KittiesOwned<T: Config> = StorageMap<
 		Key = T::AccountId,
-		Value = BoundedVec<[u8; 16], ConstU32<100>>,
+		Value = BoundedVec<[u8; 32], ConstU32<100>>,
 		QueryKind = ValueQuery,
 	>;
 
@@ -55,9 +55,9 @@ pub mod pallet {
 	#[pallet::generate_deposit(pub(super) fn deposit_event)]
 	pub enum Event<T: Config> {
 		Created { owner: T::AccountId },
-		Transferred { from: T::AccountId, to: T::AccountId, kitty_id: [u8; 16] },
-		PriceSet { owner: T::AccountId, kitty_id: [u8; 16], new_price: Option<BalanceOf<T>> },
-		Sold { buyer: T::AccountId, kitty_id: [u8; 16], price: BalanceOf<T> },
+		Transferred { from: T::AccountId, to: T::AccountId, kitty_id: [u8; 32] },
+		PriceSet { owner: T::AccountId, kitty_id: [u8; 32], new_price: Option<BalanceOf<T>> },
+		Sold { buyer: T::AccountId, kitty_id: [u8; 32], price: BalanceOf<T> },
 	}
 
 	#[pallet::error]
@@ -82,7 +82,7 @@ pub mod pallet {
 		pub fn transfer(
 			origin: OriginFor<T>,
 			to: T::AccountId,
-			kitty_id: [u8; 16],
+			kitty_id: [u8; 32],
 		) -> DispatchResult {
 			let who = ensure_signed(origin)?;
 			Self::do_transfer(who, to, kitty_id)?;
@@ -91,7 +91,7 @@ pub mod pallet {
 
 		pub fn set_price(
 			origin: OriginFor<T>,
-			kitty_id: [u8; 16],
+			kitty_id: [u8; 32],
 			new_price: Option<BalanceOf<T>>,
 		) -> DispatchResult {
 			let who = ensure_signed(origin)?;
@@ -101,7 +101,7 @@ pub mod pallet {
 
 		pub fn buy_kitty(
 			origin: OriginFor<T>,
-			kitty_id: [u8; 16],
+			kitty_id: [u8; 32],
 			max_price: BalanceOf<T>,
 		) -> DispatchResult {
 			let who = ensure_signed(origin)?;

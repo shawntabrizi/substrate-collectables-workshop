@@ -68,7 +68,7 @@ Storing vectors is a pretty normal part of Pallet development, and there are way
 Let's look at a naive way to add a new item to the vector:
 
 ```rust
-let mut owned_kitties: Vec<[u8; 16]> = KittiesOwned::<T>::get(owner);
+let mut owned_kitties: Vec<[u8; 32]> = KittiesOwned::<T>::get(owner);
 owned_kitties.append(new_kitty);
 KittiesOwned::<T>::insert(owner, owned_kitties);
 ```

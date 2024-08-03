@@ -2,18 +2,18 @@ use super::*;
 use frame_support::pallet_prelude::*;
 
 impl<T: Config> Pallet<T> {
-	/* 🚧 TODO 🚧: Create a function `gen_dna` which returns a `[u8; 16]`.
+	/* 🚧 TODO 🚧: Create a function `gen_dna` which returns a `[u8; 32]`.
 		- Create a `unique_payload` which contains data from `frame_system::Pallet::<T>`:
 			- `parent_hash`
 			- `block_number`
 			- `extrinsic_index`
 			- `CountForKitties::<T>::get()`
 		- `encode()` that payload to a byte array named `encoded_payload`.
-		- Use `frame_support::Hashable` to perform a `blake2_128` hash on the encoded payload.
-		- Return the 16 byte hash.
+		- Use `frame_support::Hashable` to perform a `blake2_256` hash on the encoded payload.
+		- Return the 32 byte hash.
 	*/
 
-	pub fn mint(owner: T::AccountId, dna: [u8; 16]) -> DispatchResult {
+	pub fn mint(owner: T::AccountId, dna: [u8; 32]) -> DispatchResult {
 		let kitty = Kitty { dna, owner: owner.clone() };
 		// Check if the kitty does not already exist in our storage map
 		ensure!(!Kitties::<T>::contains_key(dna), Error::<T>::DuplicateKitty);

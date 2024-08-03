@@ -4,7 +4,7 @@ use frame_support::pallet_prelude::*;
 // Learn about internal functions.
 impl<T: Config> Pallet<T> {
 	// Generates and returns DNA and Sex
-	pub fn gen_dna() -> [u8; 16] {
+	pub fn gen_dna() -> [u8; 32] {
 		// Create randomness payload. Multiple kitties can be generated in the same block,
 		// retaining uniqueness.
 		let unique_payload = (
@@ -15,10 +15,10 @@ impl<T: Config> Pallet<T> {
 		);
 
 		let encoded_payload = unique_payload.encode();
-		frame_support::Hashable::blake2_128(&encoded_payload)
+		frame_support::Hashable::blake2_256(&encoded_payload)
 	}
 
-	pub fn mint(owner: T::AccountId, dna: [u8; 16]) -> DispatchResult {
+	pub fn mint(owner: T::AccountId, dna: [u8; 32]) -> DispatchResult {
 		let kitty = Kitty { dna, owner: owner.clone(), price: None };
 		// Check if the kitty does not already exist in our storage map
 		ensure!(!Kitties::<T>::contains_key(dna), Error::<T>::DuplicateKitty);
@@ -34,7 +34,7 @@ impl<T: Config> Pallet<T> {
 		Ok(())
 	}
 
-	pub fn do_transfer(from: T::AccountId, to: T::AccountId, kitty_id: [u8; 16]) -> DispatchResult {
+	pub fn do_transfer(from: T::AccountId, to: T::AccountId, kitty_id: [u8; 32]) -> DispatchResult {
 		ensure!(from != to, Error::<T>::TransferToSelf);
 		let mut kitty = Kitties::<T>::get(kitty_id).ok_or(Error::<T>::NoKitty)?;
 		ensure!(kitty.owner == from, Error::<T>::NotOwner);
@@ -59,7 +59,7 @@ impl<T: Config> Pallet<T> {
 
 	pub fn do_set_price(
 		caller: T::AccountId,
-		kitty_id: [u8; 16],
+		kitty_id: [u8; 32],
 		new_price: Option<BalanceOf<T>>,
 	) -> DispatchResult {
 		let mut kitty = Kitties::<T>::get(kitty_id).ok_or(Error::<T>::NoKitty)?;
