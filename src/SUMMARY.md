@@ -29,3 +29,4 @@
     - [28. Set Price Logic](28/README.md)
     - [29. Buy Kitty Extrinsic](29/README.md)
     - [30. Buy Kitty Logic](30/README.md)
+- [31. Next Steps](31/README.md)
