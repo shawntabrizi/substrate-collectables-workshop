@@ -1,16 +1,19 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index 72c76b0..85ff781 100644
+index 1561bdd..f8d2cb6 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
-@@ -1,6 +1,7 @@
+@@ -1,8 +1,8 @@
  use super::*;
  use frame::prelude::*;
  use frame::primitives::BlakeTwo256;
+-/* 🚧 TODO 🚧: Import `frame::traits::fungible::Mutate`. */
+-/* 🚧 TODO 🚧: Import `frame::traits::tokens::Preservation`. */
 +use frame::traits::fungible::Mutate;
++use frame::traits::tokens::Preservation;
  use frame::traits::Hash;
  
  // Learn about internal functions.
-@@ -77,23 +78,15 @@ impl<T: Config> Pallet<T> {
+@@ -79,22 +79,14 @@ impl<T: Config> Pallet<T> {
  		kitty_id: [u8; 32],
  		price: BalanceOf<T>,
  	) -> DispatchResult {
@@ -24,14 +27,12 @@ index 72c76b0..85ff781 100644
 +		ensure!(price >= real_price, Error::<T>::MaxPriceTooLow);
  
 -		/* 🚧 TODO 🚧: Execute the transfers:
--			- Import `use frame_support::traits::tokens::Preservation;`, which is used for balance transfer.
 -			- Use `T::NativeBalance` to `transfer` from the `buyer` to the `kitty.owner`.
 -				- The amount transferred should be the `real_price`.
 -				- Use `Preservation::Preserve` to ensure the buyer account stays alive.
 -			- Use `Self::do_transfer` to transfer from the `kitty.owner` to the `buyer` with `kitty_id`.
 -			- Remember to propagate up all results from these functions with `?`.
 -		*/
-+		use frame::traits::tokens::Preservation;
 +		T::NativeBalance::transfer(&buyer, &kitty.owner, real_price, Preservation::Preserve)?;
 +		Self::do_transfer(kitty.owner, buyer.clone(), kitty_id)?;
  

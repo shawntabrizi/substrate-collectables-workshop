@@ -107,7 +107,7 @@ The power of loose coupling may not be immediately obvious, but as you get deepe
 
 ## Your Turn
 
-Import the `Inspect` and `Mutate` traits from `frame_support::traits::fungible`.
+Import the `Inspect` and `Mutate` traits from `frame::traits::fungible`.
 
 Introduce the `NativeBalance` associated type to your `trait Config` using these traits.
 
