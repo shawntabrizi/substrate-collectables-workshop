@@ -66,8 +66,10 @@ pub mod pallet {
 		TransferToSelf,
 		NoKitty,
 		NotOwner,
-		NotForSale,
-		MaxPriceTooLow,
+		/* 🚧 TODO 🚧: Add `Errors` needed for `do_buy_kitty`:
+			- `NotForSale`: for when the Kitty has a price set to `None`.
+			- `MaxPriceTooLow`: for when the price offered by the buyer is too low.
+		*/
 	}
 
 	#[pallet::call]
