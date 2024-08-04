@@ -23,8 +23,8 @@ if [ ! -d "steps" ]; then
   exit 1
 fi
 
-# Iterate through each subdirectory in the 'steps' directory
-for dir in steps/*/; do
+# Iterate through each subdirectory in the 'steps' directory in numerical order
+for dir in $(ls -d steps/*/ | sort -V); do
   # Extract the directory name
   dir_name=$(basename "$dir")
 
