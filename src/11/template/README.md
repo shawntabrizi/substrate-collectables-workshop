@@ -82,9 +82,7 @@ In blockchain systems, these can literally be billion dollar bugs, so let's look
 
 ### Checked Math
 
-The first choice for doing safe math is to use `checked_*` APIs, for example `checked_add`:
-
-https://docs.rs/num/latest/num/trait.CheckedAdd.html
+The first choice for doing safe math is to use `checked_*` APIs, for example [`checked_add`](https://docs.rs/num/latest/num/trait.CheckedAdd.html).
 
 The checked math APIs will check if there are any underflows or overflows, and return `None` in those cases. Otherwise, if the math operation is calculated without error, it returns `Some(result)`.
 
@@ -111,9 +109,7 @@ Note that we didn't need to call `.into()` in this case, because `?` already doe
 
 ### Saturating Math
 
-The other option for safe math is to use `saturating_*` APIs, for example `saturating_add`:
-
-https://docs.rs/num/latest/num/traits/trait.SaturatingAdd.html
+The other option for safe math is to use `saturating_*` APIs, for example [`saturating_add`](https://docs.rs/num/latest/num/traits/trait.SaturatingAdd.html).
 
 This option is useful because it is safe and does NOT return an `Option`.
 
