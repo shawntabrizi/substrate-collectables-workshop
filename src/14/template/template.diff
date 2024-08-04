@@ -15,18 +15,10 @@ index d283fd6..89c7306 100644
  		Self::deposit_event(Event::<T>::Created { owner });
  		Ok(())
 diff --git a/src/lib.rs b/src/lib.rs
-index 5b597ae..3e32e75 100644
+index d4e9d01..3e32e75 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -20,7 +20,6 @@ pub mod pallet {
- 	#[pallet::storage]
- 	pub(super) type CountForKitties<T: Config> = StorageValue<Value = u32, QueryKind = ValueQuery>;
- 
--	/* 🚧 TODO 🚧: Learn about storage maps. */
- 	#[pallet::storage]
- 	pub(super) type Kitties<T: Config> = StorageMap<Key = [u8; 32], Value = ()>;
- 
-@@ -39,6 +38,10 @@ pub mod pallet {
+@@ -38,6 +38,10 @@ pub mod pallet {
  	impl<T: Config> Pallet<T> {
  		pub fn create_kitty(origin: OriginFor<T>) -> DispatchResult {
  			let who = ensure_signed(origin)?;
