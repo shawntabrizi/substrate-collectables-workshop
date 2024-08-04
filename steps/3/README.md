@@ -87,20 +87,21 @@ We will go over each of the FRAME macros throughout this tutorial
 While the template is already very minimal, you can mentally break it down like:
 
 ```rust
+use frame::prelude::*;
 pub use pallet::*;
 
 #[frame::pallet]
 pub mod pallet {
-  use frame::prelude::*;
+	use super::*;
 
-  #[pallet::pallet]
-  pub struct Pallet<T>(core::marker::PhantomData<T>);
+	#[pallet::pallet]
+	pub struct Pallet<T>(core::marker::PhantomData<T>);
 
-  #[pallet::config]  // snip
-  #[pallet::event]   // snip
-  #[pallet::error]   // snip
-  #[pallet::storage] // snip
-  #[pallet::call]    // snip
+	#[pallet::config]  // snip
+	#[pallet::event]   // snip
+	#[pallet::error]   // snip
+	#[pallet::storage] // snip
+	#[pallet::call]    // snip
 }
 ```
 
