@@ -21,7 +21,7 @@ impl<T: Config> Pallet<T> {
 
 	pub fn mint(owner: T::AccountId, dna: [u8; 32]) -> DispatchResult {
 		/* 🚧 TODO 🚧: Add the `price` field set to `None` when initializing the `Kitty` struct. */
-		let kitty = Kitty { dna, owner: owner.clone(), price: None };
+		let kitty = Kitty { dna, owner: owner.clone() };
 		// Check if the kitty does not already exist in our storage map
 		ensure!(!Kitties::<T>::contains_key(dna), Error::<T>::DuplicateKitty);
 
