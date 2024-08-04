@@ -87,8 +87,8 @@ pub trait Config: frame_system::Config {
 
 You can see we introduce a new associated type called `NativeBalance`. We then require that this type must implment two traits:
 
-- [`fungible::Inspect`](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/tokens/fungible/trait.Inspect.html): A trait allowing us to read data about a fungible token.
-- [`fungible::Mutate`](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/tokens/fungible/trait.Mutate.html): A trait allowing us to write data about a fungible token.
+- [`fungible::Inspect`](https://docs.rs/frame-support/37.0.0/frame_support/traits/tokens/fungible/trait.Inspect.html): A trait allowing us to read data about a fungible token.
+- [`fungible::Mutate`](https://docs.rs/frame-support/37.0.0/frame_support/traits/tokens/fungible/trait.Mutate.html): A trait allowing us to write data about a fungible token.
 
 So with this, we are able to access our native balance using APIs like:
 
