@@ -70,11 +70,11 @@ We will show you the common ergonomic ways to use Pallet Errors going forward.
 
 The basic math operators in Rust are **unsafe**.
 
-Imagine our `CountForKitties` was already at the limit of `u64::MAX`. What would happen if we tried to call `mint` one more time?
+Imagine our `CountForKitties` was already at the limit of `u32::MAX`. What would happen if we tried to call `mint` one more time?
 
 We would get an overflow!
 
-In tests `u64::MAX + 1` will actually trigger a panic, but in a `release` build, this overflow will happen silently...
+In tests `u32::MAX + 1` will actually trigger a panic, but in a `release` build, this overflow will happen silently...
 
 And this would be really bad. Now our count would be back to 0, and if we had any logic which depended on this count being accurate, that logic would be broken.
 
@@ -89,18 +89,18 @@ The checked math APIs will check if there are any underflows or overflows, and r
 Here is a verbose way you could handle checked math in a Pallet:
 
 ```rust
-let final_result: u64 = match value_a.checked_add(value_b) {
+let final_result: u32 = match value_a.checked_add(value_b) {
 	Some(result) => result,
 	None => return Err(Error::<T>::CustomPalletError.into()),
 };
 ```
 
-You can see how we can directly assign the `u64` value to `final_result`, otherwise it will return an error.
+You can see how we can directly assign the `u32` value to `final_result`, otherwise it will return an error.
 
 We can also do this as a one-liner, which is more ergonomic and preferred:
 
 ```rust
-let final_result: u64 = value_a.checked_add(value_b).ok_or(Error::<T>::CustomPalletError)?;
+let final_result: u32 = value_a.checked_add(value_b).ok_or(Error::<T>::CustomPalletError)?;
 ```
 
 This is exactly how you should be writing all the safe math inside your Pallet.
@@ -116,10 +116,10 @@ This option is useful because it is safe and does NOT return an `Option`.
 Instead, it performs the math operations and keeps the value at the numerical limits, rather than overflowing. For example:
 
 ```rust
-let value_a: u64 = 1;
-let value_b: u64 = u64::MAX;
-let result: u64 = value_a.saturating_add(value_b);
-assert!(result == u64::MAX);
+let value_a: u32 = 1;
+let value_b: u32 = u32::MAX;
+let result: u32 = value_a.saturating_add(value_b);
+assert!(result == u32::MAX);
 ```
 
 This generally is NOT the preferred API to use because usually you want to handle situations where an overflow would occur. Overflows and underflows usually indicate something "bad" is happening.

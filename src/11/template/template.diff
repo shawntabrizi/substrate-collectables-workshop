@@ -1,17 +1,17 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index a35e365..95d4a77 100644
+index 9739330..c550bc8 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
 @@ -4,6 +4,7 @@ use frame::prelude::*;
  impl<T: Config> Pallet<T> {
  	pub fn mint(owner: T::AccountId) -> DispatchResult {
- 		let current_count: u64 = CountForKitties::<T>::get().unwrap_or(0);
+ 		let current_count: u32 = CountForKitties::<T>::get().unwrap_or(0);
 +		/* 🚧 TODO 🚧: Update this logic to use safe math. */
  		let new_count = current_count + 1;
  		CountForKitties::<T>::set(Some(new_count));
  		Self::deposit_event(Event::<T>::Created { owner });
 diff --git a/src/lib.rs b/src/lib.rs
-index b6c66a4..e119c87 100644
+index ebaf109..e68500d 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
 @@ -27,7 +27,11 @@ pub mod pallet {

@@ -13,7 +13,7 @@ Check out the [`StorageValue` documentation](https://docs.rs/frame-support/37.0.
 To read the current value of a `StorageValue`, you can simply call the `get` API:
 
 ```rust
-let maybe_count: Option<u64> = CountForKitties::<T>::get();
+let maybe_count: Option<u32> = CountForKitties::<T>::get();
 ```
 
 A few things to note here.
@@ -27,10 +27,10 @@ In this context, when there is no value in storage for the `CountForKitties`, we
 So we can write the following to handle this ergonomically:
 
 ```rust
-let count: u64 = CountForKitties::<T>::get().unwrap_or(0);
+let current_count: u32 = CountForKitties::<T>::get().unwrap_or(0);
 ```
 
-Now, whenever `CountForKitties` returns `Some(count)`, we will simply unwrap that count and directly access the `u64`. If it returns `None`, we will simply return `0u64` instead.
+Now, whenever `CountForKitties` returns `Some(count)`, we will simply unwrap that count and directly access the `u32`. If it returns `None`, we will simply return `0u32` instead.
 
 The other thing to note is the generic `<T>` that we need to include. You better get used to this, we will be using `<T>` everywhere! But remember, in our definition of `CountForKitties`, it was a type generic over `<T: Config>`, and thus we need to include `<T>` to access any of the APIs.
 
@@ -39,7 +39,7 @@ The other thing to note is the generic `<T>` that we need to include. You better
 To set the current value of a `StorageValue`, you can simply call the `set` API:
 
 ```rust
-CountForKitties::<T>::set(Some(1u64));
+CountForKitties::<T>::set(Some(1u32));
 ```
 
 This storage API cannot fail, so there is no error handling needed. You just set the value directly in storage. Note that `set` will also happily replace any existing value there, so you will need to use other APIs like `exists` or `get` to check if a value is already in storage.

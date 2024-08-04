@@ -45,7 +45,7 @@ We can do this even more ergonomically by changing the `QueryKind` to `ValueQuer
 
 ```rust
 #[pallet::storage]
-pub(super) type CountForKitties<T: Config> = StorageValue<Value = u64, QueryKind = ValueQuery>;
+pub(super) type CountForKitties<T: Config> = StorageValue<Value = u32, QueryKind = ValueQuery>;
 ```
 
 In this case, all of our APIs change.
@@ -65,7 +65,7 @@ When you call `get`, and the storage is empty, the `OnEmpty` configuration kicks
 The default configuration for `OnEmpty` is `GetDefault`. This of course requires that the `Value` type must implement `Default`. But if it does, then you will get the following behavior:
 
 ```rust
-assert!(CountForKitties::<T>::get() == u64::default());
+assert!(CountForKitties::<T>::get() == u32::default());
 ```
 
 For numbers, this value is normally zero, so simply setting `QueryKind = ValueQuery` gives you exactly the same behavior as what we programmed in our Pallet so far.

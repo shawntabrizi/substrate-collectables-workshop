@@ -1,5 +1,5 @@
 diff --git a/src/lib.rs b/src/lib.rs
-index aa11117..8349e90 100644
+index 0708f66..51b70ac 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
 @@ -17,13 +17,11 @@ pub mod pallet {
@@ -20,4 +20,4 @@ index aa11117..8349e90 100644
 +	}
  
  	#[pallet::storage]
- 	pub(super) type CountForKitties<T: Config> = StorageValue<Value = u64, QueryKind = ValueQuery>;
+ 	pub(super) type CountForKitties<T: Config> = StorageValue<Value = u32, QueryKind = ValueQuery>;

@@ -1,5 +1,5 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index 03abf99..ef77d84 100644
+index 03abf99..b396f98 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
 @@ -3,6 +3,12 @@ use frame::prelude::*;
@@ -7,23 +7,11 @@ index 03abf99..ef77d84 100644
  impl<T: Config> Pallet<T> {
  	pub fn mint(owner: T::AccountId) -> DispatchResult {
 +		/* 🚧 TODO 🚧:
-+			- `get` the current count of kitties.
++			- `get` the `current_count` of kitties.
 +			- `unwrap_or` set the count to `0`.
-+			- increment the count by one.
-+			- `set` the new count of kitties.
++			- Create `new_count` by adding one to the `current_count`.
++			- `set` the `new_count` of kitties.
 +		*/
  		Self::deposit_event(Event::<T>::Created { owner });
  		Ok(())
  	}
-diff --git a/src/lib.rs b/src/lib.rs
-index 2b03703..b6c66a4 100644
---- a/src/lib.rs
-+++ b/src/lib.rs
-@@ -17,7 +17,6 @@ pub mod pallet {
- 		type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
- 	}
- 
--	/* 🚧 TODO 🚧: Learn about storage value. */
- 	#[pallet::storage]
- 	pub(super) type CountForKitties<T: Config> = StorageValue<Value = u64>;
- 

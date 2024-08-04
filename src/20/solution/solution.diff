@@ -1,9 +1,9 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index 960cbb7..f018a29 100644
+index 71b538b..b680830 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
 @@ -26,10 +26,10 @@ impl<T: Config> Pallet<T> {
- 		let current_count: u64 = CountForKitties::<T>::get();
+ 		let current_count: u32 = CountForKitties::<T>::get();
  		let new_count = current_count.checked_add(1).ok_or(Error::<T>::TooManyKitties)?;
  
 -		/* 🚧 TODO 🚧: `append` the `dna` to the `KittiesOwned` storage for the `owner`. */
@@ -16,7 +16,7 @@ index 960cbb7..f018a29 100644
  		Ok(())
  	}
 diff --git a/src/lib.rs b/src/lib.rs
-index a86eb27..2c81d9a 100644
+index 8b79da7..aa56e6d 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
 @@ -31,11 +31,10 @@ pub mod pallet {

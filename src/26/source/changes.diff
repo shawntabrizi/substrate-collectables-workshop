@@ -1,5 +1,5 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index 69f5ae2..8ad0796 100644
+index a638a8c..5ec04ae 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
 @@ -20,7 +20,7 @@ impl<T: Config> Pallet<T> {
@@ -12,7 +12,7 @@ index 69f5ae2..8ad0796 100644
  		ensure!(!Kitties::<T>::contains_key(dna), Error::<T>::DuplicateKitty);
  
 diff --git a/src/lib.rs b/src/lib.rs
-index 05d68f0..a629f63 100644
+index 6e07dbd..d22ee52 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
 @@ -22,12 +22,17 @@ pub mod pallet {

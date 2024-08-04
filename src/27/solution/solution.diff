@@ -1,5 +1,5 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index 5af890e..d17dced 100644
+index 686cb0a..f1e996c 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
 @@ -58,14 +58,12 @@ impl<T: Config> Pallet<T> {
@@ -26,7 +26,7 @@ index 5af890e..d17dced 100644
 +	}
  }
 diff --git a/src/lib.rs b/src/lib.rs
-index 5bc4fd6..303cbe8 100644
+index 630ad8a..73094bb 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
 @@ -54,11 +54,7 @@ pub mod pallet {

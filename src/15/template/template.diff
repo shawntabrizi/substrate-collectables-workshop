@@ -1,5 +1,5 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index 861b1fc..68cecde 100644
+index 363f5e4..292909e 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
 @@ -3,6 +3,10 @@ use frame::prelude::*;
@@ -10,11 +10,11 @@ index 861b1fc..68cecde 100644
 +			- `ensure!` that `Kitties` map does not `contains_key` for `dna`.
 +			- If it does, return `Error::<T>::DuplicateKitty`.
 +		*/
- 		let current_count: u64 = CountForKitties::<T>::get();
+ 		let current_count: u32 = CountForKitties::<T>::get();
  		let new_count = current_count.checked_add(1).ok_or(Error::<T>::TooManyKitties)?;
  		Kitties::<T>::insert(dna, ());
 diff --git a/src/lib.rs b/src/lib.rs
-index 2578b59..5eebef6 100644
+index c216fa6..972ee05 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
 @@ -32,6 +32,7 @@ pub mod pallet {
