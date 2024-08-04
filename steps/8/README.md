@@ -2,7 +2,7 @@
 
 The last thing we have included in our starting template is a simple event.
 
-When an callable function completes successfully, there is often some metadata you would like to expose to the outside world about what exactly happened during the execution.
+When a callable function completes successfully, there is often some metadata you would like to expose to the outside world about what exactly happened during the execution.
 
 Events allow Pallets to express that something has happened, and allows off-chain systems like indexers or block explorers to track certain state transitions.
 

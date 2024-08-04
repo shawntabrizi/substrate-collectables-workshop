@@ -76,7 +76,7 @@ What you need to know about SCALE is that it defines how every object in the `po
 
 ### Max Encoded Length
 
-Now that we have a tools to define the way objects should be encoded, we are able to create a trait which tracks the maximum encoded length of an object: `MaxEncodedLen.
+Now that we have the tools to define the way objects should be encoded, we are able to create a trait which tracks the maximum encoded length of an object: `MaxEncodedLen`.
 
 We then use that information to predict in the worst case scenario how much data will be used when we store it.
 
