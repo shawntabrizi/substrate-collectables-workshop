@@ -17,16 +17,8 @@ pub mod pallet {
 		type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
 	}
 
-	/* 🚧 TODO 🚧:
-		- Create a new `struct` called `Kitty`.
-		- Make `Kitty` generic over `T` where `T: Config`.
-		- Add two fields to `Kitty`:
-			- `dna` which is type `[u8; 32]`.
-			- `owner` which is type `T::AccountId`.
-	*/
-
 	#[pallet::storage]
-	pub(super) type CountForKitties<T: Config> = StorageValue<Value = u64, QueryKind = ValueQuery>;
+	pub(super) type CountForKitties<T: Config> = StorageValue<Value = u32, QueryKind = ValueQuery>;
 
 	#[pallet::storage]
 	pub(super) type Kitties<T: Config> = StorageMap<Key = [u8; 32], Value = ()>;

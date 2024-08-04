@@ -26,7 +26,7 @@ pub mod pallet {
 	}
 
 	#[pallet::storage]
-	pub(super) type CountForKitties<T: Config> = StorageValue<Value = u64, QueryKind = ValueQuery>;
+	pub(super) type CountForKitties<T: Config> = StorageValue<Value = u32, QueryKind = ValueQuery>;
 
 	#[pallet::storage]
 	pub(super) type Kitties<T: Config> = StorageMap<Key = [u8; 32], Value = Kitty<T>>;
@@ -51,11 +51,6 @@ pub mod pallet {
 		TooManyKitties,
 		DuplicateKitty,
 		TooManyOwned,
-		/* 🚧 TODO 🚧: Add new `Error` variants needed for `do_transfer`:
-			- `TransferToSelf`: for when the `from` and `to` of the transfer is the same.
-			- `NoKitty`: for when a transfer involves a kitty that does not exist.
-			- `NotOwner`: for when a transfer is initiated by someone who is not the current owner.
-		*/
 	}
 
 	#[pallet::call]

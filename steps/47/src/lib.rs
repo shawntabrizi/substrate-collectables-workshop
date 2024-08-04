@@ -36,7 +36,7 @@ pub mod pallet {
 	}
 
 	#[pallet::storage]
-	pub(super) type CountForKitties<T: Config> = StorageValue<Value = u64, QueryKind = ValueQuery>;
+	pub(super) type CountForKitties<T: Config> = StorageValue<Value = u32, QueryKind = ValueQuery>;
 
 	#[pallet::storage]
 	pub(super) type Kitties<T: Config> = StorageMap<Key = [u8; 32], Value = Kitty<T>>;
@@ -66,8 +66,10 @@ pub mod pallet {
 		TransferToSelf,
 		NoKitty,
 		NotOwner,
-		NotForSale,
-		MaxPriceTooLow,
+		/* 🚧 TODO 🚧: Add `Errors` needed for `do_buy_kitty`:
+			- `NotForSale`: for when the Kitty has a price set to `None`.
+			- `MaxPriceTooLow`: for when the price offered by the buyer is too low.
+		*/
 	}
 
 	#[pallet::call]

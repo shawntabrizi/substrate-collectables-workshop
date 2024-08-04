@@ -23,12 +23,9 @@ impl<T: Config> Pallet<T> {
 		// Check if the kitty does not already exist in our storage map
 		ensure!(!Kitties::<T>::contains_key(dna), Error::<T>::DuplicateKitty);
 
-		let current_count: u64 = CountForKitties::<T>::get();
+		let current_count: u32 = CountForKitties::<T>::get();
 		let new_count = current_count.checked_add(1).ok_or(Error::<T>::TooManyKitties)?;
 
-		/* 🚧 TODO 🚧:
-			- Update `append` to `try_append` and `map_err` to `Error::<T>::TooManyOwned`.
-		*/
 		KittiesOwned::<T>::append(&owner, dna);
 		Kitties::<T>::insert(dna, kitty);
 		CountForKitties::<T>::set(new_count);

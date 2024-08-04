@@ -24,7 +24,7 @@ impl<T: Config> Pallet<T> {
 		// Check if the kitty does not already exist in our storage map
 		ensure!(!Kitties::<T>::contains_key(dna), Error::<T>::DuplicateKitty);
 
-		let current_count: u64 = CountForKitties::<T>::get();
+		let current_count: u32 = CountForKitties::<T>::get();
 		let new_count = current_count.checked_add(1).ok_or(Error::<T>::TooManyKitties)?;
 
 		KittiesOwned::<T>::try_append(&owner, dna).map_err(|_| Error::<T>::TooManyOwned)?;
@@ -63,10 +63,13 @@ impl<T: Config> Pallet<T> {
 		kitty_id: [u8; 32],
 		new_price: Option<BalanceOf<T>>,
 	) -> DispatchResult {
-		let mut kitty = Kitties::<T>::get(kitty_id).ok_or(Error::<T>::NoKitty)?;
-		ensure!(kitty.owner == caller, Error::<T>::NotOwner);
-		kitty.price = new_price;
-		Kitties::<T>::insert(kitty_id, kitty);
+		/* 🚧 TODO 🚧: Create the logic for setting the Kitty price:
+			- Create a mutable `kitty` by calling `get` on `Kitties` with `kitty_id`.
+				- Return an error if the kitty doesn't exist by returning `Error::<T>::NoKitty`.
+			- `ensure!` that the `kitty.owner` is equal to the `caller` else return `Error::<T>::NotOwner`.
+			- Set the `kitty.price` to `new_price`.
+			- Insert the modified `kitty` back into the `Kitties` map under `kitty_id`.
+		*/
 
 		Self::deposit_event(Event::<T>::PriceSet { owner: caller, kitty_id, new_price });
 		Ok(())

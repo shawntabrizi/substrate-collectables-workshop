@@ -26,7 +26,7 @@ pub mod pallet {
 	}
 
 	#[pallet::storage]
-	pub(super) type CountForKitties<T: Config> = StorageValue<Value = u64, QueryKind = ValueQuery>;
+	pub(super) type CountForKitties<T: Config> = StorageValue<Value = u32, QueryKind = ValueQuery>;
 
 	#[pallet::storage]
 	pub(super) type Kitties<T: Config> = StorageMap<Key = [u8; 32], Value = Kitty<T>>;
@@ -43,7 +43,12 @@ pub mod pallet {
 	#[pallet::generate_deposit(pub(super) fn deposit_event)]
 	pub enum Event<T: Config> {
 		Created { owner: T::AccountId },
-		Transferred { from: T::AccountId, to: T::AccountId, kitty_id: [u8; 32] },
+		/* 🚧 TODO 🚧: Create a new event called `Transferred`:
+			- Parameters are:
+				- `from` which is `T::AccountId`.
+				- `to` which is `T::AccountId`.
+				- `kitty_id` which is `[u8; 32]`.
+		*/
 	}
 
 	#[pallet::error]
@@ -62,14 +67,16 @@ pub mod pallet {
 			Ok(())
 		}
 
-		pub fn transfer(
-			origin: OriginFor<T>,
-			to: T::AccountId,
-			kitty_id: [u8; 32],
-		) -> DispatchResult {
-			let who = ensure_signed(origin)?;
-			Self::do_transfer(who, to, kitty_id)?;
-			Ok(())
-		}
+		/* 🚧 TODO 🚧: Make a new extrinsic called `transfer`.
+			- Input parameters are:
+				- `origin` which is `OriginFor<T>`.
+				- `to` which is `T::AccountId`.
+				- `kitty_id` which is `[u8; 32]`.
+			- Returns a `DispatchResult`.
+			- The inner logic should be:
+				- Get the caller `who` from `ensure_signed`.
+				- Call `Self::do_transfer`, and propagate the result.
+				- End with Ok(()).
+		*/
 	}
 }

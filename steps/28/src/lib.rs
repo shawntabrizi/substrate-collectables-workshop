@@ -26,7 +26,7 @@ pub mod pallet {
 	}
 
 	#[pallet::storage]
-	pub(super) type CountForKitties<T: Config> = StorageValue<Value = u64, QueryKind = ValueQuery>;
+	pub(super) type CountForKitties<T: Config> = StorageValue<Value = u32, QueryKind = ValueQuery>;
 
 	#[pallet::storage]
 	pub(super) type Kitties<T: Config> = StorageMap<Key = [u8; 32], Value = Kitty<T>>;
@@ -47,7 +47,8 @@ pub mod pallet {
 	impl<T: Config> Pallet<T> {
 		pub fn create_kitty(origin: OriginFor<T>) -> DispatchResult {
 			let who = ensure_signed(origin)?;
-			let dna = Self::gen_dna();
+			/* 🚧 TODO 🚧: Use the `Self::gen_dna()` function to generate a unique Kitty. */
+			let dna = [0u8; 32];
 			Self::mint(who, dna)?;
 			Ok(())
 		}

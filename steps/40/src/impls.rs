@@ -24,7 +24,7 @@ impl<T: Config> Pallet<T> {
 		// Check if the kitty does not already exist in our storage map
 		ensure!(!Kitties::<T>::contains_key(dna), Error::<T>::DuplicateKitty);
 
-		let current_count: u64 = CountForKitties::<T>::get();
+		let current_count: u32 = CountForKitties::<T>::get();
 		let new_count = current_count.checked_add(1).ok_or(Error::<T>::TooManyKitties)?;
 
 		KittiesOwned::<T>::try_append(&owner, dna).map_err(|_| Error::<T>::TooManyOwned)?;
@@ -57,15 +57,4 @@ impl<T: Config> Pallet<T> {
 		Self::deposit_event(Event::<T>::Transferred { from, to, kitty_id });
 		Ok(())
 	}
-
-	/* 🚧 TODO 🚧: Make an internal function called `do_set_price`:
-		- Inputs to the function are:
-			- `caller` which is `T::AccountId`.
-			- `kitty_id` which is `[u8; 32]`.
-			- `new_price` which is `Option<BalanceOf<T>`.
-		- Returns a `DispatchResult`.
-		- The internal logic, for now, should be:
-			- `Self::deposit_event` for `Event::<T>::PriceSet` with the appropriate params.
-			- Return `Ok(())`.
-	*/
 }
