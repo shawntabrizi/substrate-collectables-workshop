@@ -1,17 +1,16 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index 889e7a2..3ede56f 100644
+index 889e7a2..2bb3385 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
-@@ -1,6 +1,8 @@
+@@ -1,6 +1,7 @@
  use super::*;
  use frame::prelude::*;
  use frame::primitives::BlakeTwo256;
-+/* 🚧 TODO 🚧: Import `frame::traits::fungible::Mutate`. */
 +/* 🚧 TODO 🚧: Import `frame::traits::tokens::Preservation`. */
  use frame::traits::Hash;
  
  // Learn about internal functions.
-@@ -77,6 +79,21 @@ impl<T: Config> Pallet<T> {
+@@ -77,6 +78,21 @@ impl<T: Config> Pallet<T> {
  		kitty_id: [u8; 32],
  		price: BalanceOf<T>,
  	) -> DispatchResult {
@@ -34,7 +33,7 @@ index 889e7a2..3ede56f 100644
  		Ok(())
  	}
 diff --git a/src/lib.rs b/src/lib.rs
-index c5ba2ac..cce320a 100644
+index 93c7421..214fb31 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
 @@ -66,6 +66,10 @@ pub mod pallet {

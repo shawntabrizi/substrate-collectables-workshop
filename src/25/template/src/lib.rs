@@ -3,9 +3,9 @@
 mod impls;
 
 use frame::prelude::*;
-use frame::traits::fungible::Inspect;
-use frame::traits::fungible::Mutate;
 pub use pallet::*;
+/* 🚧 TODO 🚧: Import `frame::traits::fungible::Inspect`. */
+/* 🚧 TODO 🚧: Import `frame::traits::fungible::Mutate`. */
 
 #[frame::pallet(dev_mode)]
 pub mod pallet {
@@ -18,13 +18,13 @@ pub mod pallet {
 	pub trait Config: frame_system::Config {
 		type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
 
-		/// The Fungible handler for the kitties pallet.
-		type NativeBalance: Inspect<Self::AccountId> + Mutate<Self::AccountId>;
+		/* 🚧 TODO 🚧:
+			- Create a new associated type named `NativeBalance`.
+			- Require that `NativeBalance` implements the following traits:
+				- `Inspect` which is generic over `Self::AccountId`.
+				- `Mutate` which is also generic over `Self::AccountId`.
+		*/
 	}
-
-	// Allows easy access our Pallet's `Balance` type. Comes from `Fungible` interface.
-	pub type BalanceOf<T> =
-		<<T as Config>::NativeBalance as Inspect<<T as frame_system::Config>::AccountId>>::Balance;
 
 	#[derive(Encode, Decode, TypeInfo, MaxEncodedLen)]
 	#[scale_info(skip_type_params(T))]
@@ -32,7 +32,6 @@ pub mod pallet {
 		// Using 32 bytes to represent a kitty DNA
 		pub dna: [u8; 32],
 		pub owner: T::AccountId,
-		pub price: Option<BalanceOf<T>>,
 	}
 
 	#[pallet::storage]
@@ -54,8 +53,6 @@ pub mod pallet {
 	pub enum Event<T: Config> {
 		Created { owner: T::AccountId },
 		Transferred { from: T::AccountId, to: T::AccountId, kitty_id: [u8; 32] },
-		PriceSet { owner: T::AccountId, kitty_id: [u8; 32], new_price: Option<BalanceOf<T>> },
-		Sold { buyer: T::AccountId, kitty_id: [u8; 32], price: BalanceOf<T> },
 	}
 
 	#[pallet::error]
@@ -66,8 +63,6 @@ pub mod pallet {
 		TransferToSelf,
 		NoKitty,
 		NotOwner,
-		NotForSale,
-		MaxPriceTooLow,
 	}
 
 	#[pallet::call]
@@ -86,26 +81,6 @@ pub mod pallet {
 		) -> DispatchResult {
 			let who = ensure_signed(origin)?;
 			Self::do_transfer(who, to, kitty_id)?;
-			Ok(())
-		}
-
-		pub fn set_price(
-			origin: OriginFor<T>,
-			kitty_id: [u8; 32],
-			new_price: Option<BalanceOf<T>>,
-		) -> DispatchResult {
-			let who = ensure_signed(origin)?;
-			Self::do_set_price(who, kitty_id, new_price)?;
-			Ok(())
-		}
-
-		pub fn buy_kitty(
-			origin: OriginFor<T>,
-			kitty_id: [u8; 32],
-			max_price: BalanceOf<T>,
-		) -> DispatchResult {
-			let who = ensure_signed(origin)?;
-			Self::do_buy_kitty(who, kitty_id, max_price)?;
 			Ok(())
 		}
 	}

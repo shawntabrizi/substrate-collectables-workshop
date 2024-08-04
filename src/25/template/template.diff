@@ -1,0 +1,27 @@
+diff --git a/src/lib.rs b/src/lib.rs
+index dd5161f..a6798db 100644
+--- a/src/lib.rs
++++ b/src/lib.rs
+@@ -4,6 +4,8 @@ mod impls;
+ 
+ use frame::prelude::*;
+ pub use pallet::*;
++/* 🚧 TODO 🚧: Import `frame::traits::fungible::Inspect`. */
++/* 🚧 TODO 🚧: Import `frame::traits::fungible::Mutate`. */
+ 
+ #[frame::pallet(dev_mode)]
+ pub mod pallet {
+@@ -15,6 +17,13 @@ pub mod pallet {
+ 	#[pallet::config]
+ 	pub trait Config: frame_system::Config {
+ 		type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
++
++		/* 🚧 TODO 🚧:
++			- Create a new associated type named `NativeBalance`.
++			- Require that `NativeBalance` implements the following traits:
++				- `Inspect` which is generic over `Self::AccountId`.
++				- `Mutate` which is also generic over `Self::AccountId`.
++		*/
+ 	}
+ 
+ 	#[derive(Encode, Decode, TypeInfo, MaxEncodedLen)]
