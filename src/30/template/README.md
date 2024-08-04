@@ -23,7 +23,7 @@ To execute a purchase, we need to transfer two things:
 
 ### Transfer the Native Balance
 
-To transfer the `NativeBalance`, you can use the [`transfer`](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/tokens/fungible/trait.Mutate.html#method.transfer) API which is included in the `fungible::Mutate` trait.
+To transfer the `NativeBalance`, you can use the [`transfer`](https://docs.rs/frame-support/37.0.0/frame_support/traits/tokens/fungible/trait.Mutate.html#method.transfer) API which is included in the `fungible::Mutate` trait.
 
 ```rust
 fn transfer(

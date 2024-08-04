@@ -10,7 +10,7 @@ Check out the [`StorageMap` documentation](https://docs.rs/frame-support/37.0.0/
 
 ### Reading Storage
 
-To read the current value of a key in a `StorageMap`, you can simply call the `get(key)` API:
+To read the current value of a key in a `StorageMap`, you can simply call the [`get(key)`](https://docs.rs/frame-support/37.0.0/frame_support/storage/types/struct.StorageMap.html#method.get) API:
 
 ```rust
 let my_key: [u8; 32] = [0u8; 32];

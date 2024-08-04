@@ -99,7 +99,7 @@ fn add_one(input: BalanceOf<T>) -> BalanceOf<T> {
 
 Even if we don't include `u128`, we cannot write the line above. This is because that line assumes that `input` must be some specific number type, and in that code, it is simply generic.
 
-However, `BalanceOf<T>` [does have traits](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/tokens/trait.Balance.html) that we can use to interact with it. The key one being [`AtLeast32BitUnsigned`](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_frame/arithmetic/trait.AtLeast32BitUnsigned.html).
+However, `BalanceOf<T>` [does have traits](https://docs.rs/frame-support/37.0.0/frame_support/traits/tokens/trait.Balance.html) that we can use to interact with it. The key one being [`AtLeast32BitUnsigned`](https://docs.rs/polkadot-sdk-frame/0.6.0/polkadot_sdk_frame/arithmetic/trait.AtLeast32BitUnsigned.html).
 
 This means our `BalanceOf<T>` must be an unsigned integer, and must be at least `u32`. So it could be `u32`, `u64`, `u128`, or even bigger if you import other crates with those larger unsigned types.
 
