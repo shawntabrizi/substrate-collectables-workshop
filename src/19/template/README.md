@@ -29,16 +29,18 @@ If we combine all of these things together, we can ensure that every kitty we mi
 
 ## Hash
 
-Obviously our uniqueness inputs are not super useful as is. But we can convert these inputs into a unique set of bytes with fixed length using a Hash function.
+Obviously our uniqueness inputs are not super useful as is. But we can convert these inputs into a unique set of bytes with fixed length using a Hash function like [`frame::primitives::BlakeTwo256`](https://docs.rs/polkadot-sdk-frame/0.6.0/polkadot_sdk_frame/primitives/struct.BlakeTwo256.html).
 
 ```rust
 // Collect our unique inputs into a single object.
 let unique_payload = (item1, item2, item3);
-// Encode that object into a vector of bytes.
-let encoded_payload: Vec<u8> = unique_payload.encode();
-// Hash those bytes to create a fixed-size hash.
-let hash: [u8; 32] = frame_support::Hashable::blake2_256(&encoded_payload)
+// To use the `hash_of` API, we need to bring the `Hash` trait into scope.
+use frame::traits::Hash;
+// Hash that object to get a unique identifier.
+let hash: [u8; 32] = BlakeTwo256::hash_of(&unique_payload).into().
 ```
+
+The `hash_of` API comes from the `Hash` trait and takes any `encode`-able object, and returns a `H256`, which is a 256-bit hash. As you can see in the code above, it is easy to convert that to a `[u8; 32]` by just calling `.into()`, since these two types are equivalent.
 
 Another nice thing about using a hash is you get some sense of pseudo-randomness between the input and output. This means that two kitties which are minted right after one another could have totally different DNA, which could be useful if you want to associate unique attributes to the different parts of their DNA. 🤔
 

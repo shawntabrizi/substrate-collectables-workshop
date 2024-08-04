@@ -1,8 +1,8 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index 6d1ad0e..036a441 100644
+index f7fda1e..72c76b0 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
-@@ -76,6 +76,22 @@ impl<T: Config> Pallet<T> {
+@@ -77,6 +77,22 @@ impl<T: Config> Pallet<T> {
  		kitty_id: [u8; 32],
  		price: BalanceOf<T>,
  	) -> DispatchResult {
@@ -26,10 +26,10 @@ index 6d1ad0e..036a441 100644
  		Ok(())
  	}
 diff --git a/src/lib.rs b/src/lib.rs
-index df2ccc1..da5e656 100644
+index 1e0dce3..dac86aa 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -68,6 +68,10 @@ pub mod pallet {
+@@ -66,6 +66,10 @@ pub mod pallet {
  		TransferToSelf,
  		NoKitty,
  		NotOwner,

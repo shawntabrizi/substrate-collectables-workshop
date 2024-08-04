@@ -1,8 +1,8 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index e20cf23..dcfc6f3 100644
+index 8ad0796..5af890e 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
-@@ -56,4 +56,15 @@ impl<T: Config> Pallet<T> {
+@@ -57,4 +57,15 @@ impl<T: Config> Pallet<T> {
  		Self::deposit_event(Event::<T>::Transferred { from, to, kitty_id });
  		Ok(())
  	}
@@ -19,10 +19,10 @@ index e20cf23..dcfc6f3 100644
 +	*/
  }
 diff --git a/src/lib.rs b/src/lib.rs
-index fb3af80..d07533c 100644
+index a629f63..5bc4fd6 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -56,6 +56,11 @@ pub mod pallet {
+@@ -54,6 +54,11 @@ pub mod pallet {
  	pub enum Event<T: Config> {
  		Created { owner: T::AccountId },
  		Transferred { from: T::AccountId, to: T::AccountId, kitty_id: [u8; 32] },
@@ -34,7 +34,7 @@ index fb3af80..d07533c 100644
  	}
  
  	#[pallet::error]
-@@ -86,5 +91,17 @@ pub mod pallet {
+@@ -84,5 +89,17 @@ pub mod pallet {
  			Self::do_transfer(who, to, kitty_id)?;
  			Ok(())
  		}

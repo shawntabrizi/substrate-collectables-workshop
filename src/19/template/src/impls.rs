@@ -1,5 +1,7 @@
 use super::*;
-use frame_support::pallet_prelude::*;
+use frame::prelude::*;
+/* 🚧 TODO 🚧: Import `frame::primtives::BlakeTwo256`. */
+/* 🚧 TODO 🚧: Import `frame::traits::Hash`. */
 
 impl<T: Config> Pallet<T> {
 	/* 🚧 TODO 🚧: Create a function `gen_dna` which returns a `[u8; 32]`.
@@ -8,9 +10,8 @@ impl<T: Config> Pallet<T> {
 			- `block_number`
 			- `extrinsic_index`
 			- `CountForKitties::<T>::get()`
-		- `encode()` that payload to a byte array named `encoded_payload`.
-		- Use `frame_support::Hashable` to perform a `blake2_256` hash on the encoded payload.
-		- Return the 32 byte hash.
+		- Use `BlakeTwo256` to calculate the `hash_of` the unique payload.
+		- Return the hash as a `[u8; 32]`.
 	*/
 
 	pub fn mint(owner: T::AccountId, dna: [u8; 32]) -> DispatchResult {

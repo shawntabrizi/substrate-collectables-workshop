@@ -1,9 +1,9 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index 30845de..3ebda2c 100644
+index f6cd166..861b1fc 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
 @@ -2,11 +2,10 @@ use super::*;
- use frame_support::pallet_prelude::*;
+ use frame::prelude::*;
  
  impl<T: Config> Pallet<T> {
 -	/* 🚧 TODO 🚧: Update this function signature to include `id` which is type `[u8; 32]`. */
@@ -17,10 +17,10 @@ index 30845de..3ebda2c 100644
  		Self::deposit_event(Event::<T>::Created { owner });
  		Ok(())
 diff --git a/src/lib.rs b/src/lib.rs
-index 34a9a49..520411c 100644
+index 122c863..2578b59 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -39,11 +39,8 @@ pub mod pallet {
+@@ -38,11 +38,8 @@ pub mod pallet {
  	impl<T: Config> Pallet<T> {
  		pub fn create_kitty(origin: OriginFor<T>) -> DispatchResult {
  			let who = ensure_signed(origin)?;

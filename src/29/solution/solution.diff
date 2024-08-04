@@ -1,8 +1,8 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index 4c6130c..6d1ad0e 100644
+index 5d5d0f2..f7fda1e 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
-@@ -71,14 +71,12 @@ impl<T: Config> Pallet<T> {
+@@ -72,14 +72,12 @@ impl<T: Config> Pallet<T> {
  		Ok(())
  	}
  
@@ -26,10 +26,10 @@ index 4c6130c..6d1ad0e 100644
 +	}
  }
 diff --git a/src/lib.rs b/src/lib.rs
-index 1ad969f..df2ccc1 100644
+index 4a975f3..1e0dce3 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -57,11 +57,7 @@ pub mod pallet {
+@@ -55,11 +55,7 @@ pub mod pallet {
  		Created { owner: T::AccountId },
  		Transferred { from: T::AccountId, to: T::AccountId, kitty_id: [u8; 32] },
  		PriceSet { owner: T::AccountId, kitty_id: [u8; 32], new_price: Option<BalanceOf<T>> },
@@ -42,7 +42,7 @@ index 1ad969f..df2ccc1 100644
  	}
  
  	#[pallet::error]
-@@ -103,16 +99,14 @@ pub mod pallet {
+@@ -101,16 +97,14 @@ pub mod pallet {
  			Ok(())
  		}
  

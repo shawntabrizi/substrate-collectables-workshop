@@ -1,8 +1,8 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index fef52b5..6295382 100644
+index a8ea817..ddc0fc5 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
-@@ -3,17 +3,13 @@ use frame_support::pallet_prelude::*;
+@@ -3,17 +3,13 @@ use frame::prelude::*;
  
  impl<T: Config> Pallet<T> {
  	pub fn mint(owner: T::AccountId, dna: [u8; 32]) -> DispatchResult {
@@ -23,10 +23,10 @@ index fef52b5..6295382 100644
  		Self::deposit_event(Event::<T>::Created { owner });
  		Ok(())
 diff --git a/src/lib.rs b/src/lib.rs
-index fb94c5a..fa9a4b2 100644
+index 59cc20b..f4d50ff 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -18,10 +18,8 @@ pub mod pallet {
+@@ -17,10 +17,8 @@ pub mod pallet {
  		type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
  	}
  
@@ -39,7 +39,7 @@ index fb94c5a..fa9a4b2 100644
  	pub struct Kitty<T: Config> {
  		// Using 32 bytes to represent a kitty DNA
  		pub dna: [u8; 32],
-@@ -32,8 +30,7 @@ pub mod pallet {
+@@ -31,8 +29,7 @@ pub mod pallet {
  	pub(super) type CountForKitties<T: Config> = StorageValue<Value = u64, QueryKind = ValueQuery>;
  
  	#[pallet::storage]

@@ -1,8 +1,8 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index 7917f2d..1d8c5fb 100644
+index 960cbb7..f018a29 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
-@@ -25,10 +25,10 @@ impl<T: Config> Pallet<T> {
+@@ -26,10 +26,10 @@ impl<T: Config> Pallet<T> {
  		let current_count: u64 = CountForKitties::<T>::get();
  		let new_count = current_count.checked_add(1).ok_or(Error::<T>::TooManyKitties)?;
  
@@ -16,10 +16,10 @@ index 7917f2d..1d8c5fb 100644
  		Ok(())
  	}
 diff --git a/src/lib.rs b/src/lib.rs
-index 70c4362..e4ccfe8 100644
+index a86eb27..2c81d9a 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -32,11 +32,10 @@ pub mod pallet {
+@@ -31,11 +31,10 @@ pub mod pallet {
  	#[pallet::storage]
  	pub(super) type Kitties<T: Config> = StorageMap<Key = [u8; 32], Value = Kitty<T>>;
  

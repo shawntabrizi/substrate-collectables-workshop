@@ -1,15 +1,16 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index 036a441..ae179e5 100644
+index 72c76b0..85ff781 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
-@@ -1,5 +1,5 @@
+@@ -1,6 +1,7 @@
  use super::*;
--use frame_support::pallet_prelude::*;
-+use frame_support::{pallet_prelude::*, traits::fungible::Mutate};
+ use frame::prelude::*;
+ use frame::primitives::BlakeTwo256;
++use frame::traits::fungible::Mutate;
+ use frame::traits::Hash;
  
  // Learn about internal functions.
- impl<T: Config> Pallet<T> {
-@@ -76,23 +76,15 @@ impl<T: Config> Pallet<T> {
+@@ -77,23 +78,15 @@ impl<T: Config> Pallet<T> {
  		kitty_id: [u8; 32],
  		price: BalanceOf<T>,
  	) -> DispatchResult {
@@ -30,7 +31,7 @@ index 036a441..ae179e5 100644
 -			- Use `Self::do_transfer` to transfer from the `kitty.owner` to the `buyer` with `kitty_id`.
 -			- Remember to propagate up all results from these functions with `?`.
 -		*/
-+		use frame_support::traits::tokens::Preservation;
++		use frame::traits::tokens::Preservation;
 +		T::NativeBalance::transfer(&buyer, &kitty.owner, real_price, Preservation::Preserve)?;
 +		Self::do_transfer(kitty.owner, buyer.clone(), kitty_id)?;
  
@@ -41,10 +42,10 @@ index 036a441..ae179e5 100644
  	}
  }
 diff --git a/src/lib.rs b/src/lib.rs
-index da5e656..2b45aee 100644
+index dac86aa..3a963c1 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -68,10 +68,8 @@ pub mod pallet {
+@@ -66,10 +66,8 @@ pub mod pallet {
  		TransferToSelf,
  		NoKitty,
  		NotOwner,

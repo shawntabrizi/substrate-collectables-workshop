@@ -1,17 +1,8 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index 62160cc..7917f2d 100644
+index 3505961..960cbb7 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
-@@ -13,7 +13,7 @@ impl<T: Config> Pallet<T> {
- 			CountForKitties::<T>::get(),
- 		);
- 
--		let encoded_payload: Vec<u8> = unique_payload.encode();
-+		let encoded_payload = unique_payload.encode();
- 		frame_support::Hashable::blake2_256(&encoded_payload)
- 	}
- 
-@@ -24,6 +24,9 @@ impl<T: Config> Pallet<T> {
+@@ -25,6 +25,9 @@ impl<T: Config> Pallet<T> {
  
  		let current_count: u64 = CountForKitties::<T>::get();
  		let new_count = current_count.checked_add(1).ok_or(Error::<T>::TooManyKitties)?;
@@ -22,10 +13,10 @@ index 62160cc..7917f2d 100644
  		CountForKitties::<T>::set(new_count);
  		Self::deposit_event(Event::<T>::Created { owner });
 diff --git a/src/lib.rs b/src/lib.rs
-index 0a04ad8..70c4362 100644
+index 0859d19..a86eb27 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -32,6 +32,12 @@ pub mod pallet {
+@@ -31,6 +31,12 @@ pub mod pallet {
  	#[pallet::storage]
  	pub(super) type Kitties<T: Config> = StorageMap<Key = [u8; 32], Value = Kitty<T>>;
  

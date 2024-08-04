@@ -1,5 +1,5 @@
 use super::*;
-use frame_support::pallet_prelude::*;
+use frame::prelude::*;
 
 impl<T: Config> Pallet<T> {
 	/* 🚧 TODO 🚧: Update this function signature to include `id` which is type `[u8; 32]`. */

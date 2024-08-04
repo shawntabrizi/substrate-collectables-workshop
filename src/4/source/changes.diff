@@ -1,28 +1,28 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index d49f793..8d6e03a 100644
+index 03abf99..7454df9 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
 @@ -1,6 +1,7 @@
  use super::*;
- use frame_support::pallet_prelude::*;
+ use frame::prelude::*;
  
 +/* 🚧 TODO 🚧:  Learn about internal functions. */
  impl<T: Config> Pallet<T> {
  	pub fn mint(owner: T::AccountId) -> DispatchResult {
  		Self::deposit_event(Event::<T>::Created { owner });
 diff --git a/src/lib.rs b/src/lib.rs
-index c0e26f2..9172c85 100644
+index 95dc3a4..ef2382e 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -10,7 +10,6 @@ pub mod pallet {
- 	use frame_support::pallet_prelude::*;
- 	use frame_system::pallet_prelude::*;
+@@ -9,7 +9,6 @@ pub use pallet::*;
+ pub mod pallet {
+ 	use super::*;
  
 -	/* 🚧 TODO 🚧: Learn about the Pallet struct. */
  	#[pallet::pallet]
  	pub struct Pallet<T>(core::marker::PhantomData<T>);
  
-@@ -28,6 +27,7 @@ pub mod pallet {
+@@ -27,6 +26,7 @@ pub mod pallet {
  	#[pallet::error]
  	pub enum Error<T> {}
  

@@ -1,5 +1,7 @@
 use super::*;
-use frame_support::pallet_prelude::*;
+use frame::prelude::*;
+use frame::primitives::BlakeTwo256;
+use frame::traits::Hash;
 
 // Learn about internal functions.
 impl<T: Config> Pallet<T> {
@@ -14,8 +16,7 @@ impl<T: Config> Pallet<T> {
 			CountForKitties::<T>::get(),
 		);
 
-		let encoded_payload = unique_payload.encode();
-		frame_support::Hashable::blake2_256(&encoded_payload)
+		BlakeTwo256::hash_of(&unique_payload).into()
 	}
 
 	pub fn mint(owner: T::AccountId, dna: [u8; 32]) -> DispatchResult {

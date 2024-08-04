@@ -1,8 +1,8 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index d8ec581..4f0f335 100644
+index bddf4f0..69f5ae2 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
-@@ -35,28 +35,23 @@ impl<T: Config> Pallet<T> {
+@@ -36,28 +36,23 @@ impl<T: Config> Pallet<T> {
  	}
  
  	pub fn do_transfer(from: T::AccountId, to: T::AccountId, kitty_id: [u8; 32]) -> DispatchResult {
@@ -49,10 +49,10 @@ index d8ec581..4f0f335 100644
  		Self::deposit_event(Event::<T>::Transferred { from, to, kitty_id });
  		Ok(())
 diff --git a/src/lib.rs b/src/lib.rs
-index ca79a8d..43ba0d9 100644
+index 178c6ef..b8f6f28 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -52,11 +52,9 @@ pub mod pallet {
+@@ -51,11 +51,9 @@ pub mod pallet {
  		TooManyKitties,
  		DuplicateKitty,
  		TooManyOwned,

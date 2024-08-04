@@ -1,8 +1,8 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index 3682da3..dc1b64a 100644
+index 68cecde..c990886 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
-@@ -3,10 +3,9 @@ use frame_support::pallet_prelude::*;
+@@ -3,10 +3,9 @@ use frame::prelude::*;
  
  impl<T: Config> Pallet<T> {
  	pub fn mint(owner: T::AccountId, dna: [u8; 32]) -> DispatchResult {
@@ -17,10 +17,10 @@ index 3682da3..dc1b64a 100644
  		let new_count = current_count.checked_add(1).ok_or(Error::<T>::TooManyKitties)?;
  		Kitties::<T>::insert(dna, ());
 diff --git a/src/lib.rs b/src/lib.rs
-index 04200fc..e8a3cc5 100644
+index 5eebef6..48275dc 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -33,7 +33,7 @@ pub mod pallet {
+@@ -32,7 +32,7 @@ pub mod pallet {
  	#[pallet::error]
  	pub enum Error<T> {
  		TooManyKitties,

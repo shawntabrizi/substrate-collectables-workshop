@@ -37,7 +37,7 @@ We have already been using tight coupling throughout this tutorial to give our c
 ```rust
 #[pallet::config]
 pub trait Config: frame_system::Config {
-	// Through trait inheritance, we are tightly coupled to `frame_system`.
+	// Through supertraits, we are tightly coupled to `frame_system`.
 }
 ```
 

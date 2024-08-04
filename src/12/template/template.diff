@@ -1,8 +1,8 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index 7256a66..b7fa63d 100644
+index 43c7159..9cd8a31 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
-@@ -3,8 +3,10 @@ use frame_support::pallet_prelude::*;
+@@ -3,8 +3,10 @@ use frame::prelude::*;
  
  impl<T: Config> Pallet<T> {
  	pub fn mint(owner: T::AccountId) -> DispatchResult {
@@ -14,10 +14,10 @@ index 7256a66..b7fa63d 100644
  		Self::deposit_event(Event::<T>::Created { owner });
  		Ok(())
 diff --git a/src/lib.rs b/src/lib.rs
-index 8515ad6..2a3ed6c 100644
+index 2c2504c..724375b 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -19,6 +19,7 @@ pub mod pallet {
+@@ -18,6 +18,7 @@ pub mod pallet {
  	}
  
  	#[pallet::storage]

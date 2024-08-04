@@ -1,8 +1,8 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index 9e57a9a..3b9788f 100644
+index 5b01e33..2958fec 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
-@@ -34,14 +34,8 @@ impl<T: Config> Pallet<T> {
+@@ -35,14 +35,8 @@ impl<T: Config> Pallet<T> {
  		Ok(())
  	}
  
@@ -22,10 +22,10 @@ index 9e57a9a..3b9788f 100644
 +	}
  }
 diff --git a/src/lib.rs b/src/lib.rs
-index c665d2c..035e702 100644
+index 9edc310..8f9ca64 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -44,12 +44,7 @@ pub mod pallet {
+@@ -43,12 +43,7 @@ pub mod pallet {
  	#[pallet::generate_deposit(pub(super) fn deposit_event)]
  	pub enum Event<T: Config> {
  		Created { owner: T::AccountId },
@@ -39,7 +39,7 @@ index c665d2c..035e702 100644
  	}
  
  	#[pallet::error]
-@@ -68,16 +63,14 @@ pub mod pallet {
+@@ -67,16 +62,14 @@ pub mod pallet {
  			Ok(())
  		}
  

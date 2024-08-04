@@ -1,8 +1,8 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index 4f0f335..e20cf23 100644
+index 69f5ae2..8ad0796 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
-@@ -19,7 +19,7 @@ impl<T: Config> Pallet<T> {
+@@ -20,7 +20,7 @@ impl<T: Config> Pallet<T> {
  	}
  
  	pub fn mint(owner: T::AccountId, dna: [u8; 32]) -> DispatchResult {
@@ -12,10 +12,10 @@ index 4f0f335..e20cf23 100644
  		ensure!(!Kitties::<T>::contains_key(dna), Error::<T>::DuplicateKitty);
  
 diff --git a/src/lib.rs b/src/lib.rs
-index bd61167..fb3af80 100644
+index 05d68f0..a629f63 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -24,12 +24,17 @@ pub mod pallet {
+@@ -22,12 +22,17 @@ pub mod pallet {
  		type NativeBalance: Inspect<Self::AccountId> + Mutate<Self::AccountId>;
  	}
  

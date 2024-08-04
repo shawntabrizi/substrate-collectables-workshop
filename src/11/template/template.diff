@@ -1,8 +1,8 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index cabecf1..8acfe79 100644
+index a35e365..95d4a77 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
-@@ -4,6 +4,7 @@ use frame_support::pallet_prelude::*;
+@@ -4,6 +4,7 @@ use frame::prelude::*;
  impl<T: Config> Pallet<T> {
  	pub fn mint(owner: T::AccountId) -> DispatchResult {
  		let current_count: u64 = CountForKitties::<T>::get().unwrap_or(0);
@@ -11,10 +11,10 @@ index cabecf1..8acfe79 100644
  		CountForKitties::<T>::set(Some(new_count));
  		Self::deposit_event(Event::<T>::Created { owner });
 diff --git a/src/lib.rs b/src/lib.rs
-index b0c4af7..0ba29be 100644
+index b6c66a4..e119c87 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -28,7 +28,11 @@ pub mod pallet {
+@@ -27,7 +27,11 @@ pub mod pallet {
  	}
  
  	#[pallet::error]

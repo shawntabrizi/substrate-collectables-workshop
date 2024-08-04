@@ -1,8 +1,8 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index 210e11d..cabecf1 100644
+index ef77d84..a35e365 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
-@@ -3,12 +3,9 @@ use frame_support::pallet_prelude::*;
+@@ -3,12 +3,9 @@ use frame::prelude::*;
  
  impl<T: Config> Pallet<T> {
  	pub fn mint(owner: T::AccountId) -> DispatchResult {
