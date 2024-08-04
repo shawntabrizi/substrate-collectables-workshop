@@ -4,11 +4,9 @@ Let's now learn how to use our new `StorageValue`.
 
 ## Basic APIs
 
-The full list of APIs available for a `StorageValue` can be found here:
+This tutorial will only go over just the basic APIs needed to build our Pallet.
 
-https://docs.rs/frame-support/37.0.0/frame_support/storage/types/struct.StorageValue.html
-
-But we will go over just the basics we need to build our Pallet.
+Check out the [`StorageValue` documentation](https://docs.rs/frame-support/37.0.0/frame_support/storage/types/struct.StorageValue.html) if you want to see the full APIs.
 
 ### Reading Storage
 

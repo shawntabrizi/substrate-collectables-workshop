@@ -4,11 +4,9 @@ Now let's learn to interact with our `Kitties` storage map, and update the map w
 
 ## Basic APIs
 
-The full list of APIs available for `StorageMap` can be found here:
+This tutorial will only go over just the basic APIs needed to build our Pallet.
 
-https://docs.rs/frame-support/37.0.0/frame_support/storage/types/struct.StorageMap.html
-
-But we will go over just the basics we need to build our Pallet.
+Check out the [`StorageMap` documentation](https://docs.rs/frame-support/37.0.0/frame_support/storage/types/struct.StorageMap.html) if you want to see the full APIs.
 
 ### Reading Storage
 
