@@ -1,7 +1,6 @@
 use super::*;
 use frame::prelude::*;
 use frame::primitives::BlakeTwo256;
-use frame::traits::fungible::Mutate;
 use frame::traits::tokens::Preservation;
 use frame::traits::Hash;
 
