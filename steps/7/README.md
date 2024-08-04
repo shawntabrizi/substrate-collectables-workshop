@@ -21,17 +21,15 @@ This is what is meant with `<T: Config>` that you see everywhere.
 
 The simplest way to understand is that wherever you see `T`, you have access to our `trait Config` and the types and functions inside of it.
 
-## Trait Inheritance
+## Supertraits
 
-To understand how we use the `Config` trait, we first need to learn about basic Rust inheritance patterns.
+To understand how we use the `Config` trait, we first need to learn about [Rust supertraits](https://doc.rust-lang.org/rust-by-example/trait/supertraits.html).
 
-```rust
-example here i think
-```
+Supertraits are similar to the concept of "inheritance" from other programming languages. In Rust, it allows one trait as being a superset of another trait.
 
-You will notice that our `Config` trait inherits from the `frame_system::Config` trait.
+You will notice that our `Config` trait is a supertrait of the `frame_system::Config` trait.
 
-What is `frame_system`? What is in it's config?
+What is `frame_system`? What is in `frame_system::Config`?
 
 ## FRAME System
 
@@ -57,7 +55,7 @@ pub trait Config: 'static + Eq + Clone {
 }
 ```
 
-Because our `trait Config` inherits from `frame_system::Config`, we have access to these types too.
+Because our `trait Config` is a superset of `frame_system::Config`, we have access to these types too.
 
 This is why you see in our starting code `T::AccountId`. We are able to access the `AccountId` type, which is originally defined inside `frame_system::Config` through our `trait Config`, via the generic trait `T`.
 
