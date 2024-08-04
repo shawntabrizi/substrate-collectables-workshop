@@ -62,7 +62,7 @@ The most common example would be trying to store the token balance of all users 
 
 In our pallet, we use the `StorageMap` to store unique information about each `Kitty` in our pallet.
 
-These use cases make sense because all the logic in our pallet typically touches only one key at a time on average.
+These use cases make sense because all the logic in our pallet typically touches only one key at a time.
 
 - when you mint a kitty, we create one key / value.
 - when you transfer a kitty, we mutate one key / value.
