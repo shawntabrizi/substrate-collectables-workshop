@@ -3,9 +3,9 @@
 mod impls;
 
 use frame::prelude::*;
-pub use pallet::*;
 /* 🚧 TODO 🚧: Import `frame::traits::fungible::Inspect`. */
 /* 🚧 TODO 🚧: Import `frame::traits::fungible::Mutate`. */
+pub use pallet::*;
 
 #[frame::pallet(dev_mode)]
 pub mod pallet {
