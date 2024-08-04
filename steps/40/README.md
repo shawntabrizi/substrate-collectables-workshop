@@ -10,7 +10,7 @@ Every blockchain has a cryptocurrency associated with it. Bitcoin has BTC. Ether
 
 For Polkadot, that native token is the DOT token.
 
-Polkadot is built using FRAME and Pallets just like you have been building so far. Included in the `polkadot-sdk` is `pallet_balances`.
+Polkadot is built using FRAME and Pallets just like you have been building so far. Included in the `polkadot-sdk` is [`pallet_balances`](https://paritytech.github.io/polkadot-sdk/master/pallet_balances/index.html).
 
 This is a Pallet designed specifically to manage the native balance for users.
 
@@ -85,7 +85,7 @@ pub trait Config: frame_system::Config {
 }
 ```
 
-You can see we introduce a new associated type called `NativeBalance`. We then require that this type must implment two traits:
+You can see we introduce a new associated type called `NativeBalance`. We then require that this type must implement two traits:
 
 - [`fungible::Inspect`](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/tokens/fungible/trait.Inspect.html): A trait allowing us to read data about a fungible token.
 - [`fungible::Mutate`](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/tokens/fungible/trait.Mutate.html): A trait allowing us to write data about a fungible token.

@@ -6,7 +6,7 @@ Now that you have learned everything you need to know about `StorageValue`s, it 
 
 ## Syntax
 
-Declaring a new `StorageMap` is very similar to a `StorageValue`:
+Declaring a new [`StorageMap`](https://paritytech.github.io/polkadot-sdk/master/frame_support/storage/types/struct.StorageMap.html) is very similar to a `StorageValue`:
 
 ```rust
 #[pallet::storage]
@@ -23,8 +23,8 @@ In this case `[u8; 32]` represents some unique identifier for each Kitty we will
 
 The key difference between a `StorageValue` and a `StorageMap` is:
 
-- A `StorageValue` stores a single value into a single key the Merkle Trie.
-- A `StorageMap` stores multiple values under different storage keys, all into different places in the merkle trie.
+- A `StorageValue` stores a single value into a single key in the Merkle Trie.
+- A `StorageMap` stores multiple values under different storage keys, all into different places in the Merkle Trie.
 
 Let's clarify further.
 
@@ -44,11 +44,11 @@ and
 pub(super) type MyMap<T: Config> = StorageMap<Key = u8, Value = ()>;
 ```
 
-They both can store the same data, but the `StorageValue` puts all of the data into a single object and stores that all into a single key in the merkle trie.
+They both can store the same data, but the `StorageValue` puts all of the data into a single object and stores that all into a single key in the Merkle Trie.
 
 This means if we want to read just a single key / value pair, we must read ALL data in the whole map, and parse out just the single value we want.
 
-In a `StorageMap`, each value is stored in its own spot in the merkle trie, so you are able to read just one key / value on its own. This can be way more efficient for reading just a single item.
+In a `StorageMap`, each value is stored in its own spot in the Merkle Trie, so you are able to read just one key / value on its own. This can be way more efficient for reading just a single item.
 
 However, trying to read multiple items from a `StorageMap` is extremely expensive.
 
@@ -62,7 +62,7 @@ The most common example would be trying to store the token balance of all users 
 
 In our pallet, we use the `StorageMap` to store unique information about each `Kitty` in our pallet.
 
-These use cases makes sense because all of the logic in our pallet only touch one key at a time on average.
+These use cases make sense because all the logic in our pallet typically touches only one key at a time on average.
 
 - when you mint a kitty, we create one key / value.
 - when you transfer a kitty, we mutate one key / value.
