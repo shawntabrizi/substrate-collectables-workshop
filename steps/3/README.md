@@ -45,7 +45,7 @@ Our starting template includes all the basic macros used for developing a FRAME 
 The entrypoint for all the FRAME macros is can be seen here:
 
 ```rust
-#[frame_support::pallet(dev_mode)]
+#[frame::pallet(dev_mode)]
 pub mod pallet {
 	// -- snip --
 }
@@ -78,7 +78,7 @@ pub mod pallet {
 
 We can now design the `#[macro_entrypoint]` to keep track of all data inside of the `mod pallet` container, and that means we can now design `#[macro_1]` and `#[macro_2]` to have context of one another, and interact with each other too.
 
-The unfortunate limitation here is that wherever we want to use FRAME macros, we must basically do it in a single file and all enclosed by the `#[frame_support::pallet]` macro entrypoint.
+The unfortunate limitation here is that wherever we want to use FRAME macros, we must basically do it in a single file and all enclosed by the `#[frame::pallet]` macro entrypoint.
 
 We will go over each of the FRAME macros throughout this tutorial
 
@@ -89,10 +89,9 @@ While the template is already very minimal, you can mentally break it down like:
 ```rust
 pub use pallet::*;
 
-#[frame_support::pallet]
+#[frame::pallet]
 pub mod pallet {
-  use frame_support::pallet_prelude::*;
-  use frame_system::pallet_prelude::*;
+  use frame::prelude::*;
 
   #[pallet::pallet]
   pub struct Pallet<T>(core::marker::PhantomData<T>);

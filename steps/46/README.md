@@ -37,7 +37,7 @@ fn transfer(
 > NOTE: To access this function, you will need import the trait to bring it in scope. Otherwise you will get an error that the function does not exist. So don't forget to include:
 >
 > ```rust
-> use frame_support::traits::fungible::Mutate;
+> use frame::traits::fungible::Mutate;
 > ```
 
 The first 3 parameters here are easy enough to understand: `source`, `dest`, and `amount`.

@@ -1,6 +1,8 @@
 use super::*;
 use frame::prelude::*;
 use frame::primitives::BlakeTwo256;
+/* 🚧 TODO 🚧: Import `frame::traits::fungible::Mutate`. */
+/* 🚧 TODO 🚧: Import `frame::traits::tokens::Preservation`. */
 use frame::traits::Hash;
 
 // Learn about internal functions.
@@ -84,7 +86,6 @@ impl<T: Config> Pallet<T> {
 		*/
 
 		/* 🚧 TODO 🚧: Execute the transfers:
-			- Import `use frame_support::traits::tokens::Preservation;`, which is used for balance transfer.
 			- Use `T::NativeBalance` to `transfer` from the `buyer` to the `kitty.owner`.
 				- The amount transferred should be the `real_price`.
 				- Use `Preservation::Preserve` to ensure the buyer account stays alive.

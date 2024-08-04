@@ -2,6 +2,7 @@ use super::*;
 use frame::prelude::*;
 use frame::primitives::BlakeTwo256;
 use frame::traits::fungible::Mutate;
+use frame::traits::tokens::Preservation;
 use frame::traits::Hash;
 
 // Learn about internal functions.
@@ -82,7 +83,6 @@ impl<T: Config> Pallet<T> {
 		let real_price = kitty.price.ok_or(Error::<T>::NotForSale)?;
 		ensure!(price >= real_price, Error::<T>::MaxPriceTooLow);
 
-		use frame::traits::tokens::Preservation;
 		T::NativeBalance::transfer(&buyer, &kitty.owner, real_price, Preservation::Preserve)?;
 		Self::do_transfer(kitty.owner, buyer.clone(), kitty_id)?;
 
