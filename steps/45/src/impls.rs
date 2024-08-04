@@ -1,5 +1,7 @@
 use super::*;
-use frame::{prelude::*, primitives::BlakeTwo256, traits::Hash};
+use frame::prelude::*;
+use frame::primitives::BlakeTwo256;
+use frame::traits::Hash;
 
 // Learn about internal functions.
 impl<T: Config> Pallet<T> {

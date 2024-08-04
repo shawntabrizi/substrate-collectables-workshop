@@ -1,9 +1,8 @@
 use super::*;
-use frame::{
-	prelude::*,
-	primitives::BlakeTwo256,
-	traits::{fungible::Mutate, Hash},
-};
+use frame::prelude::*;
+use frame::primitives::BlakeTwo256;
+use frame::traits::fungible::Mutate;
+use frame::traits::Hash;
 
 // Learn about internal functions.
 impl<T: Config> Pallet<T> {
