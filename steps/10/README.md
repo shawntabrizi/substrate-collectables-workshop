@@ -1,28 +1,61 @@
-# Storage Values
+# Storage Basics
 
-The most basic storage type for a blockchain is a single `StorageValue`.
+Now that we have covered the basics of Pallets, and gone through all of the template code, we can start writing some code ourselves.
 
-A `StorageValue` is used to place a single object into the blockchain storage.
+In this section you will learn the basics of creating and using storage in your Pallet.
 
-A single object can be as simple as a single type like a `u32`, or more complex structures, or even vectors.
+But before we can start coding, we need to learn some basics about blockchains.
 
-What is most important to understand is that a `StorageValue` places a single entry into the merkle trie. So when you read data, you read all of it. When you write data, you write all of it. This is in contrast to a `StorageMap`, which you will learn about next.
+## Hash Functions
 
-## Construction
+Hash functions are an important tool throughout blockchain development.
 
-We constructed a simple `StorageValue` for you in the code, but let's break it down:
+A hash function takes an arbitrary sized input and returns a fixed-size string of bytes.
 
-```rust
-#[pallet::storage]
-pub(super) type CountForKitties<T: Config> = StorageValue<Value = u32>;
-```
+This output, usually called a hash, is unique to each unique input. Even a small change to the input creates a dramatic change to the output.
 
-As you can see, our storage is a type alias for a new instance of `StorageValue`.
+Hash functions have several key properties:
 
-Our storage value has a parameter `Value` where we can define the type we want to place in storage. In this case, it is a simple `u32`.
+- Deterministic: The same input always produces the same output.
+- Pre-image Resistant: It is difficult to derive the original input from its hash value.
+- Collision Resistant: It’s hard to find two different inputs that produce the same hash output.
 
-You will also notice `CountForKitties` is generic over `<T: Config>`. All of our storage must be generic over `<T: Config>` even if we are not using it directly. Macros use this generic parameter to fill in behind the scene details to make the `StorageValue` work. Think about all the code behind the scenes which actually sticks this storage into a merkle trie in the database of our blockchain.
+These properties make hash functions key for ensuring data integrity and uniqueness in blockchain technology.
 
-Visibility of the type is up to you and your needs, but you need to remember that blockchains are public databases. So `pub` in this case is only about Rust, and allowing other modules to access this storage and its APIs directly.
+## Hash Fingerprint
 
-You cannot make storage on a blockchain "private", and even if you make this storage without `pub`, there are low level ways to manipulate the storage in the database.
+Due to the properties of a Hash, it is often referred to as a fingerprint.
+
+For context, a 32-byte hash has 2^32 different possible outputs. This nearly as many atoms as there are in the whole universe!
+
+This uniqueness property helps blockchain nodes come to consensus with one another.
+
+Rather than needing to compare all the data in their blockchain database with one another, they can simply share the hash of that database, and know in a single small comparison if all data in that database is the same.
+
+Remember, if there were any small differences between their databases, even just one bit in a multi-terabyte database being different, the resulting hash would dramatically change, and they would know their databases are not the same.
+
+## Merkle Trie
+
+A merkle trie is a data structure which is constructed using a hash function.
+
+Rather than hashing the whole database into a single hash, we create a tree of hashes.
+
+For example, we take pairs of data, combine them, then hash them to generate a new output. Then we take pairs of hashes, combine them, then hash them to generate another new output.
+
+We can repeat this process until we are left with a single hash called the "root hash". This process literally creates a tree of hashes.
+
+Just like before, we can use a single hash to represent the integrity of all data underneath it, but now we can efficiently represent specific pieces of data in the database using the path down the trie to that data.
+
+It is called a merkle "trie" because the trie data structure is used to reduce the amount of redundant data stored in the tree.
+
+### Complexity
+
+The reason we go into this much detail about merkle tries is that they increase the complexity in reading and writing to the blockchain database.
+
+Whereas reading and writing to a database could be considered `O(1)`, a merklized database has read and write complexity of `O(log N)`, where `N` is the total number of items stored in the database.
+
+This additional complexity means that designing storage for a blockchain is an extremely important and sensitive operation.
+
+The primary advantage of using a merkle trie is that proving specific data exists inside the database is much more efficient! Whereas you would normally need to share the whole database to prove that some data exists, with a merklized database, you only need to share `O(log N)` amount of data.
+
+In this next section, and throughout the tutorial, we will start to explore some of those decisions.

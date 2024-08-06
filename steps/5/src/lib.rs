@@ -9,6 +9,7 @@ pub use pallet::*;
 pub mod pallet {
 	use super::*;
 
+	/* 🚧 TODO 🚧: Learn about the Pallet struct. */
 	#[pallet::pallet]
 	pub struct Pallet<T>(core::marker::PhantomData<T>);
 
@@ -26,7 +27,6 @@ pub mod pallet {
 	#[pallet::error]
 	pub enum Error<T> {}
 
-	/* 🚧 TODO 🚧: Learn about callable functions and dispatch. */
 	#[pallet::call]
 	impl<T: Config> Pallet<T> {
 		pub fn create_kitty(origin: OriginFor<T>) -> DispatchResult {

@@ -1,108 +1,69 @@
-# FRAME Macros
+# Substrate Collectables Workshop: Starting Template
 
-Rust allows you to write [macros](https://doc.rust-lang.org/book/ch19-06-macros.html), which is code that generates code.
+This is the starting template for: https://github.com/shawntabrizi/substrate-collectables-workshop
 
-FRAME uses Macros to simplify the development of Pallets, while keeping all of the benefits of using Rust.
+## Setup
 
-You can identify most macros in one of two forms:
+Follow [these installation instructions](https://docs.substrate.io/install/) to set up your development environment to work with the `polkadot-sdk`.
 
-- `#[macro_name]`: Attribute macros, which are applied on top of valid rust syntax.
-- `macro_name!(...)`: Declarative macros, which can define their own internal syntax.
+### test
 
-## The Power of Macros
+To check that your code compiles successfully at each step, you can run:
 
-We can see a direct example of how much smaller we can make a Rust project by using macros to replace boilerplate code:
-
-- `wc -l` will show the number of lines of a file.
-- `cargo expand` will expand the macros to "pure" Rust.
-
-```sh
-➜  substrate git:(master) ✗ wc -l frame/sudo/src/lib.rs
-    310 frame/sudo/src/lib.rs
-
-➜  substrate git:(master) ✗ cargo expand -p pallet-sudo | wc -l
-    2210
+```bash
+cargo test
 ```
 
-So this shows that a Pallet written with macros can be 7 times smaller than a Pallet which isn't.
+You should run this now to make sure this starting template is compiling successfully for you.
 
-## The Risk of Macros
+At the beginning and end of every step, you should be able to run `cargo test` without warning or errors. If you have either, you should learn from them and fix them!
 
-One of the risks of using macros is the creation of "macro magic". This is slang for when macros do so much code generation, that the user is not even sure what is happening.
+### rustfmt
 
-Especially with declarative macros, where users can basically create a new programming language within the macros.
+To keep your code clean and easy to read, we use a tool called [`rustfmt`](https://github.com/rust-lang/rustfmt). To access all the latest features of `rustfmt` we specifically use the `nightly` toolchain.
 
-The goal of FRAME macros is to stay as close to Rust as possible, but also remove all the boilerplate code that would otherwise be annoying to write.
+To install `rustfmt` for `nightly`:
 
-We will call out such cases of macro magic in the next chapters.
-
-## Macros in Our Template
-
-Our starting template includes all the basic macros used for developing a FRAME pallet.
-
-### Pallet Macro Entrypoint
-
-The entrypoint for all the FRAME macros is can be seen here:
-
-```rust
-#[frame::pallet(dev_mode)]
-pub mod pallet {
-	// -- snip --
-}
+```bash
+rustup component add rustfmt --toolchain nightly
 ```
 
-You will notice we wrap all of our Pallet code inside of this entrypoint, which allows our macros to have context of all the details inside.
+To configure the behavior of `rustfmt`, we have included a `rustfmt.toml` file.
 
-More simply explained, if we had:
+Try running:
 
-```rust
-#[macro_1]
-pub struct ItemOne;
-
-#[macro_2]
-pub struct ItemTwo;
+```bash
+cargo +nightly fmt
 ```
 
-There would be no way for `#[macro_1]` and `#[macro_2]` to communicate information to one another. However, with a design like:
+You shouldn't see any changes this time around, but as you write more code, you will be able to see `cargo +nightly fmt` make everything look pretty, consistent, and easy to read.
 
-```rust
-#[macro_entrypoint]
-pub mod pallet {
-	#[macro_1]
-	pub struct ItemOne;
+> We recommend you run `cargo +nightly fmt` after every step!
 
-	#[macro_2]
-	pub struct ItemTwo;
-}
+### clippy
+
+[Clippy](https://github.com/rust-lang/rust-clippy) is a collection of lints to catch common mistakes and improve your Rust code. We also use the `nightly` toolchain here to gain access to the latest features.
+
+To install `clippy` for `nightly`:
+
+```bash
+rustup component add clippy
 ```
 
-We can now design the `#[macro_entrypoint]` to keep track of all data inside of the `mod pallet` container, and that means we can now design `#[macro_1]` and `#[macro_2]` to have context of one another, and interact with each other too.
+Try running:
 
-The unfortunate limitation here is that wherever we want to use FRAME macros, we must basically do it in a single file and all enclosed by the `#[frame::pallet]` macro entrypoint.
-
-We will go over each of the FRAME macros throughout this tutorial
-
-### Basic Pallet Structure
-
-While the template is already very minimal, you can mentally break it down like:
-
-```rust
-use frame::prelude::*;
-pub use pallet::*;
-
-#[frame::pallet]
-pub mod pallet {
-	use super::*;
-
-	#[pallet::pallet]
-	pub struct Pallet<T>(core::marker::PhantomData<T>);
-
-	#[pallet::config]  // snip
-	#[pallet::event]   // snip
-	#[pallet::error]   // snip
-	#[pallet::storage] // snip
-	#[pallet::call]    // snip
-}
+```bash
+cargo +nightly clippy
 ```
 
-Let's explore this further.
+Again, you shouldn't see any errors here, but as you write code for this tutorial, `clippy` can be used to help improve the quality of your code.
+
+## Cheat Sheet
+
+You should run these 3 commands at the end of every step without any errors or warnings.
+
+```bash
+cargo +nightly fmt
+cargo +nightly clippy
+cargo test
+```

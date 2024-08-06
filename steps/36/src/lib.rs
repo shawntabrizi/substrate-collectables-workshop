@@ -43,12 +43,6 @@ pub mod pallet {
 	#[pallet::generate_deposit(pub(super) fn deposit_event)]
 	pub enum Event<T: Config> {
 		Created { owner: T::AccountId },
-		/* 🚧 TODO 🚧: Create a new event called `Transferred`:
-			- Parameters are:
-				- `from` which is `T::AccountId`.
-				- `to` which is `T::AccountId`.
-				- `kitty_id` which is `[u8; 32]`.
-		*/
 	}
 
 	#[pallet::error]
@@ -66,17 +60,5 @@ pub mod pallet {
 			Self::mint(who, dna)?;
 			Ok(())
 		}
-
-		/* 🚧 TODO 🚧: Make a new extrinsic called `transfer`.
-			- Input parameters are:
-				- `origin` which is `OriginFor<T>`.
-				- `to` which is `T::AccountId`.
-				- `kitty_id` which is `[u8; 32]`.
-			- Returns a `DispatchResult`.
-			- The inner logic should be:
-				- Get the caller `who` from `ensure_signed`.
-				- Call `Self::do_transfer`, and propagate the result.
-				- End with Ok(()).
-		*/
 	}
 }

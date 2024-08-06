@@ -1,113 +1,64 @@
-# Polkadot-SDK
+# Setup
 
-Our starting template for this tutorial uses the [Polkadot SDK](https://github.com/paritytech/polkadot-sdk).
+Before we start writing code, we will need to setup your computer for this tutorial.
 
-This is the same technology stack used to build and power the [Polkadot Network](https://polkadot.network/).
+## Prerequisites
 
-To better understand what you will be doing in this tutorial, we need to start with a high level overview of blockchains.
+The tutorial is designed to be completed by anyone with basic familiarity with [Rust](https://www.rust-lang.org/), and little to no familiarity with the [Polkadot SDK](https://github.com/paritytech/polkadot-sdk).
 
-## Blockchain
+If you do not feel comfortable with the level of Rust used in this tutorial, we recommend you first check out the [`rust-state-machine`](https://github.com/shawntabrizi/rust-state-machine) tutorial.
 
-Blockchains are the foundation of building Web3 technologies.
+## Tutorial Structure
 
-Web3 is a promise toward a world with less trust, and more truth.
+This tutorial is broken up into small steps with documentation and code.
 
-Through blockchain technology, we are able to develop and deploy software that are decentralized, open, permissionless, censorship resistant, and independently verifiable.
+Documentation should teach you all the concepts needed to complete the tutorial, while the code will ensure that you can actually execute on the knowledge gained.
 
-The main purpose of a blockchain node is to come to consensus with other nodes on the decentralized network.
+The code in each step should have comments marked `TODO`, which indicate the actions you need to take in order to complete the step successfully.
 
-<details>
+At each step, we include a `diff` view so that you can see what has changed from the last step (new action items), and what should change to complete the step (the solution).
 
-<summary>Deep Dive</summary>
+At the end of each step, you should be able to run all the following commands without any errors or warnings:
 
-If you want to learn more about blockchains, check out the following video from the Polkadot Blockchain Academy:
+- `cargo +nightly fmt`
+- `cargo +nightly clippy`
+- `cargo test`
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/8UvdfFGYFiE?si=5PIyppVBZ91vUtjf" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+We recommend you run these during each step in the tutorial to confirm you are doing everything correctly.
 
-</details>
+## Clone the Starting Template
 
-## Runtime
+The best way to follow this tutorial is to clone the starting template, and follow the steps of the tutorial locally.
 
-At the heart of a blockchain is a [state transition function](https://en.wikipedia.org/wiki/Finite-state_machine) (STF).
+Run the following:
 
-This is the logic of the blockchain, and defines all the ways a blockchain is allowed to manipulate the blockchain state.
+```bash
+git clone https://github.com/shawntabrizi/substrate-collectables-workshop/ -b starting-template --single-branch
+cd substrate-collectables-workshop
+```
 
-In the `polkadot-sdk` we refer to this logic as the blockchain's runtime.
+Or access the template directly here:
 
-All nodes on a blockchain network have and use the same runtime, allowing them to come to consensus about changes to a blockchain.
+[https://github.com/shawntabrizi/substrate-collectables-workshop/releases/tag/starting-template](https://github.com/shawntabrizi/substrate-collectables-workshop/releases/tag/starting-template)
 
-<details>
+### Install Dependencies
 
-<summary>Deep Dive</summary>
+The starting template includes a `README` with instructions to setup your working environment. Follow those instructions.
 
-To learn more about the runtime, and its role inside of the `polkadot-sdk`, check out this video from the Polkadot Blockchain Academy:
+Make sure you are able to run the following checks on this starting template without warnings or errors:
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/-ttmm8gYS04?si=ZH_g83CVtguENoK7" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+```bash
+cargo +nightly fmt
+cargo +nightly clippy
+cargo test
+```
 
-</details>
+It may take a while for this to complete based on how powerful your computer is.
 
-## FRAME
+Feel free to move onto the next steps while these checks are compiling.
 
-The `polkadot-sdk` provides a developer framework called FRAME.
+## Contribute
 
-FRAME is an opinionated framework on how one should quickly and easily build and maintain a blockchain's runtime.
+This tutorial is completely free to use, modify, and distribute in any way you see fit.
 
-> NOTE: It is important to clarify that FRAME is not the only way you can develop a runtime for the `polkadot-sdk`, but it is the one that the Polkadot Network uses and is most supported by the ecosystem.
-
-You can see in our project, nearly all of our dependencies come from a single crate named [`frame`](https://docs.rs/polkadot-sdk-frame/0.6.0/polkadot_sdk_frame/index.html).
-
-This crate is really just a convenience wrapper around other smaller crates, all exposed through [`frame::deps`](https://docs.rs/polkadot-sdk-frame/0.6.0/polkadot_sdk_frame/deps/index.html).
-
-For our tutorial, most of the types and traits we need access to are automatically brought into scope through [`frame::prelude::*`](https://docs.rs/polkadot-sdk-frame/0.6.0/polkadot_sdk_frame/prelude/index.html), however once in a while, we will need to import something more specific from [`frame::primitives`](https://docs.rs/polkadot-sdk-frame/0.6.0/polkadot_sdk_frame/primitives/index.html) or [`frame::traits`](https://docs.rs/polkadot-sdk-frame/0.6.0/polkadot_sdk_frame/traits/index.html).
-
-## Pallets
-
-FRAME's key decision is to break apart the blockchain runtime into separate logical pieces that can choose to interact with one another.
-
-These logical pieces are called Pallets.
-
-TODO: Add images.
-
-You can think of different Pallets as different applications or functions that your blockchain exposes.
-
-You can also think of Pallets very similar to traditional blockchain smart contracts, however Pallets are more powerful and execute much faster than smart contracts.
-
-<details>
-
-<summary>Deep Dive</summary>
-
-To learn more about FRAME and Pallets, check out this video from the Polkadot Blockchain Academy:
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/ghMloMzEEsA?si=3DtsmrYOapbnR2oy" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-
-</details>
-
-## NFTs
-
-Non-Fungible Tokens (NFTs) are a type of token which can be created and traded on a blockchain.
-
-As their name indicated, each NFT is totally unique, and therefore non-fungible with one another.
-
-NFTs can be used for many things, for example:
-
-- Representing real world assets
-	- Ownership Rights
-	- Access Rights
-- Digital assets
-	- Music
-	- Images
-	- Skins
-	- Characters
-- and much more...
-
-## Starting Template
-
-The template for this project is a minimal starting point for developing a custom Pallet.
-
-In this tutorial, we will create a Pallet which allows us to create and manage a collection of NFTs.
-
-Our NFTs will represent kitties, which will be a digital pet that can be created, traded, and more.
-
-This Pallet could then be included into a `polkadot-sdk` project and used to launch a Web3 application on the Polkadot Network.
-
-TODO: need to create and link to a tutorial creating and launching a runtime with omninode.
+If you catch any problems with the tutorial or have ideas on how it can be improved, open an [issue](https://github.com/shawntabrizi/substrate-collectables-workshop/issues) or a [pull request](https://github.com/shawntabrizi/substrate-collectables-workshop/pulls).

@@ -5,11 +5,11 @@ mod impls;
 use frame::prelude::*;
 pub use pallet::*;
 
+/* 🚧 TODO 🚧: Learn about macros used in the `polkadot-sdk`, making pallet development easier. */
 #[frame::pallet(dev_mode)]
 pub mod pallet {
 	use super::*;
 
-	/* 🚧 TODO 🚧: Learn about the Pallet struct. */
 	#[pallet::pallet]
 	pub struct Pallet<T>(core::marker::PhantomData<T>);
 

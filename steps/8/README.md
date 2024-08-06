@@ -1,63 +1,86 @@
-# Pallet Events
+# Pallet Config
 
-The last thing we have included in our starting template is a simple event.
-
-When a callable function completes successfully, there is often some metadata you would like to expose to the outside world about what exactly happened during the execution.
-
-Events allow Pallets to express that something has happened, and allows off-chain systems like indexers or block explorers to track certain state transitions.
-
-## Event Macro
-
-The `#[pallet::event]` macro acts on an `enum Event`.
+Each pallet includes a trait `Config` which is used to configure the pallet in the context of your larger runtime.
 
 ```rust
-#[pallet::event]
-#[pallet::generate_deposit(pub(super) fn deposit_event)]
-pub enum Event<T: Config> {
-	Created { owner: T::AccountId },
+#[pallet::config]
+pub trait Config: frame_system::Config {
+	// -- snip --
 }
 ```
 
-In this enum, you can introduce new variants as objects with arbitrary fields. Obviously you don't want to stick a ton of data in there, but you should feel comfortable to put the data which is relevant for tools like indexers and block explorers.
+It sucks to keep repeating this about different parts of FRAME development, but the full power of the `Config` trait can only be understood once you have moved passed the basics.
 
-In this case, we set you up with a simple event stating a new kitty was created, and by whom. Of course there is no logic which is actually doing that yet, but that is what we will start to work on next.
+For now, we just want to focus on the basics.
 
-Emitting an event is usually the last thing you will do in your extrinsic, noting when everything is done and with any final values you might have generated.
+## T as Config
 
-We will probably want to update our `Created` event with details about the Kitty we created. We can do that in the future.
+We use our Pallet's `Config` all over our code, but through a generic parameter `T`.
 
-## Macro Magic
+This is what is meant with `<T: Config>` that you see everywhere.
 
-You might ask, "What is this `generate_deposit` stuff?
+The simplest way to understand is that wherever you see `T`, you have access to our `trait Config` and the types and functions inside of it.
 
-When we deposit an event, we actually have to pass our event to `frame_system`, which manages events across all pallets.
+## Supertraits
 
-The code for that function is:
+To understand how we use the `Config` trait, we first need to learn about [Rust supertraits](https://doc.rust-lang.org/rust-by-example/trait/supertraits.html).
+
+Supertraits are similar to the concept of "inheritance" from other programming languages. In Rust, it allows one trait as being a superset of another trait.
+
+You will notice that our `Config` trait is a supertrait of the `frame_system::Config` trait.
+
+What is `frame_system`? What is in `frame_system::Config`?
+
+## FRAME System
+
+In order for our blockchain to function, we need some base level primitives.
+
+- Account Id
+- Block Number
+- Block Hash
+- Nonce
+- etc...
+
+`frame_system` provides all of that, and all the basic level functions needed for your blockchain to operate.
+
+These types, and more, are defined within the `frame_system::Config`:
 
 ```rust
-impl<T: Config> Pallet<T> {
-	pub(super) fn deposit_event(event: Event<T>) {
-		let event = <<T as Config>::RuntimeEvent as From<Event<T>>>::from(event);
-		let event = <<T as Config>::RuntimeEvent as Into<
-				<T as frame_system::Config>::RuntimeEvent,
-			>>::into(event);
-		<frame_system::Pallet<T>>::deposit_event(event)
-	}
+pub trait Config: 'static + Eq + Clone {
+	type Hash: Parameter + Member + MaybeSerializeDeserialize + Debug + MaybeDisplay + SimpleBitOps + Ord + Default + Copy + CheckEqual + sp_std::hash::Hash + AsRef<[u8]> + AsMut<[u8]> + MaxEncodedLen;
+	type AccountId: Parameter + Member + MaybeSerializeDeserialize + Debug + MaybeDisplay + Ord + MaxEncodedLen;
+	type Block: Parameter + Member + traits::Block<Hash = Self::Hash>;
+	type Nonce: Parameter + Member + MaybeSerializeDeserialize + Debug + Default + MaybeDisplay + AtLeast32Bit + Copy + MaxEncodedLen;
+	// -- snip --
 }
 ```
 
-Rather than asking the user to remember and write this every time, we are able to automatically generate it for the user.
+Because our `trait Config` is a superset of `frame_system::Config`, we have access to these types too.
 
-Do you not like macro magic?
+This is why you see in our starting code `T::AccountId`. We are able to access the `AccountId` type, which is originally defined inside `frame_system::Config` through our `trait Config`, via the generic trait `T`.
 
-Delete the `generate_deposit` line, and copy and paste this code block into your code!
+Phew.
 
-It is literally the same. In this case, I think the macro magic is justified.
+If this doesn't make sense, that's okay. You should be able to follow the patterns for successfully programming all this, and you can learn the deep Rust stuff later.
 
-You are able to access this function like you could any other function implemented on `Pallet`:
+## Our Config
+
+Our config only includes one item for now: `RuntimeEvent`.
+
+It has a pretty nasty trait bound:
 
 ```rust
-Self::deposit_event(Event::<T>::Created { owner });
+type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
 ```
 
-As you see in our starting code.
+The main purpose of this trait bound is to allow events of this pallet to be converted to and from an "aggregated" event type, which contains all possible event variants from all possible Pallets in our blockchain.
+
+Remember, our runtime is composed of multiple pallets, some we create, some which come with the `polkadot-sdk`, some that we import from 3rd parties.
+
+Each of these pallets will want to include their own custom events, and our blockchain as a whole needs to be able to handle all of them.
+
+The `RuntimeEvent` type, with the help of our macros, aggregates all of these events coming from all of these pallets. These trait bounds help us use this type!
+
+If you want to learn more about this (super optional), check out this video:
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/OCBC1pMYPoc?si=hFBq42GN_q_Eo0zs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>

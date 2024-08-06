@@ -1,61 +1,63 @@
-# Storage Basics
+# Pallet Events
 
-Now that we have covered the basics of Pallets, and gone through all of the template code, we can start writing some code ourselves.
+The last thing we have included in our starting template is a simple event.
 
-In this section you will learn the basics of creating and using storage in your Pallet.
+When a callable function completes successfully, there is often some metadata you would like to expose to the outside world about what exactly happened during the execution.
 
-But before we can start coding, we need to learn some basics about blockchains.
+Events allow Pallets to express that something has happened, and allows off-chain systems like indexers or block explorers to track certain state transitions.
 
-## Hash Functions
+## Event Macro
 
-Hash functions are an important tool throughout blockchain development.
+The `#[pallet::event]` macro acts on an `enum Event`.
 
-A hash function takes an arbitrary sized input and returns a fixed-size string of bytes.
+```rust
+#[pallet::event]
+#[pallet::generate_deposit(pub(super) fn deposit_event)]
+pub enum Event<T: Config> {
+	Created { owner: T::AccountId },
+}
+```
 
-This output, usually called a hash, is unique to each unique input. Even a small change to the input creates a dramatic change to the output.
+In this enum, you can introduce new variants as objects with arbitrary fields. Obviously you don't want to stick a ton of data in there, but you should feel comfortable to put the data which is relevant for tools like indexers and block explorers.
 
-Hash functions have several key properties:
+In this case, we set you up with a simple event stating a new kitty was created, and by whom. Of course there is no logic which is actually doing that yet, but that is what we will start to work on next.
 
-- Deterministic: The same input always produces the same output.
-- Pre-image Resistant: It is difficult to derive the original input from its hash value.
-- Collision Resistant: It’s hard to find two different inputs that produce the same hash output.
+Emitting an event is usually the last thing you will do in your extrinsic, noting when everything is done and with any final values you might have generated.
 
-These properties make hash functions key for ensuring data integrity and uniqueness in blockchain technology.
+We will probably want to update our `Created` event with details about the Kitty we created. We can do that in the future.
 
-## Hash Fingerprint
+## Macro Magic
 
-Due to the properties of a Hash, it is often referred to as a fingerprint.
+You might ask, "What is this `generate_deposit` stuff?
 
-For context, a 32-byte hash has 2^32 different possible outputs. This nearly as many atoms as there are in the whole universe!
+When we deposit an event, we actually have to pass our event to `frame_system`, which manages events across all pallets.
 
-This uniqueness property helps blockchain nodes come to consensus with one another.
+The code for that function is:
 
-Rather than needing to compare all the data in their blockchain database with one another, they can simply share the hash of that database, and know in a single small comparison if all data in that database is the same.
+```rust
+impl<T: Config> Pallet<T> {
+	pub(super) fn deposit_event(event: Event<T>) {
+		let event = <<T as Config>::RuntimeEvent as From<Event<T>>>::from(event);
+		let event = <<T as Config>::RuntimeEvent as Into<
+				<T as frame_system::Config>::RuntimeEvent,
+			>>::into(event);
+		<frame_system::Pallet<T>>::deposit_event(event)
+	}
+}
+```
 
-Remember, if there were any small differences between their databases, even just one bit in a multi-terabyte database being different, the resulting hash would dramatically change, and they would know their databases are not the same.
+Rather than asking the user to remember and write this every time, we are able to automatically generate it for the user.
 
-## Merkle Trie
+Do you not like macro magic?
 
-A merkle trie is a data structure which is constructed using a hash function.
+Delete the `generate_deposit` line, and copy and paste this code block into your code!
 
-Rather than hashing the whole database into a single hash, we create a tree of hashes.
+It is literally the same. In this case, I think the macro magic is justified.
 
-For example, we take pairs of data, combine them, then hash them to generate a new output. Then we take pairs of hashes, combine them, then hash them to generate another new output.
+You are able to access this function like you could any other function implemented on `Pallet`:
 
-We can repeat this process until we are left with a single hash called the "root hash". This process literally creates a tree of hashes.
+```rust
+Self::deposit_event(Event::<T>::Created { owner });
+```
 
-Just like before, we can use a single hash to represent the integrity of all data underneath it, but now we can efficiently represent specific pieces of data in the database using the path down the trie to that data.
-
-It is called a merkle "trie" because the trie data structure is used to reduce the amount of redundant data stored in the tree.
-
-### Complexity
-
-The reason we go into this much detail about merkle tries is that they increase the complexity in reading and writing to the blockchain database.
-
-Whereas reading and writing to a database could be considered `O(1)`, a merklized database has read and write complexity of `O(log N)`, where `N` is the total number of items stored in the database.
-
-This additional complexity means that designing storage for a blockchain is an extremely important and sensitive operation.
-
-The primary advantage of using a merkle trie is that proving specific data exists inside the database is much more efficient! Whereas you would normally need to share the whole database to prove that some data exists, with a merklized database, you only need to share `O(log N)` amount of data.
-
-In this next section, and throughout the tutorial, we will start to explore some of those decisions.
+As you see in our starting code.
