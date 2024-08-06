@@ -1,12 +1,12 @@
-diff --git a/Cargo.toml b/Cargo.toml
-index 0c9b8b8..a79e562 100644
---- a/Cargo.toml
-+++ b/Cargo.toml
-@@ -14,6 +14,7 @@ targets = ["x86_64-unknown-linux-gnu"]
- [dependencies]
- codec = { package = "parity-scale-codec", version = "3.6.12", default-features = false, features = ["derive"] }
- scale-info = { version = "2.11.1", default-features = false, features = ["derive"] }
-+# 🚧 TODO 🚧: Learn about the Polkadot SDK and FRAME.
- frame = { package = "polkadot-sdk-frame", version = "0.6.0", default-features = false, features = ["experimental", "runtime"] }
+diff --git a/src/lib.rs b/src/lib.rs
+index 7b6c6a2..0f7bcee 100644
+--- a/src/lib.rs
++++ b/src/lib.rs
+@@ -2,6 +2,7 @@
  
- [features]
+ mod impls;
+ 
++/* 🚧 TODO 🚧: Learn about the Polkadot SDK and FRAME. */
+ use frame::prelude::*;
+ pub use pallet::*;
+ 

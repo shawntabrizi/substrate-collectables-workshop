@@ -15,18 +15,9 @@
 <div id="Source" class="maintab tabcontent active">
 
 <div class="tab">
-<button class="subtab tablinks file-source file-modified active" onclick="switchSubTab(event, 'Cargo.toml')" data-id="Cargo.toml">Cargo.toml</button>
-<button class="subtab tablinks file-source file-modified" onclick="switchSubTab(event, 'src/lib.rs')" data-id="src/lib.rs">src/lib.rs</button>
+<button class="subtab tablinks file-source file-modified active" onclick="switchSubTab(event, 'src/lib.rs')" data-id="src/lib.rs">src/lib.rs</button>
 </div>
-<div id="source/Cargo.toml" class="subtab tabcontent active" data-id="Cargo.toml">
-
-```toml
-{{#include ./source/Cargo.toml}}
-```
-
-</div>
-
-<div id="source/src/lib.rs" class="subtab tabcontent" data-id="src/lib.rs">
+<div id="source/src/lib.rs" class="subtab tabcontent active" data-id="src/lib.rs">
 
 ```rust
 {{#include ./source/src/lib.rs}}

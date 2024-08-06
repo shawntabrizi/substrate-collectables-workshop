@@ -15,12 +15,12 @@
 <div id="Source" class="maintab tabcontent active">
 
 <div class="tab">
-<button class="subtab tablinks file-source file-modified active" onclick="switchSubTab(event, 'Cargo.toml')" data-id="Cargo.toml">Cargo.toml</button>
+<button class="subtab tablinks file-source file-modified active" onclick="switchSubTab(event, 'src/lib.rs')" data-id="src/lib.rs">src/lib.rs</button>
 </div>
-<div id="source/Cargo.toml" class="subtab tabcontent active" data-id="Cargo.toml">
+<div id="source/src/lib.rs" class="subtab tabcontent active" data-id="src/lib.rs">
 
-```toml
-{{#include ./source/Cargo.toml}}
+```rust
+{{#include ./source/src/lib.rs}}
 ```
 
 </div>
