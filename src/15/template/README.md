@@ -1,44 +1,47 @@
-# Duplicate Kitty Check
+# Kitties Map
 
-To make sure your state transition function behaves as expected, you must check everything that could go wrong, and return an error in those cases.
+Now let's learn to interact with our `Kitties` storage map, and update the map when we `mint` new kitties.
 
-## Contains Key
+## Basic APIs
 
-As we mentioned in the previous section, the `insert` API will simply overwrite any existing data which is already there. We want to prevent this, else we risk overwriting data about a kitty that already exists and is already owned by someone.
+This tutorial will only go over just the basic APIs needed to build our Pallet.
 
-To prevent this, we can call the `contains_key(key)` API, which will return `true` if there is already a value in storage, or `false` if there isn't.
+Check out the [`StorageMap` documentation](https://docs.rs/frame-support/37.0.0/frame_support/storage/types/struct.StorageMap.html) if you want to see the full APIs.
 
-You might ask: Why do we call `contains_key` rather than call `get` and checking the `Option`?
+### Reading Storage
 
-Well, there are two reasons:
-
-1. Just like `StorageValue`, you can set a `StorageMap` with `QueryKind = ValueQuery`, thus we would no longer return an `Option` for you to check, and we would "hide" the fact that the map is empty at that key. So this API is the only way to check if the value ACTUALLY exists or not.
-2. The `contains_key` API is strictly more efficient than the `get` API. The `get` API returns the value, which means we need to go into the database, read the bits, serialize it to a Rust type, pass that back to the Pallet, and assign it to the variable.
-
-	On the other hand, `contains_key` can simply check if the value exists in the database, and only return back the boolean result. No need to serialize all the bytes, store the variable, or any of that.
-
-This same trick applies to `StorageValue` too. Rather than calling `get`, you can call `exists`, which provides the same api as `contains_key`.
-
-## Ensure
-
-To do simple duplication checks and return an error, we can write the following:
+To read the current value of a key in a `StorageMap`, you can simply call the [`get(key)`](https://docs.rs/frame-support/37.0.0/frame_support/storage/types/struct.StorageMap.html#method.get) API:
 
 ```rust
-if (Kitties::<T>::contains_key(my_key)) {
-	return Err(Error::<T>::DuplicateKitty.into());
-}
+let my_key: [u8; 32] = [0u8; 32];
+let maybe_value: Option<()> = Kitties::<T>::get(my_key);
 ```
 
-But that is pretty verbose. We have a macro which can do this for you in a single line:
+Just as the `StorageValue`, you can see this query returns an `Option`, indicating whether there is actually a value under the key.
+
+Just as before, the most ergonomic way to read a kitty, or throw an error when there is no kitty is to write the following:
 
 ```rust
-ensure!(!Kitties::<T>::contains_key(my_key), Error::<T>::DuplicateKitty);
+let kitty: () = Kitties::<T>::get(my_key).ok_or(Error::<T>::NoKitty)?;
 ```
 
-`ensure!` is a macro, which basically expands into the same verbose code shown above, except checking the opposite condition. That is to say, we `ensure!` that `Kitties` does NOT `contains_key`, else we return the error specified.
+### Writing Storage
 
-There really is no difference here, so use whatever makes you comfortable.
+To add a new value to the `StorageMap`, you can simply call the `insert` API:
+
+```rust
+let my_key: [u8; 32] = [0u8; 32];
+Kitties::<T>::insert(my_key, ());
+```
+
+The same behaviors apply to `StorageMap` as a `StorageValue`.
+
+The [`insert`](https://docs.rs/frame-support/37.0.0/frame_support/storage/types/struct.StorageMap.html#method.insert) API cannot fail. If a value already exists in the map, under the key, we will simply overwrite that value. If you want to check if a value already exists in the map under a key, the most efficient way is to call [`contains_key(key)`](https://docs.rs/frame-support/37.0.0/frame_support/storage/types/struct.StorageMap.html#method.contains_key).
 
 ## Your Turn
 
-Now that you know how to efficiently check for an existing kitty, put that check into the `mint` function to ensure that we do not mint a duplicate kitty in the `Kitties` storage map.
+`StorageMap`s are easy!
+
+Update the logic in your pallet to insert a new kitty into your `Kitties` map when we call `mint`.
+
+For this, you will need to add a second parameter to the `mint` function to pass the unique identifier for the kitty.

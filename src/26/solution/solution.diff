@@ -1,44 +1,30 @@
-diff --git a/src/impls.rs b/src/impls.rs
-index 6ae2e34..5ec04ae 100644
---- a/src/impls.rs
-+++ b/src/impls.rs
-@@ -20,8 +20,7 @@ impl<T: Config> Pallet<T> {
- 	}
- 
- 	pub fn mint(owner: T::AccountId, dna: [u8; 32]) -> DispatchResult {
--		/* 🚧 TODO 🚧: Add the `price` field set to `None` when initializing the `Kitty` struct. */
--		let kitty = Kitty { dna, owner: owner.clone() };
-+		let kitty = Kitty { dna, owner: owner.clone(), price: None };
- 		// Check if the kitty does not already exist in our storage map
- 		ensure!(!Kitties::<T>::contains_key(dna), Error::<T>::DuplicateKitty);
- 
 diff --git a/src/lib.rs b/src/lib.rs
-index efd55a6..f2625a6 100644
+index 629c78d..7305ab6 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -22,13 +22,9 @@ pub mod pallet {
- 		type NativeBalance: Inspect<Self::AccountId> + Mutate<Self::AccountId>;
- 	}
+@@ -3,8 +3,8 @@
+ mod impls;
  
--	/* 🚧 TODO 🚧:
--		- Create a new type alias called `BalanceOf<T>`.
--		- Extract the `Balance` type from the `NativeBalance` associated type:
--			- The `Balance` type comes from the `Inspect` trait.
--				- `Inspect` requires a generic parameter `AccountId` from `T as frame_system::Config`.
--			- Inspect comes from `NativeBalance`, which comes from `T as Config`.
--	*/
-+	// Allows easy access our Pallet's `Balance` type. Comes from `Fungible` interface.
-+	pub type BalanceOf<T> =
-+		<<T as Config>::NativeBalance as Inspect<<T as frame_system::Config>::AccountId>>::Balance;
+ use frame::prelude::*;
+-/* 🚧 TODO 🚧: Import `frame::traits::fungible::Inspect`. */
+-/* 🚧 TODO 🚧: Import `frame::traits::fungible::Mutate`. */
++use frame::traits::fungible::Inspect;
++use frame::traits::fungible::Mutate;
+ pub use pallet::*;
+ 
+ #[frame::pallet(dev_mode)]
+@@ -18,12 +18,8 @@ pub mod pallet {
+ 	pub trait Config: frame_system::Config {
+ 		type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
+ 
+-		/* 🚧 TODO 🚧:
+-			- Create a new associated type named `NativeBalance`.
+-			- Require that `NativeBalance` implements the following traits:
+-				- `Inspect` which is generic over `Self::AccountId`.
+-				- `Mutate` which is also generic over `Self::AccountId`.
+-		*/
++		/// The Fungible handler for the kitties pallet.
++		type NativeBalance: Inspect<Self::AccountId> + Mutate<Self::AccountId>;
+ 	}
  
  	#[derive(Encode, Decode, TypeInfo, MaxEncodedLen)]
- 	#[scale_info(skip_type_params(T))]
-@@ -36,7 +32,7 @@ pub mod pallet {
- 		// Using 32 bytes to represent a kitty DNA
- 		pub dna: [u8; 32],
- 		pub owner: T::AccountId,
--		/* 🚧 TODO 🚧: Add a new field `price`, which is an `Option<BalanceOf<T>>`. */
-+		pub price: Option<BalanceOf<T>>,
- 	}
- 
- 	#[pallet::storage]

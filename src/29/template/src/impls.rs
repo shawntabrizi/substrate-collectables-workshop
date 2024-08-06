@@ -63,23 +63,15 @@ impl<T: Config> Pallet<T> {
 		kitty_id: [u8; 32],
 		new_price: Option<BalanceOf<T>>,
 	) -> DispatchResult {
-		let mut kitty = Kitties::<T>::get(kitty_id).ok_or(Error::<T>::NoKitty)?;
-		ensure!(kitty.owner == caller, Error::<T>::NotOwner);
-		kitty.price = new_price;
-		Kitties::<T>::insert(kitty_id, kitty);
+		/* 🚧 TODO 🚧: Create the logic for setting the Kitty price:
+			- Create a mutable `kitty` by calling `get` on `Kitties` with `kitty_id`.
+				- Return an error if the kitty doesn't exist by returning `Error::<T>::NoKitty`.
+			- `ensure!` that the `kitty.owner` is equal to the `caller` else return `Error::<T>::NotOwner`.
+			- Set the `kitty.price` to `new_price`.
+			- Insert the modified `kitty` back into the `Kitties` map under `kitty_id`.
+		*/
 
 		Self::deposit_event(Event::<T>::PriceSet { owner: caller, kitty_id, new_price });
 		Ok(())
 	}
-
-	/* 🚧 TODO 🚧: Create a new internal function `do_buy_kitty`:
-		- Inputs to the function are:
-			- `buyer` which is `T::AccountId`.
-			- `kitty_id` which is `[u8; 32]`.
-			- `price` which is `BalanceOf<T>`.
-		- It returns `DispatchResult`.
-		- The internal logic, for now, should be:
-			- `Self::deposit_event` with `Event::<T>::Sold` and the appropriate params.
-			- Return `Ok(())`.
-	*/
 }

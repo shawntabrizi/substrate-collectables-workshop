@@ -1,108 +1,113 @@
-# FRAME Macros
+# Polkadot-SDK
 
-Rust allows you to write [macros](https://doc.rust-lang.org/book/ch19-06-macros.html), which is code that generates code.
+Our starting template for this tutorial uses the [Polkadot SDK](https://github.com/paritytech/polkadot-sdk).
 
-FRAME uses Macros to simplify the development of Pallets, while keeping all of the benefits of using Rust.
+This is the same technology stack used to build and power the [Polkadot Network](https://polkadot.network/).
 
-You can identify most macros in one of two forms:
+To better understand what you will be doing in this tutorial, we need to start with a high level overview of blockchains.
 
-- `#[macro_name]`: Attribute macros, which are applied on top of valid rust syntax.
-- `macro_name!(...)`: Declarative macros, which can define their own internal syntax.
+## Blockchain
 
-## The Power of Macros
+Blockchains are the foundation of building Web3 technologies.
 
-We can see a direct example of how much smaller we can make a Rust project by using macros to replace boilerplate code:
+Web3 is a promise toward a world with less trust, and more truth.
 
-- `wc -l` will show the number of lines of a file.
-- `cargo expand` will expand the macros to "pure" Rust.
+Through blockchain technology, we are able to develop and deploy software that are decentralized, open, permissionless, censorship resistant, and independently verifiable.
 
-```sh
-➜  substrate git:(master) ✗ wc -l frame/sudo/src/lib.rs
-    310 frame/sudo/src/lib.rs
+The main purpose of a blockchain node is to come to consensus with other nodes on the decentralized network.
 
-➜  substrate git:(master) ✗ cargo expand -p pallet-sudo | wc -l
-    2210
-```
+<details>
 
-So this shows that a Pallet written with macros can be 7 times smaller than a Pallet which isn't.
+<summary>Deep Dive</summary>
 
-## The Risk of Macros
+If you want to learn more about blockchains, check out the following video from the Polkadot Blockchain Academy:
 
-One of the risks of using macros is the creation of "macro magic". This is slang for when macros do so much code generation, that the user is not even sure what is happening.
+<iframe width="560" height="315" src="https://www.youtube.com/embed/8UvdfFGYFiE?si=5PIyppVBZ91vUtjf" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
-Especially with declarative macros, where users can basically create a new programming language within the macros.
+</details>
 
-The goal of FRAME macros is to stay as close to Rust as possible, but also remove all the boilerplate code that would otherwise be annoying to write.
+## Runtime
 
-We will call out such cases of macro magic in the next chapters.
+At the heart of a blockchain is a [state transition function](https://en.wikipedia.org/wiki/Finite-state_machine) (STF).
 
-## Macros in Our Template
+This is the logic of the blockchain, and defines all the ways a blockchain is allowed to manipulate the blockchain state.
 
-Our starting template includes all the basic macros used for developing a FRAME pallet.
+In the `polkadot-sdk` we refer to this logic as the blockchain's runtime.
 
-### Pallet Macro Entrypoint
+All nodes on a blockchain network have and use the same runtime, allowing them to come to consensus about changes to a blockchain.
 
-The entrypoint for all the FRAME macros is can be seen here:
+<details>
 
-```rust
-#[frame::pallet(dev_mode)]
-pub mod pallet {
-	// -- snip --
-}
-```
+<summary>Deep Dive</summary>
 
-You will notice we wrap all of our Pallet code inside of this entrypoint, which allows our macros to have context of all the details inside.
+To learn more about the runtime, and its role inside of the `polkadot-sdk`, check out this video from the Polkadot Blockchain Academy:
 
-More simply explained, if we had:
+<iframe width="560" height="315" src="https://www.youtube.com/embed/-ttmm8gYS04?si=ZH_g83CVtguENoK7" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
-```rust
-#[macro_1]
-pub struct ItemOne;
+</details>
 
-#[macro_2]
-pub struct ItemTwo;
-```
+## FRAME
 
-There would be no way for `#[macro_1]` and `#[macro_2]` to communicate information to one another. However, with a design like:
+The `polkadot-sdk` provides a developer framework called FRAME.
 
-```rust
-#[macro_entrypoint]
-pub mod pallet {
-	#[macro_1]
-	pub struct ItemOne;
+FRAME is an opinionated framework on how one should quickly and easily build and maintain a blockchain's runtime.
 
-	#[macro_2]
-	pub struct ItemTwo;
-}
-```
+> NOTE: It is important to clarify that FRAME is not the only way you can develop a runtime for the `polkadot-sdk`, but it is the one that the Polkadot Network uses and is most supported by the ecosystem.
 
-We can now design the `#[macro_entrypoint]` to keep track of all data inside of the `mod pallet` container, and that means we can now design `#[macro_1]` and `#[macro_2]` to have context of one another, and interact with each other too.
+You can see in our project, nearly all of our dependencies come from a single crate named [`frame`](https://docs.rs/polkadot-sdk-frame/0.6.0/polkadot_sdk_frame/index.html).
 
-The unfortunate limitation here is that wherever we want to use FRAME macros, we must basically do it in a single file and all enclosed by the `#[frame::pallet]` macro entrypoint.
+This crate is really just a convenience wrapper around other smaller crates, all exposed through [`frame::deps`](https://docs.rs/polkadot-sdk-frame/0.6.0/polkadot_sdk_frame/deps/index.html).
 
-We will go over each of the FRAME macros throughout this tutorial
+For our tutorial, most of the types and traits we need access to are automatically brought into scope through [`frame::prelude::*`](https://docs.rs/polkadot-sdk-frame/0.6.0/polkadot_sdk_frame/prelude/index.html), however once in a while, we will need to import something more specific from [`frame::primitives`](https://docs.rs/polkadot-sdk-frame/0.6.0/polkadot_sdk_frame/primitives/index.html) or [`frame::traits`](https://docs.rs/polkadot-sdk-frame/0.6.0/polkadot_sdk_frame/traits/index.html).
 
-### Basic Pallet Structure
+### Pallets
 
-While the template is already very minimal, you can mentally break it down like:
+FRAME's key decision is to break apart the blockchain runtime into separate logical pieces that can choose to interact with one another.
 
-```rust
-use frame::prelude::*;
-pub use pallet::*;
+These logical pieces are called Pallets.
 
-#[frame::pallet]
-pub mod pallet {
-	use super::*;
+TODO: Add images.
 
-	#[pallet::pallet]
-	pub struct Pallet<T>(core::marker::PhantomData<T>);
+You can think of different Pallets as different applications or functions that your blockchain exposes.
 
-	#[pallet::config]  // snip
-	#[pallet::event]   // snip
-	#[pallet::error]   // snip
-	#[pallet::storage] // snip
-	#[pallet::call]    // snip
-}
-```
+You can also think of Pallets very similar to traditional blockchain smart contracts, however Pallets are more powerful and execute much faster than smart contracts.
 
-Let's explore this further.
+<details>
+
+<summary>Deep Dive</summary>
+
+To learn more about FRAME and Pallets, check out this video from the Polkadot Blockchain Academy:
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/ghMloMzEEsA?si=3DtsmrYOapbnR2oy" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+</details>
+
+## NFTs
+
+Non-Fungible Tokens (NFTs) are a type of token which can be created and traded on a blockchain.
+
+As their name indicated, each NFT is totally unique, and therefore non-fungible with one another.
+
+NFTs can be used for many things, for example:
+
+- Representing real world assets
+	- Ownership Rights
+	- Access Rights
+- Digital assets
+	- Music
+	- Images
+	- Skins
+	- Characters
+- and much more...
+
+## Starting Template
+
+The template for this project is a minimal starting point for developing a custom Pallet.
+
+In this tutorial, we will create a Pallet which allows us to create and manage a collection of NFTs.
+
+Our NFTs will represent kitties, which will be a digital pet that can be created, traded, and more.
+
+This Pallet could then be included into a `polkadot-sdk` project and used to launch a Web3 application on the Polkadot Network.
+
+TODO: need to create and link to a tutorial creating and launching a runtime with omninode.

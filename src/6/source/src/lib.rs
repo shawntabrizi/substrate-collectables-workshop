@@ -12,7 +12,6 @@ pub mod pallet {
 	#[pallet::pallet]
 	pub struct Pallet<T>(core::marker::PhantomData<T>);
 
-	/* 🚧 TODO 🚧: Learn about Pallet `Config` and `frame_system`. */
 	#[pallet::config]
 	pub trait Config: frame_system::Config {
 		type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
@@ -30,6 +29,7 @@ pub mod pallet {
 	#[pallet::call]
 	impl<T: Config> Pallet<T> {
 		pub fn create_kitty(origin: OriginFor<T>) -> DispatchResult {
+			/* 🚧 TODO 🚧: Learn about origin. */
 			let who = ensure_signed(origin)?;
 			Self::mint(who)?;
 			Ok(())

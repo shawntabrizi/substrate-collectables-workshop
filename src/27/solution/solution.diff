@@ -1,70 +1,44 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index 686cb0a..f1e996c 100644
+index 6ae2e34..5ec04ae 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
-@@ -58,14 +58,12 @@ impl<T: Config> Pallet<T> {
- 		Ok(())
+@@ -20,8 +20,7 @@ impl<T: Config> Pallet<T> {
  	}
  
--	/* 🚧 TODO 🚧: Make an internal function called `do_set_price`:
--		- Inputs to the function are:
--			- `caller` which is `T::AccountId`.
--			- `kitty_id` which is `[u8; 32]`.
--			- `new_price` which is `Option<BalanceOf<T>`.
--		- Returns a `DispatchResult`.
--		- The internal logic, for now, should be:
--			- `Self::deposit_event` for `Event::<T>::PriceSet` with the appropriate params.
--			- Return `Ok(())`.
--	*/
-+	pub fn do_set_price(
-+		caller: T::AccountId,
-+		kitty_id: [u8; 32],
-+		new_price: Option<BalanceOf<T>>,
-+	) -> DispatchResult {
-+		Self::deposit_event(Event::<T>::PriceSet { owner: caller, kitty_id, new_price });
-+		Ok(())
-+	}
- }
+ 	pub fn mint(owner: T::AccountId, dna: [u8; 32]) -> DispatchResult {
+-		/* 🚧 TODO 🚧: Add the `price` field set to `None` when initializing the `Kitty` struct. */
+-		let kitty = Kitty { dna, owner: owner.clone() };
++		let kitty = Kitty { dna, owner: owner.clone(), price: None };
+ 		// Check if the kitty does not already exist in our storage map
+ 		ensure!(!Kitties::<T>::contains_key(dna), Error::<T>::DuplicateKitty);
+ 
 diff --git a/src/lib.rs b/src/lib.rs
-index 53bb1ec..1cbcf94 100644
+index efd55a6..f2625a6 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -54,11 +54,7 @@ pub mod pallet {
- 	pub enum Event<T: Config> {
- 		Created { owner: T::AccountId },
- 		Transferred { from: T::AccountId, to: T::AccountId, kitty_id: [u8; 32] },
--		/* 🚧 TODO 🚧: Create a new `Event` called `PriceSet` with fields:
--			- `owner` which is `T::AccountId`.
--			- `kitty_id` which is `[u8; 32]`.
--			- `new_price` which is `Option<BalanceOf<T>>`.
--		*/
-+		PriceSet { owner: T::AccountId, kitty_id: [u8; 32], new_price: Option<BalanceOf<T>> },
+@@ -22,13 +22,9 @@ pub mod pallet {
+ 		type NativeBalance: Inspect<Self::AccountId> + Mutate<Self::AccountId>;
  	}
  
- 	#[pallet::error]
-@@ -90,16 +86,14 @@ pub mod pallet {
- 			Ok(())
- 		}
+-	/* 🚧 TODO 🚧:
+-		- Create a new type alias called `BalanceOf<T>`.
+-		- Extract the `Balance` type from the `NativeBalance` associated type:
+-			- The `Balance` type comes from the `Inspect` trait.
+-				- `Inspect` requires a generic parameter `AccountId` from `T as frame_system::Config`.
+-			- Inspect comes from `NativeBalance`, which comes from `T as Config`.
+-	*/
++	// Allows easy access our Pallet's `Balance` type. Comes from `Fungible` interface.
++	pub type BalanceOf<T> =
++		<<T as Config>::NativeBalance as Inspect<<T as frame_system::Config>::AccountId>>::Balance;
  
--		/* 🚧 TODO 🚧: Make an callable function called `set_price`:
--			- Inputs to the function are:
--				- `origin` which is `OriginFor<T>`.
--				- `kitty_id` which is `[u8; 32]`.
--				- `new_price` which is `Option<BalanceOf<T>`.
--			- Returns a `DispatchResult`
--			- The internal logic, for now, should be:
--				- Extract the caller `who` with `ensure_signed`.
--				- Call `Self::do_set_price` with the appropriate parameters, propagating the result.
--				- Return `Ok(())`.
--		*/
-+		pub fn set_price(
-+			origin: OriginFor<T>,
-+			kitty_id: [u8; 32],
-+			new_price: Option<BalanceOf<T>>,
-+		) -> DispatchResult {
-+			let who = ensure_signed(origin)?;
-+			Self::do_set_price(who, kitty_id, new_price)?;
-+			Ok(())
-+		}
+ 	#[derive(Encode, Decode, TypeInfo, MaxEncodedLen)]
+ 	#[scale_info(skip_type_params(T))]
+@@ -36,7 +32,7 @@ pub mod pallet {
+ 		// Using 32 bytes to represent a kitty DNA
+ 		pub dna: [u8; 32],
+ 		pub owner: T::AccountId,
+-		/* 🚧 TODO 🚧: Add a new field `price`, which is an `Option<BalanceOf<T>>`. */
++		pub price: Option<BalanceOf<T>>,
  	}
- }
+ 
+ 	#[pallet::storage]

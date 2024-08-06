@@ -1,52 +1,51 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index bfd7fdb..470eb78 100644
+index 741a6ff..5d3c104 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
-@@ -1,18 +1,22 @@
- use super::*;
- use frame::prelude::*;
--/* 🚧 TODO 🚧: Import `frame::primtives::BlakeTwo256`. */
--/* 🚧 TODO 🚧: Import `frame::traits::Hash`. */
-+use frame::primitives::BlakeTwo256;
-+use frame::traits::Hash;
+@@ -3,17 +3,13 @@ use frame::prelude::*;
  
  impl<T: Config> Pallet<T> {
--	/* 🚧 TODO 🚧: Create a function `gen_dna` which returns a `[u8; 32]`.
--		- Create a `unique_payload` which contains data from `frame_system::Pallet::<T>`:
--			- `parent_hash`
--			- `block_number`
--			- `extrinsic_index`
--			- `CountForKitties::<T>::get()`
--		- Use `BlakeTwo256` to calculate the `hash_of` the unique payload.
--		- Return the hash as a `[u8; 32]`.
--	*/
-+	// Generates and returns DNA and Sex
-+	pub fn gen_dna() -> [u8; 32] {
-+		// Create randomness payload. Multiple kitties can be generated in the same block,
-+		// retaining uniqueness.
-+		let unique_payload = (
-+			frame_system::Pallet::<T>::parent_hash(),
-+			frame_system::Pallet::<T>::block_number(),
-+			frame_system::Pallet::<T>::extrinsic_index(),
-+			CountForKitties::<T>::get(),
-+		);
-+
-+		BlakeTwo256::hash_of(&unique_payload).into()
-+	}
- 
  	pub fn mint(owner: T::AccountId, dna: [u8; 32]) -> DispatchResult {
- 		let kitty = Kitty { dna, owner: owner.clone() };
+-		/* 🚧 TODO 🚧:
+-			- Create a new variable `kitty` which is a `Kitty` struct with `dna` and `owner`.
+-		*/
+-
++		let kitty = Kitty { dna, owner: owner.clone() };
+ 		// Check if the kitty does not already exist in our storage map
+ 		ensure!(!Kitties::<T>::contains_key(dna), Error::<T>::DuplicateKitty);
+ 
+ 		let current_count: u32 = CountForKitties::<T>::get();
+ 		let new_count = current_count.checked_add(1).ok_or(Error::<T>::TooManyKitties)?;
+-		/* 🚧 TODO 🚧: Insert `kitty`into the map instead of `()`. */
+-		Kitties::<T>::insert(dna, ());
++		Kitties::<T>::insert(dna, kitty);
+ 		CountForKitties::<T>::set(new_count);
+ 		Self::deposit_event(Event::<T>::Created { owner });
+ 		Ok(())
 diff --git a/src/lib.rs b/src/lib.rs
-index 8e2b3f6..7ed3998 100644
+index 21ad6d9..8b073f8 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -47,8 +47,7 @@ pub mod pallet {
- 	impl<T: Config> Pallet<T> {
- 		pub fn create_kitty(origin: OriginFor<T>) -> DispatchResult {
- 			let who = ensure_signed(origin)?;
--			/* 🚧 TODO 🚧: Use the `Self::gen_dna()` function to generate a unique Kitty. */
--			let dna = [0u8; 32];
-+			let dna = Self::gen_dna();
- 			Self::mint(who, dna)?;
- 			Ok(())
- 		}
+@@ -17,10 +17,8 @@ pub mod pallet {
+ 		type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
+ 	}
+ 
+-	/* 🚧 TODO 🚧:
+-		- Add the derive macros needed for putting a struct in storage.
+-		- Add `#[scale_info(skip_type_params(T))]` to ignore the generic `T`.
+-	*/
++	#[derive(Encode, Decode, TypeInfo, MaxEncodedLen)]
++	#[scale_info(skip_type_params(T))]
+ 	pub struct Kitty<T: Config> {
+ 		// Using 32 bytes to represent a kitty DNA
+ 		pub dna: [u8; 32],
+@@ -31,8 +29,7 @@ pub mod pallet {
+ 	pub(super) type CountForKitties<T: Config> = StorageValue<Value = u32, QueryKind = ValueQuery>;
+ 
+ 	#[pallet::storage]
+-	/* 🚧 TODO 🚧: Update the `Value` to be type `Kitty<T>` instead of (). */
+-	pub(super) type Kitties<T: Config> = StorageMap<Key = [u8; 32], Value = ()>;
++	pub(super) type Kitties<T: Config> = StorageMap<Key = [u8; 32], Value = Kitty<T>>;
+ 
+ 	#[pallet::event]
+ 	#[pallet::generate_deposit(pub(super) fn deposit_event)]

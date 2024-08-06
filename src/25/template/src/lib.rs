@@ -3,8 +3,6 @@
 mod impls;
 
 use frame::prelude::*;
-/* 🚧 TODO 🚧: Import `frame::traits::fungible::Inspect`. */
-/* 🚧 TODO 🚧: Import `frame::traits::fungible::Mutate`. */
 pub use pallet::*;
 
 #[frame::pallet(dev_mode)]
@@ -17,13 +15,6 @@ pub mod pallet {
 	#[pallet::config]
 	pub trait Config: frame_system::Config {
 		type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
-
-		/* 🚧 TODO 🚧:
-			- Create a new associated type named `NativeBalance`.
-			- Require that `NativeBalance` implements the following traits:
-				- `Inspect` which is generic over `Self::AccountId`.
-				- `Mutate` which is also generic over `Self::AccountId`.
-		*/
 	}
 
 	#[derive(Encode, Decode, TypeInfo, MaxEncodedLen)]
@@ -60,9 +51,11 @@ pub mod pallet {
 		TooManyKitties,
 		DuplicateKitty,
 		TooManyOwned,
-		TransferToSelf,
-		NoKitty,
-		NotOwner,
+		/* 🚧 TODO 🚧: Add new `Error` variants needed for `do_transfer`:
+			- `TransferToSelf`: for when the `from` and `to` of the transfer is the same.
+			- `NoKitty`: for when a transfer involves a kitty that does not exist.
+			- `NotOwner`: for when a transfer is initiated by someone who is not the current owner.
+		*/
 	}
 
 	#[pallet::call]

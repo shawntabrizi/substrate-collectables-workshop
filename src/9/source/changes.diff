@@ -1,0 +1,12 @@
+diff --git a/src/lib.rs b/src/lib.rs
+index 5bac803..7b6c6a2 100644
+--- a/src/lib.rs
++++ b/src/lib.rs
+@@ -17,7 +17,6 @@ pub mod pallet {
+ 		type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
+ 	}
+ 
+-	/* 🚧 TODO 🚧: Learn about Pallet Events. */
+ 	#[pallet::event]
+ 	#[pallet::generate_deposit(pub(super) fn deposit_event)]
+ 	pub enum Event<T: Config> {

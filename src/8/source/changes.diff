@@ -1,12 +1,18 @@
 diff --git a/src/lib.rs b/src/lib.rs
-index 5bac803..7b6c6a2 100644
+index 424711d..5bac803 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -17,7 +17,6 @@ pub mod pallet {
+@@ -12,12 +12,12 @@ pub mod pallet {
+ 	#[pallet::pallet]
+ 	pub struct Pallet<T>(core::marker::PhantomData<T>);
+ 
+-	/* 🚧 TODO 🚧: Learn about Pallet `Config` and `frame_system`. */
+ 	#[pallet::config]
+ 	pub trait Config: frame_system::Config {
  		type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
  	}
  
--	/* 🚧 TODO 🚧: Learn about Pallet Events. */
++	/* 🚧 TODO 🚧: Learn about Pallet Events. */
  	#[pallet::event]
  	#[pallet::generate_deposit(pub(super) fn deposit_event)]
  	pub enum Event<T: Config> {

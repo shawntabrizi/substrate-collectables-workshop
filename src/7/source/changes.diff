@@ -1,18 +1,32 @@
+diff --git a/src/impls.rs b/src/impls.rs
+index ecb2e7d..03abf99 100644
+--- a/src/impls.rs
++++ b/src/impls.rs
+@@ -2,7 +2,6 @@ use super::*;
+ use frame::prelude::*;
+ 
+ impl<T: Config> Pallet<T> {
+-	/* 🚧 TODO 🚧: Learn about `AccountId`. */
+ 	pub fn mint(owner: T::AccountId) -> DispatchResult {
+ 		Self::deposit_event(Event::<T>::Created { owner });
+ 		Ok(())
 diff --git a/src/lib.rs b/src/lib.rs
-index 424711d..5bac803 100644
+index 973b65b..424711d 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -12,12 +12,12 @@ pub mod pallet {
+@@ -12,6 +12,7 @@ pub mod pallet {
  	#[pallet::pallet]
  	pub struct Pallet<T>(core::marker::PhantomData<T>);
  
--	/* 🚧 TODO 🚧: Learn about Pallet `Config` and `frame_system`. */
++	/* 🚧 TODO 🚧: Learn about Pallet `Config` and `frame_system`. */
  	#[pallet::config]
  	pub trait Config: frame_system::Config {
  		type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
- 	}
- 
-+	/* 🚧 TODO 🚧: Learn about Pallet Events. */
- 	#[pallet::event]
- 	#[pallet::generate_deposit(pub(super) fn deposit_event)]
- 	pub enum Event<T: Config> {
+@@ -29,7 +30,6 @@ pub mod pallet {
+ 	#[pallet::call]
+ 	impl<T: Config> Pallet<T> {
+ 		pub fn create_kitty(origin: OriginFor<T>) -> DispatchResult {
+-			/* 🚧 TODO 🚧: Learn about origin. */
+ 			let who = ensure_signed(origin)?;
+ 			Self::mint(who)?;
+ 			Ok(())

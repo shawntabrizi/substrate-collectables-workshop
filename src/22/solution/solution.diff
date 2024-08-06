@@ -1,0 +1,47 @@
+diff --git a/src/impls.rs b/src/impls.rs
+index 9e79118..e9dcca6 100644
+--- a/src/impls.rs
++++ b/src/impls.rs
+@@ -3,6 +3,7 @@ use frame::prelude::*;
+ use frame::primitives::BlakeTwo256;
+ use frame::traits::Hash;
+ 
++// Learn about internal functions.
+ impl<T: Config> Pallet<T> {
+ 	// Generates and returns DNA and Sex
+ 	pub fn gen_dna() -> [u8; 32] {
+@@ -26,10 +27,7 @@ impl<T: Config> Pallet<T> {
+ 		let current_count: u32 = CountForKitties::<T>::get();
+ 		let new_count = current_count.checked_add(1).ok_or(Error::<T>::TooManyKitties)?;
+ 
+-		/* 🚧 TODO 🚧:
+-			- Update `append` to `try_append` and `map_err` to `Error::<T>::TooManyOwned`.
+-		*/
+-		KittiesOwned::<T>::append(&owner, dna);
++		KittiesOwned::<T>::try_append(&owner, dna).map_err(|_| Error::<T>::TooManyOwned)?;
+ 		Kitties::<T>::insert(dna, kitty);
+ 		CountForKitties::<T>::set(new_count);
+ 
+diff --git a/src/lib.rs b/src/lib.rs
+index d24ffdc..3339065 100644
+--- a/src/lib.rs
++++ b/src/lib.rs
+@@ -35,8 +35,7 @@ pub mod pallet {
+ 	#[pallet::storage]
+ 	pub(super) type KittiesOwned<T: Config> = StorageMap<
+ 		Key = T::AccountId,
+-		/* 🚧 TODO 🚧: Turn this into a `BoundedVec` with a limit of `ConstU32<100>`. */
+-		Value = Vec<[u8; 32]>,
++		Value = BoundedVec<[u8; 32], ConstU32<100>>,
+ 		QueryKind = ValueQuery,
+ 	>;
+ 
+@@ -50,7 +49,7 @@ pub mod pallet {
+ 	pub enum Error<T> {
+ 		TooManyKitties,
+ 		DuplicateKitty,
+-		/* 🚧 TODO 🚧: Add a new `Error` named `TooManyOwned` */
++		TooManyOwned,
+ 	}
+ 
+ 	#[pallet::call]

@@ -1,81 +1,141 @@
-# Value Query
+# Safety First
 
-When we originally introduced the `StorageValue`, we only exposed to you one field which you could manipulate, which is the `Value` type, which defines the type that will be stored.
+If you look into the history of "hacks" and "bugs" that happen in the blockchain world, a lot of it is associated with some kind of "unsafe" code.
 
-But there are actually more ways you can configure the `StorageValue` to increase developer ergonomics.
+Keeping our blockchain logic safe, and Rust is designed to handle it well.
 
-## Storage Value Definition
+## Errors
 
-Let's look at the definition of a [`StorageValue`](https://docs.rs/frame-support/37.0.0/frame_support/storage/types/struct.StorageValue.html):
+When talking about handling safe math, we will start to introduce and use errors.
 
-```rust
-pub struct StorageValue<
-	Prefix,
-	Value,
-	QueryKind = OptionQuery,
-	OnEmpty = GetDefault
->(_);
-```
+### Do Not Panic!
 
-You can see the `StorageValue` expects 4 different generic parameters, two of which have default implementations, which means you don't need to define them unless you want to change the configuration.
+If there is only one thing you remember after this whole tutorial, it should be this fact:
 
-### Prefix
+**You cannot panic inside the runtime.**
 
-We have been able to hide the `Prefix` type from you so far because the `#[pallet::storage]` macro implements this for us auto-magically.
+As a runtime developer, you are building logic in the low level parts of your blockchain.
 
-We won't go into detail about what exactly `Prefix` does, but the high level idea is that it contains metadata needed to be able to correctly, uniquely, and consistently read and write data into the merkle trie.
+A smart contract system must be able to handle malicious developers, but this comes at a performance cost.
 
-Those details are pretty low level, and something we can automatically implement for you with the macros. You should never need to do anything with `Prefix`, else you are probably doing something wrong.
+When you program directly in the runtime, you get the highest performance possible, but you are also expected to be a competent developer and a good actor.
 
-### Value
+In short, if you introduce a panic in your code, you make your blockchain vulnerable to DDoS attacks.
 
-You already know how to use and implement `Value` for `StorageValue`, so we won't go into too much detail here.
+But there is no reason you would ever need to panic because Rust has a great error handling system that we take advantage of in FRAME.
 
-I will note that not literally every object can be placed in storage. It must satisfy some traits, which we will learn later in the tutorial.
+### Pallet Errors
 
-### Query Kind
+All of our callable functions use the `DispatchResult` type. This means that we can always propagate up any errors that our Pallet runs into, and handle them properly, versus needing to panic.
 
-You can see the `QueryKind` parameter defaults to `OptionQuery`.
+The [`DispatchResult`](https://docs.rs/frame-support/37.0.0/frame_support/dispatch/type.DispatchResult.html) type expects either `Ok(())` or `Err(DispatchError)`.
 
-This is why when we query storage, we get an `Option` returned to us.
+The [`DispatchError`](https://docs.rs/frame-support/37.0.0/frame_support/pallet_prelude/enum.DispatchError.html) type has a few variants that you can easily construct / use.
 
-Now as we stated before, Runtime storage is ALWAYS an `Option`. It is always possible that some storage does not exist / is not set when we first try to query it. But as we showed in our Pallet so far, there is logic we can write to "hide" that fact from the user, like `unwrap_or(0)`.
-
-We can do this even more ergonomically by changing the `QueryKind` to `ValueQuery`.
+For example, if you want to be a little lazy, you can simply return a `&'static str`:
 
 ```rust
-#[pallet::storage]
-pub(super) type CountForKitties<T: Config> = StorageValue<Value = u32, QueryKind = ValueQuery>;
+fn always_error() -> DispatchResult {
+	return Err("this function always errors".into())
+}
 ```
 
-In this case, all of our APIs change.
-
-Now when you call `get`, you will directly return a value, and when you call `set`, you just need to pass the value, not an option.
-
-Now you might ask: "What value do you get when you call `get` and there is no value stored?".
-
-That is controlled by the `OnEmpty` type.
-
-### On Empty
-
-As we noted above, the `OnEmpty` type defines the behavior of the `QueryKind` type.
-
-When you call `get`, and the storage is empty, the `OnEmpty` configuration kicks in.
-
-The default configuration for `OnEmpty` is `GetDefault`. This of course requires that the `Value` type must implement `Default`. But if it does, then you will get the following behavior:
+But the better option is to return a custom Pallet Error:
 
 ```rust
-assert!(CountForKitties::<T>::get() == u32::default());
+fn custom_error() -> DispatchResult {
+	return Err(Error::<T>::CustomPalletError.into())
+}
 ```
 
-For numbers, this value is normally zero, so simply setting `QueryKind = ValueQuery` gives you exactly the same behavior as what we programmed in our Pallet so far.
+Notice in both of these cases we had to call `into()` to convert our input type into the `DispatchError` type.
 
-If your type does not implement `Default`, you can't use `ValueQuery`. A common example of this is the `T::AccountId` type, which purposefully has no default value, and thus is not compatible out of the box with `ValueQuery`.
+To create `CustomPalletError` or whatever error you want, you simply add a new variants to the `enum Error<T>` type.
 
-You CAN modify `OnEmpty` to return a custom value, rather than `Default`, but we won't cover that here. Feel free to explore this idea on your own.
+```rust
+#[pallet::error]
+pub enum Error<T> {
+	/// This is a description for the error.
+	///
+	/// This description can be shown to the user in UIs, so make it descriptive.
+	CustomPalletError,
+}
+```
+
+We will show you the common ergonomic ways to use Pallet Errors going forward.
+
+## Math
+
+### Unsafe Math
+
+The basic math operators in Rust are **unsafe**.
+
+Imagine our `CountForKitties` was already at the limit of `u32::MAX`. What would happen if we tried to call `mint` one more time?
+
+We would get an overflow!
+
+In tests `u32::MAX + 1` will actually trigger a panic, but in a `release` build, this overflow will happen silently...
+
+And this would be really bad. Now our count would be back to 0, and if we had any logic which depended on this count being accurate, that logic would be broken.
+
+In blockchain systems, these can literally be billion dollar bugs, so let's look at how we can do math safely.
+
+### Checked Math
+
+The first choice for doing safe math is to use `checked_*` APIs, for example [`checked_add`](https://docs.rs/num/latest/num/trait.CheckedAdd.html).
+
+The checked math APIs will check if there are any underflows or overflows, and return `None` in those cases. Otherwise, if the math operation is calculated without error, it returns `Some(result)`.
+
+Here is a verbose way you could handle checked math in a Pallet:
+
+```rust
+let final_result: u32 = match value_a.checked_add(value_b) {
+	Some(result) => result,
+	None => return Err(Error::<T>::CustomPalletError.into()),
+};
+```
+
+You can see how we can directly assign the `u32` value to `final_result`, otherwise it will return an error.
+
+We can also do this as a one-liner, which is more ergonomic and preferred:
+
+```rust
+let final_result: u32 = value_a.checked_add(value_b).ok_or(Error::<T>::CustomPalletError)?;
+```
+
+This is exactly how you should be writing all the safe math inside your Pallet.
+
+Note that we didn't need to call `.into()` in this case, because `?` already does this!
+
+### Saturating Math
+
+The other option for safe math is to use `saturating_*` APIs, for example [`saturating_add`](https://docs.rs/num/latest/num/traits/trait.SaturatingAdd.html).
+
+This option is useful because it is safe and does NOT return an `Option`.
+
+Instead, it performs the math operations and keeps the value at the numerical limits, rather than overflowing. For example:
+
+```rust
+let value_a: u32 = 1;
+let value_b: u32 = u32::MAX;
+let result: u32 = value_a.saturating_add(value_b);
+assert!(result == u32::MAX);
+```
+
+This generally is NOT the preferred API to use because usually you want to handle situations where an overflow would occur. Overflows and underflows usually indicate something "bad" is happening.
+
+However, there are times where you need to do math inside of functions where you cannot return a Result, and for that, saturating math might make sense.
+
+There are also times where you might want to perform the operation no matter that an underflow / overflow would occur. For example, imagine you made a function `slash` which slashes the balance of a malicious user. Your slash function may have some input parameter `amount` which says how much we should slash from the user.
+
+In a situation like this, it would make sense to use `saturating_sub` because we definitely want to slash as much as we can, even if we intended to slash more. The alternative would be returning an error, and not slashing anything!
+
+Anyway, every bone in your body should generally prefer to use the `checked_*` APIs, and handle all errors explicitly, but this is yet another tool in your pocket when it makes sense to use it.
 
 ## Your Turn
 
-Update your `CountForKitties` to use `QueryKind = ValueQuery`.
+We covered a lot in this section, but the concepts here are super important.
 
-This will affect the APIs for `get` and `set`, so also update your code to reflect those changes.
+Feel fre to reach this section again right now, and again at the end of the tutorial.
+
+Now that you know how to ergonomically do safe math, update your Pallet to handle the `mint` logic safely and return a custom Pallet Error if an overflow would occur.

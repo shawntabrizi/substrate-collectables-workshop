@@ -1,30 +1,32 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index 7454df9..ecb2e7d 100644
+index 03abf99..7454df9 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
-@@ -1,8 +1,8 @@
+@@ -1,6 +1,7 @@
  use super::*;
  use frame::prelude::*;
  
--/* 🚧 TODO 🚧:  Learn about internal functions. */
++/* 🚧 TODO 🚧:  Learn about internal functions. */
  impl<T: Config> Pallet<T> {
-+	/* 🚧 TODO 🚧: Learn about `AccountId`. */
  	pub fn mint(owner: T::AccountId) -> DispatchResult {
  		Self::deposit_event(Event::<T>::Created { owner });
- 		Ok(())
 diff --git a/src/lib.rs b/src/lib.rs
-index ef2382e..973b65b 100644
+index 95dc3a4..ef2382e 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -26,10 +26,10 @@ pub mod pallet {
+@@ -9,7 +9,6 @@ pub use pallet::*;
+ pub mod pallet {
+ 	use super::*;
+ 
+-	/* 🚧 TODO 🚧: Learn about the Pallet struct. */
+ 	#[pallet::pallet]
+ 	pub struct Pallet<T>(core::marker::PhantomData<T>);
+ 
+@@ -27,6 +26,7 @@ pub mod pallet {
  	#[pallet::error]
  	pub enum Error<T> {}
  
--	/* 🚧 TODO 🚧: Learn about callable functions and dispatch. */
++	/* 🚧 TODO 🚧: Learn about callable functions and dispatch. */
  	#[pallet::call]
  	impl<T: Config> Pallet<T> {
  		pub fn create_kitty(origin: OriginFor<T>) -> DispatchResult {
-+			/* 🚧 TODO 🚧: Learn about origin. */
- 			let who = ensure_signed(origin)?;
- 			Self::mint(who)?;
- 			Ok(())

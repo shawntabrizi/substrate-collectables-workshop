@@ -1,36 +1,19 @@
-diff --git a/src/impls.rs b/src/impls.rs
-index 89c7306..363f5e4 100644
---- a/src/impls.rs
-+++ b/src/impls.rs
-@@ -2,11 +2,10 @@ use super::*;
- use frame::prelude::*;
- 
- impl<T: Config> Pallet<T> {
--	/* 🚧 TODO 🚧: Update this function signature to include `id` which is type `[u8; 32]`. */
--	pub fn mint(owner: T::AccountId) -> DispatchResult {
-+	pub fn mint(owner: T::AccountId, dna: [u8; 32]) -> DispatchResult {
- 		let current_count: u32 = CountForKitties::<T>::get();
- 		let new_count = current_count.checked_add(1).ok_or(Error::<T>::TooManyKitties)?;
--		/* 🚧 TODO 🚧: In the `Kitties` map, under the key `id`, insert `()`. */
-+		Kitties::<T>::insert(dna, ());
- 		CountForKitties::<T>::set(new_count);
- 		Self::deposit_event(Event::<T>::Created { owner });
- 		Ok(())
 diff --git a/src/lib.rs b/src/lib.rs
-index 3e32e75..c216fa6 100644
+index be05ddb..d4e9d01 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -38,11 +38,8 @@ pub mod pallet {
- 	impl<T: Config> Pallet<T> {
- 		pub fn create_kitty(origin: OriginFor<T>) -> DispatchResult {
- 			let who = ensure_signed(origin)?;
--			/* 🚧 TODO 🚧:
--				- Create `const default_id`, which type `[u8; 32]` and has value `[0u8; 32]`.
--				- Pass `default_id` to the `mint` function as a second parameter.
--			*/
--			Self::mint(who)?;
-+			let dna = [0u8; 32];
-+			Self::mint(who, dna)?;
- 			Ok(())
- 		}
- 	}
+@@ -20,12 +20,8 @@ pub mod pallet {
+ 	#[pallet::storage]
+ 	pub(super) type CountForKitties<T: Config> = StorageValue<Value = u32, QueryKind = ValueQuery>;
+ 
+-	/* 🚧 TODO 🚧:
+-		- Create a new `StorageMap` named `Kitties`.
+-			- `Kitties` should be generic over `<T: Config>`.
+-			- Set `Key` to `[u8; 32]` to use the kitty id as the key.
+-			- Set `Value` to `()` as a placeholder for now.
+-	*/
++	#[pallet::storage]
++	pub(super) type Kitties<T: Config> = StorageMap<Key = [u8; 32], Value = ()>;
+ 
+ 	#[pallet::event]
+ 	#[pallet::generate_deposit(pub(super) fn deposit_event)]

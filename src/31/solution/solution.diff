@@ -1,0 +1,59 @@
+diff --git a/src/impls.rs b/src/impls.rs
+index 2bb3385..a266e73 100644
+--- a/src/impls.rs
++++ b/src/impls.rs
+@@ -1,7 +1,7 @@
+ use super::*;
+ use frame::prelude::*;
+ use frame::primitives::BlakeTwo256;
+-/* 🚧 TODO 🚧: Import `frame::traits::tokens::Preservation`. */
++use frame::traits::tokens::Preservation;
+ use frame::traits::Hash;
+ 
+ // Learn about internal functions.
+@@ -78,22 +78,14 @@ impl<T: Config> Pallet<T> {
+ 		kitty_id: [u8; 32],
+ 		price: BalanceOf<T>,
+ 	) -> DispatchResult {
+-		/* 🚧 TODO 🚧: Sanity check that the purchase is allowed:
+-			- Get `kitty` from `Kitties` using `kitty_id`, `ok_or` return `Error::<T>::NoKitty`.
+-			- Get the `real_price` from `kitty.price`, `ok_or` return `Error::<T>::NotForSale`.
+-			- `ensure!` that `price` is greater or equal to `real_price`, else `Error::<T>::MaxPriceTooLow`.
+-		*/
++		let kitty = Kitties::<T>::get(kitty_id).ok_or(Error::<T>::NoKitty)?;
++		let real_price = kitty.price.ok_or(Error::<T>::NotForSale)?;
++		ensure!(price >= real_price, Error::<T>::MaxPriceTooLow);
+ 
+-		/* 🚧 TODO 🚧: Execute the transfers:
+-			- Use `T::NativeBalance` to `transfer` from the `buyer` to the `kitty.owner`.
+-				- The amount transferred should be the `real_price`.
+-				- Use `Preservation::Preserve` to ensure the buyer account stays alive.
+-			- Use `Self::do_transfer` to transfer from the `kitty.owner` to the `buyer` with `kitty_id`.
+-			- Remember to propagate up all results from these functions with `?`.
+-		*/
++		T::NativeBalance::transfer(&buyer, &kitty.owner, real_price, Preservation::Preserve)?;
++		Self::do_transfer(kitty.owner, buyer.clone(), kitty_id)?;
+ 
+-		/* 🚧 TODO 🚧: Update the event to use the `real_price` in the `Event`. */
+-		Self::deposit_event(Event::<T>::Sold { buyer, kitty_id, price });
++		Self::deposit_event(Event::<T>::Sold { buyer, kitty_id, price: real_price });
+ 		Ok(())
+ 	}
+ }
+diff --git a/src/lib.rs b/src/lib.rs
+index 214fb31..15ec1ef 100644
+--- a/src/lib.rs
++++ b/src/lib.rs
+@@ -66,10 +66,8 @@ pub mod pallet {
+ 		TransferToSelf,
+ 		NoKitty,
+ 		NotOwner,
+-		/* 🚧 TODO 🚧: Add `Errors` needed for `do_buy_kitty`:
+-			- `NotForSale`: for when the Kitty has a price set to `None`.
+-			- `MaxPriceTooLow`: for when the price offered by the buyer is too low.
+-		*/
++		NotForSale,
++		MaxPriceTooLow,
+ 	}
+ 
+ 	#[pallet::call]
