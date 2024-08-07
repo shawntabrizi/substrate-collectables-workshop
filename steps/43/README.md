@@ -1,139 +1,118 @@
-# Native Balance Type
+# Native Balances
 
-One of the most challenging parts of using the `polkadot-sdk` is using generic types.
+In our next steps, we will introduce a marketplace for buying and selling kitties.
 
-Hopefully, things like `T::AccountId` have been easy enough to use, but using the `Balance` type coming from `NativeBalance` can be a little tricky.
+For that, we will need to access a user's blockchain balance in addition to the logic in our pallet.
 
-## Generic Types
+## The Balances Pallet
 
-The ability to use generic types in Rust is extremely powerful, but it can be hard to easily understand for those new to the `polkadot-sdk`. Not to mention that `polkadot-sdk` uses a lot of generic types.
+Every blockchain has a cryptocurrency associated with it. Bitcoin has BTC. Ethereum as ETH.
 
-The key thing to remember is that all of these generic types eventually become a concrete type. So while we are not sure while we write our pallet if `T::AccountId` is `[u8; 20]`, `[u8; 32]`, or maybe even a `String`, we know that eventually it must be one of these primitive types.
+For Polkadot, that native token is the DOT token.
 
-In this situation, the same can be said for the `Balance` type coming from `NativeBalance`. Depending on the configuration of your blockchain, and the required traits that `Balance` needs to satisfy, it is perfectly valid for your `Balance` type to be `u32`, `u64`, or `u128`.
+Polkadot is built using FRAME and Pallets just like you have been building so far. Included in the `polkadot-sdk` is `pallet_balances`.
 
-But it can only concretely be one of those, and the weird thing is that we don't know which one it is as we program our Kitties pallet!
+This is a Pallet designed specifically to manage the native balance for users.
 
-Let's look at how we would interact with this generic type, and solve many of the issues you might encounter when trying to use it.
+It has the ability to:
 
-## Balance Type
+- Mint new tokens.
+- Transfer tokens between users.
+- Apply freezes and holds for users.
+- Slash tokens from accounts.
+- and much more...
 
-The `Balance` type is ultimately configured inside `pallet_balances`, and remember, we don't have direct access to that pallet because we used loose coupling.
+Basically everything you could expect to want or need when working with the native balance of a blockchain.
 
-The way we can access the `Balance` type is through the `Inspect` trait of the `NativeBalance` associated type. Accessing it kind of funny, which is why we commonly introduce a `BalanceOf<T>` alias type like so:
+## Pallet Coupling
 
-```rust
-// Allows easy access our Pallet's `Balance` type. Comes from `Fungible` interface.
-pub type BalanceOf<T> =
-	<<T as Config>::NativeBalance as Inspect<<T as frame_system::Config>::AccountId>>::Balance;
+The `polkadot-sdk` is designed to be a flexible and modular blockchain development SDK.
 
-```
+Part of that flexibility comes through the use of Rust traits to allow two pallets to interact with one another. We call this pallet coupling, and there are two forms of it we will briefly explain next.
 
-This is kind of a crazy line of code, so let's break it down:
+### Tight Coupling
 
-- At the very end, there is a `Balance` type. This is what we want to access and alias.
-	```rust
-	Balance
-	```
-- This `Balance` type is part of the `Inspect` trait.
-	```rust
-	Inspect::Balance
-	```
-- The `Inspect` trait is generic over `AccountId`, so we need to include that.
-	```rust
-	Inspect<AccountId>::Balance
-	```
-- The `AccountId` type comes from `T`, through `frame_system::Config`, where the type is defined.
-	```rust
-	Inspect<<T as frame_system::Config>::AccountId>::Balance
-	```
-- The `Inspect` is accessible through the `NativeBalance` associated type.
-	```rust
-	<NativeBalance as Inspect<<T as frame_system::Config>::AccountId>>::Balance
-	```
-- The `NativeBalance` type also comes from `T`, but though our pallet's own `Config`.
-	```rust
-	<<T as Config>::NativeBalance as Inspect<<T as frame_system::Config>::AccountId>>::Balance
-	```
-- Finally, we assign this to a new alias `BalanceOf` which is generic over `<T>`.
-	```rust
-	pub type BalanceOf<T> = <<T as Config>::NativeBalance as Inspect<<T as frame_system::Config>::AccountId>>::Balance
-	```
-
-Phew! Did you get all that? If not, don't worry too much. You can review these Rust concepts after you complete the tutorial, but there is nothing here which is specific to the `polkadot-sdk`.
-
-Why do we need this `BalanceOf<T>` alias?
-
-So that we can change this:
+We have already been using tight coupling throughout this tutorial to give our custom Kitties pallet access to the `frame_system` pallet:
 
 ```rust
-fn set_price(id: [u8; 32], price: <<T as Config>::NativeBalance as Inspect<<T as frame_system::Config>::AccountId>>::Balance) {
-	// -- snip --
+#[pallet::config]
+pub trait Config: frame_system::Config {
+	// Through supertraits, we are tightly coupled to `frame_system`.
 }
 ```
 
-To this:
+You can see our Pallet's `Config` is tightly coupled to the `frame_system::Config`. This is why we have been able to use the types coming from `frame_system` (like `T::AccountId`) and why we have been able to use functions directly from `frame_system` (like `frame_system::Pallet::<T>::block_number()`).
+
+In fact, every Pallet built with FRAME is required to be tightly coupled to `frame_system`. But if we wanted, we could tightly couple to other pallets too!
 
 ```rust
-fn set_price(id: [u8; 32], price: BalanceOf<T>) {
-	// -- snip --
+#[pallet::config]
+pub trait Config: frame_system::Config + pallet_balances:: Config {
+	// Here you can see we can also tightly couple to `pallet_balances`.
 }
 ```
 
-The second is way better right? This type alias handles extracting the `Balance` type out of the `NativeBalance` associated type every time, and all we need to do is pass the generic parameter `T`.
+The upside to tight coupling is gaining direct access to the pallet's Rust module, and all the functions, types, storage, and everything else that is included in that pallet.
 
-## Basic API
-
-Let's learn how we can use the `BalanceOf<T>` type in our code.
-
-### Interacting with Primitive Numbers
-
-I will repeat again: Because the `BalanceOf<T>` type is generic, we cannot know what underlying type it is. This means we CANNOT write the following:
+With tight coupling, we are able to access the `pallet_balances` APIs like:
 
 ```rust
-// This code doesn't work
-fn add_one(input: BalanceOf<T>) -> BalanceOf<T> {
-	input + 1u128
+let total_issuance = pallet_balances::Pallet::<T>::total_issuance();
+let alice_balance = pallet_balances::Pallet::<T>::total_balance(alice);
+pallet_balances::Pallet::<T>::mint_into(alice, amount)?;
+pallet_balances::Pallet::<T>::transfer(alice, bob, amount, Preserve)?;
+```
+
+The downside however, is that you make your pallet very rigid, forcing everyone who wants to use your pallet to use a specific version of `pallet_balances` which you import into your crate.
+
+### Loose Coupling
+
+Loose coupling is the more flexible approach to accessing another pallet, and will be our way of integrating the Balances Pallet in our project.
+
+Loose coupling involves using the interface of a `trait` to access the APIs of another Pallet.
+
+In the case of accessing the Balances Pallet, it looks exactly like this:
+
+```rust
+#[pallet::config]
+pub trait Config: frame_system::Config {
+	type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
+
+	/// Access the balances pallet through the associated type `NativeBalance`.
+	/// The `NativeBalance` type must implement `Inspect` and `Mutate`.
+	/// Both of these traits are generic over the `AccountId` type.
+	type NativeBalance: Inspect<Self::AccountId> + Mutate<Self::AccountId>;
 }
 ```
 
-Even if we don't include `u128`, we cannot write the line above. This is because that line assumes that `input` must be some specific number type, and in that code, it is simply generic.
+You can see we introduce a new associated type called `NativeBalance`. We then require that this type must implment two traits:
 
-However, `BalanceOf<T>` [does have traits](https://docs.rs/frame-support/37.0.0/frame_support/traits/tokens/trait.Balance.html) that we can use to interact with it. The key one being [`AtLeast32BitUnsigned`](https://docs.rs/polkadot-sdk-frame/0.6.0/polkadot_sdk_frame/arithmetic/trait.AtLeast32BitUnsigned.html).
+- [`fungible::Inspect`](https://docs.rs/frame-support/37.0.0/frame_support/traits/tokens/fungible/trait.Inspect.html): A trait allowing us to read data about a fungible token.
+- [`fungible::Mutate`](https://docs.rs/frame-support/37.0.0/frame_support/traits/tokens/fungible/trait.Mutate.html): A trait allowing us to write data about a fungible token.
 
-This means our `BalanceOf<T>` must be an unsigned integer, and must be at least `u32`. So it could be `u32`, `u64`, `u128`, or even bigger if you import other crates with those larger unsigned types.
-
-This also means we **would** be able to write the following:
-
-```rust
-// This code does work
-fn add_one(input: BalanceOf<T>) -> BalanceOf<T> {
-	input + 1u32.into()
-}
-```
-
-We can convert any `u32` into the `BalanceOf<T>` type because we know at a minimum `BalanceOf<T>` is `AtLeast32BitUnsigned`.
-
-### Interacting with Itself
-
-Interacting between two `BalanceOf<T>` types will act just like two normal numbers of the same type.
-
-You can add them, subtract them, multiply them, divide them, and even better, do safe math operations on all of them.
+So with this, we are able to access our native balance using APIs like:
 
 ```rust
-let total_balance: BalanceOf<T> = balance_1.checked_add(balance_2).ok_or(ArithmeticError::Overflow)?;
+// Example APIs coming from `Inspect`.
+let total_issuance = T::NativeBalance::total_issuance();
+let alice_balance = T::NativeBalance::total_balance(alice);
+// Example APIs coming from `Mutate`.
+T::NativeBalance::mint_into(alice, amount)?;
+T::NativeBalance::transfer(alice, bob, amount, Preserve)?;
 ```
 
-## Price Field
+The key difference here is that we do NOT assume that these APIs must from from specifically `pallet_balances`. If you wanted to use another pallet in the `polkadot-sdk` ecosystem which provides these same functions, you can use it! Our pallet is NOT tightly coupled to which pallet provides access to the `NativeBalance`, it only requires that there is something implementing the `Inspect` and `Mutate` traits.
 
-We are going to use `BalanceOf<T>` in the `Kitty` struct to keep track if it is for sale, and the price the owner wants.
-
-For this we can use an `Option<BalanceOf<T>>`, where `None` denotes that a kitty is not for sale, and `Some(price)` denotes the kitty is for sale at some `price`.
+The power of loose coupling may not be immediately obvious, but as you get deeper into developing in the Polkadot ecosystem, you will start to realize how powerful this approach can be.
 
 ## Your Turn
 
-Now that you know how to create and use the `BalanceOf<T>` type, add the type alias to your Pallet as shown in the template.
+Import the `Inspect` and `Mutate` traits from `frame::traits::fungible`.
 
-Then add a new field to the `Kitty` struct called `price`, which is an `Option<BalanceOf<T>>`.
+Introduce the `NativeBalance` associated type to your `trait Config` using these traits.
 
-Finally, update the `mint` function to create a new `Kitty` with the new `price` field set as `None`.
+## Learn More
+
+To continue learning about Pallet Coupling, check out the following video from the Polkadot Blockchain Academy:
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/mPkgG9ANNzI?si=6CrBZBMaHHBvQLYD" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>

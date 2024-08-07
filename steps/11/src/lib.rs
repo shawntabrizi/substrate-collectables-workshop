@@ -17,12 +17,6 @@ pub mod pallet {
 		type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
 	}
 
-	/* 🚧 TODO 🚧:
-		- Create a new `StorageValue` named `CountForKitties`.
-			- `CountForKitties` should be generic over `<T: Config>`.
-			- Set `Value` to `u32` to store that type.
-	*/
-
 	#[pallet::event]
 	#[pallet::generate_deposit(pub(super) fn deposit_event)]
 	pub enum Event<T: Config> {
