@@ -44,7 +44,6 @@ The `hash_of` API comes from the `Hash` trait and takes any `encode`-able object
 
 Another nice thing about using a hash is you get some sense of pseudo-randomness between the input and output. This means that two kitties which are minted right after one another could have totally different DNA, which could be useful if you want to associate unique attributes to the different parts of their DNA. 🤔
 
-
 ## Your Turn
 
 Now that you know how to acquire uniqueness from your blockchain, and how to hash those items, create a new function called `fn gen_dna() -> [u8; 32];` which does these steps to create unique DNA for each kitty that is minted.

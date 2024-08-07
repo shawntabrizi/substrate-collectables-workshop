@@ -8,6 +8,14 @@ The tutorial is designed to be completed by anyone with basic familiarity with [
 
 If you do not feel comfortable with the level of Rust used in this tutorial, we recommend you first check out the [`rust-state-machine`](https://github.com/shawntabrizi/rust-state-machine) tutorial.
 
+## Goal
+
+The goal of this tutorial is to create a custom Polkadot SDK Pallet that acts as an NFT Marketplace. Our NFTs will represent kitties, which will be a digital pets that can be created, traded, and more.
+
+This Pallet could then be included into a Polkadot SDK blockchain and used to launch a Web3 application on the Polkadot Network.
+
+TODO: need to create and link to a tutorial creating and launching a custom runtime with omninode.
+
 ## Tutorial Structure
 
 This tutorial is broken up into small steps with documentation and code.
@@ -26,7 +34,11 @@ At the end of each step, you should be able to run all the following commands wi
 
 We recommend you run these during each step in the tutorial to confirm you are doing everything correctly.
 
-## Clone the Starting Template
+## Starting Template
+
+The template for this project is a minimal starting point for developing a custom Pallet with a little bit of starting code.
+
+### Clone
 
 The best way to follow this tutorial is to clone the starting template, and follow the steps of the tutorial locally.
 
@@ -41,7 +53,7 @@ Or access the template directly here:
 
 [https://github.com/shawntabrizi/substrate-collectables-workshop/releases/tag/starting-template](https://github.com/shawntabrizi/substrate-collectables-workshop/releases/tag/starting-template)
 
-### Install Dependencies
+### Install
 
 The starting template includes a `README` with instructions to setup your working environment. Follow those instructions.
 

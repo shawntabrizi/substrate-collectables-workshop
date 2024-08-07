@@ -51,5 +51,4 @@ Here are some ideas of what you can do next:
 
 	- [https://polkadot.network/](https://polkadot.network/)
 
-
 Good luck on your journey, and welcome to the Polkadot ecosystem!
