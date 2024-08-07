@@ -32,7 +32,7 @@ pub mod pallet {
 	#[pallet::error]
 	pub enum Error<T> {
 		TooManyKitties,
-		/* 🚧 TODO 🚧: Create a new error `DuplicateKitty`. */
+		DuplicateKitty,
 	}
 
 	#[pallet::call]
