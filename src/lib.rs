@@ -2,6 +2,7 @@
 
 mod impls;
 
+/* 🚧 TODO 🚧: Learn about the Polkadot SDK and FRAME. */
 use frame::prelude::*;
 pub use pallet::*;
 
