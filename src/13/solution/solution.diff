@@ -1,32 +1,29 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index b9b5548..d283fd6 100644
+index c550bc8..7277e36 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
-@@ -3,11 +3,9 @@ use frame::prelude::*;
- 
+@@ -4,8 +4,7 @@ use frame::prelude::*;
  impl<T: Config> Pallet<T> {
  	pub fn mint(owner: T::AccountId) -> DispatchResult {
--		/* 🚧 TODO 🚧: Remove the `unwrap_or` which is not needed when using `ValueQuery`. */
--		let current_count: u32 = CountForKitties::<T>::get().unwrap_or(0);
-+		let current_count: u32 = CountForKitties::<T>::get();
- 		let new_count = current_count.checked_add(1).ok_or(Error::<T>::TooManyKitties)?;
--		/* 🚧 TODO 🚧: Remove the `Option` wrapper when setting the `new_count`. */
--		CountForKitties::<T>::set(Some(new_count));
-+		CountForKitties::<T>::set(new_count);
+ 		let current_count: u32 = CountForKitties::<T>::get().unwrap_or(0);
+-		/* 🚧 TODO 🚧: Update this logic to use safe math. */
+-		let new_count = current_count + 1;
++		let new_count = current_count.checked_add(1).ok_or(Error::<T>::TooManyKitties)?;
+ 		CountForKitties::<T>::set(Some(new_count));
  		Self::deposit_event(Event::<T>::Created { owner });
  		Ok(())
- 	}
 diff --git a/src/lib.rs b/src/lib.rs
-index 322eeee..52b2dba 100644
+index e68500d..a913997 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -18,8 +18,7 @@ pub mod pallet {
+@@ -28,9 +28,7 @@ pub mod pallet {
+ 
+ 	#[pallet::error]
+ 	pub enum Error<T> {
+-		/* 🚧 TODO 🚧:
+-			- Introduce a new error `TooManyKitties`.
+-		*/
++		TooManyKitties,
  	}
  
- 	#[pallet::storage]
--	/* 🚧 TODO 🚧: Update this storage to use a `QueryKind` of `ValueQuery`. */
--	pub(super) type CountForKitties<T: Config> = StorageValue<Value = u32>;
-+	pub(super) type CountForKitties<T: Config> = StorageValue<Value = u32, QueryKind = ValueQuery>;
- 
- 	#[pallet::event]
- 	#[pallet::generate_deposit(pub(super) fn deposit_event)]
+ 	#[pallet::call]

@@ -1,27 +1,50 @@
+diff --git a/src/impls.rs b/src/impls.rs
+index 3428acb..749b40c 100644
+--- a/src/impls.rs
++++ b/src/impls.rs
+@@ -36,6 +36,29 @@ impl<T: Config> Pallet<T> {
+ 	}
+ 
+ 	pub fn do_transfer(from: T::AccountId, to: T::AccountId, kitty_id: [u8; 32]) -> DispatchResult {
++		/* 🚧 TODO 🚧: Sanity check the transfer is allowed:
++			- First `ensure!` that `from` and `to` are not equal, else return `Error::<T>::TransferToSelf`.
++			- Get the `kitty` from `Kitties` using `kitty_id`, else return `Error::<T>::NoKitty`.
++			- Check the `kitty.owner` is equal to `from`, else return `NotOwner`.
++		*/
++
++		/* 🚧 TODO 🚧: Update the owner of the kitty:
++			- Update `kitty.owner` to `to`.
++			 - Update the `KittiesOwned` of `from` and `to:
++				- Create a mutable `to_owned` by querying `KittiesOwned` for `to`.
++				- `try_push` the `kitty_id` to the `to_owned` vector.
++					- If the vector is full, `map_err` and return `Error::<T>::TooManyOwned`.
++				- Create a mutable `from_owned` by querying `KittiesOwned` for `from`.
++				- Write logic to `swap_remove` the item from the `from_owned` vector.
++					- If you cannot find the kitty in the vector, return `Error::<T>::NoKitty`.
++		*/
++
++		/* 🚧 TODO 🚧: Update the final storage.
++			- Insert into `Kitties` under `kitty_id` the modified `kitty` struct.
++			- Insert into `KittiesOwned` under `to` the modified `to_owned` vector.
++			- Insert into `KittiesOwned` under `from` the modified `from_owned` vector.
++		*/
++
+ 		Self::deposit_event(Event::<T>::Transferred { from, to, kitty_id });
+ 		Ok(())
+ 	}
 diff --git a/src/lib.rs b/src/lib.rs
-index dd5161f..629c78d 100644
+index 977f88d..6d3301b 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -3,6 +3,8 @@
- mod impls;
- 
- use frame::prelude::*;
-+/* 🚧 TODO 🚧: Import `frame::traits::fungible::Inspect`. */
-+/* 🚧 TODO 🚧: Import `frame::traits::fungible::Mutate`. */
- pub use pallet::*;
- 
- #[frame::pallet(dev_mode)]
-@@ -15,6 +17,13 @@ pub mod pallet {
- 	#[pallet::config]
- 	pub trait Config: frame_system::Config {
- 		type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
-+
-+		/* 🚧 TODO 🚧:
-+			- Create a new associated type named `NativeBalance`.
-+			- Require that `NativeBalance` implements the following traits:
-+				- `Inspect` which is generic over `Self::AccountId`.
-+				- `Mutate` which is also generic over `Self::AccountId`.
+@@ -51,6 +51,11 @@ pub mod pallet {
+ 		TooManyKitties,
+ 		DuplicateKitty,
+ 		TooManyOwned,
++		/* 🚧 TODO 🚧: Add new `Error` variants needed for `do_transfer`:
++			- `TransferToSelf`: for when the `from` and `to` of the transfer is the same.
++			- `NoKitty`: for when a transfer involves a kitty that does not exist.
++			- `NotOwner`: for when a transfer is initiated by someone who is not the current owner.
 +		*/
  	}
  
- 	#[derive(Encode, Decode, TypeInfo, MaxEncodedLen)]
+ 	#[pallet::call]

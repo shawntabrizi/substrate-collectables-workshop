@@ -3,7 +3,6 @@ use frame::prelude::*;
 use frame::primitives::BlakeTwo256;
 use frame::traits::Hash;
 
-// Learn about internal functions.
 impl<T: Config> Pallet<T> {
 	// Generates and returns DNA and Sex
 	pub fn gen_dna() -> [u8; 32] {
@@ -27,7 +26,7 @@ impl<T: Config> Pallet<T> {
 		let current_count: u32 = CountForKitties::<T>::get();
 		let new_count = current_count.checked_add(1).ok_or(Error::<T>::TooManyKitties)?;
 
-		KittiesOwned::<T>::try_append(&owner, dna).map_err(|_| Error::<T>::TooManyOwned)?;
+		KittiesOwned::<T>::append(&owner, dna);
 		Kitties::<T>::insert(dna, kitty);
 		CountForKitties::<T>::set(new_count);
 

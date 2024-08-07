@@ -33,11 +33,8 @@ pub mod pallet {
 
 	/// Track the kitties owned by each account.
 	#[pallet::storage]
-	pub(super) type KittiesOwned<T: Config> = StorageMap<
-		Key = T::AccountId,
-		Value = BoundedVec<[u8; 32], ConstU32<100>>,
-		QueryKind = ValueQuery,
-	>;
+	pub(super) type KittiesOwned<T: Config> =
+		StorageMap<Key = T::AccountId, Value = Vec<[u8; 32]>, QueryKind = ValueQuery>;
 
 	#[pallet::event]
 	#[pallet::generate_deposit(pub(super) fn deposit_event)]
@@ -49,7 +46,6 @@ pub mod pallet {
 	pub enum Error<T> {
 		TooManyKitties,
 		DuplicateKitty,
-		TooManyOwned,
 	}
 
 	#[pallet::call]

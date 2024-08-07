@@ -1,30 +1,69 @@
-diff --git a/src/lib.rs b/src/lib.rs
-index 629c78d..7305ab6 100644
---- a/src/lib.rs
-+++ b/src/lib.rs
-@@ -3,8 +3,8 @@
- mod impls;
- 
- use frame::prelude::*;
--/* 🚧 TODO 🚧: Import `frame::traits::fungible::Inspect`. */
--/* 🚧 TODO 🚧: Import `frame::traits::fungible::Mutate`. */
-+use frame::traits::fungible::Inspect;
-+use frame::traits::fungible::Mutate;
- pub use pallet::*;
- 
- #[frame::pallet(dev_mode)]
-@@ -18,12 +18,8 @@ pub mod pallet {
- 	pub trait Config: frame_system::Config {
- 		type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
- 
--		/* 🚧 TODO 🚧:
--			- Create a new associated type named `NativeBalance`.
--			- Require that `NativeBalance` implements the following traits:
--				- `Inspect` which is generic over `Self::AccountId`.
--				- `Mutate` which is also generic over `Self::AccountId`.
--		*/
-+		/// The Fungible handler for the kitties pallet.
-+		type NativeBalance: Inspect<Self::AccountId> + Mutate<Self::AccountId>;
+diff --git a/src/impls.rs b/src/impls.rs
+index 749b40c..a638a8c 100644
+--- a/src/impls.rs
++++ b/src/impls.rs
+@@ -36,28 +36,23 @@ impl<T: Config> Pallet<T> {
  	}
  
- 	#[derive(Encode, Decode, TypeInfo, MaxEncodedLen)]
+ 	pub fn do_transfer(from: T::AccountId, to: T::AccountId, kitty_id: [u8; 32]) -> DispatchResult {
+-		/* 🚧 TODO 🚧: Sanity check the transfer is allowed:
+-			- First `ensure!` that `from` and `to` are not equal, else return `Error::<T>::TransferToSelf`.
+-			- Get the `kitty` from `Kitties` using `kitty_id`, else return `Error::<T>::NoKitty`.
+-			- Check the `kitty.owner` is equal to `from`, else return `NotOwner`.
+-		*/
+-
+-		/* 🚧 TODO 🚧: Update the owner of the kitty:
+-			- Update `kitty.owner` to `to`.
+-			 - Update the `KittiesOwned` of `from` and `to:
+-				- Create a mutable `to_owned` by querying `KittiesOwned` for `to`.
+-				- `try_push` the `kitty_id` to the `to_owned` vector.
+-					- If the vector is full, `map_err` and return `Error::<T>::TooManyOwned`.
+-				- Create a mutable `from_owned` by querying `KittiesOwned` for `from`.
+-				- Write logic to `swap_remove` the item from the `from_owned` vector.
+-					- If you cannot find the kitty in the vector, return `Error::<T>::NoKitty`.
+-		*/
+-
+-		/* 🚧 TODO 🚧: Update the final storage.
+-			- Insert into `Kitties` under `kitty_id` the modified `kitty` struct.
+-			- Insert into `KittiesOwned` under `to` the modified `to_owned` vector.
+-			- Insert into `KittiesOwned` under `from` the modified `from_owned` vector.
+-		*/
++		ensure!(from != to, Error::<T>::TransferToSelf);
++		let mut kitty = Kitties::<T>::get(kitty_id).ok_or(Error::<T>::NoKitty)?;
++		ensure!(kitty.owner == from, Error::<T>::NotOwner);
++		kitty.owner = to.clone();
++
++		let mut to_owned = KittiesOwned::<T>::get(&to);
++		to_owned.try_push(kitty_id).map_err(|_| Error::<T>::TooManyOwned)?;
++		let mut from_owned = KittiesOwned::<T>::get(&from);
++		if let Some(ind) = from_owned.iter().position(|&id| id == kitty_id) {
++			from_owned.swap_remove(ind);
++		} else {
++			return Err(Error::<T>::NoKitty.into())
++		}
++
++		Kitties::<T>::insert(kitty_id, kitty);
++		KittiesOwned::<T>::insert(&to, to_owned);
++		KittiesOwned::<T>::insert(&from, from_owned);
+ 
+ 		Self::deposit_event(Event::<T>::Transferred { from, to, kitty_id });
+ 		Ok(())
+diff --git a/src/lib.rs b/src/lib.rs
+index 6d3301b..dd5161f 100644
+--- a/src/lib.rs
++++ b/src/lib.rs
+@@ -51,11 +51,9 @@ pub mod pallet {
+ 		TooManyKitties,
+ 		DuplicateKitty,
+ 		TooManyOwned,
+-		/* 🚧 TODO 🚧: Add new `Error` variants needed for `do_transfer`:
+-			- `TransferToSelf`: for when the `from` and `to` of the transfer is the same.
+-			- `NoKitty`: for when a transfer involves a kitty that does not exist.
+-			- `NotOwner`: for when a transfer is initiated by someone who is not the current owner.
+-		*/
++		TransferToSelf,
++		NoKitty,
++		NotOwner,
+ 	}
+ 
+ 	#[pallet::call]

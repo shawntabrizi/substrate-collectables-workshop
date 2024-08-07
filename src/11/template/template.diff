@@ -1,17 +1,17 @@
-diff --git a/src/impls.rs b/src/impls.rs
-index 03abf99..b396f98 100644
---- a/src/impls.rs
-+++ b/src/impls.rs
-@@ -3,6 +3,12 @@ use frame::prelude::*;
- 
- impl<T: Config> Pallet<T> {
- 	pub fn mint(owner: T::AccountId) -> DispatchResult {
-+		/* 🚧 TODO 🚧:
-+			- `get` the `current_count` of kitties.
-+			- `unwrap_or` set the count to `0`.
-+			- Create `new_count` by adding one to the `current_count`.
-+			- `set` the `new_count` of kitties.
-+		*/
- 		Self::deposit_event(Event::<T>::Created { owner });
- 		Ok(())
+diff --git a/src/lib.rs b/src/lib.rs
+index 7b6c6a2..ef50270 100644
+--- a/src/lib.rs
++++ b/src/lib.rs
+@@ -17,6 +17,12 @@ pub mod pallet {
+ 		type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
  	}
+ 
++	/* 🚧 TODO 🚧:
++		- Create a new `StorageValue` named `CountForKitties`.
++			- `CountForKitties` should be generic over `<T: Config>`.
++			- Set `Value` to `u32` to store that type.
++	*/
++
+ 	#[pallet::event]
+ 	#[pallet::generate_deposit(pub(super) fn deposit_event)]
+ 	pub enum Event<T: Config> {

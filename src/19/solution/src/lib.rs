@@ -17,8 +17,6 @@ pub mod pallet {
 		type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
 	}
 
-	#[derive(Encode, Decode, TypeInfo, MaxEncodedLen)]
-	#[scale_info(skip_type_params(T))]
 	pub struct Kitty<T: Config> {
 		// Using 32 bytes to represent a kitty DNA
 		pub dna: [u8; 32],
@@ -29,7 +27,7 @@ pub mod pallet {
 	pub(super) type CountForKitties<T: Config> = StorageValue<Value = u32, QueryKind = ValueQuery>;
 
 	#[pallet::storage]
-	pub(super) type Kitties<T: Config> = StorageMap<Key = [u8; 32], Value = Kitty<T>>;
+	pub(super) type Kitties<T: Config> = StorageMap<Key = [u8; 32], Value = ()>;
 
 	#[pallet::event]
 	#[pallet::generate_deposit(pub(super) fn deposit_event)]

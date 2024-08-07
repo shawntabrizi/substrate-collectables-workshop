@@ -32,15 +32,17 @@ pub mod pallet {
 	#[pallet::error]
 	pub enum Error<T> {
 		TooManyKitties,
-		/* 🚧 TODO 🚧: Create a new error `DuplicateKitty`. */
 	}
 
 	#[pallet::call]
 	impl<T: Config> Pallet<T> {
 		pub fn create_kitty(origin: OriginFor<T>) -> DispatchResult {
 			let who = ensure_signed(origin)?;
-			let dna = [0u8; 32];
-			Self::mint(who, dna)?;
+			/* 🚧 TODO 🚧:
+				- Create `const default_id`, which type `[u8; 32]` and has value `[0u8; 32]`.
+				- Pass `default_id` to the `mint` function as a second parameter.
+			*/
+			Self::mint(who)?;
 			Ok(())
 		}
 	}

@@ -51,9 +51,6 @@ pub mod pallet {
 		TooManyKitties,
 		DuplicateKitty,
 		TooManyOwned,
-		TransferToSelf,
-		NoKitty,
-		NotOwner,
 	}
 
 	#[pallet::call]

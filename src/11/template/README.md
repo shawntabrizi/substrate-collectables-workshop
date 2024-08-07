@@ -1,51 +1,28 @@
-# Kitty Counter
+# Storage Values
 
-Let's now learn how to use our new `StorageValue`.
+The most basic storage type for a blockchain is a single `StorageValue`.
 
-## Basic APIs
+A `StorageValue` is used to place a single object into the blockchain storage.
 
-This tutorial will only go over just the basic APIs needed to build our Pallet.
+A single object can be as simple as a single type like a `u32`, or more complex structures, or even vectors.
 
-Check out the [`StorageValue` documentation](https://docs.rs/frame-support/37.0.0/frame_support/storage/types/struct.StorageValue.html) if you want to see the full APIs.
+What is most important to understand is that a `StorageValue` places a single entry into the merkle trie. So when you read data, you read all of it. When you write data, you write all of it. This is in contrast to a `StorageMap`, which you will learn about next.
 
-### Reading Storage
+## Construction
 
-To read the current value of a `StorageValue`, you can simply call the `get` API:
-
-```rust
-let maybe_count: Option<u32> = CountForKitties::<T>::get();
-```
-
-A few things to note here.
-
-The most obvious one is that `get` returns an `Option`, rather than the type itself.
-
-In fact, all storage in a blockchain is an `Option`: either there is some data in the database or there isn't.
-
-In this context, when there is no value in storage for the `CountForKitties`, we probably mean that the `CountForKitties` is zero.
-
-So we can write the following to handle this ergonomically:
+We constructed a simple `StorageValue` for you in the code, but let's break it down:
 
 ```rust
-let current_count: u32 = CountForKitties::<T>::get().unwrap_or(0);
+#[pallet::storage]
+pub(super) type CountForKitties<T: Config> = StorageValue<Value = u32>;
 ```
 
-Now, whenever `CountForKitties` returns `Some(count)`, we will simply unwrap that count and directly access the `u32`. If it returns `None`, we will simply return `0u32` instead.
+As you can see, our storage is a type alias for a new instance of `StorageValue`.
 
-The other thing to note is the generic `<T>` that we need to include. You better get used to this, we will be using `<T>` everywhere! But remember, in our definition of `CountForKitties`, it was a type generic over `<T: Config>`, and thus we need to include `<T>` to access any of the APIs.
+Our storage value has a parameter `Value` where we can define the type we want to place in storage. In this case, it is a simple `u32`.
 
-### Writing Storage
+You will also notice `CountForKitties` is generic over `<T: Config>`. All of our storage must be generic over `<T: Config>` even if we are not using it directly. Macros use this generic parameter to fill in behind the scene details to make the `StorageValue` work. Think about all the code behind the scenes which actually sticks this storage into a merkle trie in the database of our blockchain.
 
-To set the current value of a `StorageValue`, you can simply call the `set` API:
+Visibility of the type is up to you and your needs, but you need to remember that blockchains are public databases. So `pub` in this case is only about Rust, and allowing other modules to access this storage and its APIs directly.
 
-```rust
-CountForKitties::<T>::set(Some(1u32));
-```
-
-This storage API cannot fail, so there is no error handling needed. You just set the value directly in storage. Note that `set` will also happily replace any existing value there, so you will need to use other APIs like `exists` or `get` to check if a value is already in storage.
-
-If you `set` the storage to `None`, it is the same as deleting the storage item.
-
-## Your Turn
-
-Now that you know the basics of reading and writing to storage, add the logic needed to increment the `CountForKitties` storage whenever we call `mint`.
+You cannot make storage on a blockchain "private", and even if you make this storage without `pub`, there are low level ways to manipulate the storage in the database.
