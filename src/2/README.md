@@ -15,27 +15,9 @@
 <div id="Source" class="maintab tabcontent active">
 
 <div class="tab">
-<button class="subtab tablinks file-source file-added active" onclick="switchSubTab(event, '.gitorial/images/frame-runtime.png')" data-id=".gitorial/images/frame-runtime.png">.gitorial/images/frame-runtime.png</button>
-<button class="subtab tablinks file-source file-added" onclick="switchSubTab(event, '.gitorial/metadata.json')" data-id=".gitorial/metadata.json">.gitorial/metadata.json</button>
-<button class="subtab tablinks file-source file-modified" onclick="switchSubTab(event, 'src/lib.rs')" data-id="src/lib.rs">src/lib.rs</button>
+<button class="subtab tablinks file-source file-modified active" onclick="switchSubTab(event, 'src/lib.rs')" data-id="src/lib.rs">src/lib.rs</button>
 </div>
-<div id="source/.gitorial/images/frame-runtime.png" class="subtab tabcontent active" data-id=".gitorial/images/frame-runtime.png">
-
-```text
-{{#include ./source/.gitorial/images/frame-runtime.png}}
-```
-
-</div>
-
-<div id="source/.gitorial/metadata.json" class="subtab tabcontent" data-id=".gitorial/metadata.json">
-
-```text
-{{#include ./source/.gitorial/metadata.json}}
-```
-
-</div>
-
-<div id="source/src/lib.rs" class="subtab tabcontent" data-id="src/lib.rs">
+<div id="source/src/lib.rs" class="subtab tabcontent active" data-id="src/lib.rs">
 
 ```rust
 {{#include ./source/src/lib.rs}}
