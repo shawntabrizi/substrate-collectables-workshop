@@ -10,3 +10,5 @@ additional-css = ["custom/styles.css"]
 additional-js = ["custom/tabs.js"]
 git-repository-url = "https://github.com/shawntabrizi/substrate-collectables-workshop"
 git-repository-icon = "fa-github"
+
+[preprocessor.mdinclude]
