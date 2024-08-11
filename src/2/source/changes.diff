@@ -1,18 +1,3 @@
-diff --git a/.gitorial/images/frame-runtime.png b/.gitorial/images/frame-runtime.png
-new file mode 100644
-index 0000000..f00b64d
-Binary files /dev/null and b/.gitorial/images/frame-runtime.png differ
-diff --git a/.gitorial/metadata.json b/.gitorial/metadata.json
-new file mode 100644
-index 0000000..9440095
---- /dev/null
-+++ b/.gitorial/metadata.json
-@@ -0,0 +1,4 @@
-+{
-+  "_Note": "This file will not be included in your final gitorial.",
-+  "commitMessage": "action: learn about the polkadot sdk"
-+}
-\ No newline at end of file
 diff --git a/src/lib.rs b/src/lib.rs
 index 7b6c6a2..0f7bcee 100644
 --- a/src/lib.rs

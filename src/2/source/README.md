@@ -66,7 +66,7 @@ FRAME's key decision is to break apart the blockchain runtime into separate logi
 
 These logical pieces are called Pallets.
 
-![FRAME Runtime](./.gitorial/images/frame-runtime.png)
+TODO: Add images.
 
 You can think of different Pallets as different applications or functions that your blockchain exposes.
 

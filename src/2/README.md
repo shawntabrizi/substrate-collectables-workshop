@@ -2,7 +2,7 @@
 <div class="content-row">
 <div class="content-col">
 
-{{#mdinclude ./source/README.md}}
+{{#include ./source/README.md}}
 
 </div>
 <div class="content-col">
