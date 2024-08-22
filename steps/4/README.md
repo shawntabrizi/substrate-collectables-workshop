@@ -42,7 +42,7 @@ Our starting template includes all the basic macros used for developing a FRAME 
 
 ### Pallet Macro Entrypoint
 
-The entrypoint for all the FRAME macros is can be seen here:
+The entrypoint for all the FRAME macros can be seen here:
 
 ```rust
 #[frame::pallet(dev_mode)]
