@@ -136,6 +136,6 @@ Anyway, every bone in your body should generally prefer to use the `checked_*` A
 
 We covered a lot in this section, but the concepts here are super important.
 
-Feel free to reach this section again right now, and again at the end of the tutorial.
+Feel free to read this section again right now, and again at the end of the tutorial.
 
 Now that you know how to ergonomically do safe math, update your Pallet to handle the `mint` logic safely and return a custom Pallet Error if an overflow would occur.
