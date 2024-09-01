@@ -1,6 +1,6 @@
 # Buy Kitty Logic
 
-Now that we have scaffolded the `buy_kitty` extrinsic, its time for us to program it's logic.
+Now that we have scaffolded the `buy_kitty` extrinsic, its time for us to program its logic.
 
 ## Sanity Checks
 
