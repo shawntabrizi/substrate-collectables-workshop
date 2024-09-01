@@ -6,6 +6,8 @@ This is the starting template for: https://github.com/shawntabrizi/substrate-col
 
 Follow [these installation instructions](https://docs.substrate.io/install/) to set up your development environment to work with the `polkadot-sdk`.
 
+If you have already set up your computer for the `polkadot-sdk`, you should make sure your rust compiler is up to date with `rustup update`.
+
 ### test
 
 To check that your code compiles successfully at each step, you can run:

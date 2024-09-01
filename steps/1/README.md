@@ -65,6 +65,8 @@ cargo +nightly clippy
 cargo test
 ```
 
+In general, you should make sure your rust compiler is up to date with `rustup update`.
+
 It may take a while for this to complete based on how powerful your computer is.
 
 Feel free to move onto the next steps while these checks are compiling.
