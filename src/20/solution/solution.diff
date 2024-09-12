@@ -23,10 +23,10 @@ index 741a6ff..5d3c104 100644
  		Self::deposit_event(Event::<T>::Created { owner });
  		Ok(())
 diff --git a/src/lib.rs b/src/lib.rs
-index 21ad6d9..8b073f8 100644
+index 68f57e1..aa6ca3b 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -17,10 +17,8 @@ pub mod pallet {
+@@ -18,10 +18,8 @@ pub mod pallet {
  		type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
  	}
  
@@ -39,7 +39,7 @@ index 21ad6d9..8b073f8 100644
  	pub struct Kitty<T: Config> {
  		// Using 32 bytes to represent a kitty DNA
  		pub dna: [u8; 32],
-@@ -31,8 +29,7 @@ pub mod pallet {
+@@ -32,8 +30,7 @@ pub mod pallet {
  	pub(super) type CountForKitties<T: Config> = StorageValue<Value = u32, QueryKind = ValueQuery>;
  
  	#[pallet::storage]

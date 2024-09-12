@@ -1,9 +1,9 @@
 diff --git a/src/lib.rs b/src/lib.rs
-index 629c78d..7305ab6 100644
+index 5a4e765..59150bd 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -3,8 +3,8 @@
- mod impls;
+@@ -4,8 +4,8 @@ mod impls;
+ mod tests;
  
  use frame::prelude::*;
 -/* 🚧 TODO 🚧: Import `frame::traits::fungible::Inspect`. */
@@ -13,7 +13,7 @@ index 629c78d..7305ab6 100644
  pub use pallet::*;
  
  #[frame::pallet(dev_mode)]
-@@ -18,12 +18,8 @@ pub mod pallet {
+@@ -19,12 +19,8 @@ pub mod pallet {
  	pub trait Config: frame_system::Config {
  		type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
  
@@ -28,3 +28,15 @@ index 629c78d..7305ab6 100644
  	}
  
  	#[derive(Encode, Decode, TypeInfo, MaxEncodedLen)]
+diff --git a/src/tests.rs b/src/tests.rs
+index 65b969d..e2bf3f3 100644
+--- a/src/tests.rs
++++ b/src/tests.rs
+@@ -43,6 +43,7 @@ impl pallet_balances::Config for TestRuntime {
+ 
+ impl pallet_kitties::Config for TestRuntime {
+ 	type RuntimeEvent = RuntimeEvent;
++	type NativeBalance = Balances;
+ }
+ 
+ pub fn new_test_ext() -> sp_io::TestExternalities {

@@ -1,9 +1,9 @@
 diff --git a/src/lib.rs b/src/lib.rs
-index dd5161f..629c78d 100644
+index d44d77d..5a4e765 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -3,6 +3,8 @@
- mod impls;
+@@ -4,6 +4,8 @@ mod impls;
+ mod tests;
  
  use frame::prelude::*;
 +/* 🚧 TODO 🚧: Import `frame::traits::fungible::Inspect`. */
@@ -11,7 +11,7 @@ index dd5161f..629c78d 100644
  pub use pallet::*;
  
  #[frame::pallet(dev_mode)]
-@@ -15,6 +17,13 @@ pub mod pallet {
+@@ -16,6 +18,13 @@ pub mod pallet {
  	#[pallet::config]
  	pub trait Config: frame_system::Config {
  		type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;

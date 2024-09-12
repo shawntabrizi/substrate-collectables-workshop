@@ -16,10 +16,10 @@ index 71b538b..b680830 100644
  		Ok(())
  	}
 diff --git a/src/lib.rs b/src/lib.rs
-index 8b79da7..aa56e6d 100644
+index a92f8e5..9c10069 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -31,11 +31,10 @@ pub mod pallet {
+@@ -32,11 +32,10 @@ pub mod pallet {
  	#[pallet::storage]
  	pub(super) type Kitties<T: Config> = StorageMap<Key = [u8; 32], Value = Kitty<T>>;
  

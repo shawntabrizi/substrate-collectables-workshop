@@ -14,7 +14,11 @@ targets = ["x86_64-unknown-linux-gnu"]
 [dependencies]
 codec = { package = "parity-scale-codec", version = "3.6.12", default-features = false, features = ["derive"] }
 scale-info = { version = "2.11.1", default-features = false, features = ["derive"] }
-frame = { package = "polkadot-sdk-frame", version = "0.6.0", default-features = false, features = ["experimental", "runtime"] }
+frame = { version = "0.6.0", package = "polkadot-sdk-frame", default-features = false, features = ["experimental", "runtime"] }
+
+[dev-dependencies]
+frame-system = { version = "37.1.0" }
+pallet-balances = { version = "38.0.0" }
 
 [features]
 default = [ "std" ]

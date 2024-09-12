@@ -26,10 +26,10 @@ index 686cb0a..f1e996c 100644
 +	}
  }
 diff --git a/src/lib.rs b/src/lib.rs
-index 53bb1ec..1cbcf94 100644
+index 45f5fdf..57e0eeb 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -54,11 +54,7 @@ pub mod pallet {
+@@ -55,11 +55,7 @@ pub mod pallet {
  	pub enum Event<T: Config> {
  		Created { owner: T::AccountId },
  		Transferred { from: T::AccountId, to: T::AccountId, kitty_id: [u8; 32] },
@@ -42,7 +42,7 @@ index 53bb1ec..1cbcf94 100644
  	}
  
  	#[pallet::error]
-@@ -90,16 +86,14 @@ pub mod pallet {
+@@ -91,16 +87,14 @@ pub mod pallet {
  			Ok(())
  		}
  

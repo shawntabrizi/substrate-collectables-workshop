@@ -1,8 +1,8 @@
 diff --git a/src/lib.rs b/src/lib.rs
-index 8aa7c5b..95dc3a4 100644
+index dae4e99..c77966d 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -5,11 +5,11 @@ mod impls;
+@@ -6,11 +6,11 @@ mod tests;
  use frame::prelude::*;
  pub use pallet::*;
  

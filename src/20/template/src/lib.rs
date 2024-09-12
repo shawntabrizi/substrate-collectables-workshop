@@ -1,6 +1,7 @@
 #![cfg_attr(not(feature = "std"), no_std)]
 
 mod impls;
+mod tests;
 
 use frame::prelude::*;
 pub use pallet::*;

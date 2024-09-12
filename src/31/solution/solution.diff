@@ -26,10 +26,10 @@ index 9fec611..889e7a2 100644
 +	}
  }
 diff --git a/src/lib.rs b/src/lib.rs
-index aafed13..93c7421 100644
+index 8c3eb2e..4a8d2b1 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -55,11 +55,7 @@ pub mod pallet {
+@@ -56,11 +56,7 @@ pub mod pallet {
  		Created { owner: T::AccountId },
  		Transferred { from: T::AccountId, to: T::AccountId, kitty_id: [u8; 32] },
  		PriceSet { owner: T::AccountId, kitty_id: [u8; 32], new_price: Option<BalanceOf<T>> },
@@ -42,7 +42,7 @@ index aafed13..93c7421 100644
  	}
  
  	#[pallet::error]
-@@ -101,16 +97,14 @@ pub mod pallet {
+@@ -102,16 +98,14 @@ pub mod pallet {
  			Ok(())
  		}
  

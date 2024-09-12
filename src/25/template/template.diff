@@ -19,10 +19,10 @@ index e9dcca6..34eae39 100644
 +	*/
  }
 diff --git a/src/lib.rs b/src/lib.rs
-index 3339065..8325820 100644
+index e032974..ac84fa6 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -43,6 +43,12 @@ pub mod pallet {
+@@ -44,6 +44,12 @@ pub mod pallet {
  	#[pallet::generate_deposit(pub(super) fn deposit_event)]
  	pub enum Event<T: Config> {
  		Created { owner: T::AccountId },
@@ -35,7 +35,7 @@ index 3339065..8325820 100644
  	}
  
  	#[pallet::error]
-@@ -60,5 +66,17 @@ pub mod pallet {
+@@ -61,5 +67,17 @@ pub mod pallet {
  			Self::mint(who, dna)?;
  			Ok(())
  		}

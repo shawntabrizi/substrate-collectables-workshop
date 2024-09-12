@@ -1,10 +1,10 @@
 diff --git a/src/lib.rs b/src/lib.rs
-index 0f7bcee..8aa7c5b 100644
+index df435c8..dae4e99 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -2,10 +2,10 @@
- 
+@@ -3,10 +3,10 @@
  mod impls;
+ mod tests;
  
 -/* 🚧 TODO 🚧: Learn about the Polkadot SDK and FRAME. */
  use frame::prelude::*;

@@ -23,10 +23,10 @@ index 9e79118..e9dcca6 100644
  		CountForKitties::<T>::set(new_count);
  
 diff --git a/src/lib.rs b/src/lib.rs
-index d24ffdc..3339065 100644
+index 40f2592..e032974 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -35,8 +35,7 @@ pub mod pallet {
+@@ -36,8 +36,7 @@ pub mod pallet {
  	#[pallet::storage]
  	pub(super) type KittiesOwned<T: Config> = StorageMap<
  		Key = T::AccountId,
@@ -36,7 +36,7 @@ index d24ffdc..3339065 100644
  		QueryKind = ValueQuery,
  	>;
  
-@@ -50,7 +49,7 @@ pub mod pallet {
+@@ -51,7 +50,7 @@ pub mod pallet {
  	pub enum Error<T> {
  		TooManyKitties,
  		DuplicateKitty,

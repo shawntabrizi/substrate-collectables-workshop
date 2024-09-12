@@ -33,10 +33,10 @@ index 3428acb..749b40c 100644
  		Ok(())
  	}
 diff --git a/src/lib.rs b/src/lib.rs
-index 977f88d..6d3301b 100644
+index 971af78..7256cb5 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -51,6 +51,11 @@ pub mod pallet {
+@@ -52,6 +52,11 @@ pub mod pallet {
  		TooManyKitties,
  		DuplicateKitty,
  		TooManyOwned,

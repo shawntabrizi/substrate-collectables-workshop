@@ -11,10 +11,10 @@ index ecb2e7d..03abf99 100644
  		Self::deposit_event(Event::<T>::Created { owner });
  		Ok(())
 diff --git a/src/lib.rs b/src/lib.rs
-index 973b65b..424711d 100644
+index 76a7966..405a6e5 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -12,6 +12,7 @@ pub mod pallet {
+@@ -13,6 +13,7 @@ pub mod pallet {
  	#[pallet::pallet]
  	pub struct Pallet<T>(core::marker::PhantomData<T>);
  
@@ -22,7 +22,7 @@ index 973b65b..424711d 100644
  	#[pallet::config]
  	pub trait Config: frame_system::Config {
  		type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
-@@ -29,7 +30,6 @@ pub mod pallet {
+@@ -30,7 +31,6 @@ pub mod pallet {
  	#[pallet::call]
  	impl<T: Config> Pallet<T> {
  		pub fn create_kitty(origin: OriginFor<T>) -> DispatchResult {

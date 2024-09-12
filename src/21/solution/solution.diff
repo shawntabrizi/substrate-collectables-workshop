@@ -37,10 +37,10 @@ index bfd7fdb..470eb78 100644
  	pub fn mint(owner: T::AccountId, dna: [u8; 32]) -> DispatchResult {
  		let kitty = Kitty { dna, owner: owner.clone() };
 diff --git a/src/lib.rs b/src/lib.rs
-index 8e2b3f6..7ed3998 100644
+index 34507f3..8795b0e 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -47,8 +47,7 @@ pub mod pallet {
+@@ -48,8 +48,7 @@ pub mod pallet {
  	impl<T: Config> Pallet<T> {
  		pub fn create_kitty(origin: OriginFor<T>) -> DispatchResult {
  			let who = ensure_signed(origin)?;

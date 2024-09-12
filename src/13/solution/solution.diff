@@ -13,10 +13,10 @@ index c550bc8..7277e36 100644
  		Self::deposit_event(Event::<T>::Created { owner });
  		Ok(())
 diff --git a/src/lib.rs b/src/lib.rs
-index e68500d..a913997 100644
+index 8edcc9b..2c11f46 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -28,9 +28,7 @@ pub mod pallet {
+@@ -29,9 +29,7 @@ pub mod pallet {
  
  	#[pallet::error]
  	pub enum Error<T> {

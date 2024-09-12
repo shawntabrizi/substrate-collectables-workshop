@@ -11,10 +11,10 @@ index a638a8c..6ae2e34 100644
  		// Check if the kitty does not already exist in our storage map
  		ensure!(!Kitties::<T>::contains_key(dna), Error::<T>::DuplicateKitty);
 diff --git a/src/lib.rs b/src/lib.rs
-index 7305ab6..efd55a6 100644
+index 59150bd..3a10644 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -22,12 +22,21 @@ pub mod pallet {
+@@ -23,12 +23,21 @@ pub mod pallet {
  		type NativeBalance: Inspect<Self::AccountId> + Mutate<Self::AccountId>;
  	}
  

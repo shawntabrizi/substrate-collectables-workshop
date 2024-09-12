@@ -13,10 +13,10 @@ index 6ae2e34..5ec04ae 100644
  		ensure!(!Kitties::<T>::contains_key(dna), Error::<T>::DuplicateKitty);
  
 diff --git a/src/lib.rs b/src/lib.rs
-index efd55a6..f2625a6 100644
+index 3a10644..7d8350d 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -22,13 +22,9 @@ pub mod pallet {
+@@ -23,13 +23,9 @@ pub mod pallet {
  		type NativeBalance: Inspect<Self::AccountId> + Mutate<Self::AccountId>;
  	}
  
@@ -33,7 +33,7 @@ index efd55a6..f2625a6 100644
  
  	#[derive(Encode, Decode, TypeInfo, MaxEncodedLen)]
  	#[scale_info(skip_type_params(T))]
-@@ -36,7 +32,7 @@ pub mod pallet {
+@@ -37,7 +33,7 @@ pub mod pallet {
  		// Using 32 bytes to represent a kitty DNA
  		pub dna: [u8; 32],
  		pub owner: T::AccountId,

@@ -41,10 +41,10 @@ index 2bb3385..a266e73 100644
  	}
  }
 diff --git a/src/lib.rs b/src/lib.rs
-index 214fb31..15ec1ef 100644
+index f465b49..8ca2bdd 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -66,10 +66,8 @@ pub mod pallet {
+@@ -67,10 +67,8 @@ pub mod pallet {
  		TransferToSelf,
  		NoKitty,
  		NotOwner,

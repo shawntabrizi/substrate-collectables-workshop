@@ -17,10 +17,10 @@ index 292909e..c0e7cb2 100644
  		let new_count = current_count.checked_add(1).ok_or(Error::<T>::TooManyKitties)?;
  		Kitties::<T>::insert(dna, ());
 diff --git a/src/lib.rs b/src/lib.rs
-index 972ee05..d57b050 100644
+index 6fb4b6d..75a1b65 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -32,7 +32,7 @@ pub mod pallet {
+@@ -33,7 +33,7 @@ pub mod pallet {
  	#[pallet::error]
  	pub enum Error<T> {
  		TooManyKitties,

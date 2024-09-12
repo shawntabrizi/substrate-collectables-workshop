@@ -1,8 +1,8 @@
 diff --git a/src/lib.rs b/src/lib.rs
-index 424711d..5bac803 100644
+index 405a6e5..a52896e 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -12,12 +12,12 @@ pub mod pallet {
+@@ -13,12 +13,12 @@ pub mod pallet {
  	#[pallet::pallet]
  	pub struct Pallet<T>(core::marker::PhantomData<T>);
  
