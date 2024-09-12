@@ -1,15 +1,70 @@
 #!/bin/bash
 
+# This script runs various Cargo commands (fmt, clippy, test) in directories
+# containing a Cargo.toml file inside the 'steps' directory. It allows checking
+# or fixing code formatting and linting issues with optional cargo cleaning.
+#
+# Usage:
+#   ./check.sh [OPTIONS]
+#
+# Options:
+#   --mode [check|fix]      Specify the mode of operation (default: check)
+#                           - 'check': Run cargo fmt, clippy, and test in check mode
+#                           - 'fix': Run cargo fmt and clippy in fix mode
+#
+#   --start [number]        Specify the start directory (inclusive) based on numerical order (optional)
+#   --end [number]          Specify the end directory (inclusive) based on numerical order (optional)
+#
+#   --clean                 Run 'cargo clean' after running the checks (optional)
+#
+# Examples:
+#   ./check.sh --mode check --clean
+#   ./check.sh --mode fix --start 1 --end 5
+#
+# If no options are provided, the script defaults to 'check' mode, processes all
+# directories in 'steps', and skips cargo cleaning.
+#
+# Note:
+# - The script requires 'sccache' to be set as the RUSTC_WRAPPER.
+# - Cargo commands are run using the nightly toolchain.
+
 # If there are any errors, stop the script immediately.
 set -e
 
 # Use sccache
 export RUSTC_WRAPPER=sccache
 
-# Default to 'check' mode if no argument is provided
-MODE=${1:-check}
-START=${2:-}
-END=${3:-}
+# Default values
+MODE="check"
+START=""
+END=""
+CLEAN=false
+
+# Parse arguments
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --mode)
+      MODE="$2"
+      shift 2
+      ;;
+    --start)
+      START="$2"
+      shift 2
+      ;;
+    --end)
+      END="$2"
+      shift 2
+      ;;
+    --clean)
+      CLEAN=true
+      shift 1
+      ;;
+    *)
+      echo "Unknown option: $1"
+      exit 1
+      ;;
+  esac
+done
 
 # Check if the mode is valid
 if [[ "$MODE" != "check" && "$MODE" != "fix" ]]; then
@@ -66,9 +121,6 @@ for dir in $(ls -d steps/*/ | sort -V); do
       echo "Checking cargo test"
       RUSTFLAGS="-A unused -D warnings" cargo test --quiet
 
-      echo "Cleaning up cargo"
-      cargo clean
-
     elif [ "$MODE" == "fix" ]; then
 
       echo "Running cargo fmt"
@@ -80,6 +132,11 @@ for dir in $(ls -d steps/*/ | sort -V); do
       echo "Running cargo test"
       RUSTFLAGS="-A unused -D warnings" cargo test --quiet
 
+    fi
+
+    if [ "$CLEAN" == true ]; then
+      echo "Cleaning up cargo"
+      cargo clean
     fi
 
     # Return to the previous directory

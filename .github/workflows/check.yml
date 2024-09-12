@@ -31,5 +31,5 @@ jobs:
           components: rustfmt, clippy
 
       - name: Run format, lint, and test script
-        run: ./check.sh
+        run: ./check.sh --clean
         shell: bash
