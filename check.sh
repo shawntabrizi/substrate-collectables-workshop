@@ -58,24 +58,27 @@ for dir in $(ls -d steps/*/ | sort -V); do
     if [ "$MODE" == "check" ]; then
 
       echo "Checking cargo fmt"
-      cargo +nightly fmt -- --check
+      cargo +nightly fmt --quiet -- --check
 
       echo "Checking cargo clippy"
-      RUSTFLAGS="-A unused" cargo +nightly clippy -- -D warnings
+      RUSTFLAGS="-A unused" cargo +nightly clippy --quiet -- -D warnings
 
       echo "Checking cargo test"
-      RUSTFLAGS="-A unused -D warnings" cargo test
+      RUSTFLAGS="-A unused -D warnings" cargo test --quiet
+
+      echo "Cleaning up cargo"
+      cargo clean
 
     elif [ "$MODE" == "fix" ]; then
 
       echo "Running cargo fmt"
-      RUSTFLAGS="-A unused" cargo +nightly fmt
+      RUSTFLAGS="-A unused" cargo +nightly fmt --quiet
 
       echo "Running cargo clippy"
-      RUSTFLAGS="-A unused" cargo +nightly clippy --fix --allow-dirty
+      RUSTFLAGS="-A unused" cargo +nightly clippy --quiet --fix --allow-dirty
 
       echo "Running cargo test"
-      RUSTFLAGS="-A unused -D warnings" cargo test
+      RUSTFLAGS="-A unused -D warnings" cargo test --quiet
 
     fi
 

@@ -26,7 +26,7 @@ The code in each step should have comments marked `TODO`, which indicate the act
 
 At each step, we include a `diff` view so that you can see what has changed from the last step (new action items), and what should change to complete the step (the solution).
 
-At the end of each step, you should be able to run all the following commands without any errors or warnings:
+At the end of each step, you should be able to run all the following commands without any errors or warnings on the latest version of Rust (`rustup update`):
 
 - `cargo +nightly fmt`
 - `cargo +nightly clippy`
@@ -57,15 +57,15 @@ Or access the template directly here:
 
 The starting template includes a `README` with instructions to setup your working environment. Follow those instructions.
 
-Make sure you are able to run the following checks on this starting template without warnings or errors:
+Make sure your rust compiler is up to date with `rustup update`.
+
+Then, make sure you are able to run the following checks on this starting template without warnings or errors:
 
 ```bash
 cargo +nightly fmt
 cargo +nightly clippy
 cargo test
 ```
-
-In general, you should make sure your rust compiler is up to date with `rustup update`.
 
 It may take a while for this to complete based on how powerful your computer is.
 
