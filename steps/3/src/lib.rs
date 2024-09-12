@@ -1,6 +1,7 @@
 #![cfg_attr(not(feature = "std"), no_std)]
 
 mod impls;
+mod tests;
 
 /* 🚧 TODO 🚧: Learn about the Polkadot SDK and FRAME. */
 use frame::prelude::*;
