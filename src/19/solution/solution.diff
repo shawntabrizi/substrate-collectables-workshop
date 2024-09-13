@@ -21,3 +21,16 @@ index c8ea870..30d12b4 100644
  
  	#[pallet::storage]
  	pub(super) type CountForKitties<T: Config> = StorageValue<Value = u32, QueryKind = ValueQuery>;
+diff --git a/src/tests.rs b/src/tests.rs
+index 5d5027c..823403e 100644
+--- a/src/tests.rs
++++ b/src/tests.rs
+@@ -162,3 +162,8 @@ fn cannot_mint_duplicate_kitty() {
+ 		assert_noop!(PalletKitties::mint(2, [0u8; 32]), Error::<TestRuntime>::DuplicateKitty);
+ 	})
+ }
++
++#[test]
++fn kitty_struct_created_correctly() {
++	let _kitty = Kitty::<TestRuntime> { dna: [0u8; 32], owner: 1 };
++}

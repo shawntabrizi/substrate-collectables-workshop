@@ -1,5 +1,5 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index 889e7a2..2bb3385 100644
+index 81f657e..e9dca34 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
 @@ -1,6 +1,7 @@
@@ -10,7 +10,7 @@ index 889e7a2..2bb3385 100644
  use frame::traits::Hash;
  
  // Learn about internal functions.
-@@ -77,6 +78,21 @@ impl<T: Config> Pallet<T> {
+@@ -78,6 +79,21 @@ impl<T: Config> Pallet<T> {
  		kitty_id: [u8; 32],
  		price: BalanceOf<T>,
  	) -> DispatchResult {

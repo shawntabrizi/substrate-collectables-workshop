@@ -25,9 +25,12 @@ construct_runtime! {
 	pub struct TestRuntime {
 		System: frame_system,
 		Balances: pallet_balances,
-		Kitties: pallet_kitties,
+		PalletKitties: pallet_kitties,
 	}
 }
+
+const ALICE: u64 = 1;
+const BOB: u64 = 2;
 
 #[derive_impl(frame_system::config_preludes::TestDefaultConfig)]
 impl frame_system::Config for TestRuntime {
@@ -53,13 +56,25 @@ pub fn new_test_ext() -> sp_io::TestExternalities {
 }
 
 #[test]
+fn starting_template_is_sane() {
+	new_test_ext().execute_with(|| {
+		let event = Event::<TestRuntime>::Created { owner: ALICE };
+		let _runtime_event: RuntimeEvent = event.into();
+		let _call = Call::<TestRuntime>::create_kitty {};
+		let result = PalletKitties::create_kitty(RuntimeOrigin::signed(BOB));
+		assert_ok!(result);
+	});
+}
+
+#[test]
 fn system_and_balances_work() {
 	// This test will just sanity check that we can access `System` and `Balances`.
 	new_test_ext().execute_with(|| {
 		// We often need to set `System` to block 1 so that we can see events.
 		System::set_block_number(1);
 		// We often need to add some balance to a user to test features which needs tokens.
-		assert_ok!(Balances::mint_into(&1, 100));
+		assert_ok!(Balances::mint_into(&ALICE, 100));
+		assert_ok!(Balances::mint_into(&BOB, 100));
 	});
 }
 
@@ -67,9 +82,9 @@ fn system_and_balances_work() {
 fn create_kitty_checks_signed() {
 	new_test_ext().execute_with(|| {
 		// The `create_kitty` extrinsic should work when being called by a user.
-		assert_ok!(Kitties::create_kitty(RuntimeOrigin::signed(1)));
+		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(1)));
 		// The `create_kitty` extrinsic should fail when being called by an unsigned message.
-		assert_noop!(Kitties::create_kitty(RuntimeOrigin::none()), DispatchError::BadOrigin);
+		assert_noop!(PalletKitties::create_kitty(RuntimeOrigin::none()), DispatchError::BadOrigin);
 	})
 }
 
@@ -79,8 +94,32 @@ fn create_kitty_emits_event() {
 		// We need to set block number to 1 to view events.
 		System::set_block_number(1);
 		// Execute our call, and ensure it is successful.
-		assert_ok!(Kitties::create_kitty(RuntimeOrigin::signed(1)));
+		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(1)));
 		// Assert the last event by our blockchain is the `Created` event with the correct owner.
 		System::assert_last_event(Event::<TestRuntime>::Created { owner: 1 }.into());
+	})
+}
+
+#[test]
+fn count_for_kitties_created_correctly() {
+	new_test_ext().execute_with(|| {
+		// Querying storage before anything is set will return `None`.
+		assert_eq!(CountForKitties::<TestRuntime>::get(), None);
+		// You can `set` the value using an `Option<u32>`.
+		CountForKitties::<TestRuntime>::set(Some(1337u32));
+		// You can `put` the value directly with a `u32`.
+		CountForKitties::<TestRuntime>::put(1337u32);
+	})
+}
+
+#[test]
+fn mint_increments_count_for_kitty() {
+	new_test_ext().execute_with(|| {
+		// Querying storage before anything is set will return `None`.
+		assert_eq!(CountForKitties::<TestRuntime>::get(), None);
+		// Call `create_kitty` which will call `mint`.
+		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(1)));
+		// Now the storage should be `Some(1)`
+		assert_eq!(CountForKitties::<TestRuntime>::get(), Some(1));
 	})
 }

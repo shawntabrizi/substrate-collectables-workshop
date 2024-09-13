@@ -35,11 +35,20 @@
 
 <div class="tab">
 <button class="subtab tablinks file-solution file-modified active" onclick="switchSubTab(event, 'src/impls.rs')" data-id="src/impls.rs">src/impls.rs</button>
+<button class="subtab tablinks file-solution file-modified" onclick="switchSubTab(event, 'src/tests.rs')" data-id="src/tests.rs">src/tests.rs</button>
 </div>
 <div id="solution/src/impls.rs" class="subtab tabcontent active" data-id="src/impls.rs">
 
 ```rust
 {{#include ./solution/src/impls.rs}}
+```
+
+</div>
+
+<div id="solution/src/tests.rs" class="subtab tabcontent" data-id="src/tests.rs">
+
+```rust
+{{#include ./solution/src/tests.rs}}
 ```
 
 </div>

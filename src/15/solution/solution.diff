@@ -17,3 +17,21 @@ index bb39563..42fb376 100644
  
  	#[pallet::event]
  	#[pallet::generate_deposit(pub(super) fn deposit_event)]
+diff --git a/src/tests.rs b/src/tests.rs
+index 8687a53..2afe055 100644
+--- a/src/tests.rs
++++ b/src/tests.rs
+@@ -136,3 +136,13 @@ fn mint_errors_when_overflow() {
+ 		);
+ 	})
+ }
++
++#[test]
++fn kitties_map_created_correctly() {
++	new_test_ext().execute_with(|| {
++		let zero_key = [0u8; 32];
++		assert!(!Kitties::<TestRuntime>::contains_key(zero_key));
++		Kitties::<TestRuntime>::insert(zero_key, ());
++		assert!(Kitties::<TestRuntime>::contains_key(zero_key));
++	})
++}

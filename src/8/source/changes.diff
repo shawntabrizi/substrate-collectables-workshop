@@ -16,3 +16,23 @@ index 405a6e5..a52896e 100644
  	#[pallet::event]
  	#[pallet::generate_deposit(pub(super) fn deposit_event)]
  	pub enum Event<T: Config> {
+diff --git a/src/tests.rs b/src/tests.rs
+index f6970db..a33f4de 100644
+--- a/src/tests.rs
++++ b/src/tests.rs
+@@ -87,3 +87,15 @@ fn create_kitty_checks_signed() {
+ 		assert_noop!(PalletKitties::create_kitty(RuntimeOrigin::none()), DispatchError::BadOrigin);
+ 	})
+ }
++
++#[test]
++fn create_kitty_emits_event() {
++	new_test_ext().execute_with(|| {
++		// We need to set block number to 1 to view events.
++		System::set_block_number(1);
++		// Execute our call, and ensure it is successful.
++		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(1)));
++		// Assert the last event by our blockchain is the `Created` event with the correct owner.
++		System::assert_last_event(Event::<TestRuntime>::Created { owner: 1 }.into());
++	})
++}

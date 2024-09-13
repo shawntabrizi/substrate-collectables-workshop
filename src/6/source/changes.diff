@@ -28,3 +28,21 @@ index 52544f5..76a7966 100644
  			let who = ensure_signed(origin)?;
  			Self::mint(who)?;
  			Ok(())
+diff --git a/src/tests.rs b/src/tests.rs
+index 266ea5e..f6970db 100644
+--- a/src/tests.rs
++++ b/src/tests.rs
+@@ -77,3 +77,13 @@ fn system_and_balances_work() {
+ 		assert_ok!(Balances::mint_into(&BOB, 100));
+ 	});
+ }
++
++#[test]
++fn create_kitty_checks_signed() {
++	new_test_ext().execute_with(|| {
++		// The `create_kitty` extrinsic should work when being called by a user.
++		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(1)));
++		// The `create_kitty` extrinsic should fail when being called by an unsigned message.
++		assert_noop!(PalletKitties::create_kitty(RuntimeOrigin::none()), DispatchError::BadOrigin);
++	})
++}

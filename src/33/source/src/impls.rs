@@ -41,6 +41,7 @@ impl<T: Config> Pallet<T> {
 		let mut kitty = Kitties::<T>::get(kitty_id).ok_or(Error::<T>::NoKitty)?;
 		ensure!(kitty.owner == from, Error::<T>::NotOwner);
 		kitty.owner = to.clone();
+		kitty.price = None;
 
 		let mut to_owned = KittiesOwned::<T>::get(&to);
 		to_owned.try_push(kitty_id).map_err(|_| Error::<T>::TooManyOwned)?;

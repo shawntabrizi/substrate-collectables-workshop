@@ -1,8 +1,8 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index 5ec04ae..686cb0a 100644
+index bee571d..e7fa6b6 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
-@@ -57,4 +57,15 @@ impl<T: Config> Pallet<T> {
+@@ -58,4 +58,15 @@ impl<T: Config> Pallet<T> {
  		Self::deposit_event(Event::<T>::Transferred { from, to, kitty_id });
  		Ok(())
  	}

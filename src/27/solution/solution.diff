@@ -29,10 +29,10 @@ index 5a4e765..59150bd 100644
  
  	#[derive(Encode, Decode, TypeInfo, MaxEncodedLen)]
 diff --git a/src/tests.rs b/src/tests.rs
-index 65b969d..e2bf3f3 100644
+index a290e52..8adfeb3 100644
 --- a/src/tests.rs
 +++ b/src/tests.rs
-@@ -43,6 +43,7 @@ impl pallet_balances::Config for TestRuntime {
+@@ -47,6 +47,7 @@ impl pallet_balances::Config for TestRuntime {
  
  impl pallet_kitties::Config for TestRuntime {
  	type RuntimeEvent = RuntimeEvent;
@@ -40,3 +40,18 @@ index 65b969d..e2bf3f3 100644
  }
  
  pub fn new_test_ext() -> sp_io::TestExternalities {
+@@ -274,3 +275,14 @@ fn transfer_logic_works() {
+ 		assert_eq!(kitty.owner, BOB);
+ 	});
+ }
++
++#[test]
++fn native_balance_associated_type_works() {
++	new_test_ext().execute_with(|| {
++		assert_ok!(<<TestRuntime as Config>::NativeBalance as Mutate<_>>::mint_into(&ALICE, 1337));
++		assert_eq!(
++			<<TestRuntime as Config>::NativeBalance as Inspect<_>>::total_balance(&ALICE),
++			1337
++		);
++	});
++}

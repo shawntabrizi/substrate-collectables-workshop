@@ -34,6 +34,20 @@ At the end of each step, you should be able to run all the following commands wi
 
 We recommend you run these during each step in the tutorial to confirm you are doing everything correctly.
 
+### Tests
+
+Included in this project is a `tests.rs` file which is run when you execute `cargo test`.
+
+As we build out the project, we will include more tests to verify your logic is working as expected.
+
+This tutorial does not really go into details about writing tests for Pallets, but it is something you probably can learn and understand by looking at the tests included here.
+
+You are welcome to dive deeper into the included tests provided by the solution, or you can feel free to just copy and paste the latest `tests.rs` file into your project and make sure that everything is passing.
+
+At some points in the tutorial, we will make breaking changes to our pallet, for example updating types, structure, or function signatures.
+
+Remember to update your tests for those step, otherwise they will incorrectly report that you have a bug in your code.
+
 ## Starting Template
 
 The template for this project is a minimal starting point for developing a custom Pallet with a little bit of starting code.

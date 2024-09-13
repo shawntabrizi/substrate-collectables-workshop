@@ -45,3 +45,25 @@ index 40f2592..e032974 100644
  	}
  
  	#[pallet::call]
+diff --git a/src/tests.rs b/src/tests.rs
+index 80cfe30..23aa564 100644
+--- a/src/tests.rs
++++ b/src/tests.rs
+@@ -209,3 +209,17 @@ fn kitties_owned_created_correctly() {
+ 		assert_eq!(KittiesOwned::<TestRuntime>::get(1).len(), 2);
+ 	});
+ }
++
++#[test]
++fn cannot_own_too_many_kitties() {
++	new_test_ext().execute_with(|| {
++		// If your max owned is different than 100, you will need to update this.
++		for _ in 0..100 {
++			assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(1)));
++		}
++		assert_noop!(
++			PalletKitties::create_kitty(RuntimeOrigin::signed(1)),
++			Error::<TestRuntime>::TooManyOwned
++		);
++	});
++}

@@ -1,8 +1,8 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index d6c9f18..9fec611 100644
+index 79ec658..953fa5c 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
-@@ -71,4 +71,15 @@ impl<T: Config> Pallet<T> {
+@@ -72,4 +72,15 @@ impl<T: Config> Pallet<T> {
  		Self::deposit_event(Event::<T>::PriceSet { owner: caller, kitty_id, new_price });
  		Ok(())
  	}

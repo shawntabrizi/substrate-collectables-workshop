@@ -1,8 +1,8 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index 4cbc8ab..d6c9f18 100644
+index c486f9e..79ec658 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
-@@ -63,13 +63,10 @@ impl<T: Config> Pallet<T> {
+@@ -64,13 +64,10 @@ impl<T: Config> Pallet<T> {
  		kitty_id: [u8; 32],
  		new_price: Option<BalanceOf<T>>,
  	) -> DispatchResult {
@@ -20,3 +20,24 @@ index 4cbc8ab..d6c9f18 100644
  
  		Self::deposit_event(Event::<T>::PriceSet { owner: caller, kitty_id, new_price });
  		Ok(())
+diff --git a/src/tests.rs b/src/tests.rs
+index c2501ce..7d068bd 100644
+--- a/src/tests.rs
++++ b/src/tests.rs
+@@ -307,3 +307,16 @@ fn set_price_emits_event() {
+ 		);
+ 	})
+ }
++
++#[test]
++fn set_price_logic_works() {
++	new_test_ext().execute_with(|| {
++		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(ALICE)));
++		let kitty = &Kitties::<TestRuntime>::iter_values().collect::<Vec<_>>()[0];
++		assert_eq!(kitty.price, None);
++		let kitty_id = kitty.dna;
++		assert_ok!(PalletKitties::set_price(RuntimeOrigin::signed(ALICE), kitty_id, Some(1337)));
++		let kitty = Kitties::<TestRuntime>::get(kitty_id).unwrap();
++		assert_eq!(kitty.price, Some(1337));
++	})
++}
