@@ -79,3 +79,11 @@ You CAN modify `OnEmpty` to return a custom value, rather than `Default`, but we
 Update your `CountForKitties` to use `QueryKind = ValueQuery`.
 
 This will affect the APIs for `get` and `set`, so also update your code to reflect those changes.
+
+### Tests
+
+In this step we made a breaking change to our Pallet.
+
+There are no new tests for this step, but you will need to go back through your existing tests and update your types.
+
+Since this tutorial does not really focus on writing tests for your pallet, feel free to just copy the `tests.rs` file included in this step's solution and update your project with it.
