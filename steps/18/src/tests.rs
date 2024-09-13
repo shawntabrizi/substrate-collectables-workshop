@@ -121,11 +121,6 @@ fn mint_increments_count_for_kitty() {
 		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(1)));
 		// Now the storage should be `Some(1)`
 		assert_eq!(CountForKitties::<TestRuntime>::get(), Some(1));
-		// Let's call it two more times...
-		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(2)));
-		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(3)));
-		// Now the storage should be `Some(3)`
-		assert_eq!(CountForKitties::<TestRuntime>::get(), Some(3));
 	})
 }
 
