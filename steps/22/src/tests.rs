@@ -141,8 +141,8 @@ fn mint_errors_when_overflow() {
 fn kitties_map_created_correctly() {
 	new_test_ext().execute_with(|| {
 		let zero_key = [0u8; 32];
-		assert_eq!(Kitties::<TestRuntime>::contains_key(zero_key), false);
+		assert!(!Kitties::<TestRuntime>::contains_key(zero_key));
 		Kitties::<TestRuntime>::insert(zero_key, ());
-		assert_eq!(Kitties::<TestRuntime>::contains_key(zero_key), true);
+		assert!(Kitties::<TestRuntime>::contains_key(zero_key));
 	})
 }

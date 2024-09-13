@@ -142,9 +142,9 @@ fn mint_errors_when_overflow() {
 fn kitties_map_created_correctly() {
 	new_test_ext().execute_with(|| {
 		let zero_key = [0u8; 32];
-		assert_eq!(Kitties::<TestRuntime>::contains_key(zero_key), false);
+		assert!(!Kitties::<TestRuntime>::contains_key(zero_key));
 		Kitties::<TestRuntime>::insert(zero_key, DEFAULT_KITTY);
-		assert_eq!(Kitties::<TestRuntime>::contains_key(zero_key), true);
+		assert!(Kitties::<TestRuntime>::contains_key(zero_key));
 	})
 }
 
@@ -234,6 +234,8 @@ fn transfer_emits_event() {
 		// Get the kitty id.
 		let kitty_id = Kitties::<TestRuntime>::iter_keys().collect::<Vec<_>>()[0];
 		assert_ok!(PalletKitties::transfer(RuntimeOrigin::signed(ALICE), BOB, kitty_id));
-		System::assert_last_event(Event::<TestRuntime>::Transferred { from: ALICE, to: BOB, kitty_id }.into());
+		System::assert_last_event(
+			Event::<TestRuntime>::Transferred { from: ALICE, to: BOB, kitty_id }.into(),
+		);
 	});
 }

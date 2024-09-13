@@ -31,7 +31,7 @@ construct_runtime! {
 
 const ALICE: u64 = 1;
 const BOB: u64 = 2;
-const DEFAULT_KITTY: Kitty<TestRuntime> = Kitty { dna: [0u8; 32], owner: 1 };
+const DEFAULT_KITTY: Kitty<TestRuntime> = Kitty { dna: [0u8; 32], owner: 1, price: None };
 
 #[derive_impl(frame_system::config_preludes::TestDefaultConfig)]
 impl frame_system::Config for TestRuntime {
@@ -143,9 +143,9 @@ fn mint_errors_when_overflow() {
 fn kitties_map_created_correctly() {
 	new_test_ext().execute_with(|| {
 		let zero_key = [0u8; 32];
-		assert_eq!(Kitties::<TestRuntime>::contains_key(zero_key), false);
+		assert!(!Kitties::<TestRuntime>::contains_key(zero_key));
 		Kitties::<TestRuntime>::insert(zero_key, DEFAULT_KITTY);
-		assert_eq!(Kitties::<TestRuntime>::contains_key(zero_key), true);
+		assert!(Kitties::<TestRuntime>::contains_key(zero_key));
 	})
 }
 

@@ -142,9 +142,9 @@ fn mint_errors_when_overflow() {
 fn kitties_map_created_correctly() {
 	new_test_ext().execute_with(|| {
 		let zero_key = [0u8; 32];
-		assert_eq!(Kitties::<TestRuntime>::contains_key(zero_key), false);
+		assert!(!Kitties::<TestRuntime>::contains_key(zero_key));
 		Kitties::<TestRuntime>::insert(zero_key, DEFAULT_KITTY);
-		assert_eq!(Kitties::<TestRuntime>::contains_key(zero_key), true);
+		assert!(Kitties::<TestRuntime>::contains_key(zero_key));
 	})
 }
 
@@ -194,6 +194,5 @@ fn create_kitty_makes_unique_kitties() {
 		// And should result in two kitties in our system.
 		assert_eq!(CountForKitties::<TestRuntime>::get(), 2);
 		assert_eq!(Kitties::<TestRuntime>::iter().count(), 2);
-
 	})
 }
