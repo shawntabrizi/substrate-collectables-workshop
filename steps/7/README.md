@@ -26,7 +26,15 @@ You can see this function takes the `OriginFor<T>` type, and will return a `T::A
 
 This turns origin into exactly the same as `msg.sender` from Ethereum contract development.
 
-With this, we are able to
+With this, we are able to know who is calling our Pallet, and use that as authorization to make changes to our blockchain on their behalf.
+
+## Tests
+
+We are introducing our first new test in this step, so let's spend a second to talk about it.
+
+The test shows that you are able to successfully call `create_kitty` from the user `ALICE`, but not from `none()`. This validates the functionality of our `ensure_signed` check, and also shows how information about who is calling a function gets passed into our pallet (at least in a unit test).
+
+Make sure to update your `tests.rs` file to include this latest test, and check that the test passes. Since you haven't written any code yet, everything should pass, but hopefully you can start to get comfortable with this pattern.
 
 ## Deep Dive
 

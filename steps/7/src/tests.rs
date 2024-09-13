@@ -82,7 +82,7 @@ fn system_and_balances_work() {
 fn create_kitty_checks_signed() {
 	new_test_ext().execute_with(|| {
 		// The `create_kitty` extrinsic should work when being called by a user.
-		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(1)));
+		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(ALICE)));
 		// The `create_kitty` extrinsic should fail when being called by an unsigned message.
 		assert_noop!(PalletKitties::create_kitty(RuntimeOrigin::none()), DispatchError::BadOrigin);
 	})

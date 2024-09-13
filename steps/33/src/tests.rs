@@ -83,7 +83,7 @@ fn system_and_balances_work() {
 fn create_kitty_checks_signed() {
 	new_test_ext().execute_with(|| {
 		// The `create_kitty` extrinsic should work when being called by a user.
-		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(1)));
+		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(ALICE)));
 		// The `create_kitty` extrinsic should fail when being called by an unsigned message.
 		assert_noop!(PalletKitties::create_kitty(RuntimeOrigin::none()), DispatchError::BadOrigin);
 	})
@@ -95,7 +95,7 @@ fn create_kitty_emits_event() {
 		// We need to set block number to 1 to view events.
 		System::set_block_number(1);
 		// Execute our call, and ensure it is successful.
-		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(1)));
+		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(ALICE)));
 		// Assert the last event by our blockchain is the `Created` event with the correct owner.
 		System::assert_last_event(Event::<TestRuntime>::Created { owner: 1 }.into());
 	})
@@ -119,7 +119,7 @@ fn mint_increments_count_for_kitty() {
 		// Querying storage before anything is set will return `0`.
 		assert_eq!(CountForKitties::<TestRuntime>::get(), 0);
 		// Call `create_kitty` which will call `mint`.
-		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(1)));
+		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(ALICE)));
 		// Now the storage should be `Some(1)`
 		assert_eq!(CountForKitties::<TestRuntime>::get(), 1);
 	})
@@ -151,7 +151,7 @@ fn kitties_map_created_correctly() {
 #[test]
 fn create_kitty_adds_to_map() {
 	new_test_ext().execute_with(|| {
-		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(1)));
+		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(ALICE)));
 		assert_eq!(Kitties::<TestRuntime>::iter().count(), 1);
 	})
 }
@@ -189,7 +189,7 @@ fn mint_stores_owner_in_kitty() {
 fn create_kitty_makes_unique_kitties() {
 	new_test_ext().execute_with(|| {
 		// Two calls to `create_kitty` should work.
-		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(1)));
+		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(ALICE)));
 		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(2)));
 		// And should result in two kitties in our system.
 		assert_eq!(CountForKitties::<TestRuntime>::get(), 2);
