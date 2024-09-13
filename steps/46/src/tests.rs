@@ -139,7 +139,7 @@ fn mint_increments_count_for_kitty() {
 		assert_eq!(CountForKitties::<TestRuntime>::get(), 0);
 		// Call `create_kitty` which will call `mint`.
 		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(ALICE)));
-		// Now the storage should be `Some(1)`
+		// Now the storage should be `1`
 		assert_eq!(CountForKitties::<TestRuntime>::get(), 1);
 	})
 }
