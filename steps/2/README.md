@@ -10,15 +10,21 @@ If you have already set up your computer for the `polkadot-sdk`, you should make
 
 ### test
 
-To check that your code compiles successfully at each step, you can run:
+To check that your code compiles successfully and is working correctly at each step, you can run:
 
 ```bash
 cargo test
 ```
 
+This executes the tests included in the `tests.rs` file.
+
 You should run this now to make sure this starting template is compiling successfully for you.
 
-At the beginning and end of every step, you should be able to run `cargo test` without warning or errors. If you have either, you should learn from them and fix them!
+As we add code to your project, we will also update the `tests.rs` file to include more tests for your Pallet.
+
+At the beginning and end of every step, you should be able to run `cargo test` without warning or errors using the latest version of the `tests.rs` file.
+
+If you have either, you should learn from them and fix them!
 
 ### rustfmt
 
