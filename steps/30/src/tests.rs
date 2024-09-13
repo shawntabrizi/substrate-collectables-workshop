@@ -29,6 +29,10 @@ construct_runtime! {
 	}
 }
 
+// In our "test runtime", we represent a user `AccountId` with a `u64`.
+// This is just a simplification so that we don't need to generate a bunch of proper cryptographic
+// public keys when writing tests. It is just easier to say "user 1 transfers to user 2".
+// We create the constants `ALICE` and `BOB` to make it clear when we are representing users below.
 const ALICE: u64 = 1;
 const BOB: u64 = 2;
 const DEFAULT_KITTY: Kitty<TestRuntime> = Kitty { dna: [0u8; 32], owner: 1 };
@@ -159,8 +163,8 @@ fn create_kitty_adds_to_map() {
 #[test]
 fn cannot_mint_duplicate_kitty() {
 	new_test_ext().execute_with(|| {
-		assert_ok!(PalletKitties::mint(1, [0u8; 32]));
-		assert_noop!(PalletKitties::mint(2, [0u8; 32]), Error::<TestRuntime>::DuplicateKitty);
+		assert_ok!(PalletKitties::mint(ALICE, [0u8; 32]));
+		assert_noop!(PalletKitties::mint(BOB, [0u8; 32]), Error::<TestRuntime>::DuplicateKitty);
 	})
 }
 
