@@ -25,7 +25,7 @@ construct_runtime! {
 	pub struct TestRuntime {
 		System: frame_system,
 		Balances: pallet_balances,
-		Kitties: pallet_kitties,
+		PalletKitties: pallet_kitties,
 	}
 }
 
@@ -67,9 +67,9 @@ fn system_and_balances_work() {
 fn create_kitty_checks_signed() {
 	new_test_ext().execute_with(|| {
 		// The `create_kitty` extrinsic should work when being called by a user.
-		assert_ok!(Kitties::create_kitty(RuntimeOrigin::signed(1)));
+		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(1)));
 		// The `create_kitty` extrinsic should fail when being called by an unsigned message.
-		assert_noop!(Kitties::create_kitty(RuntimeOrigin::none()), DispatchError::BadOrigin);
+		assert_noop!(PalletKitties::create_kitty(RuntimeOrigin::none()), DispatchError::BadOrigin);
 	})
 }
 
@@ -79,7 +79,7 @@ fn create_kitty_emits_event() {
 		// We need to set block number to 1 to view events.
 		System::set_block_number(1);
 		// Execute our call, and ensure it is successful.
-		assert_ok!(Kitties::create_kitty(RuntimeOrigin::signed(1)));
+		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(1)));
 		// Assert the last event by our blockchain is the `Created` event with the correct owner.
 		System::assert_last_event(Event::<TestRuntime>::Created { owner: 1 }.into());
 	})
@@ -103,12 +103,12 @@ fn mint_increments_count_for_kitty() {
 		// Querying storage before anything is set will return `None`.
 		assert_eq!(CountForKitties::<TestRuntime>::get(), None);
 		// Call `create_kitty` which will call `mint`.
-		assert_ok!(Kitties::create_kitty(RuntimeOrigin::signed(1)));
+		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(1)));
 		// Now the storage should be `Some(1)`
 		assert_eq!(CountForKitties::<TestRuntime>::get(), Some(1));
 		// Let's call it two more times...
-		assert_ok!(Kitties::create_kitty(RuntimeOrigin::signed(2)));
-		assert_ok!(Kitties::create_kitty(RuntimeOrigin::signed(3)));
+		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(2)));
+		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(3)));
 		// Now the storage should be `Some(3)`
 		assert_eq!(CountForKitties::<TestRuntime>::get(), Some(3));
 	})

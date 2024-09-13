@@ -24,7 +24,7 @@ This same trick applies to `StorageValue` too. Rather than calling `get`, you ca
 To do simple duplication checks and return an error, we can write the following:
 
 ```rust
-if (Kitties::<T>::contains_key(my_key)) {
+if (PalletKitties::<T>::contains_key(my_key)) {
 	return Err(Error::<T>::DuplicateKitty.into());
 }
 ```

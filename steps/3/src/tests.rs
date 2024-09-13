@@ -25,7 +25,7 @@ construct_runtime! {
 	pub struct TestRuntime {
 		System: frame_system,
 		Balances: pallet_balances,
-		Kitties: pallet_kitties,
+		PalletKitties: pallet_kitties,
 	}
 }
 
