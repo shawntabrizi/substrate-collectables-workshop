@@ -29,6 +29,10 @@ const ALICE: u64 = 1;
 const BOB: u64 = 2;
 const DEFAULT_KITTY: Kitty<TestRuntime> = Kitty { dna: [0u8; 32], owner: 1, price: None };
 
+// Our blockchain tests only need 3 Pallets:
+// 1. System: Which is included with every FRAME runtime.
+// 2. Balances: Which is manages your blockchain's native currency. (i.e. DOT on Polkadot)
+// 3. PalletKitties: The pallet you are building in this tutorial!
 construct_runtime! {
 	pub struct TestRuntime {
 		System: frame_system,
@@ -37,23 +41,33 @@ construct_runtime! {
 	}
 }
 
+// Normally `System` would have many more configurations, but you can see that we use some macro
+// magic to automatically configure most of the pallet for a "default test configuration".
 #[derive_impl(frame_system::config_preludes::TestDefaultConfig)]
 impl frame_system::Config for TestRuntime {
 	type Block = Block;
 	type AccountData = pallet_balances::AccountData<Balance>;
 }
 
+// Normally `Balances` would have many more configurations, but you can see that we use some macro
+// magic to automatically configure most of the pallet for a "default test configuration".
 #[derive_impl(pallet_balances::config_preludes::TestDefaultConfig)]
 impl pallet_balances::Config for TestRuntime {
 	type AccountStore = System;
 	type Balance = Balance;
 }
 
+// This is the configuration of our Pallet! If you make changes to the pallet's `trait Config`, you
+// will also need to update this configuration to represent that.
 impl pallet_kitties::Config for TestRuntime {
 	type RuntimeEvent = RuntimeEvent;
 	type NativeBalance = Balances;
 }
 
+// We need to run most of our tests using this function: `new_test_ext().execute_with(|| { ... });`
+// It simulates the blockchain database backend for our tests.
+// If you forget to include this and try to access your Pallet storage, you will get an error like:
+// "`get_version_1` called outside of an Externalities-provided environment."
 pub fn new_test_ext() -> sp_io::TestExternalities {
 	frame_system::GenesisConfig::<TestRuntime>::default()
 		.build_storage()
