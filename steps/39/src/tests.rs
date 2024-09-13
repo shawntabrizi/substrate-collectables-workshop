@@ -28,8 +28,6 @@ construct_runtime! {
 		PalletKitties: pallet_kitties,
 	}
 }
-
-const DEFAULT_KITTY: Kitty<TestRuntime> = Kitty { dna: [0u8; 32], owner: 1 };
 const ALICE: u64 = 1;
 const BOB: u64 = 2;
 
@@ -158,17 +156,12 @@ fn cannot_mint_duplicate_kitty() {
 }
 
 #[test]
-fn kitty_struct_created_correctly() {
-	let _kitty = Kitty::<TestRuntime> { dna: [0u8; 32], owner: 1 };
-}
-
-#[test]
 fn kitty_struct_has_expected_traits() {
 	new_test_ext().execute_with(|| {
-		let kitty = Kitty::<TestRuntime> { dna: [0u8; 32], owner: 1 };
+		let kitty = DEFAULT_KITTY;
 		let bytes = kitty.encode();
 		let _new_kitty = Kitty::<TestRuntime>::decode(&mut &bytes[..]).unwrap();
-		assert_eq!(Kitty::<TestRuntime>::max_encoded_len(), 40);
+		assert!(Kitty::<TestRuntime>::max_encoded_len() > 0);
 		let _info = Kitty::<TestRuntime>::type_info();
 	})
 }

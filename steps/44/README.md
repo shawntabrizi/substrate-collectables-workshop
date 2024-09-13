@@ -130,6 +130,17 @@ We are going to use `BalanceOf<T>` in the `Kitty` struct to keep track if it is 
 
 For this we can use an `Option<BalanceOf<T>>`, where `None` denotes that a kitty is not for sale, and `Some(price)` denotes the kitty is for sale at some `price`.
 
+### Resetting the Price Field
+
+In this step, we are introducing a new `price` field to the `Kitty` struct, and we must consider how that might affect existing logic in our Pallet.
+
+The price is something that should only be set by the owner of the kitty, and describes what the current owner would want to sell the kitty for.
+
+However, when a kitty is transferred to a new owner, that new owner may not agree with the existing price or want to sell the kitty at all!
+
+Thus, whenever we transfer the kitty, we will want to reset the `price` to `None` to make sure it is not immediately for sale.
+The new owner will be able to set the new price if they want to sell their new kitty.
+
 ## Your Turn
 
 Now that you know how to create and use the `BalanceOf<T>` type, add the type alias to your Pallet as shown in the template.
