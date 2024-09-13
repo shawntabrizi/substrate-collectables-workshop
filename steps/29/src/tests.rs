@@ -165,8 +165,5 @@ fn cannot_mint_duplicate_kitty() {
 
 #[test]
 fn kitty_struct_created_correctly() {
-	let _kitty = Kitty::<TestRuntime> {
-		dna: [0u8; 32],
-		owner: 1,
-	};
+	let _kitty = Kitty::<TestRuntime> { dna: [0u8; 32], owner: 1 };
 }
