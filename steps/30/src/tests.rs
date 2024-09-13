@@ -29,6 +29,8 @@ construct_runtime! {
 	}
 }
 
+const DEFAULT_KITTY: Kitty<TestRuntime> = Kitty { dna: [0u8; 32], owner: 1 };
+
 #[derive_impl(frame_system::config_preludes::TestDefaultConfig)]
 impl frame_system::Config for TestRuntime {
 	type Block = Block;
@@ -82,5 +84,99 @@ fn create_kitty_emits_event() {
 		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(1)));
 		// Assert the last event by our blockchain is the `Created` event with the correct owner.
 		System::assert_last_event(Event::<TestRuntime>::Created { owner: 1 }.into());
+	})
+}
+
+#[test]
+fn count_for_kitties_created_correctly() {
+	new_test_ext().execute_with(|| {
+		// Querying storage before anything is set will return `0`.
+		assert_eq!(CountForKitties::<TestRuntime>::get(), 0);
+		// You can `set` the value using an `u32`.
+		CountForKitties::<TestRuntime>::set(1337u32);
+		// You can `put` the value directly with a `u32`.
+		CountForKitties::<TestRuntime>::put(1337u32);
+	})
+}
+
+#[test]
+fn mint_increments_count_for_kitty() {
+	new_test_ext().execute_with(|| {
+		// Querying storage before anything is set will return `0`.
+		assert_eq!(CountForKitties::<TestRuntime>::get(), 0);
+		// Call `mint` to create a new kitty.
+		assert_ok!(PalletKitties::mint(1, [1u8; 32]));
+		// Now the storage should be `1`
+		assert_eq!(CountForKitties::<TestRuntime>::get(), 1);
+		// Let's call it two more times...
+		assert_ok!(PalletKitties::mint(2, [2u8; 32]));
+		assert_ok!(PalletKitties::mint(3, [3u8; 32]));
+		// Now the storage should be `3`
+		assert_eq!(CountForKitties::<TestRuntime>::get(), 3);
+	})
+}
+
+#[test]
+fn mint_errors_when_overflow() {
+	new_test_ext().execute_with(|| {
+		// Set the count to the largest value possible.
+		CountForKitties::<TestRuntime>::set(u32::MAX);
+		// `create_kitty` should not succeed because of safe math.
+		assert_noop!(
+			PalletKitties::create_kitty(RuntimeOrigin::signed(1)),
+			Error::<TestRuntime>::TooManyKitties
+		);
+	})
+}
+
+#[test]
+fn kitties_map_created_correctly() {
+	new_test_ext().execute_with(|| {
+		let zero_key = [0u8; 32];
+		assert_eq!(Kitties::<TestRuntime>::contains_key(zero_key), false);
+		Kitties::<TestRuntime>::insert(zero_key, DEFAULT_KITTY);
+		assert_eq!(Kitties::<TestRuntime>::contains_key(zero_key), true);
+	})
+}
+
+#[test]
+fn create_kitty_adds_to_map() {
+	new_test_ext().execute_with(|| {
+		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(1)));
+		assert_eq!(Kitties::<TestRuntime>::iter().count(), 1);
+	})
+}
+
+#[test]
+fn cannot_mint_duplicate_kitty() {
+	new_test_ext().execute_with(|| {
+		assert_ok!(PalletKitties::mint(1, [0u8; 32]));
+		assert_noop!(PalletKitties::mint(2, [0u8; 32]), Error::<TestRuntime>::DuplicateKitty);
+	})
+}
+
+#[test]
+fn kitty_struct_created_correctly() {
+	let _kitty = Kitty::<TestRuntime> { dna: [0u8; 32], owner: 1 };
+}
+
+#[test]
+fn kitty_struct_has_expected_traits() {
+	new_test_ext().execute_with(|| {
+		let kitty = Kitty::<TestRuntime> { dna: [0u8; 32], owner: 1 };
+		let bytes = kitty.encode();
+		let _new_kitty = Kitty::<TestRuntime>::decode(&mut &bytes[..]).unwrap();
+		assert_eq!(Kitty::<TestRuntime>::max_encoded_len(), 40);
+		let _info = Kitty::<TestRuntime>::type_info();
+	})
+}
+
+#[test]
+fn mint_stores_owner_in_kitty() {
+	new_test_ext().execute_with(|| {
+		assert_ok!(PalletKitties::mint(1337, [42u8; 32]));
+		let kitty = Kitties::<TestRuntime>::get([42u8; 32]).unwrap();
+		assert_eq!(kitty.owner, 1337);
+		assert_eq!(kitty.dna, [42u8; 32]);
 	})
 }
