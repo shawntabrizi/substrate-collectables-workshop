@@ -58,13 +58,25 @@ pub fn new_test_ext() -> sp_io::TestExternalities {
 }
 
 #[test]
+fn starting_template_is_sane() {
+	new_test_ext().execute_with(|| {
+		let event = Event::<TestRuntime>::Created { owner: ALICE };
+		let _runtime_event: RuntimeEvent = event.into();
+		let _call = Call::<TestRuntime>::create_kitty {};
+		let result = PalletKitties::create_kitty(RuntimeOrigin::signed(BOB));
+		assert_ok!(result);
+	});
+}
+
+#[test]
 fn system_and_balances_work() {
 	// This test will just sanity check that we can access `System` and `Balances`.
 	new_test_ext().execute_with(|| {
 		// We often need to set `System` to block 1 so that we can see events.
 		System::set_block_number(1);
 		// We often need to add some balance to a user to test features which needs tokens.
-		assert_ok!(Balances::mint_into(&1, 100));
+		assert_ok!(Balances::mint_into(&ALICE, 100));
+		assert_ok!(Balances::mint_into(&BOB, 100));
 	});
 }
 
