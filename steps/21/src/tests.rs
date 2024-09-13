@@ -102,13 +102,13 @@ fn mint_increments_count_for_kitty() {
 	new_test_ext().execute_with(|| {
 		// Querying storage before anything is set will return `0`.
 		assert_eq!(CountForKitties::<TestRuntime>::get(), 0);
-		// Call `create_kitty` which will call `mint`.
-		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(1)));
+		// Call `mint` to create a new kitty.
+		assert_ok!(PalletKitties::mint(1, [1u8; 32]));
 		// Now the storage should be `1`
 		assert_eq!(CountForKitties::<TestRuntime>::get(), 1);
 		// Let's call it two more times...
-		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(2)));
-		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(3)));
+		assert_ok!(PalletKitties::mint(2, [2u8; 32]));
+		assert_ok!(PalletKitties::mint(3, [3u8; 32]));
 		// Now the storage should be `3`
 		assert_eq!(CountForKitties::<TestRuntime>::get(), 3);
 	})

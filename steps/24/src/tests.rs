@@ -84,3 +84,63 @@ fn create_kitty_emits_event() {
 		System::assert_last_event(Event::<TestRuntime>::Created { owner: 1 }.into());
 	})
 }
+
+#[test]
+fn count_for_kitties_created_correctly() {
+	new_test_ext().execute_with(|| {
+		// Querying storage before anything is set will return `0`.
+		assert_eq!(CountForKitties::<TestRuntime>::get(), 0);
+		// You can `set` the value using an `u32`.
+		CountForKitties::<TestRuntime>::set(1337u32);
+		// You can `put` the value directly with a `u32`.
+		CountForKitties::<TestRuntime>::put(1337u32);
+	})
+}
+
+#[test]
+fn mint_increments_count_for_kitty() {
+	new_test_ext().execute_with(|| {
+		// Querying storage before anything is set will return `0`.
+		assert_eq!(CountForKitties::<TestRuntime>::get(), 0);
+		// Call `mint` to create a new kitty.
+		assert_ok!(PalletKitties::mint(1, [1u8; 32]));
+		// Now the storage should be `1`
+		assert_eq!(CountForKitties::<TestRuntime>::get(), 1);
+		// Let's call it two more times...
+		assert_ok!(PalletKitties::mint(2, [2u8; 32]));
+		assert_ok!(PalletKitties::mint(3, [3u8; 32]));
+		// Now the storage should be `3`
+		assert_eq!(CountForKitties::<TestRuntime>::get(), 3);
+	})
+}
+
+#[test]
+fn mint_errors_when_overflow() {
+	new_test_ext().execute_with(|| {
+		// Set the count to the largest value possible.
+		CountForKitties::<TestRuntime>::set(u32::MAX);
+		// `create_kitty` should not succeed because of safe math.
+		assert_noop!(
+			PalletKitties::create_kitty(RuntimeOrigin::signed(1)),
+			Error::<TestRuntime>::TooManyKitties
+		);
+	})
+}
+
+#[test]
+fn kitties_map_created_correctly() {
+	new_test_ext().execute_with(|| {
+		let zero_key = [0u8; 32];
+		assert_eq!(Kitties::<TestRuntime>::contains_key(zero_key), false);
+		Kitties::<TestRuntime>::insert(zero_key, ());
+		assert_eq!(Kitties::<TestRuntime>::contains_key(zero_key), true);
+	})
+}
+
+#[test]
+fn create_kitty_adds_to_map() {
+	new_test_ext().execute_with(|| {
+		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(1)));
+		assert_eq!(Kitties::<TestRuntime>::iter().count(), 1);
+	})
+}
