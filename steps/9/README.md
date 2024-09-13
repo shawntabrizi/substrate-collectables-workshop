@@ -61,3 +61,18 @@ Self::deposit_event(Event::<T>::Created { owner });
 ```
 
 As you see in our starting code.
+
+## Tests
+
+Don't forget to update your `tests.rs` file to include the test provided in this step.
+
+It shows how you can:
+
+- Set the blocknumber of your blockchain inside your tests.
+- Call an extrinsic in your pallet from an `AccountId` of your choice.
+- Check the extrinsic call completed `Ok(())`.
+- Get the last event deposited into `System`.
+- Check that last event matches the event you would expect from your pallet.
+
+From this point forward, every step where you write some code will include new tests or modify existing tests.
+Make sure to keep updating your `tests.rs` file throughout the tutorial.
