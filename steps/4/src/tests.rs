@@ -62,25 +62,3 @@ fn system_and_balances_work() {
 		assert_ok!(Balances::mint_into(&1, 100));
 	});
 }
-
-#[test]
-fn create_kitty_checks_signed() {
-	new_test_ext().execute_with(|| {
-		// The `create_kitty` extrinsic should work when being called by a user.
-		assert_ok!(Kitties::create_kitty(RuntimeOrigin::signed(1)));
-		// The `create_kitty` extrinsic should fail when being called by an unsigned message.
-		assert_noop!(Kitties::create_kitty(RuntimeOrigin::none()), DispatchError::BadOrigin);
-	})
-}
-
-#[test]
-fn create_kitty_emits_event() {
-	new_test_ext().execute_with(|| {
-		// We need to set block number to 1 to view events.
-		System::set_block_number(1);
-		// Execute our call, and ensure it is successful.
-		assert_ok!(Kitties::create_kitty(RuntimeOrigin::signed(1)));
-		// Assert the last event by our blockchain is the `Created` event with the correct owner.
-		System::assert_last_event(Event::<TestRuntime>::Created { owner: 1 }.into());
-	})
-}

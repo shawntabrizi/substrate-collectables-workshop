@@ -84,3 +84,15 @@ fn create_kitty_emits_event() {
 		System::assert_last_event(Event::<TestRuntime>::Created { owner: 1 }.into());
 	})
 }
+
+#[test]
+fn count_for_kitties_created_correctly() {
+	new_test_ext().execute_with(|| {
+		// Querying storage before anything is set will return `None`.
+		assert_eq!(CountForKitties::<TestRuntime>::get(), None);
+		// You can `set` the value using an `Option<u32>`.
+		CountForKitties::<TestRuntime>::set(Some(1337u32));
+		// You can `put` the value directly with a `u32`.
+		CountForKitties::<TestRuntime>::put(1337u32);
+	})
+}
