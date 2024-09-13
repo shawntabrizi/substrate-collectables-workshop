@@ -16,9 +16,10 @@
 #   --end [number]          Specify the end directory (inclusive) based on numerical order (optional)
 #
 #   --clean                 Run 'cargo clean' after running the checks (optional)
+#   --quiet                 Suppress output from Cargo commands (optional)
 #
 # Examples:
-#   ./check.sh --mode check --clean
+#   ./check.sh --mode check --clean --quiet
 #   ./check.sh --mode fix --start 1 --end 5
 #
 # If no options are provided, the script defaults to 'check' mode, processes all
@@ -39,6 +40,7 @@ MODE="check"
 START=""
 END=""
 CLEAN=false
+QUIET=false
 
 # Parse arguments
 while [[ $# -gt 0 ]]; do
@@ -59,6 +61,10 @@ while [[ $# -gt 0 ]]; do
       CLEAN=true
       shift 1
       ;;
+    --quiet)
+      QUIET=true
+      shift 1
+      ;;
     *)
       echo "Unknown option: $1"
       exit 1
@@ -76,6 +82,12 @@ fi
 if [ ! -d "steps" ]; then
   echo "Directory 'steps' does not exist."
   exit 1
+fi
+
+# Add --quiet flag to Cargo commands if QUIET is true
+QUIET_FLAG=""
+if [ "$QUIET" == true ]; then
+  QUIET_FLAG="--quiet"
 fi
 
 # Iterate through each subdirectory in the 'steps' directory in numerical order
@@ -113,24 +125,24 @@ for dir in $(ls -d steps/*/ | sort -V); do
     if [ "$MODE" == "check" ]; then
 
       echo "Checking cargo fmt"
-      cargo +nightly fmt --quiet -- --check
+      RUSTFLAGS="-A unused -D warnings" cargo +nightly fmt $QUIET_FLAG -- --check
 
       echo "Checking cargo clippy"
-      RUSTFLAGS="-A unused" cargo +nightly clippy --quiet -- -D warnings
+      RUSTFLAGS="-A unused -D warnings" cargo +nightly clippy $QUIET_FLAG
 
       echo "Checking cargo test"
-      RUSTFLAGS="-A unused -D warnings" cargo test --quiet
+      RUSTFLAGS="-A unused -D warnings" cargo test $QUIET_FLAG
 
     elif [ "$MODE" == "fix" ]; then
 
       echo "Running cargo fmt"
-      RUSTFLAGS="-A unused" cargo +nightly fmt --quiet
+      RUSTFLAGS="-A unused -D warnings" cargo +nightly fmt $QUIET_FLAG
 
       echo "Running cargo clippy"
-      RUSTFLAGS="-A unused" cargo +nightly clippy --quiet --fix --allow-dirty
+      RUSTFLAGS="-A unused -D warnings" cargo +nightly clippy $QUIET_FLAG --fix --allow-dirty
 
       echo "Running cargo test"
-      RUSTFLAGS="-A unused -D warnings" cargo test --quiet
+      RUSTFLAGS="-A unused -D warnings" cargo test $QUIET_FLAG
 
     fi
 
