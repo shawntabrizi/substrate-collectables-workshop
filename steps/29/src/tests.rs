@@ -27,6 +27,7 @@ type Block = frame_system::mocking::MockBlock<TestRuntime>;
 // We create the constants `ALICE` and `BOB` to make it clear when we are representing users below.
 const ALICE: u64 = 1;
 const BOB: u64 = 2;
+const DEFAULT_KITTY: Kitty<TestRuntime> = Kitty { dna: [0u8; 32], owner: 1 };
 
 // Our blockchain tests only need 3 Pallets:
 // 1. System: Which is included with every FRAME runtime.
@@ -179,9 +180,4 @@ fn cannot_mint_duplicate_kitty() {
 		assert_ok!(PalletKitties::mint(ALICE, [0u8; 32]));
 		assert_noop!(PalletKitties::mint(BOB, [0u8; 32]), Error::<TestRuntime>::DuplicateKitty);
 	})
-}
-
-#[test]
-fn kitty_struct_created_correctly() {
-	let _kitty = Kitty::<TestRuntime> { dna: [0u8; 32], owner: 1 };
 }
