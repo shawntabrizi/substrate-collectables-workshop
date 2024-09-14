@@ -27,7 +27,7 @@ type Block = frame_system::mocking::MockBlock<TestRuntime>;
 // We create the constants `ALICE` and `BOB` to make it clear when we are representing users below.
 const ALICE: u64 = 1;
 const BOB: u64 = 2;
-const DEFAULT_KITTY: Kitty<TestRuntime> = Kitty { dna: [0u8; 32], owner: 1 };
+const DEFAULT_KITTY: Kitty<TestRuntime> = Kitty { dna: [0u8; 32], owner: 0 };
 
 // Our blockchain tests only need 3 Pallets:
 // 1. System: Which is included with every FRAME runtime.
