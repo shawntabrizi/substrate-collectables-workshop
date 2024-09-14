@@ -188,7 +188,7 @@ fn kitty_struct_has_expected_traits() {
 	new_test_ext().execute_with(|| {
 		let kitty = DEFAULT_KITTY;
 		let bytes = kitty.encode();
-		let _new_kitty = Kitty::<TestRuntime>::decode(&mut &bytes[..]).unwrap();
+		let _decoded_kitty = Kitty::<TestRuntime>::decode(&mut &bytes[..]).unwrap();
 		assert!(Kitty::<TestRuntime>::max_encoded_len() > 0);
 		let _info = Kitty::<TestRuntime>::type_info();
 	})

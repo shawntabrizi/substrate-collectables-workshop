@@ -147,4 +147,8 @@ Now that you know how to create and use the `BalanceOf<T>` type, add the type al
 
 Then add a new field to the `Kitty` struct called `price`, which is an `Option<BalanceOf<T>>`.
 
-Finally, update the `mint` function to create a new `Kitty` with the new `price` field set as `None`.
+Update the `mint` function to create a new `Kitty` with the new `price` field set as `None`.
+
+Update the `do_transfer` function to reset the `kitty.price` to `None` when the kitty gets a new owner.
+
+Finally, update your `tests.rs` file so that `DEFAULT_KITTY` has the field and value `price: None`.

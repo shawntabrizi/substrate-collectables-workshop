@@ -188,7 +188,7 @@ fn kitty_struct_has_expected_traits() {
 	new_test_ext().execute_with(|| {
 		let kitty = DEFAULT_KITTY;
 		let bytes = kitty.encode();
-		let _new_kitty = Kitty::<TestRuntime>::decode(&mut &bytes[..]).unwrap();
+		let _decoded_kitty = Kitty::<TestRuntime>::decode(&mut &bytes[..]).unwrap();
 		assert!(Kitty::<TestRuntime>::max_encoded_len() > 0);
 		let _info = Kitty::<TestRuntime>::type_info();
 	})
@@ -319,7 +319,7 @@ fn set_price_emits_event() {
 		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(ALICE)));
 		let kitty_id = Kitties::<TestRuntime>::iter_keys().collect::<Vec<_>>()[0];
 		assert_ok!(PalletKitties::set_price(RuntimeOrigin::signed(ALICE), kitty_id, Some(1337)));
-		// Assert the last event by our blockchain is the `Created` event with the correct owner.
+		// Assert the last event is `PriceSet` event with the correct information.
 		System::assert_last_event(
 			Event::<TestRuntime>::PriceSet { owner: ALICE, kitty_id, new_price: Some(1337) }.into(),
 		);
@@ -400,5 +400,8 @@ fn do_buy_kitty_logic_works() {
 		assert_eq!(kitty.owner, BOB);
 		// Price is reset to `None`.
 		assert_eq!(kitty.price, None);
+		// BOB transferred funds to ALICE.
+		assert_eq!(Balances::balance(&ALICE), 1337);
+		assert_eq!(Balances::balance(&BOB), 100_000);
 	})
 }
