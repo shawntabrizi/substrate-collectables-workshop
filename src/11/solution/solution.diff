@@ -17,10 +17,10 @@ index 7d88fff..90242f6 100644
  	#[pallet::event]
  	#[pallet::generate_deposit(pub(super) fn deposit_event)]
 diff --git a/src/tests.rs b/src/tests.rs
-index a33f4de..0c1aca2 100644
+index 8fa3dc6..d3e7ab7 100644
 --- a/src/tests.rs
 +++ b/src/tests.rs
-@@ -99,3 +99,15 @@ fn create_kitty_emits_event() {
+@@ -117,3 +117,15 @@ fn create_kitty_emits_event() {
  		System::assert_last_event(Event::<TestRuntime>::Created { owner: 1 }.into());
  	})
  }

@@ -52,19 +52,19 @@ index 3a10644..7d8350d 100644
  
  	#[pallet::storage]
 diff --git a/src/tests.rs b/src/tests.rs
-index 8adfeb3..a2e5278 100644
+index 37a2ddd..ff914c8 100644
 --- a/src/tests.rs
 +++ b/src/tests.rs
-@@ -31,7 +31,7 @@ construct_runtime! {
- 
+@@ -27,7 +27,7 @@ type Block = frame_system::mocking::MockBlock<TestRuntime>;
+ // We create the constants `ALICE` and `BOB` to make it clear when we are representing users below.
  const ALICE: u64 = 1;
  const BOB: u64 = 2;
--const DEFAULT_KITTY: Kitty<TestRuntime> = Kitty { dna: [0u8; 32], owner: 1 };
-+const DEFAULT_KITTY: Kitty<TestRuntime> = Kitty { dna: [0u8; 32], owner: 1, price: None };
+-const DEFAULT_KITTY: Kitty<TestRuntime> = Kitty { dna: [0u8; 32], owner: 0 };
++const DEFAULT_KITTY: Kitty<TestRuntime> = Kitty { dna: [0u8; 32], owner: 0, price: None };
  
- #[derive_impl(frame_system::config_preludes::TestDefaultConfig)]
- impl frame_system::Config for TestRuntime {
-@@ -286,3 +286,9 @@ fn native_balance_associated_type_works() {
+ // Our blockchain tests only need 3 Pallets:
+ // 1. System: Which is included with every FRAME runtime.
+@@ -304,3 +304,9 @@ fn native_balance_associated_type_works() {
  		);
  	});
  }

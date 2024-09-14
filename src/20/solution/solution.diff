@@ -50,18 +50,10 @@ index 68f57e1..aa6ca3b 100644
  	#[pallet::event]
  	#[pallet::generate_deposit(pub(super) fn deposit_event)]
 diff --git a/src/tests.rs b/src/tests.rs
-index 823403e..d840e4c 100644
+index bd3a653..f60af86 100644
 --- a/src/tests.rs
 +++ b/src/tests.rs
-@@ -31,6 +31,7 @@ construct_runtime! {
- 
- const ALICE: u64 = 1;
- const BOB: u64 = 2;
-+const DEFAULT_KITTY: Kitty<TestRuntime> = Kitty { dna: [0u8; 32], owner: 1 };
- 
- #[derive_impl(frame_system::config_preludes::TestDefaultConfig)]
- impl frame_system::Config for TestRuntime {
-@@ -142,7 +143,7 @@ fn kitties_map_created_correctly() {
+@@ -161,7 +161,7 @@ fn kitties_map_created_correctly() {
  	new_test_ext().execute_with(|| {
  		let zero_key = [0u8; 32];
  		assert!(!Kitties::<TestRuntime>::contains_key(zero_key));
@@ -70,17 +62,17 @@ index 823403e..d840e4c 100644
  		assert!(Kitties::<TestRuntime>::contains_key(zero_key));
  	})
  }
-@@ -164,6 +165,22 @@ fn cannot_mint_duplicate_kitty() {
+@@ -181,3 +181,24 @@ fn cannot_mint_duplicate_kitty() {
+ 		assert_noop!(PalletKitties::mint(BOB, [0u8; 32]), Error::<TestRuntime>::DuplicateKitty);
+ 	})
  }
- 
- #[test]
--fn kitty_struct_created_correctly() {
--	let _kitty = Kitty::<TestRuntime> { dna: [0u8; 32], owner: 1 };
++
++#[test]
 +fn kitty_struct_has_expected_traits() {
 +	new_test_ext().execute_with(|| {
 +		let kitty = DEFAULT_KITTY;
 +		let bytes = kitty.encode();
-+		let _new_kitty = Kitty::<TestRuntime>::decode(&mut &bytes[..]).unwrap();
++		let _decoded_kitty = Kitty::<TestRuntime>::decode(&mut &bytes[..]).unwrap();
 +		assert!(Kitty::<TestRuntime>::max_encoded_len() > 0);
 +		let _info = Kitty::<TestRuntime>::type_info();
 +	})
@@ -94,4 +86,4 @@ index 823403e..d840e4c 100644
 +		assert_eq!(kitty.owner, 1337);
 +		assert_eq!(kitty.dna, [42u8; 32]);
 +	})
- }
++}

@@ -31,10 +31,10 @@ index eeb9724..57baa0d 100644
  	#[pallet::event]
  	#[pallet::generate_deposit(pub(super) fn deposit_event)]
 diff --git a/src/tests.rs b/src/tests.rs
-index 25e5917..8687a53 100644
+index 5e74d29..43af406 100644
 --- a/src/tests.rs
 +++ b/src/tests.rs
-@@ -103,10 +103,10 @@ fn create_kitty_emits_event() {
+@@ -121,10 +121,10 @@ fn create_kitty_emits_event() {
  #[test]
  fn count_for_kitties_created_correctly() {
  	new_test_ext().execute_with(|| {
@@ -49,7 +49,7 @@ index 25e5917..8687a53 100644
  		// You can `put` the value directly with a `u32`.
  		CountForKitties::<TestRuntime>::put(1337u32);
  	})
-@@ -115,12 +115,12 @@ fn count_for_kitties_created_correctly() {
+@@ -133,12 +133,12 @@ fn count_for_kitties_created_correctly() {
  #[test]
  fn mint_increments_count_for_kitty() {
  	new_test_ext().execute_with(|| {
@@ -58,14 +58,15 @@ index 25e5917..8687a53 100644
 +		// Querying storage before anything is set will return `0`.
 +		assert_eq!(CountForKitties::<TestRuntime>::get(), 0);
  		// Call `create_kitty` which will call `mint`.
- 		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(1)));
- 		// Now the storage should be `Some(1)`
+ 		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(ALICE)));
+-		// Now the storage should be `Some(1)`
 -		assert_eq!(CountForKitties::<TestRuntime>::get(), Some(1));
++		// Now the storage should be `1`
 +		assert_eq!(CountForKitties::<TestRuntime>::get(), 1);
  	})
  }
  
-@@ -128,7 +128,7 @@ fn mint_increments_count_for_kitty() {
+@@ -146,7 +146,7 @@ fn mint_increments_count_for_kitty() {
  fn mint_errors_when_overflow() {
  	new_test_ext().execute_with(|| {
  		// Set the count to the largest value possible.

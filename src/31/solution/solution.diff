@@ -69,10 +69,10 @@ index 8c3eb2e..4a8d2b1 100644
  	}
  }
 diff --git a/src/tests.rs b/src/tests.rs
-index 7d068bd..c097d28 100644
+index 77ffa1b..905bebf 100644
 --- a/src/tests.rs
 +++ b/src/tests.rs
-@@ -320,3 +320,20 @@ fn set_price_logic_works() {
+@@ -338,3 +338,20 @@ fn set_price_logic_works() {
  		assert_eq!(kitty.price, Some(1337));
  	})
  }

@@ -51,10 +51,10 @@ index 34507f3..8795b0e 100644
  			Ok(())
  		}
 diff --git a/src/tests.rs b/src/tests.rs
-index d840e4c..23b500e 100644
+index f60af86..a4bb764 100644
 --- a/src/tests.rs
 +++ b/src/tests.rs
-@@ -184,3 +184,15 @@ fn mint_stores_owner_in_kitty() {
+@@ -202,3 +202,15 @@ fn mint_stores_owner_in_kitty() {
  		assert_eq!(kitty.dna, [42u8; 32]);
  	})
  }
@@ -63,8 +63,8 @@ index d840e4c..23b500e 100644
 +fn create_kitty_makes_unique_kitties() {
 +	new_test_ext().execute_with(|| {
 +		// Two calls to `create_kitty` should work.
-+		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(1)));
-+		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(2)));
++		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(ALICE)));
++		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(BOB)));
 +		// And should result in two kitties in our system.
 +		assert_eq!(CountForKitties::<TestRuntime>::get(), 2);
 +		assert_eq!(Kitties::<TestRuntime>::iter().count(), 2);

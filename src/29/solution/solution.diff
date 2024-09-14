@@ -69,10 +69,10 @@ index 45f5fdf..57e0eeb 100644
  	}
  }
 diff --git a/src/tests.rs b/src/tests.rs
-index a2e5278..c2501ce 100644
+index ff914c8..4c486fd 100644
 --- a/src/tests.rs
 +++ b/src/tests.rs
-@@ -292,3 +292,18 @@ fn balance_of_type_works() {
+@@ -310,3 +310,18 @@ fn balance_of_type_works() {
  	// Inside our tests, the `BalanceOf` type has a concrete type of `u64`.
  	let _example_balance: BalanceOf<TestRuntime> = 1337u64;
  }
@@ -85,7 +85,7 @@ index a2e5278..c2501ce 100644
 +		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(ALICE)));
 +		let kitty_id = Kitties::<TestRuntime>::iter_keys().collect::<Vec<_>>()[0];
 +		assert_ok!(PalletKitties::set_price(RuntimeOrigin::signed(ALICE), kitty_id, Some(1337)));
-+		// Assert the last event by our blockchain is the `Created` event with the correct owner.
++		// Assert the last event is `PriceSet` event with the correct information.
 +		System::assert_last_event(
 +			Event::<TestRuntime>::PriceSet { owner: ALICE, kitty_id, new_price: Some(1337) }.into(),
 +		);

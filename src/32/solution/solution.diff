@@ -58,10 +58,10 @@ index f465b49..8ca2bdd 100644
  
  	#[pallet::call]
 diff --git a/src/tests.rs b/src/tests.rs
-index c097d28..ce88101 100644
+index 905bebf..d3d623d 100644
 --- a/src/tests.rs
 +++ b/src/tests.rs
-@@ -337,3 +337,50 @@ fn do_buy_kitty_emits_event() {
+@@ -355,3 +355,53 @@ fn do_buy_kitty_emits_event() {
  		);
  	})
  }
@@ -110,5 +110,8 @@ index c097d28..ce88101 100644
 +		assert_eq!(kitty.owner, BOB);
 +		// Price is reset to `None`.
 +		assert_eq!(kitty.price, None);
++		// BOB transferred funds to ALICE.
++		assert_eq!(Balances::balance(&ALICE), 1337);
++		assert_eq!(Balances::balance(&BOB), 100_000);
 +	})
 +}

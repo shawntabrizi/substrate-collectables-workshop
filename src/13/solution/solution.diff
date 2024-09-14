@@ -28,10 +28,10 @@ index 8edcc9b..2c11f46 100644
  
  	#[pallet::call]
 diff --git a/src/tests.rs b/src/tests.rs
-index 6c8a90c..25e5917 100644
+index 6318ca0..5e74d29 100644
 --- a/src/tests.rs
 +++ b/src/tests.rs
-@@ -123,3 +123,16 @@ fn mint_increments_count_for_kitty() {
+@@ -141,3 +141,16 @@ fn mint_increments_count_for_kitty() {
  		assert_eq!(CountForKitties::<TestRuntime>::get(), Some(1));
  	})
  }

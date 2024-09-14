@@ -35,10 +35,10 @@ index 2a83b47..15fb504 100644
  		}
  	}
 diff --git a/src/tests.rs b/src/tests.rs
-index 2afe055..0b190d4 100644
+index a564bb3..1da91ca 100644
 --- a/src/tests.rs
 +++ b/src/tests.rs
-@@ -146,3 +146,11 @@ fn kitties_map_created_correctly() {
+@@ -164,3 +164,11 @@ fn kitties_map_created_correctly() {
  		assert!(Kitties::<TestRuntime>::contains_key(zero_key));
  	})
  }
@@ -46,7 +46,7 @@ index 2afe055..0b190d4 100644
 +#[test]
 +fn create_kitty_adds_to_map() {
 +	new_test_ext().execute_with(|| {
-+		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(1)));
++		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(ALICE)));
 +		assert_eq!(Kitties::<TestRuntime>::iter().count(), 1);
 +	})
 +}

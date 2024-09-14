@@ -21,6 +21,17 @@ use frame::traits::fungible::*;
 type Balance = u64;
 type Block = frame_system::mocking::MockBlock<TestRuntime>;
 
+// In our "test runtime", we represent a user `AccountId` with a `u64`.
+// This is just a simplification so that we don't need to generate a bunch of proper cryptographic
+// public keys when writing tests. It is just easier to say "user 1 transfers to user 2".
+// We create the constants `ALICE` and `BOB` to make it clear when we are representing users below.
+const ALICE: u64 = 1;
+const BOB: u64 = 2;
+
+// Our blockchain tests only need 3 Pallets:
+// 1. System: Which is included with every FRAME runtime.
+// 2. Balances: Which is manages your blockchain's native currency. (i.e. DOT on Polkadot)
+// 3. PalletKitties: The pallet you are building in this tutorial!
 construct_runtime! {
 	pub struct TestRuntime {
 		System: frame_system,
@@ -29,25 +40,32 @@ construct_runtime! {
 	}
 }
 
-const ALICE: u64 = 1;
-const BOB: u64 = 2;
-
+// Normally `System` would have many more configurations, but you can see that we use some macro
+// magic to automatically configure most of the pallet for a "default test configuration".
 #[derive_impl(frame_system::config_preludes::TestDefaultConfig)]
 impl frame_system::Config for TestRuntime {
 	type Block = Block;
 	type AccountData = pallet_balances::AccountData<Balance>;
 }
 
+// Normally `Balances` would have many more configurations, but you can see that we use some macro
+// magic to automatically configure most of the pallet for a "default test configuration".
 #[derive_impl(pallet_balances::config_preludes::TestDefaultConfig)]
 impl pallet_balances::Config for TestRuntime {
 	type AccountStore = System;
 	type Balance = Balance;
 }
 
+// This is the configuration of our Pallet! If you make changes to the pallet's `trait Config`, you
+// will also need to update this configuration to represent that.
 impl pallet_kitties::Config for TestRuntime {
 	type RuntimeEvent = RuntimeEvent;
 }
 
+// We need to run most of our tests using this function: `new_test_ext().execute_with(|| { ... });`
+// It simulates the blockchain database backend for our tests.
+// If you forget to include this and try to access your Pallet storage, you will get an error like:
+// "`get_version_1` called outside of an Externalities-provided environment."
 pub fn new_test_ext() -> sp_io::TestExternalities {
 	frame_system::GenesisConfig::<TestRuntime>::default()
 		.build_storage()
@@ -82,7 +100,7 @@ fn system_and_balances_work() {
 fn create_kitty_checks_signed() {
 	new_test_ext().execute_with(|| {
 		// The `create_kitty` extrinsic should work when being called by a user.
-		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(1)));
+		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(ALICE)));
 		// The `create_kitty` extrinsic should fail when being called by an unsigned message.
 		assert_noop!(PalletKitties::create_kitty(RuntimeOrigin::none()), DispatchError::BadOrigin);
 	})
@@ -94,7 +112,7 @@ fn create_kitty_emits_event() {
 		// We need to set block number to 1 to view events.
 		System::set_block_number(1);
 		// Execute our call, and ensure it is successful.
-		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(1)));
+		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(ALICE)));
 		// Assert the last event by our blockchain is the `Created` event with the correct owner.
 		System::assert_last_event(Event::<TestRuntime>::Created { owner: 1 }.into());
 	})
@@ -118,7 +136,7 @@ fn mint_increments_count_for_kitty() {
 		// Querying storage before anything is set will return `None`.
 		assert_eq!(CountForKitties::<TestRuntime>::get(), None);
 		// Call `create_kitty` which will call `mint`.
-		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(1)));
+		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(ALICE)));
 		// Now the storage should be `Some(1)`
 		assert_eq!(CountForKitties::<TestRuntime>::get(), Some(1));
 	})

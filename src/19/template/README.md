@@ -89,3 +89,15 @@ I want to be clear, in the final compiled binary, both options for creating a ge
 Now that you know how to create a generic struct, create a new `Kitty` struct which is generic over `<T: Config>`. It should have fields for the `dna` of the kitty and the `owner` of the kitty.
 
 In our next step, we will learn how we can actually use this struct in runtime storage.
+
+### Tests
+
+We can't really "test" a struct, but we will use instances of the `Kitty` struct in other tests.
+
+So for this step, we simply introduce a `const DEFAULT_KITTY` to access a basic copy of the `Kitty` struct:
+
+```rust
+const DEFAULT_KITTY: Kitty<TestRuntime> = Kitty { dna: [0u8; 32], owner: 0 };
+```
+
+Remember if we update the `Kitty` struct in the future with more fields, we will also need to update this constant.

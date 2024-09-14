@@ -19,10 +19,10 @@ index b396f98..9739330 100644
  		Ok(())
  	}
 diff --git a/src/tests.rs b/src/tests.rs
-index 0c1aca2..6c8a90c 100644
+index d3e7ab7..6318ca0 100644
 --- a/src/tests.rs
 +++ b/src/tests.rs
-@@ -111,3 +111,15 @@ fn count_for_kitties_created_correctly() {
+@@ -129,3 +129,15 @@ fn count_for_kitties_created_correctly() {
  		CountForKitties::<TestRuntime>::put(1337u32);
  	})
  }
@@ -33,7 +33,7 @@ index 0c1aca2..6c8a90c 100644
 +		// Querying storage before anything is set will return `None`.
 +		assert_eq!(CountForKitties::<TestRuntime>::get(), None);
 +		// Call `create_kitty` which will call `mint`.
-+		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(1)));
++		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(ALICE)));
 +		// Now the storage should be `Some(1)`
 +		assert_eq!(CountForKitties::<TestRuntime>::get(), Some(1));
 +	})

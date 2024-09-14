@@ -30,10 +30,10 @@ index 6fb4b6d..75a1b65 100644
  
  	#[pallet::call]
 diff --git a/src/tests.rs b/src/tests.rs
-index 0b190d4..5d5027c 100644
+index 1da91ca..5caa134 100644
 --- a/src/tests.rs
 +++ b/src/tests.rs
-@@ -154,3 +154,11 @@ fn create_kitty_adds_to_map() {
+@@ -172,3 +172,11 @@ fn create_kitty_adds_to_map() {
  		assert_eq!(Kitties::<TestRuntime>::iter().count(), 1);
  	})
  }
@@ -41,7 +41,7 @@ index 0b190d4..5d5027c 100644
 +#[test]
 +fn cannot_mint_duplicate_kitty() {
 +	new_test_ext().execute_with(|| {
-+		assert_ok!(PalletKitties::mint(1, [0u8; 32]));
-+		assert_noop!(PalletKitties::mint(2, [0u8; 32]), Error::<TestRuntime>::DuplicateKitty);
++		assert_ok!(PalletKitties::mint(ALICE, [0u8; 32]));
++		assert_noop!(PalletKitties::mint(BOB, [0u8; 32]), Error::<TestRuntime>::DuplicateKitty);
 +	})
 +}

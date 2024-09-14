@@ -21,10 +21,10 @@ index c486f9e..79ec658 100644
  		Self::deposit_event(Event::<T>::PriceSet { owner: caller, kitty_id, new_price });
  		Ok(())
 diff --git a/src/tests.rs b/src/tests.rs
-index c2501ce..7d068bd 100644
+index 4c486fd..77ffa1b 100644
 --- a/src/tests.rs
 +++ b/src/tests.rs
-@@ -307,3 +307,16 @@ fn set_price_emits_event() {
+@@ -325,3 +325,16 @@ fn set_price_emits_event() {
  		);
  	})
  }
