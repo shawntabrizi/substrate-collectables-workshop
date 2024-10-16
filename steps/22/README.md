@@ -6,11 +6,11 @@ Now let's learn to interact with our `Kitties` storage map, and update the map w
 
 This tutorial will only go over just the basic APIs needed to build our Pallet.
 
-Check out the [`StorageMap` documentation](https://docs.rs/frame-support/37.0.0/frame_support/storage/types/struct.StorageMap.html) if you want to see the full APIs.
+Check out the [`StorageMap` documentation](https://docs.rs/frame-support/38.0.0/frame_support/storage/types/struct.StorageMap.html) if you want to see the full APIs.
 
 ### Reading Storage
 
-To read the current value of a key in a `StorageMap`, you can simply call the [`get(key)`](https://docs.rs/frame-support/37.0.0/frame_support/storage/types/struct.StorageMap.html#method.get) API:
+To read the current value of a key in a `StorageMap`, you can simply call the [`get(key)`](https://docs.rs/frame-support/38.0.0/frame_support/storage/types/struct.StorageMap.html#method.get) API:
 
 ```rust
 let my_key: [u8; 32] = [0u8; 32];
@@ -36,7 +36,7 @@ Kitties::<T>::insert(my_key, ());
 
 The same behaviors apply to `StorageMap` as a `StorageValue`.
 
-The [`insert`](https://docs.rs/frame-support/37.0.0/frame_support/storage/types/struct.StorageMap.html#method.insert) API cannot fail. If a value already exists in the map, under the key, we will simply overwrite that value. If you want to check if a value already exists in the map under a key, the most efficient way is to call [`contains_key(key)`](https://docs.rs/frame-support/37.0.0/frame_support/storage/types/struct.StorageMap.html#method.contains_key).
+The [`insert`](https://docs.rs/frame-support/38.0.0/frame_support/storage/types/struct.StorageMap.html#method.insert) API cannot fail. If a value already exists in the map, under the key, we will simply overwrite that value. If you want to check if a value already exists in the map under a key, the most efficient way is to call [`contains_key(key)`](https://docs.rs/frame-support/38.0.0/frame_support/storage/types/struct.StorageMap.html#method.contains_key).
 
 ## Your Turn
 

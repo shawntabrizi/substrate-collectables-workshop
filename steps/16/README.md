@@ -28,9 +28,9 @@ But there is no reason you would ever need to panic because Rust has a great err
 
 All of our callable functions use the `DispatchResult` type. This means that we can always propagate up any errors that our Pallet runs into, and handle them properly, versus needing to panic.
 
-The [`DispatchResult`](https://docs.rs/frame-support/37.0.0/frame_support/dispatch/type.DispatchResult.html) type expects either `Ok(())` or `Err(DispatchError)`.
+The [`DispatchResult`](https://docs.rs/frame-support/38.0.0/frame_support/dispatch/type.DispatchResult.html) type expects either `Ok(())` or `Err(DispatchError)`.
 
-The [`DispatchError`](https://docs.rs/frame-support/37.0.0/frame_support/pallet_prelude/enum.DispatchError.html) type has a few variants that you can easily construct / use.
+The [`DispatchError`](https://docs.rs/frame-support/38.0.0/frame_support/pallet_prelude/enum.DispatchError.html) type has a few variants that you can easily construct / use.
 
 For example, if you want to be a little lazy, you can simply return a `&'static str`:
 

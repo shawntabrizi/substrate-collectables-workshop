@@ -125,24 +125,24 @@ for dir in $(ls -d steps/*/ | sort -V); do
     if [ "$MODE" == "check" ]; then
 
       echo "Checking cargo fmt"
-      RUSTFLAGS="-A unused -D warnings" cargo +nightly fmt $QUIET_FLAG -- --check
+      RUSTFLAGS="-D warnings" cargo +nightly fmt $QUIET_FLAG -- --check
 
       echo "Checking cargo clippy"
-      RUSTFLAGS="-A unused -D warnings" cargo +nightly clippy $QUIET_FLAG
+      RUSTFLAGS="-D warnings" cargo +nightly clippy $QUIET_FLAG
 
       echo "Checking cargo test"
-      RUSTFLAGS="-A unused -D warnings" cargo test $QUIET_FLAG
+      RUSTFLAGS="-D warnings" cargo test $QUIET_FLAG
 
     elif [ "$MODE" == "fix" ]; then
 
       echo "Running cargo fmt"
-      RUSTFLAGS="-A unused -D warnings" cargo +nightly fmt $QUIET_FLAG
+      RUSTFLAGS="-D warnings" cargo +nightly fmt $QUIET_FLAG
 
       echo "Running cargo clippy"
-      RUSTFLAGS="-A unused -D warnings" cargo +nightly clippy $QUIET_FLAG --fix --allow-dirty
+      RUSTFLAGS="-D warnings" cargo +nightly clippy $QUIET_FLAG --fix --allow-dirty
 
       echo "Running cargo test"
-      RUSTFLAGS="-A unused -D warnings" cargo test $QUIET_FLAG
+      RUSTFLAGS="-D warnings" cargo test $QUIET_FLAG
 
     fi
 
