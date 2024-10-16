@@ -1,5 +1,5 @@
 diff --git a/src/lib.rs b/src/lib.rs
-index 7d88fff..90242f6 100644
+index 7d88fffb..90242f63 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
 @@ -18,11 +18,8 @@ pub mod pallet {
@@ -17,7 +17,7 @@ index 7d88fff..90242f6 100644
  	#[pallet::event]
  	#[pallet::generate_deposit(pub(super) fn deposit_event)]
 diff --git a/src/tests.rs b/src/tests.rs
-index 8fa3dc6..d3e7ab7 100644
+index 8fa3dc60..d3e7ab78 100644
 --- a/src/tests.rs
 +++ b/src/tests.rs
 @@ -117,3 +117,15 @@ fn create_kitty_emits_event() {

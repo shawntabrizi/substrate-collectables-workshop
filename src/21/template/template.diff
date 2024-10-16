@@ -1,5 +1,5 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index 5d3c104..bfd7fdb 100644
+index 5d3c1046..bfd7fdb2 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
 @@ -1,7 +1,19 @@
@@ -23,7 +23,7 @@ index 5d3c104..bfd7fdb 100644
  		let kitty = Kitty { dna, owner: owner.clone() };
  		// Check if the kitty does not already exist in our storage map
 diff --git a/src/lib.rs b/src/lib.rs
-index aa6ca3b..34507f3 100644
+index aa6ca3b9..34507f3b 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
 @@ -48,6 +48,7 @@ pub mod pallet {

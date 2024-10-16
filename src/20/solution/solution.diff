@@ -1,5 +1,5 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index 741a6ff..5d3c104 100644
+index 741a6ffd..5d3c1046 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
 @@ -3,17 +3,13 @@ use frame::prelude::*;
@@ -23,7 +23,7 @@ index 741a6ff..5d3c104 100644
  		Self::deposit_event(Event::<T>::Created { owner });
  		Ok(())
 diff --git a/src/lib.rs b/src/lib.rs
-index 68f57e1..aa6ca3b 100644
+index 68f57e11..aa6ca3b9 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
 @@ -18,10 +18,8 @@ pub mod pallet {
@@ -50,10 +50,18 @@ index 68f57e1..aa6ca3b 100644
  	#[pallet::event]
  	#[pallet::generate_deposit(pub(super) fn deposit_event)]
 diff --git a/src/tests.rs b/src/tests.rs
-index bd3a653..f60af86 100644
+index c8f6ca59..f60af86b 100644
 --- a/src/tests.rs
 +++ b/src/tests.rs
-@@ -161,7 +161,7 @@ fn kitties_map_created_correctly() {
+@@ -27,7 +27,6 @@ type Block = frame_system::mocking::MockBlock<TestRuntime>;
+ // We create the constants `ALICE` and `BOB` to make it clear when we are representing users below.
+ const ALICE: u64 = 1;
+ const BOB: u64 = 2;
+-#[allow(unused)]
+ const DEFAULT_KITTY: Kitty<TestRuntime> = Kitty { dna: [0u8; 32], owner: 0 };
+ 
+ // Our blockchain tests only need 3 Pallets:
+@@ -162,7 +161,7 @@ fn kitties_map_created_correctly() {
  	new_test_ext().execute_with(|| {
  		let zero_key = [0u8; 32];
  		assert!(!Kitties::<TestRuntime>::contains_key(zero_key));
@@ -62,7 +70,7 @@ index bd3a653..f60af86 100644
  		assert!(Kitties::<TestRuntime>::contains_key(zero_key));
  	})
  }
-@@ -181,3 +181,24 @@ fn cannot_mint_duplicate_kitty() {
+@@ -182,3 +181,24 @@ fn cannot_mint_duplicate_kitty() {
  		assert_noop!(PalletKitties::mint(BOB, [0u8; 32]), Error::<TestRuntime>::DuplicateKitty);
  	})
  }

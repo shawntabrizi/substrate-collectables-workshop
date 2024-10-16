@@ -1,5 +1,5 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index 953fa5c..81f657e 100644
+index 953fa5c2..81f657e7 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
 @@ -73,14 +73,12 @@ impl<T: Config> Pallet<T> {
@@ -26,7 +26,7 @@ index 953fa5c..81f657e 100644
 +	}
  }
 diff --git a/src/lib.rs b/src/lib.rs
-index 8c3eb2e..4a8d2b1 100644
+index 8c3eb2e6..4a8d2b1b 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
 @@ -56,11 +56,7 @@ pub mod pallet {
@@ -69,7 +69,7 @@ index 8c3eb2e..4a8d2b1 100644
  	}
  }
 diff --git a/src/tests.rs b/src/tests.rs
-index 77ffa1b..905bebf 100644
+index 77ffa1bc..905bebfe 100644
 --- a/src/tests.rs
 +++ b/src/tests.rs
 @@ -338,3 +338,20 @@ fn set_price_logic_works() {

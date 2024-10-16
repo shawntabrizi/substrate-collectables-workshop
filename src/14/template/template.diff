@@ -1,5 +1,5 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index 7277e36..b9b5548 100644
+index 7277e367..b9b5548a 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
 @@ -3,8 +3,10 @@ use frame::prelude::*;
@@ -14,7 +14,7 @@ index 7277e36..b9b5548 100644
  		Self::deposit_event(Event::<T>::Created { owner });
  		Ok(())
 diff --git a/src/lib.rs b/src/lib.rs
-index 2c11f46..eeb9724 100644
+index 2c11f460..eeb9724b 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
 @@ -19,6 +19,7 @@ pub mod pallet {

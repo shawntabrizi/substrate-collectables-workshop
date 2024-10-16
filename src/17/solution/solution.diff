@@ -1,5 +1,5 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index 292909e..c0e7cb2 100644
+index 292909e1..c0e7cb27 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
 @@ -3,10 +3,9 @@ use frame::prelude::*;
@@ -17,7 +17,7 @@ index 292909e..c0e7cb2 100644
  		let new_count = current_count.checked_add(1).ok_or(Error::<T>::TooManyKitties)?;
  		Kitties::<T>::insert(dna, ());
 diff --git a/src/lib.rs b/src/lib.rs
-index 6fb4b6d..75a1b65 100644
+index 6fb4b6d7..75a1b65c 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
 @@ -33,7 +33,7 @@ pub mod pallet {
@@ -30,7 +30,7 @@ index 6fb4b6d..75a1b65 100644
  
  	#[pallet::call]
 diff --git a/src/tests.rs b/src/tests.rs
-index 1da91ca..5caa134 100644
+index 1da91ca7..5caa1349 100644
 --- a/src/tests.rs
 +++ b/src/tests.rs
 @@ -172,3 +172,11 @@ fn create_kitty_adds_to_map() {

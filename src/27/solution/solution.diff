@@ -1,5 +1,5 @@
 diff --git a/src/lib.rs b/src/lib.rs
-index 5a4e765..59150bd 100644
+index 5a4e7650..59150bd6 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
 @@ -4,8 +4,8 @@ mod impls;
@@ -29,7 +29,7 @@ index 5a4e765..59150bd 100644
  
  	#[derive(Encode, Decode, TypeInfo, MaxEncodedLen)]
 diff --git a/src/tests.rs b/src/tests.rs
-index ffe1390..37a2ddd 100644
+index ffe1390d..37a2ddd4 100644
 --- a/src/tests.rs
 +++ b/src/tests.rs
 @@ -61,6 +61,7 @@ impl pallet_balances::Config for TestRuntime {

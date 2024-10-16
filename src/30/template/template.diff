@@ -1,5 +1,5 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index 53fb204..c486f9e 100644
+index 53fb204a..c486f9ed 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
 @@ -64,6 +64,14 @@ impl<T: Config> Pallet<T> {

@@ -1,5 +1,5 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index 71b538b..b680830 100644
+index 71b538b6..b680830e 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
 @@ -26,10 +26,10 @@ impl<T: Config> Pallet<T> {
@@ -16,7 +16,7 @@ index 71b538b..b680830 100644
  		Ok(())
  	}
 diff --git a/src/lib.rs b/src/lib.rs
-index a92f8e5..9c10069 100644
+index a92f8e52..9c10069f 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
 @@ -32,11 +32,10 @@ pub mod pallet {
@@ -36,7 +36,7 @@ index a92f8e5..9c10069 100644
  	#[pallet::event]
  	#[pallet::generate_deposit(pub(super) fn deposit_event)]
 diff --git a/src/tests.rs b/src/tests.rs
-index a4bb764..f2fb1d0 100644
+index a4bb7648..f2fb1d01 100644
 --- a/src/tests.rs
 +++ b/src/tests.rs
 @@ -214,3 +214,16 @@ fn create_kitty_makes_unique_kitties() {

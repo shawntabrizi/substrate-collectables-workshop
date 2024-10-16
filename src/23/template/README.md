@@ -32,7 +32,7 @@ There are other ways to define the bound, and even make it configurable, but tha
 
 ## Basic APIs
 
-The `BoundedVec` type has almost all the same APIs as a `Vec`. You can find the full list of APIs in the [`BoundedVec` documentation](https://docs.rs/frame-support/37.0.0/frame_support/struct.BoundedVec.html).
+The `BoundedVec` type has almost all the same APIs as a `Vec`. You can find the full list of APIs in the [`BoundedVec` documentation](https://docs.rs/frame-support/38.0.0/frame_support/struct.BoundedVec.html).
 
 The main difference is the fact that a `BoundedVec` cannot always accept a new item.
 

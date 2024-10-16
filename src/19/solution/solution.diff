@@ -1,5 +1,5 @@
 diff --git a/src/lib.rs b/src/lib.rs
-index c8ea870..30d12b4 100644
+index c8ea8705..30d12b4c 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
 @@ -18,13 +18,11 @@ pub mod pallet {
@@ -22,13 +22,14 @@ index c8ea870..30d12b4 100644
  	#[pallet::storage]
  	pub(super) type CountForKitties<T: Config> = StorageValue<Value = u32, QueryKind = ValueQuery>;
 diff --git a/src/tests.rs b/src/tests.rs
-index 5caa134..bd3a653 100644
+index 5caa1349..c8f6ca59 100644
 --- a/src/tests.rs
 +++ b/src/tests.rs
-@@ -27,6 +27,7 @@ type Block = frame_system::mocking::MockBlock<TestRuntime>;
+@@ -27,6 +27,8 @@ type Block = frame_system::mocking::MockBlock<TestRuntime>;
  // We create the constants `ALICE` and `BOB` to make it clear when we are representing users below.
  const ALICE: u64 = 1;
  const BOB: u64 = 2;
++#[allow(unused)]
 +const DEFAULT_KITTY: Kitty<TestRuntime> = Kitty { dna: [0u8; 32], owner: 0 };
  
  // Our blockchain tests only need 3 Pallets:

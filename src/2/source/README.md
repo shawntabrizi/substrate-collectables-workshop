@@ -54,11 +54,11 @@ FRAME is an opinionated framework on how one should quickly and easily build and
 
 > NOTE: It is important to clarify that FRAME is not the only way you can develop a runtime for the `polkadot-sdk`, but it is the one that the Polkadot Network uses and is most supported by the ecosystem.
 
-You can see in our project, nearly all of our dependencies come from a single crate named [`frame`](https://docs.rs/polkadot-sdk-frame/0.6.0/polkadot_sdk_frame/index.html).
+You can see in our project, nearly all of our dependencies come from a single crate named [`frame`](https://docs.rs/polkadot-sdk-frame/0.7.0/polkadot_sdk_frame/index.html).
 
-This crate is really just a convenience wrapper around other smaller crates, all exposed through [`frame::deps`](https://docs.rs/polkadot-sdk-frame/0.6.0/polkadot_sdk_frame/deps/index.html).
+This crate is really just a convenience wrapper around other smaller crates, all exposed through [`frame::deps`](https://docs.rs/polkadot-sdk-frame/0.7.0/polkadot_sdk_frame/deps/index.html).
 
-For our tutorial, most of the types and traits we need access to are automatically brought into scope through [`frame::prelude::*`](https://docs.rs/polkadot-sdk-frame/0.6.0/polkadot_sdk_frame/prelude/index.html), however once in a while, we will need to import something more specific from [`frame::primitives`](https://docs.rs/polkadot-sdk-frame/0.6.0/polkadot_sdk_frame/primitives/index.html) or [`frame::traits`](https://docs.rs/polkadot-sdk-frame/0.6.0/polkadot_sdk_frame/traits/index.html).
+For our tutorial, most of the types and traits we need access to are automatically brought into scope through [`frame::prelude::*`](https://docs.rs/polkadot-sdk-frame/0.7.0/polkadot_sdk_frame/prelude/index.html), however once in a while, we will need to import something more specific from [`frame::primitives`](https://docs.rs/polkadot-sdk-frame/0.7.0/polkadot_sdk_frame/primitives/index.html) or [`frame::traits`](https://docs.rs/polkadot-sdk-frame/0.7.0/polkadot_sdk_frame/traits/index.html).
 
 ### Pallets
 

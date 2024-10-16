@@ -6,7 +6,7 @@ Now that you have learned everything you need to know about `StorageValue`s, it 
 
 ## Syntax
 
-Declaring a new [`StorageMap`](https://docs.rs/frame-support/37.0.0/frame_support/storage/types/struct.StorageMap.html) is very similar to a `StorageValue`:
+Declaring a new [`StorageMap`](https://docs.rs/frame-support/38.0.0/frame_support/storage/types/struct.StorageMap.html) is very similar to a `StorageValue`:
 
 ```rust
 #[pallet::storage]

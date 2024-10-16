@@ -1,5 +1,5 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index c0e7cb2..741a6ff 100644
+index c0e7cb27..741a6ffd 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
 @@ -3,11 +3,16 @@ use frame::prelude::*;
@@ -20,7 +20,7 @@ index c0e7cb2..741a6ff 100644
  		CountForKitties::<T>::set(new_count);
  		Self::deposit_event(Event::<T>::Created { owner });
 diff --git a/src/lib.rs b/src/lib.rs
-index 30d12b4..68f57e1 100644
+index 30d12b4c..68f57e11 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
 @@ -18,6 +18,10 @@ pub mod pallet {

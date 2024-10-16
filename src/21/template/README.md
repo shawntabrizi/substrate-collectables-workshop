@@ -29,7 +29,7 @@ If we combine all of these things together, we can ensure that every kitty we mi
 
 ## Hash
 
-Obviously our uniqueness inputs are not super useful as is. But we can convert these inputs into a unique set of bytes with fixed length using a Hash function like [`frame::primitives::BlakeTwo256`](https://docs.rs/polkadot-sdk-frame/0.6.0/polkadot_sdk_frame/primitives/struct.BlakeTwo256.html).
+Obviously our uniqueness inputs are not super useful as is. But we can convert these inputs into a unique set of bytes with fixed length using a Hash function like [`frame::primitives::BlakeTwo256`](https://docs.rs/polkadot-sdk-frame/0.7.0/polkadot_sdk_frame/primitives/struct.BlakeTwo256.html).
 
 ```rust
 // Collect our unique inputs into a single object.

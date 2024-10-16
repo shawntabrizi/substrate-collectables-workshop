@@ -6,7 +6,7 @@ But there are actually more ways you can configure the `StorageValue` to increas
 
 ## Storage Value Definition
 
-Let's look at the definition of a [`StorageValue`](https://docs.rs/frame-support/37.0.0/frame_support/storage/types/struct.StorageValue.html):
+Let's look at the definition of a [`StorageValue`](https://docs.rs/frame-support/38.0.0/frame_support/storage/types/struct.StorageValue.html):
 
 ```rust
 pub struct StorageValue<
