@@ -2,7 +2,7 @@
 
 If you look into the history of "hacks" and "bugs" that happen in the blockchain world, a lot of it is associated with some kind of "unsafe" code.
 
-Keeping our blockchain logic safe, and Rust is designed to handle it well.
+We need to keep our blockchain logic safe, and Rust is designed to handle it well.
 
 ## Errors
 
