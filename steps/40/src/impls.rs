@@ -5,7 +5,7 @@ use frame::traits::Hash;
 
 // Learn about internal functions.
 impl<T: Config> Pallet<T> {
-	// Generates and returns DNA and Sex
+	// Generates and returns DNA
 	pub fn gen_dna() -> [u8; 32] {
 		// Create randomness payload. Multiple kitties can be generated in the same block,
 		// retaining uniqueness.
