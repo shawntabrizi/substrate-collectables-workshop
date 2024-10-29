@@ -40,8 +40,8 @@ pub mod pallet {
 		pub fn create_kitty(origin: OriginFor<T>) -> DispatchResult {
 			let who = ensure_signed(origin)?;
 			/* 🚧 TODO 🚧:
-				- Create `const default_id`, which type `[u8; 32]` and has value `[0u8; 32]`.
-				- Pass `default_id` to the `mint` function as a second parameter.
+				- Create `const DEFAULT_ID`, which type `[u8; 32]` and has value `[0u8; 32]`.
+				- Pass `DEFAULT_ID` to the `mint` function as a second parameter.
 			*/
 			Self::mint(who)?;
 			Ok(())
