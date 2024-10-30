@@ -1,6 +1,6 @@
 # Set Price Extrinsic
 
-Now that we our Pallet set up to handle balances, let's actually use them.
+Now that we have our Pallet set up to handle balances, let's actually use them.
 
 In this step, we will create an extrinsic which allows the owner of a kitty to set a price for the kitty.
 
