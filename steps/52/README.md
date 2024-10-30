@@ -91,7 +91,7 @@ Both transfer functions need to succeed for the sale to complete successfully.
 
 If either one of them would fail, the whole purchase should fail.
 
-Thankfully, both of our transfer functions return a result, and to handle things correctly here, we just ned to propagate up those errors. For that, we simply include `?` at the end of the function.
+Thankfully, both of our transfer functions return a result, and to handle things correctly here, we just need to propagate up those errors. For that, we simply include `?` at the end of the function.
 
 If at any point our extrinsic or the logic inside the extrinsic returns an error, the whole extrinsic will fail and all changes to storage will be undone. This is exactly the same behavior you would expect from a smart contract, and keeps our state transition function functioning smoothly.
 
