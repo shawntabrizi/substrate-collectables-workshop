@@ -31,6 +31,8 @@ If you are familiar with smart contracts or any kind of blockchain application, 
 
 Those transactions are processed, and then dispatched to callable functions within the blockchain.
 
+*Internal functions are generally implemented in a separate `impl.rs` file for ergonomic purposes, while the callable functions are located in `lib.rs`.*
+
 ### Pallet Call Macro
 
 Pallet development allows you to create callable functions by introducing the `#[pallet::call]` macro on top of a normal function implementation code block.
