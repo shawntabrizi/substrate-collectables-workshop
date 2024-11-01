@@ -20,7 +20,7 @@ Let's look at how we would interact with this generic type, and solve many of th
 
 The `Balance` type is ultimately configured inside `pallet_balances`, and remember, we don't have direct access to that pallet because we used loose coupling.
 
-The way we can access the `Balance` type is through the `Inspect` trait of the `NativeBalance` associated type. Accessing it kind of funny, which is why we commonly introduce a `BalanceOf<T>` alias type like so:
+The way we can access the `Balance` type is through the `Inspect` trait of the `NativeBalance` associated type. Accessing it is kind of funny, which is why we commonly introduce a `BalanceOf<T>` alias type like so:
 
 ```rust
 // Allows easy access our Pallet's `Balance` type. Comes from `Fungible` interface.

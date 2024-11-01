@@ -101,7 +101,7 @@ T::NativeBalance::mint_into(alice, amount)?;
 T::NativeBalance::transfer(alice, bob, amount, Preserve)?;
 ```
 
-The key difference here is that we do NOT assume that these APIs must from from specifically `pallet_balances`. If you wanted to use another pallet in the `polkadot-sdk` ecosystem which provides these same functions, you can use it! Our pallet is NOT tightly coupled to which pallet provides access to the `NativeBalance`, it only requires that there is something implementing the `Inspect` and `Mutate` traits.
+The key difference here is that we do NOT assume that these APIs must come from specifically `pallet_balances`. If you wanted to use another pallet in the `polkadot-sdk` ecosystem which provides these same functions, you can use it! Our pallet is NOT tightly coupled to which pallet provides access to the `NativeBalance`, it only requires that there is something implementing the `Inspect` and `Mutate` traits.
 
 The power of loose coupling may not be immediately obvious, but as you get deeper into developing in the Polkadot ecosystem, you will start to realize how powerful this approach can be.
 
