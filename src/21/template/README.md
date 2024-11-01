@@ -37,7 +37,7 @@ let unique_payload = (item1, item2, item3);
 // To use the `hash_of` API, we need to bring the `Hash` trait into scope.
 use frame::traits::Hash;
 // Hash that object to get a unique identifier.
-let hash: [u8; 32] = BlakeTwo256::hash_of(&unique_payload).into().
+let hash: [u8; 32] = BlakeTwo256::hash_of(&unique_payload).into();
 ```
 
 The `hash_of` API comes from the `Hash` trait and takes any `encode`-able object, and returns a `H256`, which is a 256-bit hash. As you can see in the code above, it is easy to convert that to a `[u8; 32]` by just calling `.into()`, since these two types are equivalent.

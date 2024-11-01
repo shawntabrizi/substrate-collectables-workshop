@@ -1,5 +1,5 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index e7fa6b60..53fb204a 100644
+index f3f8281..48af847 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
 @@ -59,14 +59,12 @@ impl<T: Config> Pallet<T> {
@@ -26,7 +26,7 @@ index e7fa6b60..53fb204a 100644
 +	}
  }
 diff --git a/src/lib.rs b/src/lib.rs
-index 45f5fdfb..57e0eeb7 100644
+index 45f5fdf..57e0eeb 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
 @@ -55,11 +55,7 @@ pub mod pallet {
@@ -69,7 +69,7 @@ index 45f5fdfb..57e0eeb7 100644
  	}
  }
 diff --git a/src/tests.rs b/src/tests.rs
-index ff914c8e..4c486fd5 100644
+index ff914c8..4c486fd 100644
 --- a/src/tests.rs
 +++ b/src/tests.rs
 @@ -310,3 +310,18 @@ fn balance_of_type_works() {

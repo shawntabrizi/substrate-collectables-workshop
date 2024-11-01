@@ -5,7 +5,7 @@ use frame::traits::Hash;
 
 // Learn about internal functions.
 impl<T: Config> Pallet<T> {
-	// Generates and returns DNA and Sex
+	// Generates and returns DNA
 	pub fn gen_dna() -> [u8; 32] {
 		// Create randomness payload. Multiple kitties can be generated in the same block,
 		// retaining uniqueness.
@@ -42,7 +42,7 @@ impl<T: Config> Pallet<T> {
 			- `kitty_id` which is `[u8; 32]`.
 		- It returns a `DispatchResult`
 		- The inner logic for now is:
-			- Call `Self::dispatch_event` on and emit `Event::<T>:Transferred` with params.
+			- Call `Self::deposit_event` and emit `Event::<T>:Transferred` with params.
 			- Return `Ok(())`.
 	*/
 }

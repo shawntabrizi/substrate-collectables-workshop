@@ -1,5 +1,5 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index e9dca34a..179c26e2 100644
+index c7a34b2..463894e 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
 @@ -1,7 +1,7 @@
@@ -41,7 +41,7 @@ index e9dca34a..179c26e2 100644
  	}
  }
 diff --git a/src/lib.rs b/src/lib.rs
-index f465b493..8ca2bdd1 100644
+index f465b49..8ca2bdd 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
 @@ -67,10 +67,8 @@ pub mod pallet {
@@ -58,7 +58,7 @@ index f465b493..8ca2bdd1 100644
  
  	#[pallet::call]
 diff --git a/src/tests.rs b/src/tests.rs
-index 905bebfe..d3d623db 100644
+index 905bebf..d3d623d 100644
 --- a/src/tests.rs
 +++ b/src/tests.rs
 @@ -355,3 +355,53 @@ fn do_buy_kitty_emits_event() {

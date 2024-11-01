@@ -31,6 +31,8 @@ If you are familiar with smart contracts or any kind of blockchain application, 
 
 Those transactions are processed, and then dispatched to callable functions within the blockchain.
 
+For ergonomics, you will normally see callable functions defined in the `lib.rs`, but their logic implemented in a separate `impls.rs` file. This is really up to your preference, but since this is the common practice in the Polkadot SDK, the tutorial will use this pattern as well.
+
 ### Pallet Call Macro
 
 Pallet development allows you to create callable functions by introducing the `#[pallet::call]` macro on top of a normal function implementation code block.

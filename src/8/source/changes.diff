@@ -1,5 +1,5 @@
 diff --git a/src/lib.rs b/src/lib.rs
-index 405a6e52..a52896ed 100644
+index 405a6e5..a52896e 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
 @@ -13,12 +13,12 @@ pub mod pallet {
@@ -17,7 +17,7 @@ index 405a6e52..a52896ed 100644
  	#[pallet::generate_deposit(pub(super) fn deposit_event)]
  	pub enum Event<T: Config> {
 diff --git a/src/tests.rs b/src/tests.rs
-index c2140eda..8fa3dc60 100644
+index c2140ed..8fa3dc6 100644
 --- a/src/tests.rs
 +++ b/src/tests.rs
 @@ -105,3 +105,15 @@ fn create_kitty_checks_signed() {

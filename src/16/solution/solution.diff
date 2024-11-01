@@ -1,23 +1,23 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index 89c7306a..363f5e49 100644
+index 4443702..363f5e4 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
 @@ -2,11 +2,10 @@ use super::*;
  use frame::prelude::*;
  
  impl<T: Config> Pallet<T> {
--	/* 🚧 TODO 🚧: Update this function signature to include `id` which is type `[u8; 32]`. */
+-	/* 🚧 TODO 🚧: Update this function signature to include `dna` which is type `[u8; 32]`. */
 -	pub fn mint(owner: T::AccountId) -> DispatchResult {
 +	pub fn mint(owner: T::AccountId, dna: [u8; 32]) -> DispatchResult {
  		let current_count: u32 = CountForKitties::<T>::get();
  		let new_count = current_count.checked_add(1).ok_or(Error::<T>::TooManyKitties)?;
--		/* 🚧 TODO 🚧: In the `Kitties` map, under the key `id`, insert `()`. */
+-		/* 🚧 TODO 🚧: In the `Kitties` map, under the key `dna`, insert `()`. */
 +		Kitties::<T>::insert(dna, ());
  		CountForKitties::<T>::set(new_count);
  		Self::deposit_event(Event::<T>::Created { owner });
  		Ok(())
 diff --git a/src/lib.rs b/src/lib.rs
-index 2a83b473..15fb5043 100644
+index 717c900..15fb504 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
 @@ -39,11 +39,8 @@ pub mod pallet {
@@ -25,8 +25,8 @@ index 2a83b473..15fb5043 100644
  		pub fn create_kitty(origin: OriginFor<T>) -> DispatchResult {
  			let who = ensure_signed(origin)?;
 -			/* 🚧 TODO 🚧:
--				- Create `const default_id`, which type `[u8; 32]` and has value `[0u8; 32]`.
--				- Pass `default_id` to the `mint` function as a second parameter.
+-				- Create a `dna` variable for this kitty, which we will set as `[0u8; 32]` for now.
+-				- Pass `dna` to the `mint` function as the second parameter.
 -			*/
 -			Self::mint(who)?;
 +			let dna = [0u8; 32];
@@ -35,7 +35,7 @@ index 2a83b473..15fb5043 100644
  		}
  	}
 diff --git a/src/tests.rs b/src/tests.rs
-index a564bb30..1da91ca7 100644
+index a564bb3..1da91ca 100644
 --- a/src/tests.rs
 +++ b/src/tests.rs
 @@ -164,3 +164,11 @@ fn kitties_map_created_correctly() {

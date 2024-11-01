@@ -1,5 +1,5 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index 9e79118b..e9dcca6b 100644
+index f8f58b4..793dec3 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
 @@ -3,6 +3,7 @@ use frame::prelude::*;
@@ -8,7 +8,7 @@ index 9e79118b..e9dcca6b 100644
  
 +// Learn about internal functions.
  impl<T: Config> Pallet<T> {
- 	// Generates and returns DNA and Sex
+ 	// Generates and returns DNA
  	pub fn gen_dna() -> [u8; 32] {
 @@ -26,10 +27,7 @@ impl<T: Config> Pallet<T> {
  		let current_count: u32 = CountForKitties::<T>::get();
@@ -23,7 +23,7 @@ index 9e79118b..e9dcca6b 100644
  		CountForKitties::<T>::set(new_count);
  
 diff --git a/src/lib.rs b/src/lib.rs
-index 40f25922..e0329740 100644
+index 40f2592..e032974 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
 @@ -36,8 +36,7 @@ pub mod pallet {
@@ -46,7 +46,7 @@ index 40f25922..e0329740 100644
  
  	#[pallet::call]
 diff --git a/src/tests.rs b/src/tests.rs
-index f2fb1d01..89c0ab15 100644
+index f2fb1d0..89c0ab1 100644
 --- a/src/tests.rs
 +++ b/src/tests.rs
 @@ -227,3 +227,17 @@ fn kitties_owned_created_correctly() {

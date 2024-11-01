@@ -1,5 +1,5 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index bfd7fdb2..470eb783 100644
+index bfd7fdb..ff69cae 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
 @@ -1,18 +1,22 @@
@@ -20,7 +20,7 @@ index bfd7fdb2..470eb783 100644
 -		- Use `BlakeTwo256` to calculate the `hash_of` the unique payload.
 -		- Return the hash as a `[u8; 32]`.
 -	*/
-+	// Generates and returns DNA and Sex
++	// Generates and returns DNA
 +	pub fn gen_dna() -> [u8; 32] {
 +		// Create randomness payload. Multiple kitties can be generated in the same block,
 +		// retaining uniqueness.
@@ -37,7 +37,7 @@ index bfd7fdb2..470eb783 100644
  	pub fn mint(owner: T::AccountId, dna: [u8; 32]) -> DispatchResult {
  		let kitty = Kitty { dna, owner: owner.clone() };
 diff --git a/src/lib.rs b/src/lib.rs
-index 34507f3b..8795b0e1 100644
+index 34507f3..8795b0e 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
 @@ -48,8 +48,7 @@ pub mod pallet {
@@ -51,7 +51,7 @@ index 34507f3b..8795b0e1 100644
  			Ok(())
  		}
 diff --git a/src/tests.rs b/src/tests.rs
-index f60af86b..a4bb7648 100644
+index f60af86..a4bb764 100644
 --- a/src/tests.rs
 +++ b/src/tests.rs
 @@ -202,3 +202,15 @@ fn mint_stores_owner_in_kitty() {

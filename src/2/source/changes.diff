@@ -1,5 +1,5 @@
 diff --git a/src/lib.rs b/src/lib.rs
-index ae8a09bc..df435c8a 100644
+index ae8a09b..df435c8 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
 @@ -3,6 +3,7 @@

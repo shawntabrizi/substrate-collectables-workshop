@@ -1,5 +1,5 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index b9b5548a..d283fd6b 100644
+index b9b5548..d283fd6 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
 @@ -3,11 +3,9 @@ use frame::prelude::*;
@@ -17,7 +17,7 @@ index b9b5548a..d283fd6b 100644
  		Ok(())
  	}
 diff --git a/src/lib.rs b/src/lib.rs
-index eeb9724b..57baa0d1 100644
+index eeb9724..57baa0d 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
 @@ -19,8 +19,7 @@ pub mod pallet {
@@ -31,10 +31,10 @@ index eeb9724b..57baa0d1 100644
  	#[pallet::event]
  	#[pallet::generate_deposit(pub(super) fn deposit_event)]
 diff --git a/src/tests.rs b/src/tests.rs
-index 5e74d29a..43af4064 100644
+index 089ada9..43af406 100644
 --- a/src/tests.rs
 +++ b/src/tests.rs
-@@ -121,10 +121,10 @@ fn create_kitty_emits_event() {
+@@ -121,26 +121,24 @@ fn create_kitty_emits_event() {
  #[test]
  fn count_for_kitties_created_correctly() {
  	new_test_ext().execute_with(|| {
@@ -48,8 +48,11 @@ index 5e74d29a..43af4064 100644
 +		CountForKitties::<TestRuntime>::set(1337u32);
  		// You can `put` the value directly with a `u32`.
  		CountForKitties::<TestRuntime>::put(1337u32);
+-		// Check that the value is now in storage.
+-		assert_eq!(CountForKitties::<TestRuntime>::get(), Some(1337u32));
  	})
-@@ -133,12 +133,12 @@ fn count_for_kitties_created_correctly() {
+ }
+ 
  #[test]
  fn mint_increments_count_for_kitty() {
  	new_test_ext().execute_with(|| {
@@ -66,7 +69,7 @@ index 5e74d29a..43af4064 100644
  	})
  }
  
-@@ -146,7 +146,7 @@ fn mint_increments_count_for_kitty() {
+@@ -148,7 +146,7 @@ fn mint_increments_count_for_kitty() {
  fn mint_errors_when_overflow() {
  	new_test_ext().execute_with(|| {
  		// Set the count to the largest value possible.

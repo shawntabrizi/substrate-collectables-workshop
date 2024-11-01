@@ -8,8 +8,8 @@ Creating a new struct in Rust is pretty straight forward.
 
 ```rust
 pub struct Kitty {
-	dna: [u8; 32],
-	owner: u32,
+	pub dna: [u8; 32],
+	pub owner: u32,
 }
 ```
 
@@ -38,8 +38,8 @@ The first, and most verbose option in our situation is to make the struct generi
 
 ```rust
 pub struct Kitty<AccountId> {
-	dna: [u8; 32],
-	owner: AccountId,
+	pub dna: [u8; 32],
+	pub owner: AccountId,
 }
 ```
 
@@ -47,9 +47,9 @@ If we want to use multiple generic types, we could just keep extending this patt
 
 ```rust
 pub struct Kitty<AccountId, BlockNumber> {
-	dna: [u8; 32],
-	owner: AccountId,
-	created: BlockNumber,
+	pub dna: [u8; 32],
+	pub owner: AccountId,
+	pub created: BlockNumber,
 }
 ```
 
@@ -69,8 +69,8 @@ Let's look how that might look like:
 
 ```rust
 pub struct Kitty<T: Config> {
-	dna: [u8; 32],
-	owner: T::AccountId,
+	pub dna: [u8; 32],
+	pub owner: T::AccountId,
 }
 ```
 

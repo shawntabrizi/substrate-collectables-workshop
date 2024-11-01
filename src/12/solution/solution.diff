@@ -1,5 +1,5 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index b396f986..97393307 100644
+index b396f98..9739330 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
 @@ -3,12 +3,9 @@ use frame::prelude::*;
@@ -19,11 +19,11 @@ index b396f986..97393307 100644
  		Ok(())
  	}
 diff --git a/src/tests.rs b/src/tests.rs
-index d3e7ab78..6318ca0b 100644
+index e271b01..08f81b9 100644
 --- a/src/tests.rs
 +++ b/src/tests.rs
-@@ -129,3 +129,15 @@ fn count_for_kitties_created_correctly() {
- 		CountForKitties::<TestRuntime>::put(1337u32);
+@@ -131,3 +131,15 @@ fn count_for_kitties_created_correctly() {
+ 		assert_eq!(CountForKitties::<TestRuntime>::get(), Some(1337u32));
  	})
  }
 +

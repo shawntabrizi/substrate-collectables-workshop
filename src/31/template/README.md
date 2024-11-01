@@ -1,6 +1,6 @@
 # Buy Kitty Extrinsic
 
-Now that kitties can have a price, we want to enable them to be purchaseable.
+Now that kitties can have a price, we want to enable them to be purchasable.
 
 For that, we will create the `buy_kitty` extrinsic.
 

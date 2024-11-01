@@ -1,5 +1,5 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index 363f5e49..292909e1 100644
+index 363f5e4..292909e 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
 @@ -3,6 +3,10 @@ use frame::prelude::*;
@@ -14,7 +14,7 @@ index 363f5e49..292909e1 100644
  		let new_count = current_count.checked_add(1).ok_or(Error::<T>::TooManyKitties)?;
  		Kitties::<T>::insert(dna, ());
 diff --git a/src/lib.rs b/src/lib.rs
-index 15fb5043..6fb4b6d7 100644
+index 15fb504..6fb4b6d 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
 @@ -33,6 +33,7 @@ pub mod pallet {

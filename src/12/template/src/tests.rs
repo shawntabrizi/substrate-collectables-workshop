@@ -127,5 +127,7 @@ fn count_for_kitties_created_correctly() {
 		CountForKitties::<TestRuntime>::set(Some(1337u32));
 		// You can `put` the value directly with a `u32`.
 		CountForKitties::<TestRuntime>::put(1337u32);
+		// Check that the value is now in storage.
+		assert_eq!(CountForKitties::<TestRuntime>::get(), Some(1337u32));
 	})
 }

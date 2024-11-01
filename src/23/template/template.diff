@@ -1,5 +1,5 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index b680830e..9e79118b 100644
+index e464223..f8f58b4 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
 @@ -26,6 +26,9 @@ impl<T: Config> Pallet<T> {
@@ -13,7 +13,7 @@ index b680830e..9e79118b 100644
  		Kitties::<T>::insert(dna, kitty);
  		CountForKitties::<T>::set(new_count);
 diff --git a/src/lib.rs b/src/lib.rs
-index 9c10069f..40f25922 100644
+index 9c10069..40f2592 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
 @@ -34,8 +34,12 @@ pub mod pallet {

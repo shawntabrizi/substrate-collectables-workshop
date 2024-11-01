@@ -1,5 +1,5 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index a638a8c0..c569f2af 100644
+index 5574211..2c01fdc 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
 @@ -20,6 +20,7 @@ impl<T: Config> Pallet<T> {
@@ -19,7 +19,7 @@ index a638a8c0..c569f2af 100644
  		let mut to_owned = KittiesOwned::<T>::get(&to);
  		to_owned.try_push(kitty_id).map_err(|_| Error::<T>::TooManyOwned)?;
 diff --git a/src/lib.rs b/src/lib.rs
-index 59150bd6..3a10644d 100644
+index 59150bd..3a10644 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
 @@ -23,12 +23,21 @@ pub mod pallet {

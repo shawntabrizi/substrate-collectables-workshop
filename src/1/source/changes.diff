@@ -1,6 +1,6 @@
 diff --git a/Cargo.lock b/Cargo.lock
 new file mode 100644
-index 00000000..31cbe7df
+index 0000000..31cbe7d
 --- /dev/null
 +++ b/Cargo.lock
 @@ -0,0 +1,3624 @@
@@ -3630,7 +3630,7 @@ index 00000000..31cbe7df
 +]
 diff --git a/Cargo.toml b/Cargo.toml
 new file mode 100644
-index 00000000..293d4f2a
+index 0000000..293d4f2
 --- /dev/null
 +++ b/Cargo.toml
 @@ -0,0 +1,26 @@
@@ -3662,7 +3662,7 @@ index 00000000..293d4f2a
 +try-runtime = []
 diff --git a/rustfmt.toml b/rustfmt.toml
 new file mode 100644
-index 00000000..cf9aa251
+index 0000000..cf9aa25
 --- /dev/null
 +++ b/rustfmt.toml
 @@ -0,0 +1,24 @@
@@ -3692,7 +3692,7 @@ index 00000000..cf9aa251
 +wrap_comments = true
 diff --git a/src/impls.rs b/src/impls.rs
 new file mode 100644
-index 00000000..03abf99e
+index 0000000..03abf99
 --- /dev/null
 +++ b/src/impls.rs
 @@ -0,0 +1,9 @@
@@ -3707,7 +3707,7 @@ index 00000000..03abf99e
 +}
 diff --git a/src/lib.rs b/src/lib.rs
 new file mode 100644
-index 00000000..ae8a09bc
+index 0000000..ae8a09b
 --- /dev/null
 +++ b/src/lib.rs
 @@ -0,0 +1,38 @@
@@ -3751,7 +3751,7 @@ index 00000000..ae8a09bc
 +}
 diff --git a/src/tests.rs b/src/tests.rs
 new file mode 100644
-index 00000000..375cd3f4
+index 0000000..375cd3f
 --- /dev/null
 +++ b/src/tests.rs
 @@ -0,0 +1,97 @@

@@ -1,5 +1,5 @@
 diff --git a/src/lib.rs b/src/lib.rs
-index a52896ed..ae8a09bc 100644
+index a52896e..ae8a09b 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
 @@ -18,7 +18,6 @@ pub mod pallet {

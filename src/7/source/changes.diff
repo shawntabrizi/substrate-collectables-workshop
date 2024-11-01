@@ -1,5 +1,5 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index ecb2e7df..03abf99e 100644
+index ecb2e7d..03abf99 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
 @@ -2,7 +2,6 @@ use super::*;
@@ -11,7 +11,7 @@ index ecb2e7df..03abf99e 100644
  		Self::deposit_event(Event::<T>::Created { owner });
  		Ok(())
 diff --git a/src/lib.rs b/src/lib.rs
-index 76a79660..405a6e52 100644
+index 76a7966..405a6e5 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
 @@ -13,6 +13,7 @@ pub mod pallet {
