@@ -31,7 +31,7 @@ If you are familiar with smart contracts or any kind of blockchain application, 
 
 Those transactions are processed, and then dispatched to callable functions within the blockchain.
 
-*Internal functions are generally implemented in a separate `impl.rs` file for ergonomic purposes, while the callable functions are located in `lib.rs`.*
+For ergonomics, you will normally see callable functions defined in the `lib.rs`, but their logic implemented in a separate `impls.rs` file. This is really up to your preference, but since this is the common practice in the Polkadot SDK, the tutorial will use this pattern as well.
 
 ### Pallet Call Macro
 
