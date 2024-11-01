@@ -19,7 +19,7 @@ Each `Key` can store a separate `Value`, which makes maps super useful.
 
 In this case `[u8; 32]` represents some unique identifier for each Kitty we will store, and `()` is simply a placeholder type for now.
 
-Note that each storage instance needs its own `#[pallet::storage]` macro.
+Note that each storage instance needs its own `#[pallet::storage]` attribute.
 
 ## Conceptual
 
