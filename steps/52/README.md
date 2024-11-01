@@ -63,7 +63,7 @@ That is all beyond the scope of this tutorial, but the high level idea is that w
 
 In this context, we don't want someone to kill their account to buy a kitty, so we want to use `Preservation::Preserve` for our `transfer`.
 
-> NOTE: To access this enum, you will need import the trait to bring it in scope, so don't forget to include:
+> NOTE: Don't forget the TODO that imports this enum so you can use it:
 >
 > ```rust
 > use frame::traits::tokens::Preservation;
