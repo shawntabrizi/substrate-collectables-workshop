@@ -42,7 +42,7 @@ impl<T: Config> Pallet<T> {
 			- `kitty_id` which is `[u8; 32]`.
 		- It returns a `DispatchResult`
 		- The inner logic for now is:
-			- Call `Self::ddeposit_event` on and emit `Event::<T>:Transferred` with params.
+			- Call `Self::deposit_event` on and emit `Event::<T>:Transferred` with params.
 			- Return `Ok(())`.
 	*/
 }
