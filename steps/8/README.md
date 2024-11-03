@@ -27,7 +27,7 @@ To understand how we use the `Config` trait, we first need to learn about [Rust 
 
 Supertraits are similar to the concept of "inheritance" from other programming languages. In Rust, it allows one trait as being a superset of another trait.
 
-You will notice that our `Config` trait is a supertrait of the `frame_system::Config` trait.
+You will notice that our `Config` trait is a subtrait of the supertrait `frame_system::Config`.
 
 What is `frame_system`? What is in `frame_system::Config`?
 
