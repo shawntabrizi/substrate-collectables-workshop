@@ -30,12 +30,12 @@ const BOB: u64 = 2;
 
 // Our blockchain tests only need 3 Pallets:
 // 1. System: Which is included with every FRAME runtime.
-// 2. Balances: Which is manages your blockchain's native currency. (i.e. DOT on Polkadot)
+// 2. PalletBalances: Which is manages your blockchain's native currency. (i.e. DOT on Polkadot)
 // 3. PalletKitties: The pallet you are building in this tutorial!
 construct_runtime! {
 	pub struct TestRuntime {
 		System: frame_system,
-		Balances: pallet_balances,
+		PalletBalances: pallet_balances,
 		PalletKitties: pallet_kitties,
 	}
 }
@@ -91,7 +91,7 @@ fn system_and_balances_work() {
 		// We often need to set `System` to block 1 so that we can see events.
 		System::set_block_number(1);
 		// We often need to add some balance to a user to test features which needs tokens.
-		assert_ok!(Balances::mint_into(&ALICE, 100));
-		assert_ok!(Balances::mint_into(&BOB, 100));
+		assert_ok!(PalletBalances::mint_into(&ALICE, 100));
+		assert_ok!(PalletBalances::mint_into(&BOB, 100));
 	});
 }
