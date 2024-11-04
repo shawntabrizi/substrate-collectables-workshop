@@ -31,12 +31,12 @@ const DEFAULT_KITTY: Kitty<TestRuntime> = Kitty { dna: [0u8; 32], owner: 0, pric
 
 // Our blockchain tests only need 3 Pallets:
 // 1. System: Which is included with every FRAME runtime.
-// 2. Balances: Which is manages your blockchain's native currency. (i.e. DOT on Polkadot)
+// 2. PalletBalances: Which is manages your blockchain's native currency. (i.e. DOT on Polkadot)
 // 3. PalletKitties: The pallet you are building in this tutorial!
 construct_runtime! {
 	pub struct TestRuntime {
 		System: frame_system,
-		Balances: pallet_balances,
+		PalletBalances: pallet_balances,
 		PalletKitties: pallet_kitties,
 	}
 }
@@ -61,7 +61,7 @@ impl pallet_balances::Config for TestRuntime {
 // will also need to update this configuration to represent that.
 impl pallet_kitties::Config for TestRuntime {
 	type RuntimeEvent = RuntimeEvent;
-	type NativeBalance = Balances;
+	type NativeBalance = PalletBalances;
 }
 
 // We need to run most of our tests using this function: `new_test_ext().execute_with(|| { ... });`
@@ -93,8 +93,8 @@ fn system_and_balances_work() {
 		// We often need to set `System` to block 1 so that we can see events.
 		System::set_block_number(1);
 		// We often need to add some balance to a user to test features which needs tokens.
-		assert_ok!(Balances::mint_into(&ALICE, 100));
-		assert_ok!(Balances::mint_into(&BOB, 100));
+		assert_ok!(PalletBalances::mint_into(&ALICE, 100));
+		assert_ok!(PalletBalances::mint_into(&BOB, 100));
 	});
 }
 
@@ -347,7 +347,7 @@ fn do_buy_kitty_emits_event() {
 		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(ALICE)));
 		let kitty_id = Kitties::<TestRuntime>::iter_keys().collect::<Vec<_>>()[0];
 		assert_ok!(PalletKitties::set_price(RuntimeOrigin::signed(ALICE), kitty_id, Some(1337)));
-		assert_ok!(Balances::mint_into(&BOB, 100_000));
+		assert_ok!(PalletBalances::mint_into(&BOB, 100_000));
 		assert_ok!(PalletKitties::buy_kitty(RuntimeOrigin::signed(BOB), kitty_id, 1337));
 		// Assert the last event by our blockchain is the `Created` event with the correct owner.
 		System::assert_last_event(
@@ -386,13 +386,13 @@ fn do_buy_kitty_logic_works() {
 			frame::arithmetic::ArithmeticError::Underflow
 		);
 		// Cannot buy kitty if it would kill your account (i.e. set your balance to 0).
-		assert_ok!(Balances::mint_into(&BOB, 1337));
+		assert_ok!(PalletBalances::mint_into(&BOB, 1337));
 		assert!(
 			PalletKitties::buy_kitty(RuntimeOrigin::signed(BOB), kitty_id, 1337).is_err(),
 			// TODO: assert_noop on DispatchError::Token(TokenError::NotExpendable)
 		);
 		// When everything is right, it works.
-		assert_ok!(Balances::mint_into(&BOB, 100_000));
+		assert_ok!(PalletBalances::mint_into(&BOB, 100_000));
 		assert_ok!(PalletKitties::buy_kitty(RuntimeOrigin::signed(BOB), kitty_id, 1337));
 		// State is updated correctly.
 		assert_eq!(KittiesOwned::<TestRuntime>::get(BOB), vec![kitty_id]);
@@ -401,7 +401,7 @@ fn do_buy_kitty_logic_works() {
 		// Price is reset to `None`.
 		assert_eq!(kitty.price, None);
 		// BOB transferred funds to ALICE.
-		assert_eq!(Balances::balance(&ALICE), 1337);
-		assert_eq!(Balances::balance(&BOB), 100_000);
+		assert_eq!(PalletBalances::balance(&ALICE), 1337);
+		assert_eq!(PalletBalances::balance(&BOB), 100_000);
 	})
 }
