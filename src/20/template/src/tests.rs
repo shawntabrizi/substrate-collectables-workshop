@@ -32,12 +32,12 @@ const DEFAULT_KITTY: Kitty<TestRuntime> = Kitty { dna: [0u8; 32], owner: 0 };
 
 // Our blockchain tests only need 3 Pallets:
 // 1. System: Which is included with every FRAME runtime.
-// 2. Balances: Which is manages your blockchain's native currency. (i.e. DOT on Polkadot)
+// 2. PalletBalances: Which is manages your blockchain's native currency. (i.e. DOT on Polkadot)
 // 3. PalletKitties: The pallet you are building in this tutorial!
 construct_runtime! {
 	pub struct TestRuntime {
 		System: frame_system,
-		Balances: pallet_balances,
+		PalletBalances: pallet_balances,
 		PalletKitties: pallet_kitties,
 	}
 }
@@ -50,8 +50,8 @@ impl frame_system::Config for TestRuntime {
 	type AccountData = pallet_balances::AccountData<Balance>;
 }
 
-// Normally `Balances` would have many more configurations, but you can see that we use some macro
-// magic to automatically configure most of the pallet for a "default test configuration".
+// Normally `pallet_balances` would have many more configurations, but you can see that we use some
+// macro magic to automatically configure most of the pallet for a "default test configuration".
 #[derive_impl(pallet_balances::config_preludes::TestDefaultConfig)]
 impl pallet_balances::Config for TestRuntime {
 	type AccountStore = System;
@@ -88,13 +88,13 @@ fn starting_template_is_sane() {
 
 #[test]
 fn system_and_balances_work() {
-	// This test will just sanity check that we can access `System` and `Balances`.
+	// This test will just sanity check that we can access `System` and `PalletBalances`.
 	new_test_ext().execute_with(|| {
 		// We often need to set `System` to block 1 so that we can see events.
 		System::set_block_number(1);
 		// We often need to add some balance to a user to test features which needs tokens.
-		assert_ok!(Balances::mint_into(&ALICE, 100));
-		assert_ok!(Balances::mint_into(&BOB, 100));
+		assert_ok!(PalletBalances::mint_into(&ALICE, 100));
+		assert_ok!(PalletBalances::mint_into(&BOB, 100));
 	});
 }
 

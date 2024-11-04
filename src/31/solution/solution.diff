@@ -69,7 +69,7 @@ index 8c3eb2e..4a8d2b1 100644
  	}
  }
 diff --git a/src/tests.rs b/src/tests.rs
-index 77ffa1b..905bebf 100644
+index 1733f2d..142f9d0 100644
 --- a/src/tests.rs
 +++ b/src/tests.rs
 @@ -338,3 +338,20 @@ fn set_price_logic_works() {
@@ -85,7 +85,7 @@ index 77ffa1b..905bebf 100644
 +		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(ALICE)));
 +		let kitty_id = Kitties::<TestRuntime>::iter_keys().collect::<Vec<_>>()[0];
 +		assert_ok!(PalletKitties::set_price(RuntimeOrigin::signed(ALICE), kitty_id, Some(1337)));
-+		assert_ok!(Balances::mint_into(&BOB, 100_000));
++		assert_ok!(PalletBalances::mint_into(&BOB, 100_000));
 +		assert_ok!(PalletKitties::buy_kitty(RuntimeOrigin::signed(BOB), kitty_id, 1337));
 +		// Assert the last event by our blockchain is the `Created` event with the correct owner.
 +		System::assert_last_event(

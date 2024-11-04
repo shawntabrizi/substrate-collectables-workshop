@@ -31,7 +31,7 @@ index eeb9724..57baa0d 100644
  	#[pallet::event]
  	#[pallet::generate_deposit(pub(super) fn deposit_event)]
 diff --git a/src/tests.rs b/src/tests.rs
-index 089ada9..43af406 100644
+index fd8e478..c95bb32 100644
 --- a/src/tests.rs
 +++ b/src/tests.rs
 @@ -121,26 +121,24 @@ fn create_kitty_emits_event() {

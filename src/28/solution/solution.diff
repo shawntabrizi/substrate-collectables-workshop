@@ -52,7 +52,7 @@ index 3a10644..7d8350d 100644
  
  	#[pallet::storage]
 diff --git a/src/tests.rs b/src/tests.rs
-index 37a2ddd..ff914c8 100644
+index 4ecdf9d..15c7df4 100644
 --- a/src/tests.rs
 +++ b/src/tests.rs
 @@ -27,7 +27,7 @@ type Block = frame_system::mocking::MockBlock<TestRuntime>;

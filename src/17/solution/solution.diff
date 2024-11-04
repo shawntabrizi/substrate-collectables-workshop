@@ -30,7 +30,7 @@ index 6fb4b6d..75a1b65 100644
  
  	#[pallet::call]
 diff --git a/src/tests.rs b/src/tests.rs
-index 1da91ca..5caa134 100644
+index bd4bf55..4f8a5e5 100644
 --- a/src/tests.rs
 +++ b/src/tests.rs
 @@ -172,3 +172,11 @@ fn create_kitty_adds_to_map() {

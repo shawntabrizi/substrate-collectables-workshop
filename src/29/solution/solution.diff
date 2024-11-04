@@ -69,7 +69,7 @@ index 45f5fdf..57e0eeb 100644
  	}
  }
 diff --git a/src/tests.rs b/src/tests.rs
-index ff914c8..4c486fd 100644
+index 15c7df4..b71e968 100644
 --- a/src/tests.rs
 +++ b/src/tests.rs
 @@ -310,3 +310,18 @@ fn balance_of_type_works() {

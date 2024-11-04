@@ -22,7 +22,7 @@ index c8ea870..30d12b4 100644
  	#[pallet::storage]
  	pub(super) type CountForKitties<T: Config> = StorageValue<Value = u32, QueryKind = ValueQuery>;
 diff --git a/src/tests.rs b/src/tests.rs
-index 38392b0..c8f6ca5 100644
+index 97fc47c..58e2b28 100644
 --- a/src/tests.rs
 +++ b/src/tests.rs
 @@ -27,9 +27,8 @@ type Block = frame_system::mocking::MockBlock<TestRuntime>;

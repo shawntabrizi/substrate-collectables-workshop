@@ -19,7 +19,7 @@ index b396f98..9739330 100644
  		Ok(())
  	}
 diff --git a/src/tests.rs b/src/tests.rs
-index e271b01..08f81b9 100644
+index 7713826..6de2fcc 100644
 --- a/src/tests.rs
 +++ b/src/tests.rs
 @@ -131,3 +131,15 @@ fn count_for_kitties_created_correctly() {

@@ -46,7 +46,7 @@ index 40f2592..e032974 100644
  
  	#[pallet::call]
 diff --git a/src/tests.rs b/src/tests.rs
-index f2fb1d0..89c0ab1 100644
+index 1565cfa..98a5ade 100644
 --- a/src/tests.rs
 +++ b/src/tests.rs
 @@ -227,3 +227,17 @@ fn kitties_owned_created_correctly() {

@@ -68,7 +68,7 @@ index 7256cb5..d44d77d 100644
  
  	#[pallet::call]
 diff --git a/src/tests.rs b/src/tests.rs
-index 9640245..ffe1390 100644
+index 9a1878d..bc81a1d 100644
 --- a/src/tests.rs
 +++ b/src/tests.rs
 @@ -257,3 +257,38 @@ fn transfer_emits_event() {

@@ -50,7 +50,7 @@ index 68f57e1..aa6ca3b 100644
  	#[pallet::event]
  	#[pallet::generate_deposit(pub(super) fn deposit_event)]
 diff --git a/src/tests.rs b/src/tests.rs
-index c8f6ca5..f60af86 100644
+index 58e2b28..53a248b 100644
 --- a/src/tests.rs
 +++ b/src/tests.rs
 @@ -27,7 +27,6 @@ type Block = frame_system::mocking::MockBlock<TestRuntime>;

@@ -18,7 +18,7 @@ index bb39563..42fb376 100644
  	#[pallet::event]
  	#[pallet::generate_deposit(pub(super) fn deposit_event)]
 diff --git a/src/tests.rs b/src/tests.rs
-index 43af406..a564bb3 100644
+index c95bb32..9899cf0 100644
 --- a/src/tests.rs
 +++ b/src/tests.rs
 @@ -154,3 +154,13 @@ fn mint_errors_when_overflow() {

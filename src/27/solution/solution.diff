@@ -29,15 +29,15 @@ index 5a4e765..59150bd 100644
  
  	#[derive(Encode, Decode, TypeInfo, MaxEncodedLen)]
 diff --git a/src/tests.rs b/src/tests.rs
-index 20bff4f..37a2ddd 100644
+index ee10774..4ecdf9d 100644
 --- a/src/tests.rs
 +++ b/src/tests.rs
 @@ -61,7 +61,7 @@ impl pallet_balances::Config for TestRuntime {
  // will also need to update this configuration to represent that.
  impl pallet_kitties::Config for TestRuntime {
  	type RuntimeEvent = RuntimeEvent;
--	/* 🚧 TODO 🚧: Add type `NativeBalance` as the `Balances` pallet. */
-+	type NativeBalance = Balances;
+-	/* 🚧 TODO 🚧: Assign associated type `NativeBalance` to `PalletBalances`. */
++	type NativeBalance = PalletBalances;
  }
  
  // We need to run most of our tests using this function: `new_test_ext().execute_with(|| { ... });`
