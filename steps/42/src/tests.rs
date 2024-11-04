@@ -61,7 +61,7 @@ impl pallet_balances::Config for TestRuntime {
 // will also need to update this configuration to represent that.
 impl pallet_kitties::Config for TestRuntime {
 	type RuntimeEvent = RuntimeEvent;
-	/* 🚧 TODO 🚧: Add type `NativeBalance` as the `Balances` pallet. */
+	/* 🚧 TODO 🚧: Assign associated type `NativeBalance` to `PalletBalances`. */
 }
 
 // We need to run most of our tests using this function: `new_test_ext().execute_with(|| { ... });`
