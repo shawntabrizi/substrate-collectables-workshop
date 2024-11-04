@@ -48,8 +48,8 @@ impl frame_system::Config for TestRuntime {
 	type AccountData = pallet_balances::AccountData<Balance>;
 }
 
-// Normally `Balances` would have many more configurations, but you can see that we use some macro
-// magic to automatically configure most of the pallet for a "default test configuration".
+// Normally `pallet_balances` would have many more configurations, but you can see that we use some
+// macro magic to automatically configure most of the pallet for a "default test configuration".
 #[derive_impl(pallet_balances::config_preludes::TestDefaultConfig)]
 impl pallet_balances::Config for TestRuntime {
 	type AccountStore = System;
@@ -86,7 +86,7 @@ fn starting_template_is_sane() {
 
 #[test]
 fn system_and_balances_work() {
-	// This test will just sanity check that we can access `System` and `Balances`.
+	// This test will just sanity check that we can access `System` and `PalletBalances`.
 	new_test_ext().execute_with(|| {
 		// We often need to set `System` to block 1 so that we can see events.
 		System::set_block_number(1);
