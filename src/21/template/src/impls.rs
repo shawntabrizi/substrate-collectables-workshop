@@ -1,6 +1,6 @@
 use super::*;
 use frame::prelude::*;
-/* 🚧 TODO 🚧: Import `frame::primtives::BlakeTwo256`. */
+/* 🚧 TODO 🚧: Import `frame::primitives::BlakeTwo256`. */
 /* 🚧 TODO 🚧: Import `frame::traits::Hash`. */
 
 impl<T: Config> Pallet<T> {

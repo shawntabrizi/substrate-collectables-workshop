@@ -1,5 +1,5 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index 9d435f5..e760af1 100644
+index 9d435f5..d44508b 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
 @@ -36,6 +36,29 @@ impl<T: Config> Pallet<T> {
@@ -14,7 +14,7 @@ index 9d435f5..e760af1 100644
 +
 +		/* 🚧 TODO 🚧: Update the owner of the kitty:
 +			- Update `kitty.owner` to `to`.
-+			 - Update the `KittiesOwned` of `from` and `to:
++			- Update the `KittiesOwned` of `from` and `to:
 +				- Create a mutable `to_owned` by querying `KittiesOwned` for `to`.
 +				- `try_push` the `kitty_id` to the `to_owned` vector.
 +					- If the vector is full, `map_err` and return `Error::<T>::TooManyOwned`.

@@ -1,11 +1,11 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index 5d3c104..bfd7fdb 100644
+index 5d3c104..fac2ead 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
 @@ -1,7 +1,19 @@
  use super::*;
  use frame::prelude::*;
-+/* 🚧 TODO 🚧: Import `frame::primtives::BlakeTwo256`. */
++/* 🚧 TODO 🚧: Import `frame::primitives::BlakeTwo256`. */
 +/* 🚧 TODO 🚧: Import `frame::traits::Hash`. */
  
  impl<T: Config> Pallet<T> {

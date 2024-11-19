@@ -1,11 +1,11 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index bfd7fdb..ff69cae 100644
+index fac2ead..ff69cae 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
 @@ -1,18 +1,22 @@
  use super::*;
  use frame::prelude::*;
--/* 🚧 TODO 🚧: Import `frame::primtives::BlakeTwo256`. */
+-/* 🚧 TODO 🚧: Import `frame::primitives::BlakeTwo256`. */
 -/* 🚧 TODO 🚧: Import `frame::traits::Hash`. */
 +use frame::primitives::BlakeTwo256;
 +use frame::traits::Hash;

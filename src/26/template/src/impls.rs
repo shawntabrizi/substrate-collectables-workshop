@@ -44,7 +44,7 @@ impl<T: Config> Pallet<T> {
 
 		/* 🚧 TODO 🚧: Update the owner of the kitty:
 			- Update `kitty.owner` to `to`.
-			 - Update the `KittiesOwned` of `from` and `to:
+			- Update the `KittiesOwned` of `from` and `to:
 				- Create a mutable `to_owned` by querying `KittiesOwned` for `to`.
 				- `try_push` the `kitty_id` to the `to_owned` vector.
 					- If the vector is full, `map_err` and return `Error::<T>::TooManyOwned`.
