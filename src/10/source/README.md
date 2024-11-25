@@ -29,7 +29,7 @@ These properties make hash functions key for ensuring data integrity and uniquen
 
 Due to the properties of a Hash, it is often referred to as a fingerprint.
 
-For context, a 32-byte hash has 2^32 different possible outputs. This is nearly as many atoms as there are in the whole universe!
+For context, a 32-byte hash has 2^256 different possible outputs. This is nearly as many atoms as there are in the whole universe!
 
 This uniqueness property helps blockchain nodes come to consensus with one another.
 
