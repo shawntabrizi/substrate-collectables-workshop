@@ -46,7 +46,7 @@ mod runtime {
 	#[runtime::runtime]
 	/// The "test runtime" that represents the state transition function for our blockchain.
 	///
-	/// The runtime is composed of individual modules called "pallets", which you can see below.
+	/// The runtime is composed of individual modules called "pallets", which you find see below.
 	/// Each pallet has its own logic and storage, all of which can be combined together.
 	pub struct TestRuntime;
 
