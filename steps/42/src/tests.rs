@@ -13,6 +13,7 @@
 
 use crate as pallet_kitties;
 use crate::*;
+use frame::deps::frame_support::runtime;
 use frame::deps::sp_io;
 use frame::runtime::prelude::*;
 use frame::testing_prelude::*;
@@ -33,12 +34,32 @@ const DEFAULT_KITTY: Kitty<TestRuntime> = Kitty { dna: [0u8; 32], owner: 0 };
 // 1. System: Which is included with every FRAME runtime.
 // 2. PalletBalances: Which is manages your blockchain's native currency. (i.e. DOT on Polkadot)
 // 3. PalletKitties: The pallet you are building in this tutorial!
-construct_runtime! {
-	pub struct TestRuntime {
-		System: frame_system,
-		PalletBalances: pallet_balances,
-		PalletKitties: pallet_kitties,
-	}
+#[runtime]
+mod runtime {
+	/// The main runtime type.
+	#[runtime::runtime]
+	#[runtime::derive(
+		RuntimeCall,
+		RuntimeEvent,
+		RuntimeError,
+		RuntimeOrigin,
+		RuntimeTask,
+		RuntimeHoldReason,
+		RuntimeFreezeReason
+	)]
+	pub struct TestRuntime;
+
+	/// Mandatory system pallet that should always be included in a FRAME runtime.
+	#[runtime::pallet_index(0)]
+	pub type System = frame_system::Pallet<Runtime>;
+
+	/// Sample pallet 1
+	#[runtime::pallet_index(1)]
+	pub type PalletBalances = pallet_balances::Pallet<Runtime>;
+
+	/// Sample pallet 2
+	#[runtime::pallet_index(2)]
+	pub type PalletKitties = pallet_kitties::Pallet<Runtime>;
 }
 
 // Normally `System` would have many more configurations, but you can see that we use some macro
