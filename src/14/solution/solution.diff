@@ -31,10 +31,10 @@ index eeb9724..57baa0d 100644
  	#[pallet::event]
  	#[pallet::generate_deposit(pub(super) fn deposit_event)]
 diff --git a/src/tests.rs b/src/tests.rs
-index fd8e478..c95bb32 100644
+index 8701a36..4ec3538 100644
 --- a/src/tests.rs
 +++ b/src/tests.rs
-@@ -121,26 +121,24 @@ fn create_kitty_emits_event() {
+@@ -141,26 +141,24 @@ fn create_kitty_emits_event() {
  #[test]
  fn count_for_kitties_created_correctly() {
  	new_test_ext().execute_with(|| {
@@ -69,7 +69,7 @@ index fd8e478..c95bb32 100644
  	})
  }
  
-@@ -148,7 +146,7 @@ fn mint_increments_count_for_kitty() {
+@@ -168,7 +166,7 @@ fn mint_increments_count_for_kitty() {
  fn mint_errors_when_overflow() {
  	new_test_ext().execute_with(|| {
  		// Set the count to the largest value possible.

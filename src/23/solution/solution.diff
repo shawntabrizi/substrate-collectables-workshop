@@ -46,10 +46,10 @@ index 40f2592..e032974 100644
  
  	#[pallet::call]
 diff --git a/src/tests.rs b/src/tests.rs
-index 1565cfa..98a5ade 100644
+index f110a8b..939f943 100644
 --- a/src/tests.rs
 +++ b/src/tests.rs
-@@ -227,3 +227,17 @@ fn kitties_owned_created_correctly() {
+@@ -247,3 +247,17 @@ fn kitties_owned_created_correctly() {
  		assert_eq!(KittiesOwned::<TestRuntime>::get(1).len(), 2);
  	});
  }

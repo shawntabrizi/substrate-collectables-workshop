@@ -58,10 +58,10 @@ index f465b49..8ca2bdd 100644
  
  	#[pallet::call]
 diff --git a/src/tests.rs b/src/tests.rs
-index 142f9d0..d25abe0 100644
+index 3aa8456..ec921a1 100644
 --- a/src/tests.rs
 +++ b/src/tests.rs
-@@ -355,3 +355,53 @@ fn do_buy_kitty_emits_event() {
+@@ -375,3 +375,53 @@ fn do_buy_kitty_emits_event() {
  		);
  	})
  }

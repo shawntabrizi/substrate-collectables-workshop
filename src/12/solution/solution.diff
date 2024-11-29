@@ -19,10 +19,10 @@ index b396f98..9739330 100644
  		Ok(())
  	}
 diff --git a/src/tests.rs b/src/tests.rs
-index 7713826..6de2fcc 100644
+index 6f68640..a396679 100644
 --- a/src/tests.rs
 +++ b/src/tests.rs
-@@ -131,3 +131,15 @@ fn count_for_kitties_created_correctly() {
+@@ -151,3 +151,15 @@ fn count_for_kitties_created_correctly() {
  		assert_eq!(CountForKitties::<TestRuntime>::get(), Some(1337u32));
  	})
  }

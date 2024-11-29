@@ -26,10 +26,10 @@ index d44d77d..5a4e765 100644
  
  	#[derive(Encode, Decode, TypeInfo, MaxEncodedLen)]
 diff --git a/src/tests.rs b/src/tests.rs
-index bc81a1d..ee10774 100644
+index 6e16cc0..c136aef 100644
 --- a/src/tests.rs
 +++ b/src/tests.rs
-@@ -61,6 +61,7 @@ impl pallet_balances::Config for TestRuntime {
+@@ -81,6 +81,7 @@ impl pallet_balances::Config for TestRuntime {
  // will also need to update this configuration to represent that.
  impl pallet_kitties::Config for TestRuntime {
  	type RuntimeEvent = RuntimeEvent;

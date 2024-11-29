@@ -51,10 +51,10 @@ index 34507f3..8795b0e 100644
  			Ok(())
  		}
 diff --git a/src/tests.rs b/src/tests.rs
-index 53a248b..e2b802b 100644
+index 138a084..7803005 100644
 --- a/src/tests.rs
 +++ b/src/tests.rs
-@@ -202,3 +202,15 @@ fn mint_stores_owner_in_kitty() {
+@@ -222,3 +222,15 @@ fn mint_stores_owner_in_kitty() {
  		assert_eq!(kitty.dna, [42u8; 32]);
  	})
  }

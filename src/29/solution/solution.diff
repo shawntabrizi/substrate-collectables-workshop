@@ -69,10 +69,10 @@ index 45f5fdf..57e0eeb 100644
  	}
  }
 diff --git a/src/tests.rs b/src/tests.rs
-index 15c7df4..b71e968 100644
+index 5326761..549f0f8 100644
 --- a/src/tests.rs
 +++ b/src/tests.rs
-@@ -310,3 +310,18 @@ fn balance_of_type_works() {
+@@ -330,3 +330,18 @@ fn balance_of_type_works() {
  	// Inside our tests, the `BalanceOf` type has a concrete type of `u64`.
  	let _example_balance: BalanceOf<TestRuntime> = 1337u64;
  }

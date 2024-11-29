@@ -66,10 +66,10 @@ index ac84fa6..971af78 100644
  	}
  }
 diff --git a/src/tests.rs b/src/tests.rs
-index 98a5ade..9a1878d 100644
+index 939f943..0a90b3b 100644
 --- a/src/tests.rs
 +++ b/src/tests.rs
-@@ -241,3 +241,19 @@ fn cannot_own_too_many_kitties() {
+@@ -261,3 +261,19 @@ fn cannot_own_too_many_kitties() {
  		);
  	});
  }

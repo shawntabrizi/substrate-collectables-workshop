@@ -30,10 +30,10 @@ index 6fb4b6d..75a1b65 100644
  
  	#[pallet::call]
 diff --git a/src/tests.rs b/src/tests.rs
-index bd4bf55..4f8a5e5 100644
+index 916f434..ea6bb5b 100644
 --- a/src/tests.rs
 +++ b/src/tests.rs
-@@ -172,3 +172,11 @@ fn create_kitty_adds_to_map() {
+@@ -192,3 +192,11 @@ fn create_kitty_adds_to_map() {
  		assert_eq!(Kitties::<TestRuntime>::iter().count(), 1);
  	})
  }

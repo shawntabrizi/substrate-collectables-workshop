@@ -18,10 +18,10 @@ index 75a1b65..c8ea870 100644
  	pub(super) type CountForKitties<T: Config> = StorageValue<Value = u32, QueryKind = ValueQuery>;
  
 diff --git a/src/tests.rs b/src/tests.rs
-index 4f8a5e5..97fc47c 100644
+index ea6bb5b..de02e5c 100644
 --- a/src/tests.rs
 +++ b/src/tests.rs
-@@ -27,6 +27,9 @@ type Block = frame_system::mocking::MockBlock<TestRuntime>;
+@@ -28,6 +28,9 @@ type Block = frame_system::mocking::MockBlock<TestRuntime>;
  // We create the constants `ALICE` and `BOB` to make it clear when we are representing users below.
  const ALICE: u64 = 1;
  const BOB: u64 = 2;
@@ -29,5 +29,5 @@ index 4f8a5e5..97fc47c 100644
 +	- Create `const DEFAULT_KITTY` with a `dna` of [0u8; 32] and an `owner` of 0 };.
 +*/
  
- // Our blockchain tests only need 3 Pallets:
- // 1. System: Which is included with every FRAME runtime.
+ #[runtime]
+ mod runtime {

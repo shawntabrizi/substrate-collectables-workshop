@@ -29,10 +29,10 @@ index 5a4e765..59150bd 100644
  
  	#[derive(Encode, Decode, TypeInfo, MaxEncodedLen)]
 diff --git a/src/tests.rs b/src/tests.rs
-index ee10774..4ecdf9d 100644
+index c136aef..dcb9619 100644
 --- a/src/tests.rs
 +++ b/src/tests.rs
-@@ -61,7 +61,7 @@ impl pallet_balances::Config for TestRuntime {
+@@ -81,7 +81,7 @@ impl pallet_balances::Config for TestRuntime {
  // will also need to update this configuration to represent that.
  impl pallet_kitties::Config for TestRuntime {
  	type RuntimeEvent = RuntimeEvent;
@@ -41,7 +41,7 @@ index ee10774..4ecdf9d 100644
  }
  
  // We need to run most of our tests using this function: `new_test_ext().execute_with(|| { ... });`
-@@ -293,3 +293,14 @@ fn transfer_logic_works() {
+@@ -313,3 +313,14 @@ fn transfer_logic_works() {
  		assert_eq!(kitty.owner, BOB);
  	});
  }

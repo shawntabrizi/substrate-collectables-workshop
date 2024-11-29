@@ -29,10 +29,10 @@ index 52544f5..76a7966 100644
  			Self::mint(who)?;
  			Ok(())
 diff --git a/src/tests.rs b/src/tests.rs
-index 0901674..08649c3 100644
+index 6d271d5..209464e 100644
 --- a/src/tests.rs
 +++ b/src/tests.rs
-@@ -95,3 +95,13 @@ fn system_and_balances_work() {
+@@ -115,3 +115,13 @@ fn system_and_balances_work() {
  		assert_ok!(PalletBalances::mint_into(&BOB, 100));
  	});
  }
