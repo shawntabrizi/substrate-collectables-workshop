@@ -13,6 +13,7 @@
 
 use crate as pallet_kitties;
 use crate::*;
+use frame::deps::frame_support::runtime;
 use frame::deps::sp_io;
 use frame::runtime::prelude::*;
 use frame::testing_prelude::*;
@@ -30,16 +31,35 @@ const BOB: u64 = 2;
 #[allow(unused)]
 const DEFAULT_KITTY: Kitty<TestRuntime> = Kitty { dna: [0u8; 32], owner: 0 };
 
-// Our blockchain tests only need 3 Pallets:
-// 1. System: Which is included with every FRAME runtime.
-// 2. PalletBalances: Which is manages your blockchain's native currency. (i.e. DOT on Polkadot)
-// 3. PalletKitties: The pallet you are building in this tutorial!
-construct_runtime! {
-	pub struct TestRuntime {
-		System: frame_system,
-		PalletBalances: pallet_balances,
-		PalletKitties: pallet_kitties,
-	}
+#[runtime]
+mod runtime {
+	#[runtime::derive(
+		RuntimeCall,
+		RuntimeEvent,
+		RuntimeError,
+		RuntimeOrigin,
+		RuntimeTask,
+		RuntimeHoldReason,
+		RuntimeFreezeReason
+	)]
+	#[runtime::runtime]
+	/// The "test runtime" that represents the state transition function for our blockchain.
+	///
+	/// The runtime is composed of individual modules called "pallets", which you find see below.
+	/// Each pallet has its own logic and storage, all of which can be combined together.
+	pub struct TestRuntime;
+
+	/// System: Mandatory system pallet that should always be included in a FRAME runtime.
+	#[runtime::pallet_index(0)]
+	pub type System = frame_system::Pallet<Runtime>;
+
+	/// PalletBalances: Manages your blockchain's native currency. (i.e. DOT on Polkadot)
+	#[runtime::pallet_index(1)]
+	pub type PalletBalances = pallet_balances::Pallet<Runtime>;
+
+	/// PalletKitties: The pallet you are building in this tutorial!
+	#[runtime::pallet_index(2)]
+	pub type PalletKitties = pallet_kitties::Pallet<Runtime>;
 }
 
 // Normally `System` would have many more configurations, but you can see that we use some macro
