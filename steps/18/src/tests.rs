@@ -29,14 +29,8 @@ type Block = frame_system::mocking::MockBlock<TestRuntime>;
 const ALICE: u64 = 1;
 const BOB: u64 = 2;
 
-// Our blockchain tests only need 3 Pallets:
-// 1. System: Which is included with every FRAME runtime.
-// 2. PalletBalances: Which is manages your blockchain's native currency. (i.e. DOT on Polkadot)
-// 3. PalletKitties: The pallet you are building in this tutorial!
 #[runtime]
 mod runtime {
-	/// The main runtime type.
-	#[runtime::runtime]
 	#[runtime::derive(
 		RuntimeCall,
 		RuntimeEvent,
@@ -46,17 +40,19 @@ mod runtime {
 		RuntimeHoldReason,
 		RuntimeFreezeReason
 	)]
+	#[runtime::runtime]
+	/// The main runtime type.
 	pub struct TestRuntime;
 
-	/// Mandatory system pallet that should always be included in a FRAME runtime.
+	/// System: Mandatory system pallet that should always be included in a FRAME runtime.
 	#[runtime::pallet_index(0)]
 	pub type System = frame_system::Pallet<Runtime>;
 
-	/// Sample pallet 1
+	/// PalletBalances: Which is manages your blockchain's native currency. (i.e. DOT on Polkadot)
 	#[runtime::pallet_index(1)]
 	pub type PalletBalances = pallet_balances::Pallet<Runtime>;
 
-	/// Sample pallet 2
+	/// PalletKitties: The pallet you are building in this tutorial!
 	#[runtime::pallet_index(2)]
 	pub type PalletKitties = pallet_kitties::Pallet<Runtime>;
 }
