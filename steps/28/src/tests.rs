@@ -43,7 +43,7 @@ mod runtime {
 		RuntimeFreezeReason
 	)]
 	#[runtime::runtime]
-	/// The main runtime type.
+	/// The "test runtime" that represents the state transition function for our blockchain.
 	pub struct TestRuntime;
 
 	/// System: Mandatory system pallet that should always be included in a FRAME runtime.
