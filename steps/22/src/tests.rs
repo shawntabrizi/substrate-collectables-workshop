@@ -48,7 +48,7 @@ mod runtime {
 	#[runtime::pallet_index(0)]
 	pub type System = frame_system::Pallet<Runtime>;
 
-	/// PalletBalances: Which is manages your blockchain's native currency. (i.e. DOT on Polkadot)
+	/// PalletBalances: Manages your blockchain's native currency. (i.e. DOT on Polkadot)
 	#[runtime::pallet_index(1)]
 	pub type PalletBalances = pallet_balances::Pallet<Runtime>;
 
