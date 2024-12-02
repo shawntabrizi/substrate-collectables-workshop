@@ -23,13 +23,9 @@ pub mod pallet {
 		type NativeBalance: Inspect<Self::AccountId> + Mutate<Self::AccountId>;
 	}
 
-	/* 🚧 TODO 🚧:
-		- Create a new type alias called `BalanceOf<T>`.
-		- Extract the `Balance` type from the `NativeBalance` associated type:
-			- The `Balance` type comes from the `Inspect` trait.
-				- `Inspect` requires a generic parameter `AccountId` from `T as frame_system::Config`.
-			- Inspect comes from `NativeBalance`, which comes from `T as Config`.
-	*/
+	// Allows easy access our Pallet's `Balance` type. Comes from `Fungible` interface.
+	pub type BalanceOf<T> =
+		<<T as Config>::NativeBalance as Inspect<<T as frame_system::Config>::AccountId>>::Balance;
 
 	#[derive(Encode, Decode, TypeInfo, MaxEncodedLen)]
 	#[scale_info(skip_type_params(T))]
@@ -37,7 +33,7 @@ pub mod pallet {
 		// Using 32 bytes to represent a kitty DNA
 		pub dna: [u8; 32],
 		pub owner: T::AccountId,
-		/* 🚧 TODO 🚧: Add a new field `price`, which is an `Option<BalanceOf<T>>`. */
+		pub price: Option<BalanceOf<T>>,
 	}
 
 	#[pallet::storage]
@@ -59,6 +55,8 @@ pub mod pallet {
 	pub enum Event<T: Config> {
 		Created { owner: T::AccountId },
 		Transferred { from: T::AccountId, to: T::AccountId, kitty_id: [u8; 32] },
+		PriceSet { owner: T::AccountId, kitty_id: [u8; 32], new_price: Option<BalanceOf<T>> },
+		Sold { buyer: T::AccountId, kitty_id: [u8; 32], price: BalanceOf<T> },
 	}
 
 	#[pallet::error]
@@ -69,6 +67,8 @@ pub mod pallet {
 		TransferToSelf,
 		NoKitty,
 		NotOwner,
+		NotForSale,
+		MaxPriceTooLow,
 	}
 
 	#[pallet::call]
@@ -87,6 +87,26 @@ pub mod pallet {
 		) -> DispatchResult {
 			let who = ensure_signed(origin)?;
 			Self::do_transfer(who, to, kitty_id)?;
+			Ok(())
+		}
+
+		pub fn set_price(
+			origin: OriginFor<T>,
+			kitty_id: [u8; 32],
+			new_price: Option<BalanceOf<T>>,
+		) -> DispatchResult {
+			let who = ensure_signed(origin)?;
+			Self::do_set_price(who, kitty_id, new_price)?;
+			Ok(())
+		}
+
+		pub fn buy_kitty(
+			origin: OriginFor<T>,
+			kitty_id: [u8; 32],
+			max_price: BalanceOf<T>,
+		) -> DispatchResult {
+			let who = ensure_signed(origin)?;
+			Self::do_buy_kitty(who, kitty_id, max_price)?;
 			Ok(())
 		}
 	}

@@ -174,13 +174,3 @@ fn mint_errors_when_overflow() {
 		);
 	})
 }
-
-#[test]
-fn kitties_map_created_correctly() {
-	new_test_ext().execute_with(|| {
-		let zero_key = [0u8; 32];
-		assert!(!Kitties::<TestRuntime>::contains_key(zero_key));
-		Kitties::<TestRuntime>::insert(zero_key, ());
-		assert!(Kitties::<TestRuntime>::contains_key(zero_key));
-	})
-}

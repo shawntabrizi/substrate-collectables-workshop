@@ -192,11 +192,3 @@ fn create_kitty_adds_to_map() {
 		assert_eq!(Kitties::<TestRuntime>::iter().count(), 1);
 	})
 }
-
-#[test]
-fn cannot_mint_duplicate_kitty() {
-	new_test_ext().execute_with(|| {
-		assert_ok!(PalletKitties::mint(ALICE, [0u8; 32]));
-		assert_noop!(PalletKitties::mint(BOB, [0u8; 32]), Error::<TestRuntime>::DuplicateKitty);
-	})
-}

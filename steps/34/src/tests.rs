@@ -234,16 +234,3 @@ fn create_kitty_makes_unique_kitties() {
 		assert_eq!(Kitties::<TestRuntime>::iter().count(), 2);
 	})
 }
-
-#[test]
-fn kitties_owned_created_correctly() {
-	new_test_ext().execute_with(|| {
-		// Initially users have no kitties owned.
-		assert_eq!(KittiesOwned::<TestRuntime>::get(1).len(), 0);
-		// Let's create two kitties.
-		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(ALICE)));
-		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(ALICE)));
-		// Now they should have two kitties owned.
-		assert_eq!(KittiesOwned::<TestRuntime>::get(1).len(), 2);
-	});
-}

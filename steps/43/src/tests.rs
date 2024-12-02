@@ -81,7 +81,7 @@ impl pallet_balances::Config for TestRuntime {
 // will also need to update this configuration to represent that.
 impl pallet_kitties::Config for TestRuntime {
 	type RuntimeEvent = RuntimeEvent;
-	type NativeBalance = PalletBalances;
+	/* 🚧 TODO 🚧: Assign associated type `NativeBalance` to `PalletBalances`. */
 }
 
 // We need to run most of our tests using this function: `new_test_ext().execute_with(|| { ... });`
@@ -311,16 +311,5 @@ fn transfer_logic_works() {
 		assert_eq!(KittiesOwned::<TestRuntime>::get(BOB), vec![kitty_id]);
 		let kitty = &Kitties::<TestRuntime>::iter_values().collect::<Vec<_>>()[0];
 		assert_eq!(kitty.owner, BOB);
-	});
-}
-
-#[test]
-fn native_balance_associated_type_works() {
-	new_test_ext().execute_with(|| {
-		assert_ok!(<<TestRuntime as Config>::NativeBalance as Mutate<_>>::mint_into(&ALICE, 1337));
-		assert_eq!(
-			<<TestRuntime as Config>::NativeBalance as Inspect<_>>::total_balance(&ALICE),
-			1337
-		);
 	});
 }

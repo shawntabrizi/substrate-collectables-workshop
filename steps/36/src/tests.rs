@@ -247,17 +247,3 @@ fn kitties_owned_created_correctly() {
 		assert_eq!(KittiesOwned::<TestRuntime>::get(1).len(), 2);
 	});
 }
-
-#[test]
-fn cannot_own_too_many_kitties() {
-	new_test_ext().execute_with(|| {
-		// If your max owned is different than 100, you will need to update this.
-		for _ in 0..100 {
-			assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(ALICE)));
-		}
-		assert_noop!(
-			PalletKitties::create_kitty(RuntimeOrigin::signed(1)),
-			Error::<TestRuntime>::TooManyOwned
-		);
-	});
-}

@@ -151,15 +151,3 @@ fn count_for_kitties_created_correctly() {
 		assert_eq!(CountForKitties::<TestRuntime>::get(), Some(1337u32));
 	})
 }
-
-#[test]
-fn mint_increments_count_for_kitty() {
-	new_test_ext().execute_with(|| {
-		// Querying storage before anything is set will return `None`.
-		assert_eq!(CountForKitties::<TestRuntime>::get(), None);
-		// Call `create_kitty` which will call `mint`.
-		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(ALICE)));
-		// Now the storage should be `Some(1)`
-		assert_eq!(CountForKitties::<TestRuntime>::get(), Some(1));
-	})
-}

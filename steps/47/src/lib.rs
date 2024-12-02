@@ -55,7 +55,11 @@ pub mod pallet {
 	pub enum Event<T: Config> {
 		Created { owner: T::AccountId },
 		Transferred { from: T::AccountId, to: T::AccountId, kitty_id: [u8; 32] },
-		PriceSet { owner: T::AccountId, kitty_id: [u8; 32], new_price: Option<BalanceOf<T>> },
+		/* 🚧 TODO 🚧: Create a new `Event` called `PriceSet` with fields:
+			- `owner` which is `T::AccountId`.
+			- `kitty_id` which is `[u8; 32]`.
+			- `new_price` which is `Option<BalanceOf<T>>`.
+		*/
 	}
 
 	#[pallet::error]
@@ -87,14 +91,16 @@ pub mod pallet {
 			Ok(())
 		}
 
-		pub fn set_price(
-			origin: OriginFor<T>,
-			kitty_id: [u8; 32],
-			new_price: Option<BalanceOf<T>>,
-		) -> DispatchResult {
-			let who = ensure_signed(origin)?;
-			Self::do_set_price(who, kitty_id, new_price)?;
-			Ok(())
-		}
+		/* 🚧 TODO 🚧: Make an callable function called `set_price`:
+			- Inputs to the function are:
+				- `origin` which is `OriginFor<T>`.
+				- `kitty_id` which is `[u8; 32]`.
+				- `new_price` which is `Option<BalanceOf<T>`.
+			- Returns a `DispatchResult`
+			- The internal logic, for now, should be:
+				- Extract the caller `who` with `ensure_signed`.
+				- Call `Self::do_set_price` with the appropriate parameters, propagating the result.
+				- Return `Ok(())`.
+		*/
 	}
 }

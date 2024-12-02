@@ -4,8 +4,8 @@ mod impls;
 mod tests;
 
 use frame::prelude::*;
-use frame::traits::fungible::Inspect;
-use frame::traits::fungible::Mutate;
+/* 🚧 TODO 🚧: Import `frame::traits::fungible::Inspect`. */
+/* 🚧 TODO 🚧: Import `frame::traits::fungible::Mutate`. */
 pub use pallet::*;
 
 #[frame::pallet(dev_mode)]
@@ -19,8 +19,12 @@ pub mod pallet {
 	pub trait Config: frame_system::Config {
 		type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
 
-		/// The Fungible handler for the kitties pallet.
-		type NativeBalance: Inspect<Self::AccountId> + Mutate<Self::AccountId>;
+		/* 🚧 TODO 🚧:
+			- Create a new associated type named `NativeBalance`.
+			- Require that `NativeBalance` implements the following traits:
+				- `Inspect` which is generic over `Self::AccountId`.
+				- `Mutate` which is also generic over `Self::AccountId`.
+		*/
 	}
 
 	#[derive(Encode, Decode, TypeInfo, MaxEncodedLen)]
