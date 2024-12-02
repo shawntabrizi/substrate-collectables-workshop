@@ -125,15 +125,3 @@ fn create_kitty_checks_signed() {
 		assert_noop!(PalletKitties::create_kitty(RuntimeOrigin::none()), DispatchError::BadOrigin);
 	})
 }
-
-#[test]
-fn create_kitty_emits_event() {
-	new_test_ext().execute_with(|| {
-		// We need to set block number to 1 to view events.
-		System::set_block_number(1);
-		// Execute our call, and ensure it is successful.
-		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(ALICE)));
-		// Assert the last event by our blockchain is the `Created` event with the correct owner.
-		System::assert_last_event(Event::<TestRuntime>::Created { owner: 1 }.into());
-	})
-}
