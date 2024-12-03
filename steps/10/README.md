@@ -85,7 +85,7 @@ enum Pallet2Event {
 }
 ```
 
-Our `#[runtime::derive(RuntimeEvent)]` would aggregate these together, and allow you to access all events from a single object:
+Our `#[runtime::derive(RuntimeEvent)]` would aggregate these together, and allow you to access all possible events from a single object:
 
 ```rust
 // Constructed by our
@@ -95,9 +95,32 @@ enum RuntimeEvent {
 }
 ```
 
+> NOTE: If you want to dive deeper into this, be sure to check out the [`rust-state-machine`](https://github.com/shawntabrizi/rust-state-machine) tutorial.
+
+So at a high level, the runtime derive macros generate all of these aggregated types, which become available and can be used in our runtime and blockchain.
+
 #### `#[runtime::pallet_index(n)]`
 
+As we discussed earlier, FRAME's opinion on how to build a blockchain runtime is by allowing users to split up their state transition function into individual modules which we call pallets.
 
+With the pallet index macro, you can literally see how we can compose a new runtime using a collection of pallets.
+
+Our test runtime only needs three pallets to allow us to write good unit tests:
+
+1. `frame_system`: This is required for any FRAME based runtime, so always included.
+2. `pallet_balances`: This is a pallet which manages a blockchain's native currency, which will be used by our custom pallet.
+3. `pallet_kitties`: This is the custom pallet we are building in this tutorial, and that we will test the functionality of.
+
+You can see adding a pallet to your runtime is pretty simple:
+
+```rust
+#[runtime::pallet_index(1)]
+pub type PalletBalances = pallet_balances::Pallet<Runtime>;
+```
+
+Each pallet needs a unique index, and right now we only support 256 pallets maximum.
+
+You can see that we extract
 
 ## Writing Tests
 
