@@ -202,7 +202,11 @@ thread 'tests::forgot_new_test_ext' panicked at /Users/shawntabrizi/.cargo/regis
 note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
 ```
 
-This error just tells you to add this code.
+This error just tells you to add the `new_test_ext` wrapper.
+
+### Test Macro
+
+
 
 Don't forget to update your `tests.rs` file to include the test provided in this step.
 
