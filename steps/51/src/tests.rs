@@ -50,15 +50,15 @@ mod runtime {
 
 	/// System: Mandatory system pallet that should always be included in a FRAME runtime.
 	#[runtime::pallet_index(0)]
-	pub type System = frame_system::Pallet<Runtime>;
+	pub type System = frame_system::Pallet<TestRuntime>;
 
 	/// PalletBalances: Manages your blockchain's native currency. (i.e. DOT on Polkadot)
 	#[runtime::pallet_index(1)]
-	pub type PalletBalances = pallet_balances::Pallet<Runtime>;
+	pub type PalletBalances = pallet_balances::Pallet<TestRuntime>;
 
 	/// PalletKitties: The pallet you are building in this tutorial!
 	#[runtime::pallet_index(2)]
-	pub type PalletKitties = pallet_kitties::Pallet<Runtime>;
+	pub type PalletKitties = pallet_kitties::Pallet<TestRuntime>;
 }
 
 // Normally `System` would have many more configurations, but you can see that we use some macro
@@ -110,8 +110,6 @@ fn starting_template_is_sane() {
 fn system_and_balances_work() {
 	// This test will just sanity check that we can access `System` and `PalletBalances`.
 	new_test_ext().execute_with(|| {
-		// We often need to set `System` to block 1 so that we can see events.
-		System::set_block_number(1);
 		// We often need to add some balance to a user to test features which needs tokens.
 		assert_ok!(PalletBalances::mint_into(&ALICE, 100));
 		assert_ok!(PalletBalances::mint_into(&BOB, 100));
@@ -356,22 +354,5 @@ fn set_price_logic_works() {
 		assert_ok!(PalletKitties::set_price(RuntimeOrigin::signed(ALICE), kitty_id, Some(1337)));
 		let kitty = Kitties::<TestRuntime>::get(kitty_id).unwrap();
 		assert_eq!(kitty.price, Some(1337));
-	})
-}
-
-#[test]
-fn do_buy_kitty_emits_event() {
-	new_test_ext().execute_with(|| {
-		// We need to set block number to 1 to view events.
-		System::set_block_number(1);
-		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(ALICE)));
-		let kitty_id = Kitties::<TestRuntime>::iter_keys().collect::<Vec<_>>()[0];
-		assert_ok!(PalletKitties::set_price(RuntimeOrigin::signed(ALICE), kitty_id, Some(1337)));
-		assert_ok!(PalletBalances::mint_into(&BOB, 100_000));
-		assert_ok!(PalletKitties::buy_kitty(RuntimeOrigin::signed(BOB), kitty_id, 1337));
-		// Assert the last event by our blockchain is the `Created` event with the correct owner.
-		System::assert_last_event(
-			Event::<TestRuntime>::Sold { buyer: BOB, kitty_id, price: 1337 }.into(),
-		);
 	})
 }

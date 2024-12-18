@@ -28,8 +28,9 @@ type Block = frame_system::mocking::MockBlock<TestRuntime>;
 // We create the constants `ALICE` and `BOB` to make it clear when we are representing users below.
 const ALICE: u64 = 1;
 const BOB: u64 = 2;
-#[allow(unused)]
-const DEFAULT_KITTY: Kitty<TestRuntime> = Kitty { dna: [0u8; 32], owner: 0 };
+/* 🚧 TODO 🚧:
+	- Create `const DEFAULT_KITTY` with a `dna` of [0u8; 32] and an `owner` of 0 };.
+*/
 
 #[runtime]
 mod runtime {
@@ -51,15 +52,15 @@ mod runtime {
 
 	/// System: Mandatory system pallet that should always be included in a FRAME runtime.
 	#[runtime::pallet_index(0)]
-	pub type System = frame_system::Pallet<Runtime>;
+	pub type System = frame_system::Pallet<TestRuntime>;
 
 	/// PalletBalances: Manages your blockchain's native currency. (i.e. DOT on Polkadot)
 	#[runtime::pallet_index(1)]
-	pub type PalletBalances = pallet_balances::Pallet<Runtime>;
+	pub type PalletBalances = pallet_balances::Pallet<TestRuntime>;
 
 	/// PalletKitties: The pallet you are building in this tutorial!
 	#[runtime::pallet_index(2)]
-	pub type PalletKitties = pallet_kitties::Pallet<Runtime>;
+	pub type PalletKitties = pallet_kitties::Pallet<TestRuntime>;
 }
 
 // Normally `System` would have many more configurations, but you can see that we use some macro
@@ -110,8 +111,6 @@ fn starting_template_is_sane() {
 fn system_and_balances_work() {
 	// This test will just sanity check that we can access `System` and `PalletBalances`.
 	new_test_ext().execute_with(|| {
-		// We often need to set `System` to block 1 so that we can see events.
-		System::set_block_number(1);
 		// We often need to add some balance to a user to test features which needs tokens.
 		assert_ok!(PalletBalances::mint_into(&ALICE, 100));
 		assert_ok!(PalletBalances::mint_into(&BOB, 100));

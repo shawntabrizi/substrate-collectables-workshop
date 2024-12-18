@@ -23,21 +23,12 @@ pub mod pallet {
 		type NativeBalance: Inspect<Self::AccountId> + Mutate<Self::AccountId>;
 	}
 
-	/* 🚧 TODO 🚧:
-		- Create a new type alias called `BalanceOf<T>`.
-		- Extract the `Balance` type from the `NativeBalance` associated type:
-			- The `Balance` type comes from the `Inspect` trait.
-				- `Inspect` requires a generic parameter `AccountId` from `T as frame_system::Config`.
-			- Inspect comes from `NativeBalance`, which comes from `T as Config`.
-	*/
-
 	#[derive(Encode, Decode, TypeInfo, MaxEncodedLen)]
 	#[scale_info(skip_type_params(T))]
 	pub struct Kitty<T: Config> {
 		// Using 32 bytes to represent a kitty DNA
 		pub dna: [u8; 32],
 		pub owner: T::AccountId,
-		/* 🚧 TODO 🚧: Add a new field `price`, which is an `Option<BalanceOf<T>>`. */
 	}
 
 	#[pallet::storage]

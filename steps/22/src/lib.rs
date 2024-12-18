@@ -39,10 +39,6 @@ pub mod pallet {
 	impl<T: Config> Pallet<T> {
 		pub fn create_kitty(origin: OriginFor<T>) -> DispatchResult {
 			let who = ensure_signed(origin)?;
-			/* 🚧 TODO 🚧:
-				- Create a `dna` variable for this kitty, which we will set as `[0u8; 32]` for now.
-				- Pass `dna` to the `mint` function as the second parameter.
-			*/
 			Self::mint(who)?;
 			Ok(())
 		}

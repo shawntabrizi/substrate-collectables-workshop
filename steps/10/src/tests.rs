@@ -29,6 +29,7 @@ type Block = frame_system::mocking::MockBlock<TestRuntime>;
 const ALICE: u64 = 1;
 const BOB: u64 = 2;
 
+/* 🚧 TODO 🚧: Learn about constructing a runtime. */
 #[runtime]
 mod runtime {
 	#[runtime::derive(
@@ -49,17 +50,18 @@ mod runtime {
 
 	/// System: Mandatory system pallet that should always be included in a FRAME runtime.
 	#[runtime::pallet_index(0)]
-	pub type System = frame_system::Pallet<Runtime>;
+	pub type System = frame_system::Pallet<TestRuntime>;
 
 	/// PalletBalances: Manages your blockchain's native currency. (i.e. DOT on Polkadot)
 	#[runtime::pallet_index(1)]
-	pub type PalletBalances = pallet_balances::Pallet<Runtime>;
+	pub type PalletBalances = pallet_balances::Pallet<TestRuntime>;
 
 	/// PalletKitties: The pallet you are building in this tutorial!
 	#[runtime::pallet_index(2)]
-	pub type PalletKitties = pallet_kitties::Pallet<Runtime>;
+	pub type PalletKitties = pallet_kitties::Pallet<TestRuntime>;
 }
 
+/* 🚧 TODO 🚧: Learn about configuring a pallet. */
 // Normally `System` would have many more configurations, but you can see that we use some macro
 // magic to automatically configure most of the pallet for a "default test configuration".
 #[derive_impl(frame_system::config_preludes::TestDefaultConfig)]
@@ -82,6 +84,7 @@ impl pallet_kitties::Config for TestRuntime {
 	type RuntimeEvent = RuntimeEvent;
 }
 
+/* 🚧 TODO 🚧: Learn about test externalities. */
 // We need to run most of our tests using this function: `new_test_ext().execute_with(|| { ... });`
 // It simulates the blockchain database backend for our tests.
 // If you forget to include this and try to access your Pallet storage, you will get an error like:
@@ -108,8 +111,6 @@ fn starting_template_is_sane() {
 fn system_and_balances_work() {
 	// This test will just sanity check that we can access `System` and `PalletBalances`.
 	new_test_ext().execute_with(|| {
-		// We often need to set `System` to block 1 so that we can see events.
-		System::set_block_number(1);
 		// We often need to add some balance to a user to test features which needs tokens.
 		assert_ok!(PalletBalances::mint_into(&ALICE, 100));
 		assert_ok!(PalletBalances::mint_into(&BOB, 100));
@@ -126,6 +127,7 @@ fn create_kitty_checks_signed() {
 	})
 }
 
+/* 🚧 TODO 🚧: Learn about writing tests. */
 #[test]
 fn create_kitty_emits_event() {
 	new_test_ext().execute_with(|| {

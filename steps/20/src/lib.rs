@@ -21,13 +21,6 @@ pub mod pallet {
 	#[pallet::storage]
 	pub(super) type CountForKitties<T: Config> = StorageValue<Value = u32, QueryKind = ValueQuery>;
 
-	/* 🚧 TODO 🚧:
-		- Create a new `StorageMap` named `Kitties`.
-			- `Kitties` should be generic over `<T: Config>`.
-			- Set `Key` to `[u8; 32]` to use the kitty id as the key.
-			- Set `Value` to `()` as a placeholder for now.
-	*/
-
 	#[pallet::event]
 	#[pallet::generate_deposit(pub(super) fn deposit_event)]
 	pub enum Event<T: Config> {

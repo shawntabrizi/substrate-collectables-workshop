@@ -35,8 +35,14 @@ impl<T: Config> Pallet<T> {
 		Ok(())
 	}
 
-	pub fn do_transfer(from: T::AccountId, to: T::AccountId, kitty_id: [u8; 32]) -> DispatchResult {
-		Self::deposit_event(Event::<T>::Transferred { from, to, kitty_id });
-		Ok(())
-	}
+	/* 🚧 TODO 🚧: Create an internal function called `do_transfer`:
+		- It has inputs:
+			- `from` which is `T::AccountId`.
+			- `to` which is `T::AccountId`.
+			- `kitty_id` which is `[u8; 32]`.
+		- It returns a `DispatchResult`
+		- The inner logic for now is:
+			- Call `Self::deposit_event` and emit `Event::<T>:Transferred` with params.
+			- Return `Ok(())`.
+	*/
 }
