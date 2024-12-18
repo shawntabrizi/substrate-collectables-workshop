@@ -1,81 +1,64 @@
-# Pallet Functions
+# Origin
 
-As noted earlier, functions are easily implemented directly on top of the `Pallet` struct.
+As we started to describe, the `origin` is the first parameter of every callable function.
 
-However, there are two types of functions exposed by Pallets:
+It describes where the call is calling from, and allows us to perform simple access control logic based on that information.
 
-1. Internal Functions
-2. Callable Functions
+## Origin vs Sender
 
-Let's learn more about the differences.
+If you are familiar with smart contract development, for example in Ethereum, you will be familiar with `msg.sender`.
 
-## Internal Functions
+Origin is a superset of this idea. No longer do we need to assume that every call to a callable function is coming from an external account. We could have pallets call one another, or other internal logic trigger a callable function.
 
-Internal Pallet functions are just normal Rust functions. These are defined with regular Rust syntax and without any of the Pallet macros.
+It is hard to explain the power of Origin when you are still learning the basics of Pallet development, but this is again, something worth exploring deeper at a later point.
+
+## Ensure Signed
+
+In this tutorial, we will just use origin to check for signed messages.
+
+For this, we can use the `ensure_signed` function:
 
 ```rust
-impl<T: Config> Pallet<T> {
-	// None of the functions in this `impl` are callable by users.
+let who: T::AccountId = ensure_signed(origin)?;
+```
+
+You can see this function takes the `OriginFor<T>` type, and will return a `T::AccountId` if the `origin` was an account, otherwise it will return the error `BadOrigin`.
+
+This turns origin into exactly the same as `msg.sender` from Ethereum contract development.
+
+With this, we are able to know who is calling our Pallet, and use that as authorization to make changes to our blockchain on their behalf.
+
+## Tests
+
+We are introducing our first new test in this step, so let's spend a second to talk about it.
+
+The test shows that you are able to successfully call `create_kitty` from the user `ALICE`, but not from `none()`. This validates the functionality of our `ensure_signed` check, and also shows how information about who is calling a function gets passed into our pallet (at least in a unit test).
+
+Make sure to update your `tests.rs` file to include this latest test, and check that the test passes. Since you haven't written any code yet, everything should pass, but hopefully you can start to get comfortable with this pattern.
+
+## Deep Dive
+
+As a note, you should know that `ensure_signed` is not actually doing signature checking.
+
+Signature checking is very expensive, perhaps one of the most expensive things to perform when executing transactions.
+
+So signature checking happens batched and parallelized at the beginning of executing a block.
+
+By the time your callable function gets the `origin`, it is just:
+
+```rust
+let origin: OriginFor<T> = RawOrigin::Signed(account_id).into();
+```
+
+So it is simply an enum variant with the `T::AccountId` inside. So `ensure_signed` logic is as simple as:
+
+```rust
+pub fn ensure_signed(o: OriginFor<T>) -> Result<AccountId, BadOrigin> {
+	match o {
+		RawOrigin::Signed(t) => Ok(t),
+		_ => Err(BadOrigin),
+	}
 }
 ```
 
-They behave just like any Rust function from any Rust module. If they are marked `pub` they are exposed to other Rust modules, if not they are totally private.
-
-What is most important is that no matter how these functions are marked, none of these functions are callable from outside of the blockchain, which means they are not exposed to users.
-
-For that, we have Callable Functions.
-
-## Callable Functions
-
-If you are familiar with smart contracts or any kind of blockchain application, you would know that the way users interact with the blockchain is through transactions.
-
-Those transactions are processed, and then dispatched to callable functions within the blockchain.
-
-For ergonomics, you will normally see callable functions defined in the `lib.rs`, but their logic implemented in a separate `impls.rs` file. This is really up to your preference, but since this is the common practice in the Polkadot SDK, the tutorial will use this pattern as well.
-
-### Pallet Call Macro
-
-Pallet development allows you to create callable functions by introducing the `#[pallet::call]` macro on top of a normal function implementation code block.
-
-```rust
-#[pallet::call]
-impl<T: Config> Pallet<T> {
-	// All of the functions in this `impl` will be callable by users.
-}
-```
-
-Unlike regular Rust functions, these callable functions have rules on how they must be defined.
-
-### Origin
-
-The first parameter of every callable function must be `origin: OriginFor<T>`.
-
-The origin is an abstract concept for defining the where the call is coming from.
-
-The most common origin is the signed origin, which is a regular transaction. We will learn about this more in the next section.
-
-### Dispatch Result
-
-Every callable function must return a `DispatchResult`, which is simply defined as:
-
-```rust
-pub type DispatchResult = Result<(), sp_runtime::DispatchError>;
-```
-
-So these functions can return `Ok(())` or some `Err(DispatchError)`.
-
-You can easily define new `DispatchError` variants using the included `#[pallet::error]`, but we will get to that later.
-
-## Terminology
-
-In Polkadot, the term "call", "extrinsic", and "dispatchable" all get mixed together.
-
-Here is a sentence which should help clarify their relationship, and why they are such similar terms:
-
-> Users submit an extrinsic to the blockchain, which is dispatched to a Pallet call.
-
-In this case, "extrinsic" is a more broad term than a "transaction".
-
-An extrinsic is any message from the outside coming to the blockchain. A transaction is specifically a **signed** message coming from the outside.
-
-In this tutorial, we will only deal with transactions, but again, learning more about extrinsics can be something to follow up on after you have learned the basics.
+The real `ensure_signed` function has more generic stuff, but the idea is the same.
