@@ -29,6 +29,7 @@ type Block = frame_system::mocking::MockBlock<TestRuntime>;
 const ALICE: u64 = 1;
 const BOB: u64 = 2;
 
+/* 🚧 TODO 🚧: Learn about constructing a runtime. */
 #[runtime]
 mod runtime {
 	#[runtime::derive(
@@ -60,6 +61,7 @@ mod runtime {
 	pub type PalletKitties = pallet_kitties::Pallet<TestRuntime>;
 }
 
+/* 🚧 TODO 🚧: Learn about configuring a pallet. */
 // Normally `System` would have many more configurations, but you can see that we use some macro
 // magic to automatically configure most of the pallet for a "default test configuration".
 #[derive_impl(frame_system::config_preludes::TestDefaultConfig)]
@@ -82,6 +84,7 @@ impl pallet_kitties::Config for TestRuntime {
 	type RuntimeEvent = RuntimeEvent;
 }
 
+/* 🚧 TODO 🚧: Learn about test externalities. */
 // We need to run most of our tests using this function: `new_test_ext().execute_with(|| { ... });`
 // It simulates the blockchain database backend for our tests.
 // If you forget to include this and try to access your Pallet storage, you will get an error like:
@@ -121,5 +124,18 @@ fn create_kitty_checks_signed() {
 		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(ALICE)));
 		// The `create_kitty` extrinsic should fail when being called by an unsigned message.
 		assert_noop!(PalletKitties::create_kitty(RuntimeOrigin::none()), DispatchError::BadOrigin);
+	})
+}
+
+/* 🚧 TODO 🚧: Learn about writing tests. */
+#[test]
+fn create_kitty_emits_event() {
+	new_test_ext().execute_with(|| {
+		// We need to set block number to 1 to view events.
+		System::set_block_number(1);
+		// Execute our call, and ensure it is successful.
+		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(ALICE)));
+		// Assert the last event by our blockchain is the `Created` event with the correct owner.
+		System::assert_last_event(Event::<TestRuntime>::Created { owner: 1 }.into());
 	})
 }
