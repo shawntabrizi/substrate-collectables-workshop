@@ -373,3 +373,53 @@ fn do_buy_kitty_emits_event() {
 		);
 	})
 }
+
+#[test]
+fn do_buy_kitty_logic_works() {
+	new_test_ext().execute_with(|| {
+		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(ALICE)));
+		let kitty = &Kitties::<TestRuntime>::iter_values().collect::<Vec<_>>()[0];
+		let kitty_id = kitty.dna;
+		assert_eq!(kitty.owner, ALICE);
+		assert_eq!(KittiesOwned::<TestRuntime>::get(ALICE), vec![kitty_id]);
+		// Cannot buy kitty which does not exist.
+		assert_noop!(
+			PalletKitties::buy_kitty(RuntimeOrigin::signed(BOB), [0u8; 32], 1337),
+			Error::<TestRuntime>::NoKitty
+		);
+		// Cannot buy kitty which is not for sale.
+		assert_noop!(
+			PalletKitties::buy_kitty(RuntimeOrigin::signed(BOB), kitty_id, 1337),
+			Error::<TestRuntime>::NotForSale
+		);
+		assert_ok!(PalletKitties::set_price(RuntimeOrigin::signed(ALICE), kitty_id, Some(1337)));
+		// Cannot buy kitty for a lower price.
+		assert_noop!(
+			PalletKitties::buy_kitty(RuntimeOrigin::signed(BOB), kitty_id, 1336),
+			Error::<TestRuntime>::MaxPriceTooLow
+		);
+		// Cannot buy kitty if you don't have the funds.
+		assert_noop!(
+			PalletKitties::buy_kitty(RuntimeOrigin::signed(BOB), kitty_id, 1337),
+			frame::arithmetic::ArithmeticError::Underflow
+		);
+		// Cannot buy kitty if it would kill your account (i.e. set your balance to 0).
+		assert_ok!(PalletBalances::mint_into(&BOB, 1337));
+		assert!(
+			PalletKitties::buy_kitty(RuntimeOrigin::signed(BOB), kitty_id, 1337).is_err(),
+			// TODO: assert_noop on DispatchError::Token(TokenError::NotExpendable)
+		);
+		// When everything is right, it works.
+		assert_ok!(PalletBalances::mint_into(&BOB, 100_000));
+		assert_ok!(PalletKitties::buy_kitty(RuntimeOrigin::signed(BOB), kitty_id, 1337));
+		// State is updated correctly.
+		assert_eq!(KittiesOwned::<TestRuntime>::get(BOB), vec![kitty_id]);
+		let kitty = Kitties::<TestRuntime>::get(kitty_id).unwrap();
+		assert_eq!(kitty.owner, BOB);
+		// Price is reset to `None`.
+		assert_eq!(kitty.price, None);
+		// BOB transferred funds to ALICE.
+		assert_eq!(PalletBalances::balance(&ALICE), 1337);
+		assert_eq!(PalletBalances::balance(&BOB), 100_000);
+	})
+}
