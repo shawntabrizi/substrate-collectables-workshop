@@ -204,9 +204,47 @@ note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
 
 This error just tells you to add the `new_test_ext` wrapper.
 
-### Test Macro
+### Calling Pallets
 
+In order to setup and execute our various tests, we need to call into the pallets in our runtime.
 
+Looking back at our runtime definition, we created a bunch of types representing our pallets, and we can use those to access our pallet's functions.
+
+You already saw an example of us accessing the `frame_system::Pallet` with `System::set_block_number(1)`.
+
+Here, we are calling a function implemented on the `Pallet` in the crate `frame_system`:
+
+```rust
+// In the `frame_system` crate...
+impl<T: Config> Pallet<T> {
+	fn set_block_number(n: T::BlockNumber) {
+		// -- snip --
+	}
+}
+```
+
+If, for example, you wanted to call the `mint` function in the pallet you are working on and ensure the mint succeeded, you would simply write:
+
+```rust
+assert_oK!(PalletKitties::mint(some_account));
+```
+
+This is not any kind of Polkadot SDK specific magic, this is just regular Rust.
+
+### Checking Events
+
+One of the ways you can check that your test goes right is by looking at the events emitted at the end of your call.
+
+For this, you can use `System::assert_last_event(...)`, which checks in storage what the last event emitted by any pallet was.
+
+You can see an example of this added to our `tests.rs` file in this step.
+
+One really important thing to remember is that you need to set the block number to a value greater than zero for events to work!
+This is because on the genesis block, we don't want to emit events, because there will be so many of them, it would bloat and lag our blockchain on that zeroth block.
+
+If you write a test, and you expect some event, but don't see it, just double check that you have set the block number.
+
+## Your Turn!
 
 Don't forget to update your `tests.rs` file to include the test provided in this step.
 
@@ -217,6 +255,10 @@ It shows how you can:
 - Check the extrinsic call completed `Ok(())`.
 - Get the last event deposited into `System`.
 - Check that last event matches the event you would expect from your pallet.
+
+There is so much more that can be taught about tests, but it really makes sense to cover these things AFTER you have learned all the basics about building a pallet.
+There is a lot of content here already, and truthfully, it is not super important for completing this tutorial.
+However, writing tests is a critically important for actually creating production ready systems.
 
 From this point forward, every step where you write some code will include new tests or modify existing tests.
 Make sure to keep updating your `tests.rs` file throughout the tutorial.
