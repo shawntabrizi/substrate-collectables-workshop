@@ -1,118 +1,65 @@
-# Native Balances
+# Transfer Logic
 
-In our next steps, we will introduce a marketplace for buying and selling kitties.
+Now that we scaffolded the `transfer` extrinsic, we can actually populate the appropriate logic to actually do a transfer.
 
-For that, we will need to access a user's blockchain balance in addition to the logic in our pallet.
+## Sanity Checks
 
-## The Balances Pallet
+Before we should write any logic which actually transfers a kitty, we should sanity check that all the conditions are met for us to be able to actually execute the transfer.
 
-Every blockchain has a cryptocurrency associated with it. Bitcoin has BTC. Ethereum as ETH.
+### Don't Transfer to Yourself
 
-For Polkadot, that native token is the DOT token.
+The `do_transfer` logic has a `from` and `to` account. If they are the same, well we wouldn't really be doing a transfer.
 
-Polkadot is built using FRAME and Pallets just like you have been building so far. Included in the `polkadot-sdk` is [`pallet_balances`](https://docs.rs/pallet-balances/39.0.0/pallet_balances/index.html).
+As the developer, you can treat this as a `noop`, and return early, or as an error and return an error. In our pallet, we are choosing to emit an error.
 
-This is a Pallet designed specifically to manage the native balance for users.
+This should be the first check you do because it takes no additional logic to make this check. You already have access to `from` and `to`, so checking equality is about the lightest amount of logic you could do.
 
-It has the ability to:
+Subsequent sanity checks will require us to read storage, and this is much more expensive to execute. If we can error early and without doing that storage read, that is way better for the blockchain.
 
-- Mint new tokens.
-- Transfer tokens between users.
-- Apply freezes and holds for users.
-- Slash tokens from accounts.
-- and much more...
+So remember, error early, error fast.
 
-Basically everything you could expect to want or need when working with the native balance of a blockchain.
+### Does the Kitty Exist?
 
-## Pallet Coupling
+The input to the `transfer` extrinsic allows the sender to submit any `[u8; 32]` identifier to transfer, but we shouldn't assume that kitty actually exists in storage.
 
-The `polkadot-sdk` is designed to be a flexible and modular blockchain development SDK.
+If the sender is trying to send a kitty which doesn't exist, we should emit an error.
 
-Part of that flexibility comes through the use of Rust traits to allow two pallets to interact with one another. We call this pallet coupling, and there are two forms of it we will briefly explain next.
-
-### Tight Coupling
-
-We have already been using tight coupling throughout this tutorial to give our custom Kitties pallet access to the `frame_system` pallet:
+That should be easy to write with something like:
 
 ```rust
-#[pallet::config]
-pub trait Config: frame_system::Config {
-	// Through supertraits, we are tightly coupled to `frame_system`.
-}
+let kitty = Kitties::<T>::get(kitty_id).ok_or(Error::<T>::NoKitty)?;
 ```
 
-You can see our Pallet's `Config` is tightly coupled to the `frame_system::Config`. This is why we have been able to use the types coming from `frame_system` (like `T::AccountId`) and why we have been able to use functions directly from `frame_system` (like `frame_system::Pallet::<T>::block_number()`).
+### Correct Owner?
 
-In fact, every Pallet built with FRAME is required to be tightly coupled to `frame_system`. But if we wanted, we could tightly couple to other pallets too!
+This is an important one.
 
-```rust
-#[pallet::config]
-pub trait Config: frame_system::Config + pallet_balances:: Config {
-	// Here you can see we can also tightly couple to `pallet_balances`.
-}
-```
+It could be super simple to really mess up your blockchain if you do not check that the right owner is the one who is actually initiating the transfer.
 
-The upside to tight coupling is gaining direct access to the pallet's Rust module, and all the functions, types, storage, and everything else that is included in that pallet.
+Now that we have the `kitty` object, we want to make sure the `from` account matches the `kitty.owner` account, else someone is trying to transfer the kitty who is not allowed to!
 
-With tight coupling, we are able to access the `pallet_balances` APIs like:
+## Updating the Owner
 
-```rust
-let total_issuance = pallet_balances::Pallet::<T>::total_issuance();
-let alice_balance = pallet_balances::Pallet::<T>::total_balance(alice);
-pallet_balances::Pallet::<T>::mint_into(alice, amount)?;
-pallet_balances::Pallet::<T>::transfer(alice, bob, amount, Preserve)?;
-```
+At this point, we have done all of the sanity checks, and we can actually update the owner of the kitty. Based on our storage, we need to do this in three places:
 
-The downside however, is that you make your pallet very rigid, forcing everyone who wants to use your pallet to use a specific version of `pallet_balances` which you import into your crate.
+- Update the `Kitty` object so that `kitty.owner` is set to `to`.
+- Add the `kitty_id` from the vector of `KittiesOwned` for `to`.
+- Remove the `kitty_id` from the vector of `KittiesOwned` for `from`.
 
-### Loose Coupling
+This is really an exercise in writing Rust logic and using vector APIs. Unfortunately, we don't have any low level storage optimizations for such tasks, so you really just have to read both vectors and mutate them both.
 
-Loose coupling is the more flexible approach to accessing another pallet, and will be our way of integrating the Balances Pallet in our project.
+There are still optimizations you can make by following the principle of fail early and fail fast. For example, it is probably better to try and add a new item to the `to_owned` bounded vector first to check that their vector isn't full. If it is full, we wouldn't be able to do the transfer anyway, so we could fail early and fast.
 
-Loose coupling involves using the interface of a `trait` to access the APIs of another Pallet.
+On the other hand, removing an item from a bounded vector can never fail, and since we already checked that `kitty.owner == from`, removing the `kitty_id` from `from_owned` should be infallible, unless there is really a big issue in the pallet logic. So the chances of an error here is much lower.
 
-In the case of accessing the Balances Pallet, it looks exactly like this:
+## Update Storage
 
-```rust
-#[pallet::config]
-pub trait Config: frame_system::Config {
-	type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
+Now that we have mutated the appropriate storage values, all that is left is to write those updated values back into storage.
 
-	/// Access the balances pallet through the associated type `NativeBalance`.
-	/// The `NativeBalance` type must implement `Inspect` and `Mutate`.
-	/// Both of these traits are generic over the `AccountId` type.
-	type NativeBalance: Inspect<Self::AccountId> + Mutate<Self::AccountId>;
-}
-```
+No magic tricks here, just call the `insert` API.
 
-You can see we introduce a new associated type called `NativeBalance`. We then require that this type must implement two traits:
-
-- [`fungible::Inspect`](https://docs.rs/frame-support/38.0.0/frame_support/traits/tokens/fungible/trait.Inspect.html): A trait allowing us to read data about a fungible token.
-- [`fungible::Mutate`](https://docs.rs/frame-support/38.0.0/frame_support/traits/tokens/fungible/trait.Mutate.html): A trait allowing us to write data about a fungible token.
-
-So with this, we are able to access our native balance using APIs like:
-
-```rust
-// Example APIs coming from `Inspect`.
-let total_issuance = T::NativeBalance::total_issuance();
-let alice_balance = T::NativeBalance::total_balance(alice);
-// Example APIs coming from `Mutate`.
-T::NativeBalance::mint_into(alice, amount)?;
-T::NativeBalance::transfer(alice, bob, amount, Preserve)?;
-```
-
-The key difference here is that we do NOT assume that these APIs must come from specifically `pallet_balances`. If you wanted to use another pallet in the `polkadot-sdk` ecosystem which provides these same functions, you can use it! Our pallet is NOT tightly coupled to which pallet provides access to the `NativeBalance`, it only requires that there is something implementing the `Inspect` and `Mutate` traits.
-
-The power of loose coupling may not be immediately obvious, but as you get deeper into developing in the Polkadot ecosystem, you will start to realize how powerful this approach can be.
+The most important thing is to not forget to update everything!
 
 ## Your Turn
 
-Import the `Inspect` and `Mutate` traits from `frame::traits::fungible`.
-
-Introduce the `NativeBalance` associated type to your `trait Config` using these traits.
-
-## Learn More
-
-To continue learning about Pallet Coupling, check out the following video from the Polkadot Blockchain Academy:
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/mPkgG9ANNzI?si=6CrBZBMaHHBvQLYD" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+Follow the `TODO`s included in the template to flesh out the logic required to complete the `transfer` extrinsic.

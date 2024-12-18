@@ -1,40 +1,40 @@
-diff --git a/src/impls.rs b/src/impls.rs
-index b396f98..9739330 100644
---- a/src/impls.rs
-+++ b/src/impls.rs
-@@ -3,12 +3,9 @@ use frame::prelude::*;
- 
- impl<T: Config> Pallet<T> {
- 	pub fn mint(owner: T::AccountId) -> DispatchResult {
--		/* 🚧 TODO 🚧:
--			- `get` the `current_count` of kitties.
--			- `unwrap_or` set the count to `0`.
--			- Create `new_count` by adding one to the `current_count`.
--			- `set` the `new_count` of kitties.
--		*/
-+		let current_count: u32 = CountForKitties::<T>::get().unwrap_or(0);
-+		let new_count = current_count + 1;
-+		CountForKitties::<T>::set(Some(new_count));
- 		Self::deposit_event(Event::<T>::Created { owner });
- 		Ok(())
+diff --git a/src/lib.rs b/src/lib.rs
+index 7d88fffb..90242f63 100644
+--- a/src/lib.rs
++++ b/src/lib.rs
+@@ -18,11 +18,8 @@ pub mod pallet {
+ 		type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
  	}
+ 
+-	/* 🚧 TODO 🚧:
+-		- Create a new `StorageValue` named `CountForKitties`.
+-			- `CountForKitties` should be generic over `<T: Config>`.
+-			- Set `Value` to `u32` to store that type.
+-	*/
++	#[pallet::storage]
++	pub(super) type CountForKitties<T: Config> = StorageValue<Value = u32>;
+ 
+ 	#[pallet::event]
+ 	#[pallet::generate_deposit(pub(super) fn deposit_event)]
 diff --git a/src/tests.rs b/src/tests.rs
-index 6f68640..a396679 100644
+index 59889339..9ceddfbb 100644
 --- a/src/tests.rs
 +++ b/src/tests.rs
-@@ -151,3 +151,15 @@ fn count_for_kitties_created_correctly() {
- 		assert_eq!(CountForKitties::<TestRuntime>::get(), Some(1337u32));
+@@ -135,3 +135,17 @@ fn create_kitty_emits_event() {
+ 		System::assert_last_event(Event::<TestRuntime>::Created { owner: 1 }.into());
  	})
  }
 +
 +#[test]
-+fn mint_increments_count_for_kitty() {
++fn count_for_kitties_created_correctly() {
 +	new_test_ext().execute_with(|| {
 +		// Querying storage before anything is set will return `None`.
 +		assert_eq!(CountForKitties::<TestRuntime>::get(), None);
-+		// Call `create_kitty` which will call `mint`.
-+		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(ALICE)));
-+		// Now the storage should be `Some(1)`
-+		assert_eq!(CountForKitties::<TestRuntime>::get(), Some(1));
++		// You can `set` the value using an `Option<u32>`.
++		CountForKitties::<TestRuntime>::set(Some(1337u32));
++		// You can `put` the value directly with a `u32`.
++		CountForKitties::<TestRuntime>::put(1337u32);
++		// Check that the value is now in storage.
++		assert_eq!(CountForKitties::<TestRuntime>::get(), Some(1337u32));
 +	})
 +}

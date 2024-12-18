@@ -1,50 +1,55 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index 9d435f5..d44508b 100644
+index 793dec31..3dd15659 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
-@@ -36,6 +36,29 @@ impl<T: Config> Pallet<T> {
- 	}
- 
- 	pub fn do_transfer(from: T::AccountId, to: T::AccountId, kitty_id: [u8; 32]) -> DispatchResult {
-+		/* 🚧 TODO 🚧: Sanity check the transfer is allowed:
-+			- First `ensure!` that `from` and `to` are not equal, else return `Error::<T>::TransferToSelf`.
-+			- Get the `kitty` from `Kitties` using `kitty_id`, else return `Error::<T>::NoKitty`.
-+			- Check the `kitty.owner` is equal to `from`, else return `NotOwner`.
-+		*/
-+
-+		/* 🚧 TODO 🚧: Update the owner of the kitty:
-+			- Update `kitty.owner` to `to`.
-+			- Update the `KittiesOwned` of `from` and `to:
-+				- Create a mutable `to_owned` by querying `KittiesOwned` for `to`.
-+				- `try_push` the `kitty_id` to the `to_owned` vector.
-+					- If the vector is full, `map_err` and return `Error::<T>::TooManyOwned`.
-+				- Create a mutable `from_owned` by querying `KittiesOwned` for `from`.
-+				- Write logic to `swap_remove` the item from the `from_owned` vector.
-+					- If you cannot find the kitty in the vector, return `Error::<T>::NoKitty`.
-+		*/
-+
-+		/* 🚧 TODO 🚧: Update the final storage.
-+			- Insert into `Kitties` under `kitty_id` the modified `kitty` struct.
-+			- Insert into `KittiesOwned` under `to` the modified `to_owned` vector.
-+			- Insert into `KittiesOwned` under `from` the modified `from_owned` vector.
-+		*/
-+
- 		Self::deposit_event(Event::<T>::Transferred { from, to, kitty_id });
+@@ -34,4 +34,15 @@ impl<T: Config> Pallet<T> {
+ 		Self::deposit_event(Event::<T>::Created { owner });
  		Ok(())
  	}
++
++	/* 🚧 TODO 🚧: Create an internal function called `do_transfer`:
++		- It has inputs:
++			- `from` which is `T::AccountId`.
++			- `to` which is `T::AccountId`.
++			- `kitty_id` which is `[u8; 32]`.
++		- It returns a `DispatchResult`
++		- The inner logic for now is:
++			- Call `Self::deposit_event` and emit `Event::<T>:Transferred` with params.
++			- Return `Ok(())`.
++	*/
+ }
 diff --git a/src/lib.rs b/src/lib.rs
-index 971af78..7256cb5 100644
+index e0329740..ac84fa65 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -52,6 +52,11 @@ pub mod pallet {
- 		TooManyKitties,
- 		DuplicateKitty,
- 		TooManyOwned,
-+		/* 🚧 TODO 🚧: Add new `Error` variants needed for `do_transfer`:
-+			- `TransferToSelf`: for when the `from` and `to` of the transfer is the same.
-+			- `NoKitty`: for when a transfer involves a kitty that does not exist.
-+			- `NotOwner`: for when a transfer is initiated by someone who is not the current owner.
+@@ -44,6 +44,12 @@ pub mod pallet {
+ 	#[pallet::generate_deposit(pub(super) fn deposit_event)]
+ 	pub enum Event<T: Config> {
+ 		Created { owner: T::AccountId },
++		/* 🚧 TODO 🚧: Create a new event called `Transferred`:
++			- Parameters are:
++				- `from` which is `T::AccountId`.
++				- `to` which is `T::AccountId`.
++				- `kitty_id` which is `[u8; 32]`.
 +		*/
  	}
  
- 	#[pallet::call]
+ 	#[pallet::error]
+@@ -61,5 +67,17 @@ pub mod pallet {
+ 			Self::mint(who, dna)?;
+ 			Ok(())
+ 		}
++
++		/* 🚧 TODO 🚧: Make a new extrinsic called `transfer`.
++			- Input parameters are:
++				- `origin` which is `OriginFor<T>`.
++				- `to` which is `T::AccountId`.
++				- `kitty_id` which is `[u8; 32]`.
++			- Returns a `DispatchResult`.
++			- The inner logic should be:
++				- Get the caller `who` from `ensure_signed`.
++				- Call `Self::do_transfer`, and propagate the result.
++				- End with Ok(()).
++		*/
+ 	}
+ }

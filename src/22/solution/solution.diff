@@ -1,58 +1,72 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index 05c43d7..e464223 100644
+index fac2eada..ff69caec 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
-@@ -26,10 +26,10 @@ impl<T: Config> Pallet<T> {
- 		let current_count: u32 = CountForKitties::<T>::get();
- 		let new_count = current_count.checked_add(1).ok_or(Error::<T>::TooManyKitties)?;
+@@ -1,18 +1,22 @@
+ use super::*;
+ use frame::prelude::*;
+-/* 🚧 TODO 🚧: Import `frame::primitives::BlakeTwo256`. */
+-/* 🚧 TODO 🚧: Import `frame::traits::Hash`. */
++use frame::primitives::BlakeTwo256;
++use frame::traits::Hash;
  
--		/* 🚧 TODO 🚧: `append` the `dna` to the `KittiesOwned` storage for the `owner`. */
--
-+		KittiesOwned::<T>::append(&owner, dna);
- 		Kitties::<T>::insert(dna, kitty);
- 		CountForKitties::<T>::set(new_count);
+ impl<T: Config> Pallet<T> {
+-	/* 🚧 TODO 🚧: Create a function `gen_dna` which returns a `[u8; 32]`.
+-		- Create a `unique_payload` which contains data from `frame_system::Pallet::<T>`:
+-			- `parent_hash`
+-			- `block_number`
+-			- `extrinsic_index`
+-			- `CountForKitties::<T>::get()`
+-		- Use `BlakeTwo256` to calculate the `hash_of` the unique payload.
+-		- Return the hash as a `[u8; 32]`.
+-	*/
++	// Generates and returns DNA
++	pub fn gen_dna() -> [u8; 32] {
++		// Create randomness payload. Multiple kitties can be generated in the same block,
++		// retaining uniqueness.
++		let unique_payload = (
++			frame_system::Pallet::<T>::parent_hash(),
++			frame_system::Pallet::<T>::block_number(),
++			frame_system::Pallet::<T>::extrinsic_index(),
++			CountForKitties::<T>::get(),
++		);
 +
- 		Self::deposit_event(Event::<T>::Created { owner });
- 		Ok(())
- 	}
++		BlakeTwo256::hash_of(&unique_payload).into()
++	}
+ 
+ 	pub fn mint(owner: T::AccountId, dna: [u8; 32]) -> DispatchResult {
+ 		let kitty = Kitty { dna, owner: owner.clone() };
 diff --git a/src/lib.rs b/src/lib.rs
-index a92f8e5..9c10069 100644
+index 34507f3b..8795b0e1 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -32,11 +32,10 @@ pub mod pallet {
- 	#[pallet::storage]
- 	pub(super) type Kitties<T: Config> = StorageMap<Key = [u8; 32], Value = Kitty<T>>;
- 
--	/* 🚧 TODO 🚧: Create a new `StorageMap` called `KittiesOwned`.
--		- The `Key` of this map is `T::AccountId`.
--		- The `Value` of this map is `Vec<[u8; 32]>`.
--		- The `QueryKind` should be set to `ValueQuery`.
--	*/
-+	/// Track the kitties owned by each account.
-+	#[pallet::storage]
-+	pub(super) type KittiesOwned<T: Config> =
-+		StorageMap<Key = T::AccountId, Value = Vec<[u8; 32]>, QueryKind = ValueQuery>;
- 
- 	#[pallet::event]
- 	#[pallet::generate_deposit(pub(super) fn deposit_event)]
+@@ -48,8 +48,7 @@ pub mod pallet {
+ 	impl<T: Config> Pallet<T> {
+ 		pub fn create_kitty(origin: OriginFor<T>) -> DispatchResult {
+ 			let who = ensure_signed(origin)?;
+-			/* 🚧 TODO 🚧: Use the `Self::gen_dna()` function to generate a unique Kitty. */
+-			let dna = [0u8; 32];
++			let dna = Self::gen_dna();
+ 			Self::mint(who, dna)?;
+ 			Ok(())
+ 		}
 diff --git a/src/tests.rs b/src/tests.rs
-index 7803005..f110a8b 100644
+index 3d5e39d9..bd09cce2 100644
 --- a/src/tests.rs
 +++ b/src/tests.rs
-@@ -234,3 +234,16 @@ fn create_kitty_makes_unique_kitties() {
- 		assert_eq!(Kitties::<TestRuntime>::iter().count(), 2);
+@@ -220,3 +220,15 @@ fn mint_stores_owner_in_kitty() {
+ 		assert_eq!(kitty.dna, [42u8; 32]);
  	})
  }
 +
 +#[test]
-+fn kitties_owned_created_correctly() {
++fn create_kitty_makes_unique_kitties() {
 +	new_test_ext().execute_with(|| {
-+		// Initially users have no kitties owned.
-+		assert_eq!(KittiesOwned::<TestRuntime>::get(1).len(), 0);
-+		// Let's create two kitties.
++		// Two calls to `create_kitty` should work.
 +		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(ALICE)));
-+		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(ALICE)));
-+		// Now they should have two kitties owned.
-+		assert_eq!(KittiesOwned::<TestRuntime>::get(1).len(), 2);
-+	});
++		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(BOB)));
++		// And should result in two kitties in our system.
++		assert_eq!(CountForKitties::<TestRuntime>::get(), 2);
++		assert_eq!(Kitties::<TestRuntime>::iter().count(), 2);
++	})
 +}

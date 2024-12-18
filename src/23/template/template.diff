@@ -1,41 +1,31 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index e464223..f8f58b4 100644
+index ff69caec..05c43d7a 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
-@@ -26,6 +26,9 @@ impl<T: Config> Pallet<T> {
+@@ -25,6 +25,9 @@ impl<T: Config> Pallet<T> {
+ 
  		let current_count: u32 = CountForKitties::<T>::get();
  		let new_count = current_count.checked_add(1).ok_or(Error::<T>::TooManyKitties)?;
- 
-+		/* 🚧 TODO 🚧:
-+			- Update `append` to `try_append` and `map_err` to `Error::<T>::TooManyOwned`.
-+		*/
- 		KittiesOwned::<T>::append(&owner, dna);
++
++		/* 🚧 TODO 🚧: `append` the `dna` to the `KittiesOwned` storage for the `owner`. */
++
  		Kitties::<T>::insert(dna, kitty);
  		CountForKitties::<T>::set(new_count);
+ 		Self::deposit_event(Event::<T>::Created { owner });
 diff --git a/src/lib.rs b/src/lib.rs
-index 9c10069..40f2592 100644
+index 8795b0e1..a92f8e52 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -34,8 +34,12 @@ pub mod pallet {
- 
- 	/// Track the kitties owned by each account.
+@@ -32,6 +32,12 @@ pub mod pallet {
  	#[pallet::storage]
--	pub(super) type KittiesOwned<T: Config> =
--		StorageMap<Key = T::AccountId, Value = Vec<[u8; 32]>, QueryKind = ValueQuery>;
-+	pub(super) type KittiesOwned<T: Config> = StorageMap<
-+		Key = T::AccountId,
-+		/* 🚧 TODO 🚧: Turn this into a `BoundedVec` with a limit of `ConstU32<100>`. */
-+		Value = Vec<[u8; 32]>,
-+		QueryKind = ValueQuery,
-+	>;
+ 	pub(super) type Kitties<T: Config> = StorageMap<Key = [u8; 32], Value = Kitty<T>>;
  
++	/* 🚧 TODO 🚧: Create a new `StorageMap` called `KittiesOwned`.
++		- The `Key` of this map is `T::AccountId`.
++		- The `Value` of this map is `Vec<[u8; 32]>`.
++		- The `QueryKind` should be set to `ValueQuery`.
++	*/
++
  	#[pallet::event]
  	#[pallet::generate_deposit(pub(super) fn deposit_event)]
-@@ -47,6 +51,7 @@ pub mod pallet {
- 	pub enum Error<T> {
- 		TooManyKitties,
- 		DuplicateKitty,
-+		/* 🚧 TODO 🚧: Add a new `Error` named `TooManyOwned` */
- 	}
- 
- 	#[pallet::call]
+ 	pub enum Event<T: Config> {

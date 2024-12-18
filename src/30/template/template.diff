@@ -1,19 +1,54 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index 48af847..aa65cdd 100644
+index 16bdb731..f3f82812 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
-@@ -64,6 +64,14 @@ impl<T: Config> Pallet<T> {
- 		kitty_id: [u8; 32],
- 		new_price: Option<BalanceOf<T>>,
- 	) -> DispatchResult {
-+		/* 🚧 TODO 🚧: Create the logic for setting the Kitty price:
-+			- Create a mutable `kitty` by calling `get` on `Kitties` with `kitty_id`.
-+				- Return an error if the kitty doesn't exist by returning `Error::<T>::NoKitty`.
-+			- `ensure!` that the `kitty.owner` is equal to the `caller` else return `Error::<T>::NotOwner`.
-+			- Set the `kitty.price` to `new_price`.
-+			- Insert the modified `kitty` back into the `Kitties` map under `kitty_id`.
-+		*/
-+
- 		Self::deposit_event(Event::<T>::PriceSet { owner: caller, kitty_id, new_price });
+@@ -58,4 +58,15 @@ impl<T: Config> Pallet<T> {
+ 		Self::deposit_event(Event::<T>::Transferred { from, to, kitty_id });
  		Ok(())
  	}
++
++	/* 🚧 TODO 🚧: Make an internal function called `do_set_price`:
++		- Inputs to the function are:
++			- `caller` which is `T::AccountId`.
++			- `kitty_id` which is `[u8; 32]`.
++			- `new_price` which is `Option<BalanceOf<T>`.
++		- Returns a `DispatchResult`.
++		- The internal logic, for now, should be:
++			- `Self::deposit_event` for `Event::<T>::PriceSet` with the appropriate params.
++			- Return `Ok(())`.
++	*/
+ }
+diff --git a/src/lib.rs b/src/lib.rs
+index 7d8350d6..45f5fdfb 100644
+--- a/src/lib.rs
++++ b/src/lib.rs
+@@ -55,6 +55,11 @@ pub mod pallet {
+ 	pub enum Event<T: Config> {
+ 		Created { owner: T::AccountId },
+ 		Transferred { from: T::AccountId, to: T::AccountId, kitty_id: [u8; 32] },
++		/* 🚧 TODO 🚧: Create a new `Event` called `PriceSet` with fields:
++			- `owner` which is `T::AccountId`.
++			- `kitty_id` which is `[u8; 32]`.
++			- `new_price` which is `Option<BalanceOf<T>>`.
++		*/
+ 	}
+ 
+ 	#[pallet::error]
+@@ -85,5 +90,17 @@ pub mod pallet {
+ 			Self::do_transfer(who, to, kitty_id)?;
+ 			Ok(())
+ 		}
++
++		/* 🚧 TODO 🚧: Make an callable function called `set_price`:
++			- Inputs to the function are:
++				- `origin` which is `OriginFor<T>`.
++				- `kitty_id` which is `[u8; 32]`.
++				- `new_price` which is `Option<BalanceOf<T>`.
++			- Returns a `DispatchResult`
++			- The internal logic, for now, should be:
++				- Extract the caller `who` with `ensure_signed`.
++				- Call `Self::do_set_price` with the appropriate parameters, propagating the result.
++				- Return `Ok(())`.
++		*/
+ 	}
+ }

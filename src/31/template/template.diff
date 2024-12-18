@@ -1,54 +1,19 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index af4e460..04c92c5 100644
+index 48af8471..aa65cdd0 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
-@@ -72,4 +72,15 @@ impl<T: Config> Pallet<T> {
+@@ -64,6 +64,14 @@ impl<T: Config> Pallet<T> {
+ 		kitty_id: [u8; 32],
+ 		new_price: Option<BalanceOf<T>>,
+ 	) -> DispatchResult {
++		/* 🚧 TODO 🚧: Create the logic for setting the Kitty price:
++			- Create a mutable `kitty` by calling `get` on `Kitties` with `kitty_id`.
++				- Return an error if the kitty doesn't exist by returning `Error::<T>::NoKitty`.
++			- `ensure!` that the `kitty.owner` is equal to the `caller` else return `Error::<T>::NotOwner`.
++			- Set the `kitty.price` to `new_price`.
++			- Insert the modified `kitty` back into the `Kitties` map under `kitty_id`.
++		*/
++
  		Self::deposit_event(Event::<T>::PriceSet { owner: caller, kitty_id, new_price });
  		Ok(())
  	}
-+
-+	/* 🚧 TODO 🚧: Create a new internal function `do_buy_kitty`:
-+		- Inputs to the function are:
-+			- `buyer` which is `T::AccountId`.
-+			- `kitty_id` which is `[u8; 32]`.
-+			- `price` which is `BalanceOf<T>`.
-+		- It returns `DispatchResult`.
-+		- The internal logic, for now, should be:
-+			- `Self::deposit_event` with `Event::<T>::Sold` and the appropriate params.
-+			- Return `Ok(())`.
-+	*/
- }
-diff --git a/src/lib.rs b/src/lib.rs
-index 57e0eeb..8c3eb2e 100644
---- a/src/lib.rs
-+++ b/src/lib.rs
-@@ -56,6 +56,11 @@ pub mod pallet {
- 		Created { owner: T::AccountId },
- 		Transferred { from: T::AccountId, to: T::AccountId, kitty_id: [u8; 32] },
- 		PriceSet { owner: T::AccountId, kitty_id: [u8; 32], new_price: Option<BalanceOf<T>> },
-+		/* 🚧 TODO 🚧: Create a new `Event` called `Sold` with the following parameters:
-+			- `buyer` which is `T::AccountId`.
-+			- `kitty_id` which is `[u8; 32]`.
-+			- `price` which is `BalanceOf<T>`.
-+		*/
- 	}
- 
- 	#[pallet::error]
-@@ -96,5 +101,17 @@ pub mod pallet {
- 			Self::do_set_price(who, kitty_id, new_price)?;
- 			Ok(())
- 		}
-+
-+		/* 🚧 TODO 🚧: Create a new callable function `buy_kitty`:
-+			- Inputs to the function are:
-+				- `origin` which is `OriginFor<T>`.
-+				- `kitty_id` which is `[u8; 32]`.
-+				- `max_price` which is `BalanceOf<T>`.
-+			- It returns `DispatchResult`.
-+			- The internal logic should be:
-+				- Extract `who` using `ensure_signed` on `origin`.
-+				- Call `Self::do_buy_kitty` using appropriate params, and propagating the result.
-+				- Return `Ok(())`.
-+		*/
- 	}
- }

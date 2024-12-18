@@ -33,7 +33,6 @@ pub mod pallet {
 	#[pallet::error]
 	pub enum Error<T> {
 		TooManyKitties,
-		DuplicateKitty,
 	}
 
 	#[pallet::call]

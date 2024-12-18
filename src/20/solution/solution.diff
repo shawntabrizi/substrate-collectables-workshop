@@ -1,97 +1,39 @@
-diff --git a/src/impls.rs b/src/impls.rs
-index 741a6ff..5d3c104 100644
---- a/src/impls.rs
-+++ b/src/impls.rs
-@@ -3,17 +3,13 @@ use frame::prelude::*;
- 
- impl<T: Config> Pallet<T> {
- 	pub fn mint(owner: T::AccountId, dna: [u8; 32]) -> DispatchResult {
--		/* 🚧 TODO 🚧:
--			- Create a new variable `kitty` which is a `Kitty` struct with `dna` and `owner`.
--		*/
--
-+		let kitty = Kitty { dna, owner: owner.clone() };
- 		// Check if the kitty does not already exist in our storage map
- 		ensure!(!Kitties::<T>::contains_key(dna), Error::<T>::DuplicateKitty);
- 
- 		let current_count: u32 = CountForKitties::<T>::get();
- 		let new_count = current_count.checked_add(1).ok_or(Error::<T>::TooManyKitties)?;
--		/* 🚧 TODO 🚧: Insert `kitty`into the map instead of `()`. */
--		Kitties::<T>::insert(dna, ());
-+		Kitties::<T>::insert(dna, kitty);
- 		CountForKitties::<T>::set(new_count);
- 		Self::deposit_event(Event::<T>::Created { owner });
- 		Ok(())
 diff --git a/src/lib.rs b/src/lib.rs
-index 68f57e1..aa6ca3b 100644
+index c8ea8705..30d12b4c 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -18,10 +18,8 @@ pub mod pallet {
+@@ -18,13 +18,11 @@ pub mod pallet {
  		type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
  	}
  
 -	/* 🚧 TODO 🚧:
--		- Add the derive macros needed for putting a struct in storage.
--		- Add `#[scale_info(skip_type_params(T))]` to ignore the generic `T`.
+-		- Create a new `struct` called `Kitty`.
+-		- Make `Kitty` generic over `T` where `T: Config`.
+-		- Add two fields to `Kitty`:
+-			- `dna` which is type `[u8; 32]`.
+-			- `owner` which is type `T::AccountId`.
 -	*/
-+	#[derive(Encode, Decode, TypeInfo, MaxEncodedLen)]
-+	#[scale_info(skip_type_params(T))]
- 	pub struct Kitty<T: Config> {
- 		// Using 32 bytes to represent a kitty DNA
- 		pub dna: [u8; 32],
-@@ -32,8 +30,7 @@ pub mod pallet {
- 	pub(super) type CountForKitties<T: Config> = StorageValue<Value = u32, QueryKind = ValueQuery>;
++	pub struct Kitty<T: Config> {
++		// Using 32 bytes to represent a kitty DNA
++		pub dna: [u8; 32],
++		pub owner: T::AccountId,
++	}
  
  	#[pallet::storage]
--	/* 🚧 TODO 🚧: Update the `Value` to be type `Kitty<T>` instead of (). */
--	pub(super) type Kitties<T: Config> = StorageMap<Key = [u8; 32], Value = ()>;
-+	pub(super) type Kitties<T: Config> = StorageMap<Key = [u8; 32], Value = Kitty<T>>;
- 
- 	#[pallet::event]
- 	#[pallet::generate_deposit(pub(super) fn deposit_event)]
+ 	pub(super) type CountForKitties<T: Config> = StorageValue<Value = u32, QueryKind = ValueQuery>;
 diff --git a/src/tests.rs b/src/tests.rs
-index 5778ff8..138a084 100644
+index 44dd98f9..f3652059 100644
 --- a/src/tests.rs
 +++ b/src/tests.rs
-@@ -28,7 +28,6 @@ type Block = frame_system::mocking::MockBlock<TestRuntime>;
+@@ -28,9 +28,8 @@ type Block = frame_system::mocking::MockBlock<TestRuntime>;
  // We create the constants `ALICE` and `BOB` to make it clear when we are representing users below.
  const ALICE: u64 = 1;
  const BOB: u64 = 2;
--#[allow(unused)]
- const DEFAULT_KITTY: Kitty<TestRuntime> = Kitty { dna: [0u8; 32], owner: 0 };
+-/* 🚧 TODO 🚧:
+-	- Create `const DEFAULT_KITTY` with a `dna` of [0u8; 32] and an `owner` of 0 };.
+-*/
++#[allow(unused)]
++const DEFAULT_KITTY: Kitty<TestRuntime> = Kitty { dna: [0u8; 32], owner: 0 };
  
  #[runtime]
-@@ -182,7 +181,7 @@ fn kitties_map_created_correctly() {
- 	new_test_ext().execute_with(|| {
- 		let zero_key = [0u8; 32];
- 		assert!(!Kitties::<TestRuntime>::contains_key(zero_key));
--		Kitties::<TestRuntime>::insert(zero_key, ());
-+		Kitties::<TestRuntime>::insert(zero_key, DEFAULT_KITTY);
- 		assert!(Kitties::<TestRuntime>::contains_key(zero_key));
- 	})
- }
-@@ -202,3 +201,24 @@ fn cannot_mint_duplicate_kitty() {
- 		assert_noop!(PalletKitties::mint(BOB, [0u8; 32]), Error::<TestRuntime>::DuplicateKitty);
- 	})
- }
-+
-+#[test]
-+fn kitty_struct_has_expected_traits() {
-+	new_test_ext().execute_with(|| {
-+		let kitty = DEFAULT_KITTY;
-+		let bytes = kitty.encode();
-+		let _decoded_kitty = Kitty::<TestRuntime>::decode(&mut &bytes[..]).unwrap();
-+		assert!(Kitty::<TestRuntime>::max_encoded_len() > 0);
-+		let _info = Kitty::<TestRuntime>::type_info();
-+	})
-+}
-+
-+#[test]
-+fn mint_stores_owner_in_kitty() {
-+	new_test_ext().execute_with(|| {
-+		assert_ok!(PalletKitties::mint(1337, [42u8; 32]));
-+		let kitty = Kitties::<TestRuntime>::get([42u8; 32]).unwrap();
-+		assert_eq!(kitty.owner, 1337);
-+		assert_eq!(kitty.dna, [42u8; 32]);
-+	})
-+}
+ mod runtime {

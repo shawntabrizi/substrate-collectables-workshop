@@ -32,12 +32,6 @@ pub mod pallet {
 	#[pallet::storage]
 	pub(super) type Kitties<T: Config> = StorageMap<Key = [u8; 32], Value = Kitty<T>>;
 
-	/* 🚧 TODO 🚧: Create a new `StorageMap` called `KittiesOwned`.
-		- The `Key` of this map is `T::AccountId`.
-		- The `Value` of this map is `Vec<[u8; 32]>`.
-		- The `QueryKind` should be set to `ValueQuery`.
-	*/
-
 	#[pallet::event]
 	#[pallet::generate_deposit(pub(super) fn deposit_event)]
 	pub enum Event<T: Config> {
@@ -54,7 +48,8 @@ pub mod pallet {
 	impl<T: Config> Pallet<T> {
 		pub fn create_kitty(origin: OriginFor<T>) -> DispatchResult {
 			let who = ensure_signed(origin)?;
-			let dna = Self::gen_dna();
+			/* 🚧 TODO 🚧: Use the `Self::gen_dna()` function to generate a unique Kitty. */
+			let dna = [0u8; 32];
 			Self::mint(who, dna)?;
 			Ok(())
 		}

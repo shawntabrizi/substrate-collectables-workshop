@@ -1,0 +1,117 @@
+diff --git a/src/impls.rs b/src/impls.rs
+index c7a34b2c..463894ed 100644
+--- a/src/impls.rs
++++ b/src/impls.rs
+@@ -1,7 +1,7 @@
+ use super::*;
+ use frame::prelude::*;
+ use frame::primitives::BlakeTwo256;
+-/* 🚧 TODO 🚧: Import `frame::traits::tokens::Preservation`. */
++use frame::traits::tokens::Preservation;
+ use frame::traits::Hash;
+ 
+ // Learn about internal functions.
+@@ -79,22 +79,14 @@ impl<T: Config> Pallet<T> {
+ 		kitty_id: [u8; 32],
+ 		price: BalanceOf<T>,
+ 	) -> DispatchResult {
+-		/* 🚧 TODO 🚧: Sanity check that the purchase is allowed:
+-			- Get `kitty` from `Kitties` using `kitty_id`, `ok_or` return `Error::<T>::NoKitty`.
+-			- Get the `real_price` from `kitty.price`, `ok_or` return `Error::<T>::NotForSale`.
+-			- `ensure!` that `price` is greater or equal to `real_price`, else `Error::<T>::MaxPriceTooLow`.
+-		*/
++		let kitty = Kitties::<T>::get(kitty_id).ok_or(Error::<T>::NoKitty)?;
++		let real_price = kitty.price.ok_or(Error::<T>::NotForSale)?;
++		ensure!(price >= real_price, Error::<T>::MaxPriceTooLow);
+ 
+-		/* 🚧 TODO 🚧: Execute the transfers:
+-			- Use `T::NativeBalance` to `transfer` from the `buyer` to the `kitty.owner`.
+-				- The amount transferred should be the `real_price`.
+-				- Use `Preservation::Preserve` to ensure the buyer account stays alive.
+-			- Use `Self::do_transfer` to transfer from the `kitty.owner` to the `buyer` with `kitty_id`.
+-			- Remember to propagate up all results from these functions with `?`.
+-		*/
++		T::NativeBalance::transfer(&buyer, &kitty.owner, real_price, Preservation::Preserve)?;
++		Self::do_transfer(kitty.owner, buyer.clone(), kitty_id)?;
+ 
+-		/* 🚧 TODO 🚧: Update the event to use the `real_price` in the `Event`. */
+-		Self::deposit_event(Event::<T>::Sold { buyer, kitty_id, price });
++		Self::deposit_event(Event::<T>::Sold { buyer, kitty_id, price: real_price });
+ 		Ok(())
+ 	}
+ }
+diff --git a/src/lib.rs b/src/lib.rs
+index f465b493..8ca2bdd1 100644
+--- a/src/lib.rs
++++ b/src/lib.rs
+@@ -67,10 +67,8 @@ pub mod pallet {
+ 		TransferToSelf,
+ 		NoKitty,
+ 		NotOwner,
+-		/* 🚧 TODO 🚧: Add `Errors` needed for `do_buy_kitty`:
+-			- `NotForSale`: for when the Kitty has a price set to `None`.
+-			- `MaxPriceTooLow`: for when the price offered by the buyer is too low.
+-		*/
++		NotForSale,
++		MaxPriceTooLow,
+ 	}
+ 
+ 	#[pallet::call]
+diff --git a/src/tests.rs b/src/tests.rs
+index 91905422..5f8a1953 100644
+--- a/src/tests.rs
++++ b/src/tests.rs
+@@ -373,3 +373,53 @@ fn do_buy_kitty_emits_event() {
+ 		);
+ 	})
+ }
++
++#[test]
++fn do_buy_kitty_logic_works() {
++	new_test_ext().execute_with(|| {
++		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(ALICE)));
++		let kitty = &Kitties::<TestRuntime>::iter_values().collect::<Vec<_>>()[0];
++		let kitty_id = kitty.dna;
++		assert_eq!(kitty.owner, ALICE);
++		assert_eq!(KittiesOwned::<TestRuntime>::get(ALICE), vec![kitty_id]);
++		// Cannot buy kitty which does not exist.
++		assert_noop!(
++			PalletKitties::buy_kitty(RuntimeOrigin::signed(BOB), [0u8; 32], 1337),
++			Error::<TestRuntime>::NoKitty
++		);
++		// Cannot buy kitty which is not for sale.
++		assert_noop!(
++			PalletKitties::buy_kitty(RuntimeOrigin::signed(BOB), kitty_id, 1337),
++			Error::<TestRuntime>::NotForSale
++		);
++		assert_ok!(PalletKitties::set_price(RuntimeOrigin::signed(ALICE), kitty_id, Some(1337)));
++		// Cannot buy kitty for a lower price.
++		assert_noop!(
++			PalletKitties::buy_kitty(RuntimeOrigin::signed(BOB), kitty_id, 1336),
++			Error::<TestRuntime>::MaxPriceTooLow
++		);
++		// Cannot buy kitty if you don't have the funds.
++		assert_noop!(
++			PalletKitties::buy_kitty(RuntimeOrigin::signed(BOB), kitty_id, 1337),
++			frame::arithmetic::ArithmeticError::Underflow
++		);
++		// Cannot buy kitty if it would kill your account (i.e. set your balance to 0).
++		assert_ok!(PalletBalances::mint_into(&BOB, 1337));
++		assert!(
++			PalletKitties::buy_kitty(RuntimeOrigin::signed(BOB), kitty_id, 1337).is_err(),
++			// TODO: assert_noop on DispatchError::Token(TokenError::NotExpendable)
++		);
++		// When everything is right, it works.
++		assert_ok!(PalletBalances::mint_into(&BOB, 100_000));
++		assert_ok!(PalletKitties::buy_kitty(RuntimeOrigin::signed(BOB), kitty_id, 1337));
++		// State is updated correctly.
++		assert_eq!(KittiesOwned::<TestRuntime>::get(BOB), vec![kitty_id]);
++		let kitty = Kitties::<TestRuntime>::get(kitty_id).unwrap();
++		assert_eq!(kitty.owner, BOB);
++		// Price is reset to `None`.
++		assert_eq!(kitty.price, None);
++		// BOB transferred funds to ALICE.
++		assert_eq!(PalletBalances::balance(&ALICE), 1337);
++		assert_eq!(PalletBalances::balance(&BOB), 100_000);
++	})
++}

@@ -23,9 +23,13 @@ pub mod pallet {
 		type NativeBalance: Inspect<Self::AccountId> + Mutate<Self::AccountId>;
 	}
 
-	// Allows easy access our Pallet's `Balance` type. Comes from `Fungible` interface.
-	pub type BalanceOf<T> =
-		<<T as Config>::NativeBalance as Inspect<<T as frame_system::Config>::AccountId>>::Balance;
+	/* 🚧 TODO 🚧:
+		- Create a new type alias called `BalanceOf<T>`.
+		- Extract the `Balance` type from the `NativeBalance` associated type:
+			- The `Balance` type comes from the `Inspect` trait.
+				- `Inspect` requires a generic parameter `AccountId` from `T as frame_system::Config`.
+			- Inspect comes from `NativeBalance`, which comes from `T as Config`.
+	*/
 
 	#[derive(Encode, Decode, TypeInfo, MaxEncodedLen)]
 	#[scale_info(skip_type_params(T))]
@@ -33,7 +37,7 @@ pub mod pallet {
 		// Using 32 bytes to represent a kitty DNA
 		pub dna: [u8; 32],
 		pub owner: T::AccountId,
-		pub price: Option<BalanceOf<T>>,
+		/* 🚧 TODO 🚧: Add a new field `price`, which is an `Option<BalanceOf<T>>`. */
 	}
 
 	#[pallet::storage]
@@ -55,11 +59,6 @@ pub mod pallet {
 	pub enum Event<T: Config> {
 		Created { owner: T::AccountId },
 		Transferred { from: T::AccountId, to: T::AccountId, kitty_id: [u8; 32] },
-		/* 🚧 TODO 🚧: Create a new `Event` called `PriceSet` with fields:
-			- `owner` which is `T::AccountId`.
-			- `kitty_id` which is `[u8; 32]`.
-			- `new_price` which is `Option<BalanceOf<T>>`.
-		*/
 	}
 
 	#[pallet::error]
@@ -90,17 +89,5 @@ pub mod pallet {
 			Self::do_transfer(who, to, kitty_id)?;
 			Ok(())
 		}
-
-		/* 🚧 TODO 🚧: Make an callable function called `set_price`:
-			- Inputs to the function are:
-				- `origin` which is `OriginFor<T>`.
-				- `kitty_id` which is `[u8; 32]`.
-				- `new_price` which is `Option<BalanceOf<T>`.
-			- Returns a `DispatchResult`
-			- The internal logic, for now, should be:
-				- Extract the caller `who` with `ensure_signed`.
-				- Call `Self::do_set_price` with the appropriate parameters, propagating the result.
-				- Return `Ok(())`.
-		*/
 	}
 }

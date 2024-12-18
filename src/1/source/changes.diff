@@ -1,6 +1,6 @@
 diff --git a/Cargo.lock b/Cargo.lock
 new file mode 100644
-index 0000000..31cbe7d
+index 00000000..31cbe7df
 --- /dev/null
 +++ b/Cargo.lock
 @@ -0,0 +1,3624 @@
@@ -3630,7 +3630,7 @@ index 0000000..31cbe7d
 +]
 diff --git a/Cargo.toml b/Cargo.toml
 new file mode 100644
-index 0000000..293d4f2
+index 00000000..293d4f2a
 --- /dev/null
 +++ b/Cargo.toml
 @@ -0,0 +1,26 @@
@@ -3662,7 +3662,7 @@ index 0000000..293d4f2
 +try-runtime = []
 diff --git a/rustfmt.toml b/rustfmt.toml
 new file mode 100644
-index 0000000..cf9aa25
+index 00000000..cf9aa251
 --- /dev/null
 +++ b/rustfmt.toml
 @@ -0,0 +1,24 @@
@@ -3692,7 +3692,7 @@ index 0000000..cf9aa25
 +wrap_comments = true
 diff --git a/src/impls.rs b/src/impls.rs
 new file mode 100644
-index 0000000..03abf99
+index 00000000..03abf99e
 --- /dev/null
 +++ b/src/impls.rs
 @@ -0,0 +1,9 @@
@@ -3707,7 +3707,7 @@ index 0000000..03abf99
 +}
 diff --git a/src/lib.rs b/src/lib.rs
 new file mode 100644
-index 0000000..ae8a09b
+index 00000000..ae8a09bc
 --- /dev/null
 +++ b/src/lib.rs
 @@ -0,0 +1,38 @@
@@ -3751,10 +3751,10 @@ index 0000000..ae8a09b
 +}
 diff --git a/src/tests.rs b/src/tests.rs
 new file mode 100644
-index 0000000..6d271d5
+index 00000000..7e6f34da
 --- /dev/null
 +++ b/src/tests.rs
-@@ -0,0 +1,117 @@
+@@ -0,0 +1,115 @@
 +// Tests for the Kitties Pallet.
 +//
 +// Normally this file would be split into two parts: `mock.rs` and `tests.rs`.
@@ -3806,15 +3806,15 @@ index 0000000..6d271d5
 +
 +	/// System: Mandatory system pallet that should always be included in a FRAME runtime.
 +	#[runtime::pallet_index(0)]
-+	pub type System = frame_system::Pallet<Runtime>;
++	pub type System = frame_system::Pallet<TestRuntime>;
 +
 +	/// PalletBalances: Manages your blockchain's native currency. (i.e. DOT on Polkadot)
 +	#[runtime::pallet_index(1)]
-+	pub type PalletBalances = pallet_balances::Pallet<Runtime>;
++	pub type PalletBalances = pallet_balances::Pallet<TestRuntime>;
 +
 +	/// PalletKitties: The pallet you are building in this tutorial!
 +	#[runtime::pallet_index(2)]
-+	pub type PalletKitties = pallet_kitties::Pallet<Runtime>;
++	pub type PalletKitties = pallet_kitties::Pallet<TestRuntime>;
 +}
 +
 +// Normally `System` would have many more configurations, but you can see that we use some macro
@@ -3865,8 +3865,6 @@ index 0000000..6d271d5
 +fn system_and_balances_work() {
 +	// This test will just sanity check that we can access `System` and `PalletBalances`.
 +	new_test_ext().execute_with(|| {
-+		// We often need to set `System` to block 1 so that we can see events.
-+		System::set_block_number(1);
 +		// We often need to add some balance to a user to test features which needs tokens.
 +		assert_ok!(PalletBalances::mint_into(&ALICE, 100));
 +		assert_ok!(PalletBalances::mint_into(&BOB, 100));

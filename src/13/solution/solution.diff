@@ -1,50 +1,40 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index c550bc8..7277e36 100644
+index b396f986..97393307 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
-@@ -4,8 +4,7 @@ use frame::prelude::*;
+@@ -3,12 +3,9 @@ use frame::prelude::*;
+ 
  impl<T: Config> Pallet<T> {
  	pub fn mint(owner: T::AccountId) -> DispatchResult {
- 		let current_count: u32 = CountForKitties::<T>::get().unwrap_or(0);
--		/* 🚧 TODO 🚧: Update this logic to use safe math. */
--		let new_count = current_count + 1;
-+		let new_count = current_count.checked_add(1).ok_or(Error::<T>::TooManyKitties)?;
- 		CountForKitties::<T>::set(Some(new_count));
+-		/* 🚧 TODO 🚧:
+-			- `get` the `current_count` of kitties.
+-			- `unwrap_or` set the count to `0`.
+-			- Create `new_count` by adding one to the `current_count`.
+-			- `set` the `new_count` of kitties.
+-		*/
++		let current_count: u32 = CountForKitties::<T>::get().unwrap_or(0);
++		let new_count = current_count + 1;
++		CountForKitties::<T>::set(Some(new_count));
  		Self::deposit_event(Event::<T>::Created { owner });
  		Ok(())
-diff --git a/src/lib.rs b/src/lib.rs
-index 8edcc9b..2c11f46 100644
---- a/src/lib.rs
-+++ b/src/lib.rs
-@@ -29,9 +29,7 @@ pub mod pallet {
- 
- 	#[pallet::error]
- 	pub enum Error<T> {
--		/* 🚧 TODO 🚧:
--			- Introduce a new error `TooManyKitties`.
--		*/
-+		TooManyKitties,
  	}
- 
- 	#[pallet::call]
 diff --git a/src/tests.rs b/src/tests.rs
-index a396679..8701a36 100644
+index 9ceddfbb..2b579ffc 100644
 --- a/src/tests.rs
 +++ b/src/tests.rs
-@@ -163,3 +163,16 @@ fn mint_increments_count_for_kitty() {
- 		assert_eq!(CountForKitties::<TestRuntime>::get(), Some(1));
+@@ -149,3 +149,15 @@ fn count_for_kitties_created_correctly() {
+ 		assert_eq!(CountForKitties::<TestRuntime>::get(), Some(1337u32));
  	})
  }
 +
 +#[test]
-+fn mint_errors_when_overflow() {
++fn mint_increments_count_for_kitty() {
 +	new_test_ext().execute_with(|| {
-+		// Set the count to the largest value possible.
-+		CountForKitties::<TestRuntime>::set(Some(u32::MAX));
-+		// `create_kitty` should not succeed because of safe math.
-+		assert_noop!(
-+			PalletKitties::create_kitty(RuntimeOrigin::signed(1)),
-+			Error::<TestRuntime>::TooManyKitties
-+		);
++		// Querying storage before anything is set will return `None`.
++		assert_eq!(CountForKitties::<TestRuntime>::get(), None);
++		// Call `create_kitty` which will call `mint`.
++		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(ALICE)));
++		// Now the storage should be `Some(1)`
++		assert_eq!(CountForKitties::<TestRuntime>::get(), Some(1));
 +	})
 +}

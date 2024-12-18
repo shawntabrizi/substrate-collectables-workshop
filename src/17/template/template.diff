@@ -1,27 +1,31 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index 363f5e4..292909e 100644
+index d283fd6b..44437026 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
-@@ -3,6 +3,10 @@ use frame::prelude::*;
+@@ -2,9 +2,11 @@ use super::*;
+ use frame::prelude::*;
  
  impl<T: Config> Pallet<T> {
- 	pub fn mint(owner: T::AccountId, dna: [u8; 32]) -> DispatchResult {
-+		/* 🚧 TODO 🚧:
-+			- `ensure!` that `Kitties` map does not `contains_key` for `dna`.
-+			- If it does, return `Error::<T>::DuplicateKitty`.
-+		*/
++	/* 🚧 TODO 🚧: Update this function signature to include `dna` which is type `[u8; 32]`. */
+ 	pub fn mint(owner: T::AccountId) -> DispatchResult {
  		let current_count: u32 = CountForKitties::<T>::get();
  		let new_count = current_count.checked_add(1).ok_or(Error::<T>::TooManyKitties)?;
- 		Kitties::<T>::insert(dna, ());
++		/* 🚧 TODO 🚧: In the `Kitties` map, under the key `dna`, insert `()`. */
+ 		CountForKitties::<T>::set(new_count);
+ 		Self::deposit_event(Event::<T>::Created { owner });
+ 		Ok(())
 diff --git a/src/lib.rs b/src/lib.rs
-index 15fb504..6fb4b6d 100644
+index 42fb376b..717c9009 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -33,6 +33,7 @@ pub mod pallet {
- 	#[pallet::error]
- 	pub enum Error<T> {
- 		TooManyKitties,
-+		/* 🚧 TODO 🚧: Create a new error `DuplicateKitty`. */
- 	}
- 
- 	#[pallet::call]
+@@ -39,6 +39,10 @@ pub mod pallet {
+ 	impl<T: Config> Pallet<T> {
+ 		pub fn create_kitty(origin: OriginFor<T>) -> DispatchResult {
+ 			let who = ensure_signed(origin)?;
++			/* 🚧 TODO 🚧:
++				- Create a `dna` variable for this kitty, which we will set as `[0u8; 32]` for now.
++				- Pass `dna` to the `mint` function as the second parameter.
++			*/
+ 			Self::mint(who)?;
+ 			Ok(())
+ 		}

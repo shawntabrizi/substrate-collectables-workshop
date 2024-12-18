@@ -32,14 +32,11 @@ pub mod pallet {
 	#[pallet::storage]
 	pub(super) type Kitties<T: Config> = StorageMap<Key = [u8; 32], Value = Kitty<T>>;
 
-	/// Track the kitties owned by each account.
-	#[pallet::storage]
-	pub(super) type KittiesOwned<T: Config> = StorageMap<
-		Key = T::AccountId,
-		/* 🚧 TODO 🚧: Turn this into a `BoundedVec` with a limit of `ConstU32<100>`. */
-		Value = Vec<[u8; 32]>,
-		QueryKind = ValueQuery,
-	>;
+	/* 🚧 TODO 🚧: Create a new `StorageMap` called `KittiesOwned`.
+		- The `Key` of this map is `T::AccountId`.
+		- The `Value` of this map is `Vec<[u8; 32]>`.
+		- The `QueryKind` should be set to `ValueQuery`.
+	*/
 
 	#[pallet::event]
 	#[pallet::generate_deposit(pub(super) fn deposit_event)]
@@ -51,7 +48,6 @@ pub mod pallet {
 	pub enum Error<T> {
 		TooManyKitties,
 		DuplicateKitty,
-		/* 🚧 TODO 🚧: Add a new `Error` named `TooManyOwned` */
 	}
 
 	#[pallet::call]

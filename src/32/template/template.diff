@@ -1,49 +1,54 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index 03cf1f1..c7a34b2 100644
+index af4e4602..04c92c57 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
-@@ -1,6 +1,7 @@
- use super::*;
- use frame::prelude::*;
- use frame::primitives::BlakeTwo256;
-+/* 🚧 TODO 🚧: Import `frame::traits::tokens::Preservation`. */
- use frame::traits::Hash;
- 
- // Learn about internal functions.
-@@ -78,6 +79,21 @@ impl<T: Config> Pallet<T> {
- 		kitty_id: [u8; 32],
- 		price: BalanceOf<T>,
- 	) -> DispatchResult {
-+		/* 🚧 TODO 🚧: Sanity check that the purchase is allowed:
-+			- Get `kitty` from `Kitties` using `kitty_id`, `ok_or` return `Error::<T>::NoKitty`.
-+			- Get the `real_price` from `kitty.price`, `ok_or` return `Error::<T>::NotForSale`.
-+			- `ensure!` that `price` is greater or equal to `real_price`, else `Error::<T>::MaxPriceTooLow`.
-+		*/
-+
-+		/* 🚧 TODO 🚧: Execute the transfers:
-+			- Use `T::NativeBalance` to `transfer` from the `buyer` to the `kitty.owner`.
-+				- The amount transferred should be the `real_price`.
-+				- Use `Preservation::Preserve` to ensure the buyer account stays alive.
-+			- Use `Self::do_transfer` to transfer from the `kitty.owner` to the `buyer` with `kitty_id`.
-+			- Remember to propagate up all results from these functions with `?`.
-+		*/
-+
-+		/* 🚧 TODO 🚧: Update the event to use the `real_price` in the `Event`. */
- 		Self::deposit_event(Event::<T>::Sold { buyer, kitty_id, price });
+@@ -72,4 +72,15 @@ impl<T: Config> Pallet<T> {
+ 		Self::deposit_event(Event::<T>::PriceSet { owner: caller, kitty_id, new_price });
  		Ok(())
  	}
++
++	/* 🚧 TODO 🚧: Create a new internal function `do_buy_kitty`:
++		- Inputs to the function are:
++			- `buyer` which is `T::AccountId`.
++			- `kitty_id` which is `[u8; 32]`.
++			- `price` which is `BalanceOf<T>`.
++		- It returns `DispatchResult`.
++		- The internal logic, for now, should be:
++			- `Self::deposit_event` with `Event::<T>::Sold` and the appropriate params.
++			- Return `Ok(())`.
++	*/
+ }
 diff --git a/src/lib.rs b/src/lib.rs
-index 4a8d2b1..f465b49 100644
+index 57e0eeb7..8c3eb2e6 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -67,6 +67,10 @@ pub mod pallet {
- 		TransferToSelf,
- 		NoKitty,
- 		NotOwner,
-+		/* 🚧 TODO 🚧: Add `Errors` needed for `do_buy_kitty`:
-+			- `NotForSale`: for when the Kitty has a price set to `None`.
-+			- `MaxPriceTooLow`: for when the price offered by the buyer is too low.
+@@ -56,6 +56,11 @@ pub mod pallet {
+ 		Created { owner: T::AccountId },
+ 		Transferred { from: T::AccountId, to: T::AccountId, kitty_id: [u8; 32] },
+ 		PriceSet { owner: T::AccountId, kitty_id: [u8; 32], new_price: Option<BalanceOf<T>> },
++		/* 🚧 TODO 🚧: Create a new `Event` called `Sold` with the following parameters:
++			- `buyer` which is `T::AccountId`.
++			- `kitty_id` which is `[u8; 32]`.
++			- `price` which is `BalanceOf<T>`.
 +		*/
  	}
  
- 	#[pallet::call]
+ 	#[pallet::error]
+@@ -96,5 +101,17 @@ pub mod pallet {
+ 			Self::do_set_price(who, kitty_id, new_price)?;
+ 			Ok(())
+ 		}
++
++		/* 🚧 TODO 🚧: Create a new callable function `buy_kitty`:
++			- Inputs to the function are:
++				- `origin` which is `OriginFor<T>`.
++				- `kitty_id` which is `[u8; 32]`.
++				- `max_price` which is `BalanceOf<T>`.
++			- It returns `DispatchResult`.
++			- The internal logic should be:
++				- Extract `who` using `ensure_signed` on `origin`.
++				- Call `Self::do_buy_kitty` using appropriate params, and propagating the result.
++				- Return `Ok(())`.
++		*/
+ 	}
+ }

@@ -1,95 +1,43 @@
 diff --git a/src/impls.rs b/src/impls.rs
-index 04c92c5..03cf1f1 100644
+index aa65cdd0..af4e4602 100644
 --- a/src/impls.rs
 +++ b/src/impls.rs
-@@ -73,14 +73,12 @@ impl<T: Config> Pallet<T> {
+@@ -64,13 +64,10 @@ impl<T: Config> Pallet<T> {
+ 		kitty_id: [u8; 32],
+ 		new_price: Option<BalanceOf<T>>,
+ 	) -> DispatchResult {
+-		/* 🚧 TODO 🚧: Create the logic for setting the Kitty price:
+-			- Create a mutable `kitty` by calling `get` on `Kitties` with `kitty_id`.
+-				- Return an error if the kitty doesn't exist by returning `Error::<T>::NoKitty`.
+-			- `ensure!` that the `kitty.owner` is equal to the `caller` else return `Error::<T>::NotOwner`.
+-			- Set the `kitty.price` to `new_price`.
+-			- Insert the modified `kitty` back into the `Kitties` map under `kitty_id`.
+-		*/
++		let mut kitty = Kitties::<T>::get(kitty_id).ok_or(Error::<T>::NoKitty)?;
++		ensure!(kitty.owner == caller, Error::<T>::NotOwner);
++		kitty.price = new_price;
++		Kitties::<T>::insert(kitty_id, kitty);
+ 
+ 		Self::deposit_event(Event::<T>::PriceSet { owner: caller, kitty_id, new_price });
  		Ok(())
- 	}
- 
--	/* 🚧 TODO 🚧: Create a new internal function `do_buy_kitty`:
--		- Inputs to the function are:
--			- `buyer` which is `T::AccountId`.
--			- `kitty_id` which is `[u8; 32]`.
--			- `price` which is `BalanceOf<T>`.
--		- It returns `DispatchResult`.
--		- The internal logic, for now, should be:
--			- `Self::deposit_event` with `Event::<T>::Sold` and the appropriate params.
--			- Return `Ok(())`.
--	*/
-+	pub fn do_buy_kitty(
-+		buyer: T::AccountId,
-+		kitty_id: [u8; 32],
-+		price: BalanceOf<T>,
-+	) -> DispatchResult {
-+		Self::deposit_event(Event::<T>::Sold { buyer, kitty_id, price });
-+		Ok(())
-+	}
- }
-diff --git a/src/lib.rs b/src/lib.rs
-index 8c3eb2e..4a8d2b1 100644
---- a/src/lib.rs
-+++ b/src/lib.rs
-@@ -56,11 +56,7 @@ pub mod pallet {
- 		Created { owner: T::AccountId },
- 		Transferred { from: T::AccountId, to: T::AccountId, kitty_id: [u8; 32] },
- 		PriceSet { owner: T::AccountId, kitty_id: [u8; 32], new_price: Option<BalanceOf<T>> },
--		/* 🚧 TODO 🚧: Create a new `Event` called `Sold` with the following parameters:
--			- `buyer` which is `T::AccountId`.
--			- `kitty_id` which is `[u8; 32]`.
--			- `price` which is `BalanceOf<T>`.
--		*/
-+		Sold { buyer: T::AccountId, kitty_id: [u8; 32], price: BalanceOf<T> },
- 	}
- 
- 	#[pallet::error]
-@@ -102,16 +98,14 @@ pub mod pallet {
- 			Ok(())
- 		}
- 
--		/* 🚧 TODO 🚧: Create a new callable function `buy_kitty`:
--			- Inputs to the function are:
--				- `origin` which is `OriginFor<T>`.
--				- `kitty_id` which is `[u8; 32]`.
--				- `max_price` which is `BalanceOf<T>`.
--			- It returns `DispatchResult`.
--			- The internal logic should be:
--				- Extract `who` using `ensure_signed` on `origin`.
--				- Call `Self::do_buy_kitty` using appropriate params, and propagating the result.
--				- Return `Ok(())`.
--		*/
-+		pub fn buy_kitty(
-+			origin: OriginFor<T>,
-+			kitty_id: [u8; 32],
-+			max_price: BalanceOf<T>,
-+		) -> DispatchResult {
-+			let who = ensure_signed(origin)?;
-+			Self::do_buy_kitty(who, kitty_id, max_price)?;
-+			Ok(())
-+		}
- 	}
- }
 diff --git a/src/tests.rs b/src/tests.rs
-index 392e5bf..3aa8456 100644
+index e47a4736..c7f1af6a 100644
 --- a/src/tests.rs
 +++ b/src/tests.rs
-@@ -358,3 +358,20 @@ fn set_price_logic_works() {
- 		assert_eq!(kitty.price, Some(1337));
+@@ -343,3 +343,16 @@ fn set_price_emits_event() {
+ 		);
  	})
  }
 +
 +#[test]
-+fn do_buy_kitty_emits_event() {
++fn set_price_logic_works() {
 +	new_test_ext().execute_with(|| {
-+		// We need to set block number to 1 to view events.
-+		System::set_block_number(1);
 +		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(ALICE)));
-+		let kitty_id = Kitties::<TestRuntime>::iter_keys().collect::<Vec<_>>()[0];
++		let kitty = &Kitties::<TestRuntime>::iter_values().collect::<Vec<_>>()[0];
++		assert_eq!(kitty.price, None);
++		let kitty_id = kitty.dna;
 +		assert_ok!(PalletKitties::set_price(RuntimeOrigin::signed(ALICE), kitty_id, Some(1337)));
-+		assert_ok!(PalletBalances::mint_into(&BOB, 100_000));
-+		assert_ok!(PalletKitties::buy_kitty(RuntimeOrigin::signed(BOB), kitty_id, 1337));
-+		// Assert the last event by our blockchain is the `Created` event with the correct owner.
-+		System::assert_last_event(
-+			Event::<TestRuntime>::Sold { buyer: BOB, kitty_id, price: 1337 }.into(),
-+		);
++		let kitty = Kitties::<TestRuntime>::get(kitty_id).unwrap();
++		assert_eq!(kitty.price, Some(1337));
 +	})
 +}

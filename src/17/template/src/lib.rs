@@ -33,15 +33,17 @@ pub mod pallet {
 	#[pallet::error]
 	pub enum Error<T> {
 		TooManyKitties,
-		/* 🚧 TODO 🚧: Create a new error `DuplicateKitty`. */
 	}
 
 	#[pallet::call]
 	impl<T: Config> Pallet<T> {
 		pub fn create_kitty(origin: OriginFor<T>) -> DispatchResult {
 			let who = ensure_signed(origin)?;
-			let dna = [0u8; 32];
-			Self::mint(who, dna)?;
+			/* 🚧 TODO 🚧:
+				- Create a `dna` variable for this kitty, which we will set as `[0u8; 32]` for now.
+				- Pass `dna` to the `mint` function as the second parameter.
+			*/
+			Self::mint(who)?;
 			Ok(())
 		}
 	}

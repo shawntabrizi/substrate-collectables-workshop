@@ -56,7 +56,11 @@ pub mod pallet {
 		Created { owner: T::AccountId },
 		Transferred { from: T::AccountId, to: T::AccountId, kitty_id: [u8; 32] },
 		PriceSet { owner: T::AccountId, kitty_id: [u8; 32], new_price: Option<BalanceOf<T>> },
-		Sold { buyer: T::AccountId, kitty_id: [u8; 32], price: BalanceOf<T> },
+		/* 🚧 TODO 🚧: Create a new `Event` called `Sold` with the following parameters:
+			- `buyer` which is `T::AccountId`.
+			- `kitty_id` which is `[u8; 32]`.
+			- `price` which is `BalanceOf<T>`.
+		*/
 	}
 
 	#[pallet::error]
@@ -67,10 +71,6 @@ pub mod pallet {
 		TransferToSelf,
 		NoKitty,
 		NotOwner,
-		/* 🚧 TODO 🚧: Add `Errors` needed for `do_buy_kitty`:
-			- `NotForSale`: for when the Kitty has a price set to `None`.
-			- `MaxPriceTooLow`: for when the price offered by the buyer is too low.
-		*/
 	}
 
 	#[pallet::call]
@@ -102,14 +102,16 @@ pub mod pallet {
 			Ok(())
 		}
 
-		pub fn buy_kitty(
-			origin: OriginFor<T>,
-			kitty_id: [u8; 32],
-			max_price: BalanceOf<T>,
-		) -> DispatchResult {
-			let who = ensure_signed(origin)?;
-			Self::do_buy_kitty(who, kitty_id, max_price)?;
-			Ok(())
-		}
+		/* 🚧 TODO 🚧: Create a new callable function `buy_kitty`:
+			- Inputs to the function are:
+				- `origin` which is `OriginFor<T>`.
+				- `kitty_id` which is `[u8; 32]`.
+				- `max_price` which is `BalanceOf<T>`.
+			- It returns `DispatchResult`.
+			- The internal logic should be:
+				- Extract `who` using `ensure_signed` on `origin`.
+				- Call `Self::do_buy_kitty` using appropriate params, and propagating the result.
+				- Return `Ok(())`.
+		*/
 	}
 }

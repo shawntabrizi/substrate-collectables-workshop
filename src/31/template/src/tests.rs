@@ -50,15 +50,15 @@ mod runtime {
 
 	/// System: Mandatory system pallet that should always be included in a FRAME runtime.
 	#[runtime::pallet_index(0)]
-	pub type System = frame_system::Pallet<Runtime>;
+	pub type System = frame_system::Pallet<TestRuntime>;
 
 	/// PalletBalances: Manages your blockchain's native currency. (i.e. DOT on Polkadot)
 	#[runtime::pallet_index(1)]
-	pub type PalletBalances = pallet_balances::Pallet<Runtime>;
+	pub type PalletBalances = pallet_balances::Pallet<TestRuntime>;
 
 	/// PalletKitties: The pallet you are building in this tutorial!
 	#[runtime::pallet_index(2)]
-	pub type PalletKitties = pallet_kitties::Pallet<Runtime>;
+	pub type PalletKitties = pallet_kitties::Pallet<TestRuntime>;
 }
 
 // Normally `System` would have many more configurations, but you can see that we use some macro
@@ -110,8 +110,6 @@ fn starting_template_is_sane() {
 fn system_and_balances_work() {
 	// This test will just sanity check that we can access `System` and `PalletBalances`.
 	new_test_ext().execute_with(|| {
-		// We often need to set `System` to block 1 so that we can see events.
-		System::set_block_number(1);
 		// We often need to add some balance to a user to test features which needs tokens.
 		assert_ok!(PalletBalances::mint_into(&ALICE, 100));
 		assert_ok!(PalletBalances::mint_into(&BOB, 100));
@@ -343,18 +341,5 @@ fn set_price_emits_event() {
 		System::assert_last_event(
 			Event::<TestRuntime>::PriceSet { owner: ALICE, kitty_id, new_price: Some(1337) }.into(),
 		);
-	})
-}
-
-#[test]
-fn set_price_logic_works() {
-	new_test_ext().execute_with(|| {
-		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(ALICE)));
-		let kitty = &Kitties::<TestRuntime>::iter_values().collect::<Vec<_>>()[0];
-		assert_eq!(kitty.price, None);
-		let kitty_id = kitty.dna;
-		assert_ok!(PalletKitties::set_price(RuntimeOrigin::signed(ALICE), kitty_id, Some(1337)));
-		let kitty = Kitties::<TestRuntime>::get(kitty_id).unwrap();
-		assert_eq!(kitty.price, Some(1337));
 	})
 }

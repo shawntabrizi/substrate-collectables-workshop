@@ -1,46 +1,39 @@
-diff --git a/src/impls.rs b/src/impls.rs
-index 5574211..2c01fdc 100644
---- a/src/impls.rs
-+++ b/src/impls.rs
-@@ -20,6 +20,7 @@ impl<T: Config> Pallet<T> {
- 	}
- 
- 	pub fn mint(owner: T::AccountId, dna: [u8; 32]) -> DispatchResult {
-+		/* 🚧 TODO 🚧: Add the `price` field set to `None` when initializing the `Kitty` struct. */
- 		let kitty = Kitty { dna, owner: owner.clone() };
- 		// Check if the kitty does not already exist in our storage map
- 		ensure!(!Kitties::<T>::contains_key(dna), Error::<T>::DuplicateKitty);
-@@ -40,6 +41,7 @@ impl<T: Config> Pallet<T> {
- 		let mut kitty = Kitties::<T>::get(kitty_id).ok_or(Error::<T>::NoKitty)?;
- 		ensure!(kitty.owner == from, Error::<T>::NotOwner);
- 		kitty.owner = to.clone();
-+		/* 🚧 TODO 🚧: Set the `kitty.price` to `None` for the new owner. */
- 
- 		let mut to_owned = KittiesOwned::<T>::get(&to);
- 		to_owned.try_push(kitty_id).map_err(|_| Error::<T>::TooManyOwned)?;
 diff --git a/src/lib.rs b/src/lib.rs
-index 59150bd..3a10644 100644
+index d44d77dd..5a4e7650 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -23,12 +23,21 @@ pub mod pallet {
- 		type NativeBalance: Inspect<Self::AccountId> + Mutate<Self::AccountId>;
- 	}
+@@ -4,6 +4,8 @@ mod impls;
+ mod tests;
  
-+	/* 🚧 TODO 🚧:
-+		- Create a new type alias called `BalanceOf<T>`.
-+		- Extract the `Balance` type from the `NativeBalance` associated type:
-+			- The `Balance` type comes from the `Inspect` trait.
-+				- `Inspect` requires a generic parameter `AccountId` from `T as frame_system::Config`.
-+			- Inspect comes from `NativeBalance`, which comes from `T as Config`.
-+	*/
+ use frame::prelude::*;
++/* 🚧 TODO 🚧: Import `frame::traits::fungible::Inspect`. */
++/* 🚧 TODO 🚧: Import `frame::traits::fungible::Mutate`. */
+ pub use pallet::*;
+ 
+ #[frame::pallet(dev_mode)]
+@@ -16,6 +18,13 @@ pub mod pallet {
+ 	#[pallet::config]
+ 	pub trait Config: frame_system::Config {
+ 		type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
 +
- 	#[derive(Encode, Decode, TypeInfo, MaxEncodedLen)]
- 	#[scale_info(skip_type_params(T))]
- 	pub struct Kitty<T: Config> {
- 		// Using 32 bytes to represent a kitty DNA
- 		pub dna: [u8; 32],
- 		pub owner: T::AccountId,
-+		/* 🚧 TODO 🚧: Add a new field `price`, which is an `Option<BalanceOf<T>>`. */
++		/* 🚧 TODO 🚧:
++			- Create a new associated type named `NativeBalance`.
++			- Require that `NativeBalance` implements the following traits:
++				- `Inspect` which is generic over `Self::AccountId`.
++				- `Mutate` which is also generic over `Self::AccountId`.
++		*/
  	}
  
- 	#[pallet::storage]
+ 	#[derive(Encode, Decode, TypeInfo, MaxEncodedLen)]
+diff --git a/src/tests.rs b/src/tests.rs
+index 4a168591..8a76f591 100644
+--- a/src/tests.rs
++++ b/src/tests.rs
+@@ -81,6 +81,7 @@ impl pallet_balances::Config for TestRuntime {
+ // will also need to update this configuration to represent that.
+ impl pallet_kitties::Config for TestRuntime {
+ 	type RuntimeEvent = RuntimeEvent;
++	/* 🚧 TODO 🚧: Assign associated type `NativeBalance` to `PalletBalances`. */
+ }
+ 
+ // We need to run most of our tests using this function: `new_test_ext().execute_with(|| { ... });`

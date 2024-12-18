@@ -49,15 +49,15 @@ mod runtime {
 
 	/// System: Mandatory system pallet that should always be included in a FRAME runtime.
 	#[runtime::pallet_index(0)]
-	pub type System = frame_system::Pallet<Runtime>;
+	pub type System = frame_system::Pallet<TestRuntime>;
 
 	/// PalletBalances: Manages your blockchain's native currency. (i.e. DOT on Polkadot)
 	#[runtime::pallet_index(1)]
-	pub type PalletBalances = pallet_balances::Pallet<Runtime>;
+	pub type PalletBalances = pallet_balances::Pallet<TestRuntime>;
 
 	/// PalletKitties: The pallet you are building in this tutorial!
 	#[runtime::pallet_index(2)]
-	pub type PalletKitties = pallet_kitties::Pallet<Runtime>;
+	pub type PalletKitties = pallet_kitties::Pallet<TestRuntime>;
 }
 
 // Normally `System` would have many more configurations, but you can see that we use some macro
@@ -108,8 +108,6 @@ fn starting_template_is_sane() {
 fn system_and_balances_work() {
 	// This test will just sanity check that we can access `System` and `PalletBalances`.
 	new_test_ext().execute_with(|| {
-		// We often need to set `System` to block 1 so that we can see events.
-		System::set_block_number(1);
 		// We often need to add some balance to a user to test features which needs tokens.
 		assert_ok!(PalletBalances::mint_into(&ALICE, 100));
 		assert_ok!(PalletBalances::mint_into(&BOB, 100));
@@ -161,18 +159,5 @@ fn mint_increments_count_for_kitty() {
 		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(ALICE)));
 		// Now the storage should be `Some(1)`
 		assert_eq!(CountForKitties::<TestRuntime>::get(), Some(1));
-	})
-}
-
-#[test]
-fn mint_errors_when_overflow() {
-	new_test_ext().execute_with(|| {
-		// Set the count to the largest value possible.
-		CountForKitties::<TestRuntime>::set(Some(u32::MAX));
-		// `create_kitty` should not succeed because of safe math.
-		assert_noop!(
-			PalletKitties::create_kitty(RuntimeOrigin::signed(1)),
-			Error::<TestRuntime>::TooManyKitties
-		);
 	})
 }

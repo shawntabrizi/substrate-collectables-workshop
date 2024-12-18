@@ -1,141 +1,51 @@
-# Safety First
+# Kitty Counter
 
-If you look into the history of "hacks" and "bugs" that happen in the blockchain world, a lot of it is associated with some kind of "unsafe" code.
+Let's now learn how to use our new `StorageValue`.
 
-We need to keep our blockchain logic safe, and Rust is designed to handle it well.
+## Basic APIs
 
-## Errors
+This tutorial will only go over just the basic APIs needed to build our Pallet.
 
-When talking about handling safe math, we will start to introduce and use errors.
+Check out the [`StorageValue` documentation](https://docs.rs/frame-support/38.0.0/frame_support/storage/types/struct.StorageValue.html) if you want to see the full APIs.
 
-### Do Not Panic!
+### Reading Storage
 
-If there is only one thing you remember after this whole tutorial, it should be this fact:
-
-**You cannot panic inside the runtime.**
-
-As a runtime developer, you are building logic in the low level parts of your blockchain.
-
-A smart contract system must be able to handle malicious developers, but this comes at a performance cost.
-
-When you program directly in the runtime, you get the highest performance possible, but you are also expected to be a competent developer and a good actor.
-
-In short, if you introduce a panic in your code, you make your blockchain vulnerable to DDoS attacks.
-
-But there is no reason you would ever need to panic because Rust has a great error handling system that we take advantage of in FRAME.
-
-### Pallet Errors
-
-All of our callable functions use the `DispatchResult` type. This means that we can always propagate up any errors that our Pallet runs into, and handle them properly, versus needing to panic.
-
-The [`DispatchResult`](https://docs.rs/frame-support/38.0.0/frame_support/dispatch/type.DispatchResult.html) type expects either `Ok(())` or `Err(DispatchError)`.
-
-The [`DispatchError`](https://docs.rs/frame-support/38.0.0/frame_support/pallet_prelude/enum.DispatchError.html) type has a few variants that you can easily construct / use.
-
-For example, if you want to be a little lazy, you can simply return a `&'static str`:
+To read the current value of a `StorageValue`, you can simply call the `get` API:
 
 ```rust
-fn always_error() -> DispatchResult {
-	return Err("this function always errors".into())
-}
+let maybe_count: Option<u32> = CountForKitties::<T>::get();
 ```
 
-But the better option is to return a custom Pallet Error:
+A few things to note here.
+
+The most obvious one is that `get` returns an `Option`, rather than the type itself.
+
+In fact, all storage in a blockchain is an `Option`: either there is some data in the database or there isn't.
+
+In this context, when there is no value in storage for the `CountForKitties`, we probably mean that the `CountForKitties` is zero.
+
+So we can write the following to handle this ergonomically:
 
 ```rust
-fn custom_error() -> DispatchResult {
-	return Err(Error::<T>::CustomPalletError.into())
-}
+let current_count: u32 = CountForKitties::<T>::get().unwrap_or(0);
 ```
 
-Notice in both of these cases we had to call `into()` to convert our input type into the `DispatchError` type.
+Now, whenever `CountForKitties` returns `Some(count)`, we will simply unwrap that count and directly access the `u32`. If it returns `None`, we will simply return `0u32` instead.
 
-To create `CustomPalletError` or whatever error you want, you simply add a new variants to the `enum Error<T>` type.
+The other thing to note is the generic `<T>` that we need to include. You better get used to this, we will be using `<T>` everywhere! But remember, in our definition of `CountForKitties`, it was a type generic over `<T: Config>`, and thus we need to include `<T>` to access any of the APIs.
+
+### Writing Storage
+
+To set the current value of a `StorageValue`, you can simply call the `set` API:
 
 ```rust
-#[pallet::error]
-pub enum Error<T> {
-	/// This is a description for the error.
-	///
-	/// This description can be shown to the user in UIs, so make it descriptive.
-	CustomPalletError,
-}
+CountForKitties::<T>::set(Some(1u32));
 ```
 
-We will show you the common ergonomic ways to use Pallet Errors going forward.
+This storage API cannot fail, so there is no error handling needed. You just set the value directly in storage. Note that `set` will also happily replace any existing value there, so you will need to use other APIs like `exists` or `get` to check if a value is already in storage.
 
-## Math
-
-### Unsafe Math
-
-The basic math operators in Rust are **unsafe**.
-
-Imagine our `CountForKitties` was already at the limit of `u32::MAX`. What would happen if we tried to call `mint` one more time?
-
-We would get an overflow!
-
-In tests `u32::MAX + 1` will actually trigger a panic, but in a `release` build, this overflow will happen silently...
-
-And this would be really bad. Now our count would be back to 0, and if we had any logic which depended on this count being accurate, that logic would be broken.
-
-In blockchain systems, these can literally be billion dollar bugs, so let's look at how we can do math safely.
-
-### Checked Math
-
-The first choice for doing safe math is to use `checked_*` APIs, for example [`checked_add`](https://docs.rs/num/latest/num/trait.CheckedAdd.html).
-
-The checked math APIs will check if there are any underflows or overflows, and return `None` in those cases. Otherwise, if the math operation is calculated without error, it returns `Some(result)`.
-
-Here is a verbose way you could handle checked math in a Pallet:
-
-```rust
-let final_result: u32 = match value_a.checked_add(value_b) {
-	Some(result) => result,
-	None => return Err(Error::<T>::CustomPalletError.into()),
-};
-```
-
-You can see how we can directly assign the `u32` value to `final_result`, otherwise it will return an error.
-
-We can also do this as a one-liner, which is more ergonomic and preferred:
-
-```rust
-let final_result: u32 = value_a.checked_add(value_b).ok_or(Error::<T>::CustomPalletError)?;
-```
-
-This is exactly how you should be writing all the safe math inside your Pallet.
-
-Note that we didn't need to call `.into()` in this case, because `?` already does this!
-
-### Saturating Math
-
-The other option for safe math is to use `saturating_*` APIs, for example [`saturating_add`](https://docs.rs/num/latest/num/traits/trait.SaturatingAdd.html).
-
-This option is useful because it is safe and does NOT return an `Option`.
-
-Instead, it performs the math operations and keeps the value at the numerical limits, rather than overflowing. For example:
-
-```rust
-let value_a: u32 = 1;
-let value_b: u32 = u32::MAX;
-let result: u32 = value_a.saturating_add(value_b);
-assert!(result == u32::MAX);
-```
-
-This generally is NOT the preferred API to use because usually you want to handle situations where an overflow would occur. Overflows and underflows usually indicate something "bad" is happening.
-
-However, there are times where you need to do math inside of functions where you cannot return a Result, and for that, saturating math might make sense.
-
-There are also times where you might want to perform the operation no matter that an underflow / overflow would occur. For example, imagine you made a function `slash` which slashes the balance of a malicious user. Your slash function may have some input parameter `amount` which says how much we should slash from the user.
-
-In a situation like this, it would make sense to use `saturating_sub` because we definitely want to slash as much as we can, even if we intended to slash more. The alternative would be returning an error, and not slashing anything!
-
-Anyway, every bone in your body should generally prefer to use the `checked_*` APIs, and handle all errors explicitly, but this is yet another tool in your pocket when it makes sense to use it.
+If you `set` the storage to `None`, it is the same as deleting the storage item.
 
 ## Your Turn
 
-We covered a lot in this section, but the concepts here are super important.
-
-Feel free to read this section again right now, and again at the end of the tutorial.
-
-Now that you know how to ergonomically do safe math, update your Pallet to handle the `mint` logic safely and return a custom Pallet Error if an overflow would occur.
+Now that you know the basics of reading and writing to storage, add the logic needed to increment the `CountForKitties` storage whenever we call `mint`.
