@@ -52,9 +52,9 @@ Our whole blockchain runtime is represented by a single struct with the `#[runti
 pub struct Runtime;
 ```
 
-You can name this struct whatever you want. As you see in our tests, we name it `TestRuntime` for additional clarity. When you build a full Polkadot SDK project, you will probably have multiple runtimes, some for unit tests, some for test networks, and some for production. Because the Polkadot SDK is designed to be modular and configurable, it is super easy to do this, and construct many versions of your blockchain runtime
+You can name this struct whatever you want. As you see in our tests, we name it `TestRuntime` for additional clarity. When you build a full Polkadot SDK project, you will probably have multiple runtimes, some for unit tests, some for test networks, and some for production. Because the Polkadot SDK is designed to be modular and configurable, it is super easy to do this and construct many versions of your blockchain runtime.
 
-You can think of this runtime as just a placeholder for all of our runtime configuration and traits. The `TestRuntime` does not actually hold any data. It is a
+The `TestRuntime` does not actually hold any data ([zero-sized type](https://doc.rust-lang.org/nomicon/exotic-sizes.html#zero-sized-types-zsts)). You can think of this runtime as just a placeholder for all of our runtime configuration and traits.
 
 More specifically, if you remember the `Config` trait that we must implement, `TestRuntime` will be the struct that implements all those traits and satisfies `Config`. We will see this below.
 
