@@ -161,3 +161,16 @@ fn mint_increments_count_for_kitty() {
 		assert_eq!(CountForKitties::<TestRuntime>::get(), Some(1));
 	})
 }
+
+#[test]
+fn mint_errors_when_overflow() {
+	new_test_ext().execute_with(|| {
+		// Set the count to the largest value possible.
+		CountForKitties::<TestRuntime>::set(Some(u32::MAX));
+		// `create_kitty` should not succeed because of safe math.
+		assert_noop!(
+			PalletKitties::create_kitty(RuntimeOrigin::signed(1)),
+			Error::<TestRuntime>::TooManyKitties
+		);
+	})
+}
