@@ -226,10 +226,10 @@ impl<T: Config> Pallet<T> {
 If, for example, you wanted to call the `mint` function in the pallet you are working on and ensure the mint succeeded, you would simply write:
 
 ```rust
-assert_oK!(PalletKitties::mint(some_account));
+assert_ok!(PalletKitties::mint(some_account));
 ```
 
-This is not any kind of Polkadot SDK specific magic, this is just regular Rust.
+This is not any kind of Polkadot SDK specific magic. This is just regular Rust.
 
 ### Checking Events
 
@@ -240,9 +240,9 @@ For this, you can use `System::assert_last_event(...)`, which checks in storage 
 You can see an example of this added to our `tests.rs` file in this step.
 
 One really important thing to remember is that you need to set the block number to a value greater than zero for events to work!
-This is because on the genesis block, we don't want to emit events, because there will be so many of them, it would bloat and lag our blockchain on that zeroth block.
+This is because, on the genesis block, we don't want to emit events since there will be so many of them it would bloat and lag our blockchain on that zeroth block.
 
-If you write a test, and you expect some event, but don't see it, just double check that you have set the block number.
+If you write a test and expect some event, but don't see it, just double-check that you have set the block number.
 
 ## Your Turn!
 
