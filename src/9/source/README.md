@@ -52,9 +52,9 @@ Our whole blockchain runtime is represented by a single struct with the `#[runti
 pub struct Runtime;
 ```
 
-You can name this struct whatever you want. As you see in our tests, we name it `TestRuntime` for additional clarity. When you build a full Polkadot SDK project, you will probably have multiple runtimes, some for unit tests, some for test networks, and some for production. Because the Polkadot SDK is designed to be modular and configurable, it is super easy to do this, and construct many versions of your blockchain runtime
+You can name this struct whatever you want. As you see in our tests, we name it `TestRuntime` for additional clarity. When you build a full Polkadot SDK project, you will probably have multiple runtimes, some for unit tests, some for test networks, and some for production. Because the Polkadot SDK is designed to be modular and configurable, it is super easy to do this and construct many versions of your blockchain runtime.
 
-You can think of this runtime as just a placeholder for all of our runtime configuration and traits. The `TestRuntime` does not actually hold any data. It is a
+The `TestRuntime` does not actually hold any data ([zero-sized type](https://doc.rust-lang.org/nomicon/exotic-sizes.html#zero-sized-types-zsts)). You can think of this runtime as just a placeholder for all of our runtime configuration and traits.
 
 More specifically, if you remember the `Config` trait that we must implement, `TestRuntime` will be the struct that implements all those traits and satisfies `Config`. We will see this below.
 
@@ -226,10 +226,10 @@ impl<T: Config> Pallet<T> {
 If, for example, you wanted to call the `mint` function in the pallet you are working on and ensure the mint succeeded, you would simply write:
 
 ```rust
-assert_oK!(PalletKitties::mint(some_account));
+assert_ok!(PalletKitties::mint(some_account));
 ```
 
-This is not any kind of Polkadot SDK specific magic, this is just regular Rust.
+This is not any kind of Polkadot SDK specific magic. This is just regular Rust.
 
 ### Checking Events
 
@@ -240,9 +240,9 @@ For this, you can use `System::assert_last_event(...)`, which checks in storage 
 You can see an example of this added to our `tests.rs` file in this step.
 
 One really important thing to remember is that you need to set the block number to a value greater than zero for events to work!
-This is because on the genesis block, we don't want to emit events, because there will be so many of them, it would bloat and lag our blockchain on that zeroth block.
+This is because, on the genesis block, we don't want to emit events since there will be so many of them it would bloat and lag our blockchain on that zeroth block.
 
-If you write a test, and you expect some event, but don't see it, just double check that you have set the block number.
+If you write a test and expect some event, but don't see it, just double-check that you have set the block number.
 
 ## Your Turn!
 
