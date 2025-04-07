@@ -69,7 +69,7 @@ Well, SCALE is:
 	- Viable and useful for APIs like: `MaxEncodedLen` and `TypeInfo`
 	- It does not use Rust `std`, and thus can compile to Wasm `no_std`.
 - Consensus critical / bijective; one value will always encode to one blob and that blob will only decode to that value.
-- Supports a copy-free decode for basic types on LE architectures (like Wasm).
+- Supports a copy-free decode for basic types on LE (Little-Endian) architectures (like Wasm).
 - It is about as thin and lightweight as can be.
 
 What you need to know about SCALE is that it defines how every object in the `polkadot-sdk` is represented in bytes.
@@ -97,7 +97,7 @@ Metadata exposes all the details of your blockchain to the outside world, allowi
 
 We won't really use this in this tutorial, but it is super relevant to learn about once you start getting ready to actually use your blockchain.
 
-#### Skip Type Params
+**Skip Type Params**
 
 One nasty thing about the `TypeInfo` derive macro, is that it isn't very "smart".
 

@@ -24,7 +24,7 @@ In general iteration should be avoided where possible, but if unavoidable it is 
 
 We literally cannot allow code on our blockchain which would do unbounded iteration, else that would stall our blockchain, which needs to produce a new block on a regular time interval.
 
-#### Maps
+**Maps**
 
 When you store and iterate over a map, you need to make two considerations:
 
@@ -35,7 +35,7 @@ If you want to do iteration, probably you do NOT want to use a map for exactly t
 
 Maps are great instead for when you need to access or manipulate a single item at a time.
 
-#### Vec
+**Vec**
 
 When you store and iterate over a vector, the only real consideration you need to have is how large that vector is.
 
@@ -45,7 +45,7 @@ Once you access the vector, iterating over it and manipulating it is relatively 
 
 If you want to do iteration, you definitely would prefer to use a vector.
 
-#### Middle Ground
+**Middle Ground**
 
 But sometimes you need to iterate over data, and store a lot of data. This is where we can do a middle ground.
 
@@ -59,7 +59,7 @@ However, if we ALSO store a vector of kitties owned by Shawn in another storage,
 
 A key part of designing your storage is making it efficient for the tasks your code will need to execute. Similarly, you will need to design your code to be efficient for the storage constraints you have.
 
-Honestly, its a lose / lose situation most times, but it is part of what we need to do when designing blockchain systems.
+Honestly, its a lose / lose situation most times, but it is a part of what we need to do when designing blockchain systems.
 
 ## Storage Optimizations
 
@@ -75,7 +75,7 @@ KittiesOwned::<T>::insert(owner, owned_kitties);
 
 The first call we need to make is `get` which returns to us all the data in the vector, and all that data is stored in a merkle trie in a database that is really expensive to read from.
 
-Then we add the item to the vector, and then write the whole new item back into storage.
+Then we add the item to the vector, and then write the whole vector back into storage.
 
 But this is way more inefficient than we need! We don't actually need to know what is inside the vector to add a new item to it, we can just say "add this item".
 
