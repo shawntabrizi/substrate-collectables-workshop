@@ -182,3 +182,11 @@ fn kitties_map_created_correctly() {
 		assert!(Kitties::<TestRuntime>::contains_key(zero_key));
 	})
 }
+
+#[test]
+fn create_kitty_adds_to_map() {
+	new_test_ext().execute_with(|| {
+		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(ALICE)));
+		assert_eq!(Kitties::<TestRuntime>::iter().count(), 1);
+	})
+}
