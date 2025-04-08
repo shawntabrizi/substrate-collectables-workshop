@@ -1,64 +1,86 @@
-# Origin
+# Pallet Config
 
-As we started to describe, the `origin` is the first parameter of every callable function.
-
-It describes where the call is calling from, and allows us to perform simple access control logic based on that information.
-
-## Origin vs Sender
-
-If you are familiar with smart contract development, for example in Ethereum, you will be familiar with `msg.sender`.
-
-Origin is a superset of this idea. No longer do we need to assume that every call to a callable function is coming from an external account. We could have pallets call one another, or other internal logic trigger a callable function.
-
-It is hard to explain the power of Origin when you are still learning the basics of Pallet development, but this is again, something worth exploring deeper at a later point.
-
-## Ensure Signed
-
-In this tutorial, we will just use origin to check for signed messages.
-
-For this, we can use the `ensure_signed` function:
+Each pallet includes a trait `Config` which is used to configure the pallet in the context of your larger runtime.
 
 ```rust
-let who: T::AccountId = ensure_signed(origin)?;
-```
-
-You can see this function takes the `OriginFor<T>` type, and will return a `T::AccountId` if the `origin` was an account, otherwise it will return the error `BadOrigin`.
-
-This turns origin into exactly the same as `msg.sender` from Ethereum contract development.
-
-With this, we are able to know who is calling our Pallet, and use that as authorization to make changes to our blockchain on their behalf.
-
-## Tests
-
-We are introducing our first new test in this step, so let's spend a second to talk about it.
-
-The test shows that you are able to successfully call `create_kitty` from the user `ALICE`, but not from `none()`. This validates the functionality of our `ensure_signed` check, and also shows how information about who is calling a function gets passed into our pallet (at least in a unit test).
-
-Make sure to update your `tests.rs` file to include this latest test, and check that the test passes. Since you haven't written any code yet, everything should pass, but hopefully you can start to get comfortable with this pattern.
-
-## Deep Dive
-
-As a note, you should know that `ensure_signed` is not actually doing signature checking.
-
-Signature checking is very expensive, perhaps one of the most expensive things to perform when executing transactions.
-
-So signature checking happens batched and parallelized at the beginning of executing a block.
-
-By the time your callable function gets the `origin`, it is just:
-
-```rust
-let origin: OriginFor<T> = RawOrigin::Signed(account_id).into();
-```
-
-So it is simply an enum variant with the `T::AccountId` inside. So `ensure_signed` logic is as simple as:
-
-```rust
-pub fn ensure_signed(o: OriginFor<T>) -> Result<AccountId, BadOrigin> {
-	match o {
-		RawOrigin::Signed(t) => Ok(t),
-		_ => Err(BadOrigin),
-	}
+#[pallet::config]
+pub trait Config: frame_system::Config {
+	// -- snip --
 }
 ```
 
-The real `ensure_signed` function has more generic stuff, but the idea is the same.
+It sucks to keep repeating this about different parts of FRAME development, but the full power of the `Config` trait can only be understood once you have passed the basics.
+
+For now, we just want to focus on the basics.
+
+## T as Config
+
+We use our Pallet's `Config` all over our code, but through a generic parameter `T`.
+
+This is what is meant with `<T: Config>` that you see everywhere.
+
+The simplest way to understand is that wherever you see `T`, you have access to our `trait Config` and the types and functions inside of it.
+
+## Supertraits
+
+To understand how we use the `Config` trait, we first need to learn about [Rust supertraits](https://doc.rust-lang.org/rust-by-example/trait/supertraits.html).
+
+Supertraits are similar to the concept of "inheritance" from other programming languages. In Rust, it allows one trait as being a superset of another trait.
+
+You will notice that our `Config` trait is a subtrait of the supertrait `frame_system::Config`.
+
+What is `frame_system`? What is in `frame_system::Config`?
+
+## FRAME System
+
+In order for our blockchain to function, we need some base level primitives.
+
+- Account Id
+- Block Number
+- Block Hash
+- Nonce
+- etc...
+
+`frame_system` provides all of that, and all the basic level functions needed for your blockchain to operate.
+
+These types, and more, are defined within the `frame_system::Config`:
+
+```rust
+pub trait Config: 'static + Eq + Clone {
+	type Hash: Parameter + Member + MaybeSerializeDeserialize + Debug + MaybeDisplay + SimpleBitOps + Ord + Default + Copy + CheckEqual + sp_std::hash::Hash + AsRef<[u8]> + AsMut<[u8]> + MaxEncodedLen;
+	type AccountId: Parameter + Member + MaybeSerializeDeserialize + Debug + MaybeDisplay + Ord + MaxEncodedLen;
+	type Block: Parameter + Member + traits::Block<Hash = Self::Hash>;
+	type Nonce: Parameter + Member + MaybeSerializeDeserialize + Debug + Default + MaybeDisplay + AtLeast32Bit + Copy + MaxEncodedLen;
+	// -- snip --
+}
+```
+
+Because our `trait Config` is a superset of `frame_system::Config`, we have access to these types too.
+
+This is why you see in our starting code `T::AccountId`. We are able to access the `AccountId` type, which is originally defined inside `frame_system::Config` through our `trait Config`, via the generic trait `T`.
+
+Phew.
+
+If this doesn't make sense, that's okay. You should be able to follow the patterns for successfully programming all this, and you can learn the deep Rust stuff later.
+
+## Our Config
+
+Our config only includes one item for now: `RuntimeEvent`.
+
+It has a pretty nasty trait bound:
+
+```rust
+type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
+```
+
+The main purpose of this trait bound is to allow events of this pallet to be converted to and from an "aggregated" event type, which contains all possible event variants from all possible Pallets in our blockchain.
+
+Remember, our runtime is composed of multiple pallets, some we create, some which come with the `polkadot-sdk`, some that we import from 3rd parties.
+
+Each of these pallets will want to include their own custom events, and our blockchain as a whole needs to be able to handle all of them.
+
+The `RuntimeEvent` type, with the help of our macros, aggregates all of these events coming from all of these pallets. These trait bounds help us use this type!
+
+If you want to learn more about this (super optional), check out this video:
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/OCBC1pMYPoc?si=hFBq42GN_q_Eo0zs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
