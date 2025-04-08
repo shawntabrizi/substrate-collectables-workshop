@@ -220,3 +220,15 @@ fn mint_stores_owner_in_kitty() {
 		assert_eq!(kitty.dna, [42u8; 32]);
 	})
 }
+
+#[test]
+fn create_kitty_makes_unique_kitties() {
+	new_test_ext().execute_with(|| {
+		// Two calls to `create_kitty` should work.
+		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(ALICE)));
+		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(BOB)));
+		// And should result in two kitties in our system.
+		assert_eq!(CountForKitties::<TestRuntime>::get(), 2);
+		assert_eq!(Kitties::<TestRuntime>::iter().count(), 2);
+	})
+}
