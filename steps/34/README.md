@@ -24,7 +24,7 @@ In general iteration should be avoided where possible, but if unavoidable it is 
 
 We literally cannot allow code on our blockchain which would do unbounded iteration, else that would stall our blockchain, which needs to produce a new block on a regular time interval.
 
-**Maps**
+#### Maps
 
 When you store and iterate over a map, you need to make two considerations:
 
@@ -35,7 +35,7 @@ If you want to do iteration, probably you do NOT want to use a map for exactly t
 
 Maps are great instead for when you need to access or manipulate a single item at a time.
 
-**Vec**
+#### Vec
 
 When you store and iterate over a vector, the only real consideration you need to have is how large that vector is.
 
@@ -45,7 +45,7 @@ Once you access the vector, iterating over it and manipulating it is relatively 
 
 If you want to do iteration, you definitely would prefer to use a vector.
 
-**Middle Ground**
+#### Middle Ground
 
 But sometimes you need to iterate over data, and store a lot of data. This is where we can do a middle ground.
 

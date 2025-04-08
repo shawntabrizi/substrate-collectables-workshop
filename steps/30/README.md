@@ -97,7 +97,7 @@ Metadata exposes all the details of your blockchain to the outside world, allowi
 
 We won't really use this in this tutorial, but it is super relevant to learn about once you start getting ready to actually use your blockchain.
 
-**Skip Type Params**
+#### Skip Type Params
 
 One nasty thing about the `TypeInfo` derive macro, is that it isn't very "smart".
 
