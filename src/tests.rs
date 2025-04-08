@@ -343,3 +343,16 @@ fn set_price_emits_event() {
 		);
 	})
 }
+
+#[test]
+fn set_price_logic_works() {
+	new_test_ext().execute_with(|| {
+		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(ALICE)));
+		let kitty = &Kitties::<TestRuntime>::iter_values().collect::<Vec<_>>()[0];
+		assert_eq!(kitty.price, None);
+		let kitty_id = kitty.dna;
+		assert_ok!(PalletKitties::set_price(RuntimeOrigin::signed(ALICE), kitty_id, Some(1337)));
+		let kitty = Kitties::<TestRuntime>::get(kitty_id).unwrap();
+		assert_eq!(kitty.price, Some(1337));
+	})
+}
