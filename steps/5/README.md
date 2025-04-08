@@ -21,7 +21,7 @@ This is just regular Rust and how you would implement functions on a struct.
 
 ## Trait Implementations
 
-Imagine we had a trait `Hooks` we wanted to implement, we would also use the `Pallet` struct to to that:
+Imagine we had a trait `Hooks` we wanted to implement, we would also use the `Pallet` struct to do that:
 
 ```rust
 impl<T: Config> Hooks for Pallet<T> {
