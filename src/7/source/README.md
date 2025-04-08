@@ -9,7 +9,7 @@ pub trait Config: frame_system::Config {
 }
 ```
 
-It sucks to keep repeating this about different parts of FRAME development, but the full power of the `Config` trait can only be understood once you have moved passed the basics.
+It sucks to keep repeating this about different parts of FRAME development, but the full power of the `Config` trait can only be understood once you have passed the basics.
 
 For now, we just want to focus on the basics.
 

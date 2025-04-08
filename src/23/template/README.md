@@ -59,7 +59,7 @@ However, if we ALSO store a vector of kitties owned by Shawn in another storage,
 
 A key part of designing your storage is making it efficient for the tasks your code will need to execute. Similarly, you will need to design your code to be efficient for the storage constraints you have.
 
-Honestly, its a lose / lose situation most times, but it is part of what we need to do when designing blockchain systems.
+Honestly, its a lose / lose situation most times, but it is a part of what we need to do when designing blockchain systems.
 
 ## Storage Optimizations
 
@@ -75,7 +75,7 @@ KittiesOwned::<T>::insert(owner, owned_kitties);
 
 The first call we need to make is `get` which returns to us all the data in the vector, and all that data is stored in a merkle trie in a database that is really expensive to read from.
 
-Then we add the item to the vector, and then write the whole new item back into storage.
+Then we add the item to the vector, and then write the whole vector back into storage.
 
 But this is way more inefficient than we need! We don't actually need to know what is inside the vector to add a new item to it, we can just say "add this item".
 
