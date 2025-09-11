@@ -59,14 +59,12 @@ impl<T: Config> Pallet<T> {
 		Ok(())
 	}
 
-	/* 🚧 TODO 🚧: Make an internal function called `do_set_price`:
-		- Inputs to the function are:
-			- `caller` which is `T::AccountId`.
-			- `kitty_id` which is `[u8; 32]`.
-			- `new_price` which is `Option<BalanceOf<T>`.
-		- Returns a `DispatchResult`.
-		- The internal logic, for now, should be:
-			- `Self::deposit_event` for `Event::<T>::PriceSet` with the appropriate params.
-			- Return `Ok(())`.
-	*/
+	pub fn do_set_price(
+		caller: T::AccountId,
+		kitty_id: [u8; 32],
+		new_price: Option<BalanceOf<T>>,
+	) -> DispatchResult {
+		Self::deposit_event(Event::<T>::PriceSet { owner: caller, kitty_id, new_price });
+		Ok(())
+	}
 }
