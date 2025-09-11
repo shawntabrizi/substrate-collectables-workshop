@@ -139,26 +139,24 @@ fn create_kitty_emits_event() {
 #[test]
 fn count_for_kitties_created_correctly() {
 	new_test_ext().execute_with(|| {
-		// Querying storage before anything is set will return `None`.
-		assert_eq!(CountForKitties::<TestRuntime>::get(), None);
-		// You can `set` the value using an `Option<u32>`.
-		CountForKitties::<TestRuntime>::set(Some(1337u32));
+		// Querying storage before anything is set will return `0`.
+		assert_eq!(CountForKitties::<TestRuntime>::get(), 0);
+		// You can `set` the value using an `u32`.
+		CountForKitties::<TestRuntime>::set(1337u32);
 		// You can `put` the value directly with a `u32`.
 		CountForKitties::<TestRuntime>::put(1337u32);
-		// Check that the value is now in storage.
-		assert_eq!(CountForKitties::<TestRuntime>::get(), Some(1337u32));
 	})
 }
 
 #[test]
 fn mint_increments_count_for_kitty() {
 	new_test_ext().execute_with(|| {
-		// Querying storage before anything is set will return `None`.
-		assert_eq!(CountForKitties::<TestRuntime>::get(), None);
+		// Querying storage before anything is set will return `0`.
+		assert_eq!(CountForKitties::<TestRuntime>::get(), 0);
 		// Call `create_kitty` which will call `mint`.
 		assert_ok!(PalletKitties::create_kitty(RuntimeOrigin::signed(ALICE)));
-		// Now the storage should be `Some(1)`
-		assert_eq!(CountForKitties::<TestRuntime>::get(), Some(1));
+		// Now the storage should be `1`
+		assert_eq!(CountForKitties::<TestRuntime>::get(), 1);
 	})
 }
 
@@ -166,7 +164,7 @@ fn mint_increments_count_for_kitty() {
 fn mint_errors_when_overflow() {
 	new_test_ext().execute_with(|| {
 		// Set the count to the largest value possible.
-		CountForKitties::<TestRuntime>::set(Some(u32::MAX));
+		CountForKitties::<TestRuntime>::set(u32::MAX);
 		// `create_kitty` should not succeed because of safe math.
 		assert_noop!(
 			PalletKitties::create_kitty(RuntimeOrigin::signed(1)),
