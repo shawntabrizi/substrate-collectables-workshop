@@ -34,4 +34,15 @@ impl<T: Config> Pallet<T> {
 		Self::deposit_event(Event::<T>::Created { owner });
 		Ok(())
 	}
+
+	/* 🚧 TODO 🚧: Create an internal function called `do_transfer`:
+		- It has inputs:
+			- `from` which is `T::AccountId`.
+			- `to` which is `T::AccountId`.
+			- `kitty_id` which is `[u8; 32]`.
+		- It returns a `DispatchResult`
+		- The inner logic for now is:
+			- Call `Self::deposit_event` and emit `Event::<T>:Transferred` with params.
+			- Return `Ok(())`.
+	*/
 }
