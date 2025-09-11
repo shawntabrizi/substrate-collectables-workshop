@@ -69,7 +69,13 @@ Or access the template directly here:
 
 ### Install
 
-The starting template includes a `README` with instructions to setup your working environment. Follow those instructions.
+The starting template includes a `README` with instructions to setup your working environment.
+
+Follow those instructions in the template project `README` to:
+
+- Install the required development dependencies for running the `polkadot-sdk`.
+- Install `rustfmt` for `nightly`.
+- Install `clippy` for `nightly`.
 
 Make sure your rust compiler is up to date with `rustup update`.
 
