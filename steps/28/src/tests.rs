@@ -81,9 +81,7 @@ impl pallet_balances::Config for TestRuntime {
 
 // This is the configuration of our Pallet! If you make changes to the pallet's `trait Config`, you
 // will also need to update this configuration to represent that.
-impl pallet_kitties::Config for TestRuntime {
-	type RuntimeEvent = RuntimeEvent;
-}
+impl pallet_kitties::Config for TestRuntime {}
 
 // We need to run most of our tests using this function: `new_test_ext().execute_with(|| { ... });`
 // It simulates the blockchain database backend for our tests.

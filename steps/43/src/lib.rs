@@ -17,8 +17,6 @@ pub mod pallet {
 
 	#[pallet::config]
 	pub trait Config: frame_system::Config {
-		type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
-
 		/* 🚧 TODO 🚧:
 			- Create a new associated type named `NativeBalance`.
 			- Require that `NativeBalance` implements the following traits:

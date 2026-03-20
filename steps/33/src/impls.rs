@@ -1,6 +1,5 @@
 use super::*;
 use frame::prelude::*;
-use frame::primitives::BlakeTwo256;
 use frame::traits::Hash;
 
 impl<T: Config> Pallet<T> {

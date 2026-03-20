@@ -80,7 +80,6 @@ impl pallet_balances::Config for TestRuntime {
 // This is the configuration of our Pallet! If you make changes to the pallet's `trait Config`, you
 // will also need to update this configuration to represent that.
 impl pallet_kitties::Config for TestRuntime {
-	type RuntimeEvent = RuntimeEvent;
 	/* 🚧 TODO 🚧: Assign associated type `NativeBalance` to `PalletBalances`. */
 }
 

@@ -12,13 +12,17 @@ publish = false
 targets = ["x86_64-unknown-linux-gnu"]
 
 [dependencies]
-codec = { package = "parity-scale-codec", version = "3.6.12", default-features = false, features = ["derive"] }
-scale-info = { version = "2.11.1", default-features = false, features = ["derive"] }
-frame = { version = "0.7.0", package = "polkadot-sdk-frame", default-features = false, features = ["experimental", "runtime"] }
+codec = { package = "parity-scale-codec", version = "3.7.5", default-features = false, features = ["derive"] }
+scale-info = { version = "2.11.6", default-features = false, features = ["derive"] }
+frame = { version = "0.14.0", package = "polkadot-sdk-frame", default-features = false, features = ["runtime"] }
 
 [dev-dependencies]
-frame-system = { version = "38.0.0" }
-pallet-balances = { version = "39.0.0" }
+frame-system = { version = "45.0.0" }
+pallet-balances = { version = "46.0.0" }
+
+[patch.crates-io]
+# ark-vrf 0.1.x versions are yanked on crates.io
+ark-vrf = { git = "https://github.com/davxy/ark-vrf", tag = "v0.1.1" }
 
 [features]
 default = [ "std" ]

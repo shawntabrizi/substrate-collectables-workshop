@@ -130,7 +130,6 @@ Right below the `mod runtime` block, you will see us implement all the `Config` 
 
 ```rust
 impl pallet_kitties::Config for TestRuntime {
-	type RuntimeEvent = RuntimeEvent;
 }
 ```
 
