@@ -8,28 +8,51 @@ on:
     branches:
       - master
 
-env:
-  SCCACHE_GHA_ENABLED: "true"
-  RUSTC_WRAPPER: "sccache"
-
 jobs:
-  cargo:
+  find-dirs:
     runs-on: ubuntu-latest
+    outputs:
+      dirs: ${{ steps.find.outputs.dirs }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Find Cargo directories
+        id: find
+        run: |
+          dirs=$(find steps -name Cargo.toml -mindepth 2 -maxdepth 2 -exec dirname {} \; | sort -t/ -k2,2n | jq -R -s -c 'split("\n") | map(select(. != ""))')
+          echo "dirs=$dirs" >> $GITHUB_OUTPUT
+
+  check:
+    needs: find-dirs
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        dir: ${{ fromJson(needs.find-dirs.outputs.dirs) }}
+      fail-fast: false
 
     steps:
-      - name: Run sccache-cache
-        uses: mozilla-actions/sccache-action@v0.0.5
-
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Set up Rust
-        uses: actions-rs/toolchain@v1
+        uses: dtolnay/rust-toolchain@nightly
         with:
-          toolchain: nightly
-          override: true
           components: rustfmt, clippy
 
-      - name: Run format, lint, and test script
-        run: ./check.sh --mode check --clean --quiet
-        shell: bash
+      - name: Cache cargo
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: ${{ matrix.dir }}
+
+      - name: Check formatting
+        working-directory: ${{ matrix.dir }}
+        run: cargo +nightly fmt -- --check
+
+      - name: Run clippy
+        working-directory: ${{ matrix.dir }}
+        run: RUSTFLAGS="-A unused" cargo +nightly clippy -- -D warnings
+
+      - name: Run tests
+        working-directory: ${{ matrix.dir }}
+        run: RUSTFLAGS="-A unused -D warnings" cargo test
