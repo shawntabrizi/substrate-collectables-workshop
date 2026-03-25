@@ -76,8 +76,6 @@ In the case of accessing the Balances Pallet, it looks exactly like this:
 ```rust
 #[pallet::config]
 pub trait Config: frame_system::Config {
-	type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
-
 	/// Access the balances pallet through the associated type `NativeBalance`.
 	/// The `NativeBalance` type must implement `Inspect` and `Mutate`.
 	/// Both of these traits are generic over the `AccountId` type.

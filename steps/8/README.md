@@ -65,21 +65,18 @@ If this doesn't make sense, that's okay. You should be able to follow the patter
 
 ## Our Config
 
-Our config only includes one item for now: `RuntimeEvent`.
-
-It has a pretty nasty trait bound:
+Our config is currently empty:
 
 ```rust
-type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
+#[pallet::config]
+pub trait Config: frame_system::Config {}
 ```
 
-The main purpose of this trait bound is to allow events of this pallet to be converted to and from an "aggregated" event type, which contains all possible event variants from all possible Pallets in our blockchain.
+Even though our `Config` is empty, there is still important work happening behind the scenes. The FRAME macros automatically generate a `RuntimeEvent` type for our pallet, which aggregates all events from all pallets in the runtime into a single enum. This is what allows our pallet's events to be deposited into the system and accessed by tools like block explorers and indexers.
 
-Remember, our runtime is composed of multiple pallets, some we create, some which come with the `polkadot-sdk`, some that we import from 3rd parties.
+In older versions of the Polkadot SDK, you would need to explicitly define a `RuntimeEvent` associated type in your pallet's `Config`. This is no longer necessary — the FRAME macros handle this for you automatically.
 
-Each of these pallets will want to include their own custom events, and our blockchain as a whole needs to be able to handle all of them.
-
-The `RuntimeEvent` type, with the help of our macros, aggregates all of these events coming from all of these pallets. These trait bounds help us use this type!
+As we build out our pallet, we will add new associated types to our `Config` trait when we need to access external functionality, like the Balances Pallet.
 
 If you want to learn more about this (super optional), check out this video:
 
