@@ -14,11 +14,11 @@ targets = ["x86_64-unknown-linux-gnu"]
 [dependencies]
 codec = { package = "parity-scale-codec", version = "3.7.5", default-features = false, features = ["derive"] }
 scale-info = { version = "2.11.6", default-features = false, features = ["derive"] }
-frame = { version = "0.14.0", package = "polkadot-sdk-frame", default-features = false, features = ["runtime"] }
+frame = { version = "0.15.0", package = "polkadot-sdk-frame", default-features = false, features = ["runtime"] }
 
 [dev-dependencies]
-frame-system = { version = "45.0.0" }
-pallet-balances = { version = "46.0.0" }
+frame-system = { version = "46.0.0" }
+pallet-balances = { version = "47.0.0" }
 
 [patch.crates-io]
 # ark-vrf 0.1.x versions are yanked on crates.io
