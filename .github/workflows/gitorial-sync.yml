@@ -1,0 +1,38 @@
+name: Sync Gitorial Branch
+
+on:
+  push:
+    branches:
+      - master-new
+
+permissions:
+  contents: write
+
+jobs:
+  sync-gitorial:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install gitorial-cli
+        run: npm install -g gitorial-cli
+
+      - name: Configure git author
+        run: |
+          git config user.name "gitorial-cli"
+          git config user.email "gitorial-cli@users.noreply.github.com"
+
+      - name: Generate gitorial branch
+        run: gitorial-cli build-gitorial -r . -i master-new -o gitorial-new -s src --force
+
+      - name: Push gitorial branch
+        run: |
+          git push origin gitorial-new --force

@@ -1,0 +1,24 @@
+name: Check mdBook
+
+on:
+  push:
+    branches:
+      - master-new
+  pull_request:
+    branches:
+      - master-new
+
+jobs:
+  check-mdbook:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install mdBook
+        uses: peaceiris/actions-mdbook@v2
+        with:
+          mdbook-version: latest
+
+      - name: Build mdBook
+        run: mdbook build
