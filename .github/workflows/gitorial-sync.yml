@@ -3,7 +3,7 @@ name: Sync Gitorial Branch
 on:
   push:
     branches:
-      - master-new
+      - master
 
 permissions:
   contents: write
@@ -31,8 +31,8 @@ jobs:
           git config user.email "gitorial-cli@users.noreply.github.com"
 
       - name: Generate gitorial branch
-        run: gitorial-cli build-gitorial -r . -i master-new -o gitorial-new -s src --force
+        run: gitorial-cli build-gitorial -r . -i master -o gitorial -s src --force
 
       - name: Push gitorial branch
         run: |
-          git push origin gitorial-new --force
+          git push origin gitorial --force

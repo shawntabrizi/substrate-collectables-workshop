@@ -3,10 +3,10 @@ name: Check mdBook
 on:
   push:
     branches:
-      - master-new
+      - master
   pull_request:
     branches:
-      - master-new
+      - master
 
 jobs:
   check-mdbook:
@@ -19,6 +19,9 @@ jobs:
         uses: peaceiris/actions-mdbook@v2
         with:
           mdbook-version: latest
+
+      - name: Install mdbook-mdinclude
+        run: cargo install mdbook-mdinclude
 
       - name: Build mdBook
         run: mdbook build
