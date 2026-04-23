@@ -1,58 +1,34 @@
 
-<div class="content-row">
-<div class="content-col">
+<div class="gitorial-step">
+<div class="gitorial-step-text">
 
 {{#include ./source/README.md}}
 
 </div>
-<div class="content-col">
+<div class="gitorial-step-editor">
 
-<div class="tab">
-  <button class="maintab tablinks active" onclick="switchMainTab(event, 'Source')">Source</button>
-  <button class="maintab tablinks" onclick="switchMainTab(event, 'Diff')">Diff</button>
+
+<link rel="stylesheet" href="../_gitorial/monaco-setup.css">
+<script src="../_gitorial/monaco-setup.js"></script>
+
+<div class="gitorial-monaco" data-gitorial-monaco data-manifest="./files.json">
+  <div class="gitorial-monaco-toolbar" data-gitorial-toolbar>
+    <span class="label">File</span>
+    <select class="file-select" data-gitorial-files></select>
+    <button class="toggle" data-gitorial-toggle>View solution</button>
+    <button class="diff-toggle" data-gitorial-diff>View diff</button>
+    <button class="copy-toggle" data-gitorial-copy>Copy code</button>
+  </div>
+  <div class="gitorial-monaco-editor" data-gitorial-editor></div>
+  <div class="gitorial-monaco-footer" data-gitorial-footer></div>
 </div>
 
-<div id="Source" class="maintab tabcontent active">
+<script>
+  if (window.__gitorialBoot) {
+    window.__gitorialBoot();
+  }
+</script>
 
-<div class="tab">
-<button class="subtab tablinks file-source file-modified active" onclick="switchSubTab(event, 'src/impls.rs')" data-id="src/impls.rs">src/impls.rs</button>
-<button class="subtab tablinks file-source file-modified" onclick="switchSubTab(event, 'src/lib.rs')" data-id="src/lib.rs">src/lib.rs</button>
-</div>
-<div id="source/src/impls.rs" class="subtab tabcontent active" data-id="src/impls.rs">
-
-```rust
-{{#include ./source/src/impls.rs}}
-```
-
-</div>
-
-<div id="source/src/lib.rs" class="subtab tabcontent" data-id="src/lib.rs">
-
-```rust
-{{#include ./source/src/lib.rs}}
-```
-
-</div>
-
-
-
-</div>
-
-<div id="Diff" class="maintab tabcontent">
-
-
-<div class="tab">
-	<button class="difftab tablinks active" onclick="switchDiff(event, 'changes.diff')" data-id="changes.diff">changes.diff</button>
-</div>
-<div id="changes.diff" class="difftab tabcontent active" data-id="changes.diff">
-
-```diff
-{{#include ./source/changes.diff}}
-```
-
-</div>
-
-</div>
 
 </div>
 </div>

@@ -1,3 +1,5 @@
+<!-- gitorial: action -->
+
 # Pallet Config
 
 Each pallet includes a trait `Config` which is used to configure the pallet in the context of your larger runtime.

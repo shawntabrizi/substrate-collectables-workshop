@@ -1,85 +1,34 @@
 
-<div class="content-row">
-<div class="content-col">
+<div class="gitorial-step">
+<div class="gitorial-step-text">
 
 {{#include ./template/README.md}}
 
 </div>
+<div class="gitorial-step-editor">
 
-<div class="content-col">
 
-<div class="tab">
-  <button class="maintab tablinks active" onclick="switchMainTab(event, 'Template')">Template</button>
-  <button class="maintab tablinks" onclick="switchMainTab(event, 'Solution')">Solution</button>
-  <button class="maintab tablinks" onclick="switchMainTab(event, 'Diff')">Diff</button>
+<link rel="stylesheet" href="../_gitorial/monaco-setup.css">
+<script src="../_gitorial/monaco-setup.js"></script>
+
+<div class="gitorial-monaco" data-gitorial-monaco data-manifest="./files.json">
+  <div class="gitorial-monaco-toolbar" data-gitorial-toolbar>
+    <span class="label">File</span>
+    <select class="file-select" data-gitorial-files></select>
+    <button class="toggle" data-gitorial-toggle>View solution</button>
+    <button class="diff-toggle" data-gitorial-diff>View diff</button>
+    <button class="copy-toggle" data-gitorial-copy>Copy code</button>
+  </div>
+  <div class="gitorial-monaco-editor" data-gitorial-editor></div>
+  <div class="gitorial-monaco-footer" data-gitorial-footer></div>
 </div>
 
-<div id="Template" class="maintab tabcontent active">
+<script>
+  if (window.__gitorialBoot) {
+    window.__gitorialBoot();
+  }
+</script>
 
-<div class="tab">
-<button class="subtab tablinks file-template file-modified active" onclick="switchSubTab(event, 'src/lib.rs')" data-id="src/lib.rs">src/lib.rs</button>
-</div>
-<div id="template/src/lib.rs" class="subtab tabcontent active" data-id="src/lib.rs">
-
-```rust
-{{#include ./template/src/lib.rs}}
-```
-
-</div>
-
-
-
-</div>
-
-<div id="Solution" class="maintab tabcontent">
-
-<div class="tab">
-<button class="subtab tablinks file-solution file-modified active" onclick="switchSubTab(event, 'src/lib.rs')" data-id="src/lib.rs">src/lib.rs</button>
-<button class="subtab tablinks file-solution file-modified" onclick="switchSubTab(event, 'src/tests.rs')" data-id="src/tests.rs">src/tests.rs</button>
-</div>
-<div id="solution/src/lib.rs" class="subtab tabcontent active" data-id="src/lib.rs">
-
-```rust
-{{#include ./solution/src/lib.rs}}
-```
-
-</div>
-
-<div id="solution/src/tests.rs" class="subtab tabcontent" data-id="src/tests.rs">
-
-```rust
-{{#include ./solution/src/tests.rs}}
-```
-
-</div>
-
-
-
-</div>
-
-<div id="Diff" class="maintab tabcontent">
-
-
-<div class="tab">
-	<button class="difftab tablinks active" onclick="switchDiff(event, 'template.diff')" data-id="template.diff">template.diff</button>
-	<button class="difftab tablinks" onclick="switchDiff(event, 'solution.diff')" data-id="solution.diff">solution.diff</button>
-</div>
-<div id="template.diff" class="difftab tabcontent active" data-id="template.diff">
-
-```diff
-{{#include ./template/template.diff}}
-```
-
-</div>
-<div id="solution.diff" class="difftab tabcontent" data-id="solution.diff">
-
-```diff
-{{#include ./solution/solution.diff}}
-```
-
-</div>
-
-</div>
 
 </div>
 </div>

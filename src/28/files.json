@@ -1,0 +1,26 @@
+{
+  "template": [
+    {
+      "label": "src/lib.rs",
+      "path": "./template/src/lib.rs",
+      "status": "M"
+    },
+    {
+      "label": "src/tests.rs",
+      "path": "./template/src/tests.rs",
+      "status": "M"
+    }
+  ],
+  "solution": [
+    {
+      "label": "src/lib.rs",
+      "path": "./solution/src/lib.rs",
+      "status": "M"
+    },
+    {
+      "label": "src/tests.rs",
+      "path": "./solution/src/tests.rs",
+      "status": "M"
+    }
+  ]
+}

@@ -1,3 +1,5 @@
+<!-- gitorial: template -->
+
 # Safety First
 
 If you look into the history of "hacks" and "bugs" that happen in the blockchain world, a lot of it is associated with some kind of "unsafe" code.

@@ -1,3 +1,5 @@
+<!-- gitorial: template -->
+
 # Storing a Struct
 
 We have successfully created a generic struct for our pallet. Now we need to actually use it in our runtime.

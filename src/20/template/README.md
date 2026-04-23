@@ -1,3 +1,5 @@
+<!-- gitorial: template -->
+
 # Kitty Struct
 
 In this step, we will create a new struct which is generic over `<T: Config>`. This step will just be using basic Rust, so no macro-magic or Pallet specific stuff is happening here.

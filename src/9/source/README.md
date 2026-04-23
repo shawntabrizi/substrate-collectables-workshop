@@ -1,3 +1,5 @@
+<!-- gitorial: action -->
+
 # Runtime and Tests
 
 The last thing we will cover in this section is a small dive into constructing a blockchain runtime and writing tests.

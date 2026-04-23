@@ -1,3 +1,5 @@
+<!-- gitorial: template -->
+
 # Buy Kitty Extrinsic
 
 Now that kitties can have a price, we want to enable them to be purchasable.

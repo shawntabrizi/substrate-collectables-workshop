@@ -1,3 +1,5 @@
+<!-- gitorial: template -->
+
 # Storage Maps
 
 Now that you have learned everything you need to know about `StorageValue`s, it is time to move on to `StorageMap`s.

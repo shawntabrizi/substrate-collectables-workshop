@@ -1,3 +1,5 @@
+<!-- gitorial: action -->
+
 # Pallet Events
 
 When a callable function completes successfully, there is often some metadata you would like to expose to the outside world about what exactly happened during the execution.

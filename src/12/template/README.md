@@ -1,3 +1,5 @@
+<!-- gitorial: template -->
+
 # Storage Values
 
 The most basic storage type for a blockchain is a single `StorageValue`.

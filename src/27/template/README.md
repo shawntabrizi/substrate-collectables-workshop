@@ -1,3 +1,5 @@
+<!-- gitorial: template -->
+
 # Transfer Logic
 
 Now that we scaffolded the `transfer` extrinsic, we can actually populate the appropriate logic to actually do a transfer.

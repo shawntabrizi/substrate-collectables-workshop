@@ -1,3 +1,5 @@
+<!-- gitorial: template -->
+
 # Set Price Logic
 
 The set price logic is very straight forward.

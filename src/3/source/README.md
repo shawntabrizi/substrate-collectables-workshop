@@ -1,3 +1,5 @@
+<!-- gitorial: action -->
+
 # FRAME Macros
 
 Rust allows you to write [macros](https://doc.rust-lang.org/book/ch19-06-macros.html), which is code that generates code.

@@ -1,3 +1,5 @@
+<!-- gitorial: action -->
+
 # Setup
 
 Before we start writing code, we will need to setup your computer for this tutorial.

@@ -1,3 +1,5 @@
+<!-- gitorial: template -->
+
 # Kitty Counter
 
 Let's now learn how to use our new `StorageValue`.

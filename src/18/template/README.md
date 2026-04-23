@@ -1,3 +1,5 @@
+<!-- gitorial: template -->
+
 # Duplicate Kitty Check
 
 To make sure your state transition function behaves as expected, you must check everything that could go wrong, and return an error in those cases.

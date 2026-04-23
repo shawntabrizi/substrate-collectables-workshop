@@ -1,3 +1,5 @@
+<!-- gitorial: template -->
+
 # Generate Unique DNA
 
 In this step, we will show how to generate uniqueness using information from the blockchain.

@@ -1,0 +1,20 @@
+{
+  "template": [
+    {
+      "label": "src/impls.rs",
+      "path": "./source/src/impls.rs",
+      "status": "M"
+    },
+    {
+      "label": "src/lib.rs",
+      "path": "./source/src/lib.rs",
+      "status": "M"
+    },
+    {
+      "label": "src/tests.rs",
+      "path": "./source/src/tests.rs",
+      "status": "M"
+    }
+  ],
+  "solution": []
+}

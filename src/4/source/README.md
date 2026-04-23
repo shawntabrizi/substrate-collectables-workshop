@@ -1,3 +1,5 @@
+<!-- gitorial: action -->
+
 # Pallet Struct
 
 The `Pallet` struct is the anchor on which we implement all logic and traits for our Pallet.

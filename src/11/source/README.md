@@ -1,3 +1,5 @@
+<!-- gitorial: action -->
+
 # Blockchain Storage
 
 Blockchains use a Merkle Trie structure to store data. The Merkle Trie provides two important properties for blockchains:

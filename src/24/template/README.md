@@ -1,3 +1,5 @@
+<!-- gitorial: template -->
+
 # Bounded Vectors
 
 We placed a vector in storage in the last step. This is okay for initial development, but this is NOT okay for a production Pallet. Instead we need to use objects which have a `MaxEncodedLen`, and for that, we have the `BoundedVec` type.

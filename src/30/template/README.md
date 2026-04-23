@@ -1,3 +1,5 @@
+<!-- gitorial: template -->
+
 # Set Price Extrinsic
 
 Now that we have our Pallet set up to handle balances, let's actually use them.

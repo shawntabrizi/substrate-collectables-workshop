@@ -1,3 +1,5 @@
+<!-- gitorial: action -->
+
 # Origin
 
 As we started to describe, the `origin` is the first parameter of every callable function.

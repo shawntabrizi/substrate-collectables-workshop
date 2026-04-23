@@ -1,3 +1,5 @@
+<!-- gitorial: template -->
+
 # Native Balance Type
 
 One of the most challenging parts of using the `polkadot-sdk` is using generic types.

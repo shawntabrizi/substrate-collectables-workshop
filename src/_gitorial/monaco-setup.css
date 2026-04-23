@@ -1,0 +1,283 @@
+
+body.gitorial-has-editor {
+  --content-max-width: 100% !important;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body.gitorial-has-editor {
+  height: 100%;
+}
+
+body.gitorial-has-editor .page,
+body.gitorial-has-editor .content,
+body.gitorial-has-editor .chapter,
+body.gitorial-has-editor .content main {
+  height: 100%;
+}
+
+body.gitorial-has-editor .page {
+  overflow-x: hidden;
+}
+
+body.gitorial-has-editor .nav-chapters {
+  top: auto;
+  margin: 10px;
+  font-size: 2.5em;
+  text-align: center;
+  text-decoration: none;
+  width: 90px;
+  border-radius: 5px;
+}
+
+body.gitorial-has-editor .page {
+  max-width: none;
+}
+
+body.gitorial-has-editor .content {
+  max-width: none;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+.gitorial-step {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 10px;
+  align-items: stretch;
+  min-height: calc(100vh - 102px);
+}
+
+.gitorial-step-text,
+.gitorial-step-editor {
+  width: 100%;
+  padding: 0;
+}
+
+.gitorial-step-text h1,
+.gitorial-step-text h2,
+.gitorial-step-text h3 {
+  margin-top: 1.4em;
+}
+
+.gitorial-step-text > :first-child {
+  margin-top: 0.25em;
+}
+
+.gitorial-step-text p {
+  line-height: 1.6;
+}
+
+.gitorial-monaco {
+  margin-top: 0;
+  border: 1px solid #d9d9d9;
+  border-radius: 0;
+  overflow: hidden;
+  background: #0f0f10;
+  display: flex;
+  flex-direction: column;
+  height: auto;
+}
+
+.gitorial-monaco-toolbar {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 12px 16px;
+  background: #1b1b1d;
+  border-bottom: 1px solid #2a2a2d;
+  color: #f0f0f2;
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+.gitorial-monaco-toolbar .label {
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+.gitorial-monaco-toolbar .file-select {
+  background: #2b2b2f;
+  color: #f0f0f2;
+  border: 1px solid #3a3a3f;
+  border-radius: 6px;
+  padding: 6px 8px;
+  font-size: 12px;
+}
+
+.gitorial-monaco-toolbar .toggle {
+  margin-left: auto;
+  background: #f0f0f2;
+  color: #1b1b1d;
+  border: none;
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.gitorial-monaco-toolbar .toggle.secondary {
+  background: transparent;
+  color: #f0f0f2;
+  border: 1px solid #3a3a3f;
+}
+
+.gitorial-monaco-toolbar .diff-toggle {
+  background: transparent;
+  color: #f0f0f2;
+  border: 1px solid #3a3a3f;
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.gitorial-monaco-toolbar .copy-toggle {
+  background: transparent;
+  color: #f0f0f2;
+  border: 1px solid #3a3a3f;
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.gitorial-monaco-toolbar .retry-toggle {
+  background: transparent;
+  color: #f0f0f2;
+  border: 1px solid #6d737d;
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 12px;
+  cursor: pointer;
+  display: none;
+}
+
+.gitorial-monaco-toolbar button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.gitorial-monaco-editor {
+  position: relative;
+  overflow: hidden;
+  background: #0f0f10;
+  height: 70vh;
+  min-height: 520px;
+}
+
+.gitorial-monaco-editor .gitorial-monaco-frame {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+.gitorial-monaco-editor .gitorial-monaco-fallback {
+  margin: 0;
+  padding: 14px 16px;
+  height: 100%;
+  overflow: auto;
+  background: #0f0f10;
+  color: #d6d9df;
+  font-family: "JetBrains Mono", "Fira Code", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 13px;
+  line-height: 1.45;
+  white-space: normal;
+}
+
+.gitorial-monaco-editor .gitorial-monaco-fallback.hidden {
+  display: none;
+}
+
+.gitorial-monaco-editor .gitorial-monaco-fallback pre {
+  margin: 0;
+  white-space: pre;
+}
+
+.gitorial-monaco-editor .gitorial-monaco-fallback code.hljs {
+  display: block;
+  padding: 0;
+  background: transparent;
+}
+
+.gitorial-monaco-editor .gitorial-monaco-fallback .fallback-diff {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 12px;
+  height: 100%;
+}
+
+.gitorial-monaco-editor .gitorial-monaco-fallback .fallback-pane {
+  border: 1px solid #2a2a2d;
+  background: #111214;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.gitorial-monaco-editor .gitorial-monaco-fallback .fallback-pane h4 {
+  margin: 0;
+  padding: 10px 12px;
+  font-size: 12px;
+  font-family: "Inter", system-ui, sans-serif;
+  font-weight: 600;
+  border-bottom: 1px solid #2a2a2d;
+  background: #191a1d;
+  color: #f0f0f2;
+}
+
+.gitorial-monaco-editor .gitorial-monaco-fallback .fallback-pane pre {
+  margin: 0;
+  padding: 12px;
+  height: 100%;
+  overflow: auto;
+  white-space: pre;
+}
+
+.gitorial-monaco-footer {
+  padding: 10px 16px;
+  background: #1b1b1d;
+  border-top: 1px solid #2a2a2d;
+  font-size: 12px;
+  color: #b7b7c0;
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+@media screen and (min-width: 1081px) {
+  .gitorial-step-text,
+  .gitorial-step-editor {
+    height: calc(100vh - 102px);
+    overflow: auto;
+    padding: 0 5px 20px 5px;
+  }
+}
+
+@media (max-width: 980px) {
+  .gitorial-step {
+    grid-template-columns: 1fr;
+  }
+
+  .gitorial-step-text,
+  .gitorial-step-editor {
+    height: auto;
+    overflow: visible;
+  }
+
+  .gitorial-monaco {
+    height: auto;
+  }
+
+  .gitorial-monaco-editor {
+    min-height: 480px;
+    height: 60vh;
+  }
+
+  .gitorial-monaco-editor .gitorial-monaco-fallback .fallback-diff {
+    grid-template-columns: 1fr;
+  }
+}

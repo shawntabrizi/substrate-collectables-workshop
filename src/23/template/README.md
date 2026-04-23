@@ -1,3 +1,5 @@
+<!-- gitorial: template -->
+
 # Track Owned Kitties
 
 Now that we can generate unique kitties, we need to consider all the ways we need to store and track those kitties.

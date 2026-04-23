@@ -1,3 +1,5 @@
+<!-- gitorial: template -->
+
 # Kitties Map
 
 Now let's learn to interact with our `Kitties` storage map, and update the map when we `mint` new kitties.

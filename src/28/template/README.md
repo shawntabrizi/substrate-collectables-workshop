@@ -1,3 +1,5 @@
+<!-- gitorial: template -->
+
 # Native Balances
 
 In our next steps, we will introduce a marketplace for buying and selling kitties.

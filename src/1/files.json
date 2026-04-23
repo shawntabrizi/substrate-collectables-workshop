@@ -1,0 +1,30 @@
+{
+  "template": [
+    {
+      "label": "Cargo.toml",
+      "path": "./source/Cargo.toml",
+      "status": "A"
+    },
+    {
+      "label": "rustfmt.toml",
+      "path": "./source/rustfmt.toml",
+      "status": "A"
+    },
+    {
+      "label": "src/impls.rs",
+      "path": "./source/src/impls.rs",
+      "status": "A"
+    },
+    {
+      "label": "src/lib.rs",
+      "path": "./source/src/lib.rs",
+      "status": "A"
+    },
+    {
+      "label": "src/tests.rs",
+      "path": "./source/src/tests.rs",
+      "status": "A"
+    }
+  ],
+  "solution": []
+}

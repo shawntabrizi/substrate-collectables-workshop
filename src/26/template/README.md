@@ -1,3 +1,5 @@
+<!-- gitorial: template -->
+
 # Transfer Extrinsic
 
 We will build the `transfer` extrinsic over two steps. In this step, we will just step up the skeleton of the extrinsic, the internal function, and the event that will be emitted at the end of the extrinsic.

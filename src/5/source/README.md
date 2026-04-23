@@ -1,3 +1,5 @@
+<!-- gitorial: action -->
+
 # Pallet Functions
 
 As noted earlier, functions are easily implemented directly on top of the `Pallet` struct.

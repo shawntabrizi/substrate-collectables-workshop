@@ -1,3 +1,5 @@
+<!-- gitorial: template -->
+
 # Value Query
 
 When we originally introduced the `StorageValue`, we only exposed to you one field which you could manipulate, which is the `Value` type, which defines the type that will be stored.

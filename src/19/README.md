@@ -1,6 +1,7 @@
+<!-- gitorial: section -->
 
-<div class="content-section">
+# Storing Objects
 
-{{#include ./source/README.md}}
+Now that we have covered the basics of Pallet storage, we can look into more advance storage patterns.
 
-</div>
+In this section, you will learn how to store objects and use multiple storage items to work together to track data on your chain.
